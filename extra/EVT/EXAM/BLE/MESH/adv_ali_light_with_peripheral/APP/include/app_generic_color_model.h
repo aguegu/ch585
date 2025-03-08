@@ -20,24 +20,24 @@ extern "C" {
 #include "MESH_LIB.h"
 
 /**
- * @brief   ´æ´¢ÊÕµ½µÄÃüÁîÂëËù¶ÔÓ¦´¦Àíº¯ÊıµÄ½á¹¹ÌåÊı×é
+ * @brief   å­˜å‚¨æ”¶åˆ°çš„å‘½ä»¤ç æ‰€å¯¹åº”å¤„ç†å‡½æ•°çš„ç»“æ„ä½“æ•°ç»„
  */
 extern const struct bt_mesh_model_op gen_color_op[];
 
 /**
- * @brief   »ñÈ¡µ±Ç°µÆÉ«ÎÂ
+ * @brief   è·å–å½“å‰ç¯è‰²æ¸©
  *
- * @param   led_pin     - LEDÒı½Å.
+ * @param   led_pin     - LEDå¼•è„š.
  *
- * @return  É«ÎÂ
+ * @return  è‰²æ¸©
  */
 uint16_t read_led_color(uint32_t led_pin);
 
 /**
- * @brief   ÉèÖÃµ±Ç°µÆÉ«ÎÂ
+ * @brief   è®¾ç½®å½“å‰ç¯è‰²æ¸©
  *
- * @param   led_pin     - LEDÒı½Å.
- * @param   color   - É«ÎÂ.
+ * @param   led_pin     - LEDå¼•è„š.
+ * @param   color   - è‰²æ¸©.
  */
 void set_led_color(uint32_t led_pin, uint16_t color);
 

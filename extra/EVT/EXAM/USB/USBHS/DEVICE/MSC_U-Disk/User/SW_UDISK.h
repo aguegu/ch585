@@ -17,7 +17,7 @@
 #endif 
 
 /******************************************************************************/
-/* BulkOnly Mass StorageÉè±¸ÌØÊâÀàÇëÇó */
+/* BulkOnly Mass Storageè®¾å¤‡ç‰¹æ®Šç±»è¯·æ±‚ */
 #define CMD_UDISK_RESET                 0xFF
 #define CMD_UDISK_GET_MAX_LUN           0xFE
 
@@ -48,11 +48,11 @@
 #define CMD_U_WRITE12	  				0xAA
 
 /******************************************************************************/
-/* Ö¸¶¨µ±Ç°Ğ¡ÈİÁ¿UÅÌ´óĞ¡Îª32K */
+/* æŒ‡å®šå½“å‰å°å®¹é‡Uç›˜å¤§å°ä¸º32K */
 #define MY_UDISK_SIZE  0x00000040
 
 /******************************************************************************/
-/* BulkOnly´«Êä½á¹¹¶¨Òå */
+/* BulkOnlyä¼ è¾“ç»“æ„å®šä¹‰ */
 typedef union _BULK_ONLY_CMD 
 {
 	uint8_t buf[ 31 ];
@@ -88,7 +88,7 @@ typedef union _BULK_ONLY_CMD
 } BULK_ONLY_CMD;
 
 /******************************************************************************/
-/* µ±Ç°UÅÌÏà¹Øºê¶¨Òå(¸ù¾İĞèÒª¿ÉÒÔĞŞ¸Ä) */
+/* å½“å‰Uç›˜ç›¸å…³å®å®šä¹‰(æ ¹æ®éœ€è¦å¯ä»¥ä¿®æ”¹) */
 
 #define DEF_DEBUG_PRINTF           1
 #define MEDIUM_INTERAL_FLASH       1
@@ -98,30 +98,30 @@ typedef union _BULK_ONLY_CMD
 //#define STORAGE_MEDIUM             MEDIUM_SPI_FLASH
 
 #if (STORAGE_MEDIUM == MEDIUM_SPI_FLASH)
-    #define DEF_CFG_DISK_SEC_SIZE      4096                                                /* ´ÅÅÌÉÈÇø´óĞ¡ */
-    #define DEF_FLASH_SECTOR_SIZE      4096                                                /* ¶¨ÒåFLASHÉÈÇø´óĞ¡ */
-    #define DEF_UDISK_SECTOR_SIZE      DEF_CFG_DISK_SEC_SIZE                               /* ¶¨ÒåUÅÌÉÈÇø´óĞ¡ */
+    #define DEF_CFG_DISK_SEC_SIZE      4096                                                /* ç£ç›˜æ‰‡åŒºå¤§å° */
+    #define DEF_FLASH_SECTOR_SIZE      4096                                                /* å®šä¹‰FLASHæ‰‡åŒºå¤§å° */
+    #define DEF_UDISK_SECTOR_SIZE      DEF_CFG_DISK_SEC_SIZE                               /* å®šä¹‰Uç›˜æ‰‡åŒºå¤§å° */
 #elif (STORAGE_MEDIUM == MEDIUM_INTERAL_FLASH)
-    #define DEF_CFG_DISK_SEC_SIZE      4096                                                /* ´ÅÅÌÉÈÇø´óĞ¡ */
-    #define DEF_FLASH_SECTOR_SIZE      4096                                                /* ¶¨ÒåFLASHÉÈÇø´óĞ¡ */
-    #define DEF_UDISK_SECTOR_SIZE      DEF_CFG_DISK_SEC_SIZE                               /* ¶¨ÒåUÅÌÉÈÇø´óĞ¡ */
+    #define DEF_CFG_DISK_SEC_SIZE      4096                                                /* ç£ç›˜æ‰‡åŒºå¤§å° */
+    #define DEF_FLASH_SECTOR_SIZE      4096                                                /* å®šä¹‰FLASHæ‰‡åŒºå¤§å° */
+    #define DEF_UDISK_SECTOR_SIZE      DEF_CFG_DISK_SEC_SIZE                               /* å®šä¹‰Uç›˜æ‰‡åŒºå¤§å° */
 #endif
 
 #define DEF_UDISK_PACK_512    	        512
 #define DEF_UDISK_PACK_64               64
 
 /******************************************************************************/
-/* µ±Ç°UÅÌ×´Ì¬Ïà¹Øºê¶¨Òå */
+/* å½“å‰Uç›˜çŠ¶æ€ç›¸å…³å®å®šä¹‰ */
 #define DEF_UDISK_EN_FLAG              0x01
 
 /******************************************************************************/
-/* µ±Ç°UÅÌ´«Êä×´Ì¬Ïà¹Øºê¶¨Òå */
+/* å½“å‰Uç›˜ä¼ è¾“çŠ¶æ€ç›¸å…³å®å®šä¹‰ */
 #define DEF_UDISK_BLUCK_UP_FLAG        0x01
 #define DEF_UDISK_BLUCK_DOWN_FLAG      0x02
 #define DEF_UDISK_CSW_UP_FLAG  	       0x04
 
 /******************************************************************************/
-/* ³£¡¢±äÁ¿ÍâÀ© */
+/* å¸¸ã€å˜é‡å¤–æ‰© */
 extern volatile uint8_t  Udisk_CBW_Tag_Save[ 4 ];
 extern volatile uint8_t  Udisk_Sense_Key;
 extern volatile uint8_t  Udisk_Sense_ASC;
@@ -145,7 +145,7 @@ extern uint8_t  const  UDISK_Mode_Sense_1A[ ];
 extern uint8_t  const  UDISK_Mode_Senese_5A[ ];
 
 /******************************************************************************/
-/* º¯ÊıÍâÀ© */
+/* å‡½æ•°å¤–æ‰© */
 extern void UDISK_CMD_Deal_Status( uint8_t key, uint8_t asc, uint8_t status );
 extern void UDISK_CMD_Deal_Fail( void );
 extern void UDISK_SCSI_CMD_Deal( void );

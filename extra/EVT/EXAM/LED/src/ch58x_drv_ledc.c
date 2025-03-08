@@ -3,7 +3,7 @@
 * Author             : WCH
 * Version            : V1.0
 * Date               : 2024/11/20
-* Description        : LEDÇı¶¯Ïà¹Ø
+* Description        : LEDé©±åŠ¨ç›¸å…³
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for
@@ -15,7 +15,7 @@
 /*********************************************************************
  * @fn      ch58x_led_controller_init
  *
- * @brief   LED³õÊ¼»¯
+ * @brief   LEDåˆå§‹åŒ–
  *
  * @return  none
  */
@@ -30,7 +30,7 @@ void ch58x_led_controller_init(ch58x_led_out_mode_t mode, uint8_t led_clk_div)
 /*********************************************************************
  * @fn      ch58x_led_controller_send
  *
- * @brief   LEDÊı¾İÊ¹ÓÃDMA·¢ËÍ
+ * @brief   LEDæ•°æ®ä½¿ç”¨DMAå‘é€
  *
  * @return  none
  */

@@ -28,7 +28,7 @@ uint8_t timeStart[6] = { 23,  7,  27,  12,  12,  12};
 #define   MINUTE_OFFSET        4
 #define   SECOND_OFFSET        5
 
-const char centigrade[3] ={ 0xA1, 0xE6,'\0' };  // ¡æ
+const char centigrade[3] ={ 0xA1, 0xE6,'\0' };  // â„ƒ
 
 const char *device_info[] = {
     "Device Information",
@@ -80,9 +80,9 @@ static LPDF_REAL DataBuf[DATA_MAX_LEN];
  *          offset: The starting offset address of temperature data in memory;
  *          num: Pointer to an integer pointer used to store the number of temperature data obtained.
  *
- * @param   pBuf - Êı¾İ»º³åÇø
- *          offset - Æ«ÒÆÁ¿
- *          num - Êı¾İÁ¿
+ * @param   pBuf - æ•°æ®ç¼“å†²åŒº
+ *          offset - åç§»é‡
+ *          num - æ•°æ®é‡
  *
  * @return  a pointer to the buffer where temperature data is stored, i.e. pBuf
  */
@@ -104,9 +104,9 @@ LPDF_REAL *pdf_get_temperature_data( LPDF_REAL *pBuf,LPDF_UINT offset, LPDF_UINT
  *          offset: The starting offset address of temperature data in memory;
  *          num: Pointer to an integer pointer used to store the number of temperature data obtained.
  *
- * @param   pBuf - Êı¾İ»º³åÇø
- *          offset - Æ«ÒÆÁ¿
- *          num - Êı¾İÁ¿
+ * @param   pBuf - æ•°æ®ç¼“å†²åŒº
+ *          offset - åç§»é‡
+ *          num - æ•°æ®é‡
  *
  * @return  a pointer to the buffer where temperature data is stored, i.e. pBuf
  */
@@ -124,7 +124,7 @@ LPDF_REAL *pdf_get_humidity_data( LPDF_REAL *pBuf,LPDF_UINT offset, LPDF_UINT *n
  *
  * @brief   Complete the initialization of various information in the PDF document
  *
- * @param   info - Ö¸ÏòLPDF_info½á¹¹ÌåµÄÖ¸Õë£¬´æ·ÅPDFÄ£°åµÄ¸÷ÏîÊôĞÔ
+ * @param   info - æŒ‡å‘LPDF_infoç»“æ„ä½“çš„æŒ‡é’ˆï¼Œå­˜æ”¾PDFæ¨¡æ¿çš„å„é¡¹å±æ€§
  *
  * @return  none
  */
@@ -194,7 +194,7 @@ void pdf_temperature_init( LPDF_Info info )
  *
  * @brief   Create a PDF document
  *
- * @param   file_name - ÎÄ¼şÃû
+ * @param   file_name - æ–‡ä»¶å
  *
  * @return  none
  */
@@ -234,7 +234,7 @@ int pdf_create( char *file_name )
       LPDF_Page_LineTo(page[0], 575, 20);
       LPDF_Page_Stroke(page[0]);                       // Display the drawn lines on the page
 
-      // Ò³Ã¼
+      // é¡µçœ‰
       LPDF_Page_SetRGBFill(page[0], 0.0, 0.0, 0.0);    // Set the font color of the page to black
       LPDF_Page_BeginText(page[0]);                    // Start drawing text
       LPDF_Page_MoveTextPos(page[0], 30, 815);         // Set the starting position of the text
@@ -278,7 +278,7 @@ int pdf_create( char *file_name )
           LPDF_Page_Stroke(page[0]);
       }
 
-      // Ò³½Å
+      // é¡µè„š
       LPDF_Page_SetRGBFill(page[0], 0.0, 0.0, 0.0);
       LPDF_Page_BeginText(page[0]);
       LPDF_Page_MoveTextPos(page[0], 40, 10);

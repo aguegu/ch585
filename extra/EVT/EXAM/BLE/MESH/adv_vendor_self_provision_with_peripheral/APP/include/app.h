@@ -57,54 +57,54 @@ extern "C" {
 #define ADDRESS_LEN                        2
 #define UPDATE_ADDRESS_LEN                 2
 
-// ÉèÖÃÅäÍøĞÅÏ¢ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+1×Ö½Ú¿ØÖÆ×Ö+4×Ö½Úiv index+1×Ö½Ú¸üĞÂ±êÖ¾flag
+// è®¾ç½®é…ç½‘ä¿¡æ¯å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +1å­—èŠ‚æ§åˆ¶å­—+4å­—èŠ‚iv index+1å­—èŠ‚æ›´æ–°æ ‡å¿—flag
 #define PROVISION_INFO_DATA_LEN            (PERIPHERAL_CMD_LEN + 1 + 4 + 1)
-// ÉèÖÃÅäÍøĞÅÏ¢ÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+1×Ö½Ú×´Ì¬Âë+4×Ö½Úiv index+1×Ö½Ú¸üĞÂ±êÖ¾flag
+// è®¾ç½®é…ç½‘ä¿¡æ¯å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +1å­—èŠ‚çŠ¶æ€ç +4å­—èŠ‚iv index+1å­—èŠ‚æ›´æ–°æ ‡å¿—flag
 #define PROVISION_INFO_ACK_DATA_LEN        (PERIPHERAL_CMD_LEN + 1 + 4 + 1)
-// ÉèÖÃÅäÍøÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+16×Ö½ÚÍøÂçÃÜÔ¿+2×Ö½ÚÍøÂçµØÖ·
+// è®¾ç½®é…ç½‘å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +16å­—èŠ‚ç½‘ç»œå¯†é’¥+2å­—èŠ‚ç½‘ç»œåœ°å€
 #define PROVISION_DATA_LEN                 (PERIPHERAL_CMD_LEN + PROVISION_NET_KEY_LEN + ADDRESS_LEN)
-// ÉèÖÃÅäÍøÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+1×Ö½Ú×´Ì¬Âë
+// è®¾ç½®é…ç½‘å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+1å­—èŠ‚çŠ¶æ€ç 
 #define PROVISION_ACK_DATA_LEN             (PERIPHERAL_CMD_LEN + ADDRESS_LEN + 1)
-// É¾³ı½ÚµãÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚĞèÒªÉ¾³ıµÄ½ÚµãµØÖ·
+// åˆ é™¤èŠ‚ç‚¹å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚éœ€è¦åˆ é™¤çš„èŠ‚ç‚¹åœ°å€
 #define DELETE_NODE_DATA_LEN               (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// É¾³ı½ÚµãÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÉ¾³ıµÄ½ÚµãµØÖ·+1×Ö½Ú×´Ì¬Âë
+// åˆ é™¤èŠ‚ç‚¹å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚åˆ é™¤çš„èŠ‚ç‚¹åœ°å€+1å­—èŠ‚çŠ¶æ€ç 
 #define DELETE_NODE_ACK_DATA_LEN           (PERIPHERAL_CMD_LEN + ADDRESS_LEN + 1)
-// É¾³ı´æ´¢µÄ½ÚµãĞÅÏ¢ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë
+// åˆ é™¤å­˜å‚¨çš„èŠ‚ç‚¹ä¿¡æ¯å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç 
 #define DELETE_NODE_INFO_DATA_LEN          (PERIPHERAL_CMD_LEN)
-// É¾³ı´æ´¢µÄ½ÚµãĞÅÏ¢ÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÉ¾³ıµÄ½ÚµãµØÖ·
+// åˆ é™¤å­˜å‚¨çš„èŠ‚ç‚¹ä¿¡æ¯å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚åˆ é™¤çš„èŠ‚ç‚¹åœ°å€
 #define DELETE_NODE_INFO_ACK_DATA_LEN      (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// ²éÑ¯½Úµã×´Ì¬ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·
+// æŸ¥è¯¢èŠ‚ç‚¹çŠ¶æ€å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€
 #define ASK_STATUS_DATA_LEN                (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// ²éÑ¯½Úµã×´Ì¬ÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+1×Ö½Ú×´Ì¬Âë
+// æŸ¥è¯¢èŠ‚ç‚¹çŠ¶æ€å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+1å­—èŠ‚çŠ¶æ€ç 
 #define ASK_STATUS_ACK_DATA_LEN            (PERIPHERAL_CMD_LEN + ADDRESS_LEN + 1)
-// Êı¾İ´«ÊäÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+N×Ö½ÚÄÚÈİ
+// æ•°æ®ä¼ è¾“å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+Nå­—èŠ‚å†…å®¹
 #define TRANSFER_DATA_LEN                  (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// Êı¾İ´«ÊäÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+N×Ö½ÚÄÚÈİ
+// æ•°æ®ä¼ è¾“å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+Nå­—èŠ‚å†…å®¹
 #define TRANSFER_RECEIVE_DATA_LEN          (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// OTA²éÑ¯ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·
+// OTAæŸ¥è¯¢å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€
 #define IMAGE_INFO_DATA_LEN                (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// OTA²éÑ¯ÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+4×Ö½Úimage´óĞ¡+2×Ö½Ú¿é´óĞ¡+2×Ö½ÚĞ¾Æ¬ĞÍºÅ+1×Ö½Ú×´Ì¬Âë
+// OTAæŸ¥è¯¢å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+4å­—èŠ‚imageå¤§å°+2å­—èŠ‚å—å¤§å°+2å­—èŠ‚èŠ¯ç‰‡å‹å·+1å­—èŠ‚çŠ¶æ€ç 
 #define IMAGE_INFO_ACK_DATA_LEN            (PERIPHERAL_CMD_LEN + ADDRESS_LEN + 4 + 2 + 2 + 1)
-// OTAÉı¼¶ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+2×Ö½ÚflashµØÖ·+N×Ö½ÚÄÚÈİ
+// OTAå‡çº§å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+2å­—èŠ‚flashåœ°å€+Nå­—èŠ‚å†…å®¹
 #define UPDATE_DATA_LEN                    (PERIPHERAL_CMD_LEN + ADDRESS_LEN + UPDATE_ADDRESS_LEN)
-// OTAÉı¼¶ÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+2×Ö½ÚflashµØÖ·+1×Ö½Ú×´Ì¬Âë
+// OTAå‡çº§å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+2å­—èŠ‚flashåœ°å€+1å­—èŠ‚çŠ¶æ€ç 
 #define UPDATE_ACK_DATA_LEN                (PERIPHERAL_CMD_LEN + ADDRESS_LEN + UPDATE_ADDRESS_LEN + 1)
-// OTAĞ£ÑéÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+2×Ö½ÚflashµØÖ·+N×Ö½ÚÄÚÈİ
+// OTAæ ¡éªŒå‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+2å­—èŠ‚flashåœ°å€+Nå­—èŠ‚å†…å®¹
 #define VERIFY_DATA_LEN                    (PERIPHERAL_CMD_LEN + ADDRESS_LEN + UPDATE_ADDRESS_LEN)
-// OTAĞ£ÑéÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+2×Ö½ÚflashµØÖ·+1×Ö½Ú×´Ì¬Âë
+// OTAæ ¡éªŒå‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+2å­—èŠ‚flashåœ°å€+1å­—èŠ‚çŠ¶æ€ç 
 #define VERIFY_ACK_DATA_LEN                (PERIPHERAL_CMD_LEN + ADDRESS_LEN + UPDATE_ADDRESS_LEN + 1)
-// OTA½áÊøÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·
+// OTAç»“æŸå‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€
 #define END_DATA_LEN                       (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// ÉèÖÃ¶©ÔÄÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+1×Ö½Ú¿ØÖÆ×Ö+2×Ö½ÚÍøÂçµØÖ·
+// è®¾ç½®è®¢é˜…å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+1å­—èŠ‚æ§åˆ¶å­—+2å­—èŠ‚ç½‘ç»œåœ°å€
 #define SET_SUB_DATA_LEN                   (PERIPHERAL_CMD_LEN + ADDRESS_LEN + 1 + ADDRESS_LEN)
-// ÉèÖÃ¶©ÔÄÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÍøÂçµØÖ·+1×Ö½Ú×´Ì¬Âë
+// è®¾ç½®è®¢é˜…å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚ç½‘ç»œåœ°å€+1å­—èŠ‚çŠ¶æ€ç 
 #define SET_SUB_ACK_DATA_LEN               (PERIPHERAL_CMD_LEN + ADDRESS_LEN + 1)
-// ±¾µØ¸´Î»ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë
+// æœ¬åœ°å¤ä½å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç 
 #define LOCAL_RESET_DATA_LEN               (PERIPHERAL_CMD_LEN)
-// ±¾µØ¸´Î»ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+1×Ö½Ú×´Ì¬Âë
+// æœ¬åœ°å¤ä½å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +1å­—èŠ‚çŠ¶æ€ç 
 #define LOCAL_RESET_ACK_DATA_LEN           (PERIPHERAL_CMD_LEN + 1)
 
-// ×´Ì¬Âë¶¨Òå
+// çŠ¶æ€ç å®šä¹‰
 #define STATUS_SUCCESS                     0x00
 #define STATUS_TIMEOUT                     0x01
 #define STATUS_NOMEM                       0x02
@@ -112,34 +112,34 @@ extern "C" {
 
 #define APP_MAX_TX_SIZE                    MAX(CONFIG_MESH_UNSEG_LENGTH_DEF, CONFIG_MESH_TX_SEG_DEF *BLE_MESH_APP_SEG_SDU_MAX - 8)
 
-/* Õû¸öÓÃ»§codeÇø·Ö³ÉÎå¿é£¬4K£¬152K£¬152K£¬4K£¬136K£¬ºóËÄ¿éÏÂÃæ·Ö±ğ½Ğ×öimageA£¨APP£©£¬imageB£¨OTA£©£¬imageIAPºÍLIB */
+/* æ•´ä¸ªç”¨æˆ·codeåŒºåˆ†æˆäº”å—ï¼Œ4Kï¼Œ152Kï¼Œ152Kï¼Œ4Kï¼Œ136Kï¼Œåå››å—ä¸‹é¢åˆ†åˆ«å«åšimageAï¼ˆAPPï¼‰ï¼ŒimageBï¼ˆOTAï¼‰ï¼ŒimageIAPå’ŒLIB */
 
-/* FLASH¶¨Òå */
+/* FLASHå®šä¹‰ */
 #define FLASH_BLOCK_SIZE                   EEPROM_BLOCK_SIZE
 #define IMAGE_SIZE                         152 * 1024
 
-/* imageA¶¨Òå */
+/* imageAå®šä¹‰ */
 #define IMAGE_A_FLAG                       0x01
 #define IMAGE_A_START_ADD                  0x1000
 #define IMAGE_A_SIZE                       IMAGE_SIZE
 
-/* imageB¶¨Òå */
+/* imageBå®šä¹‰ */
 #define IMAGE_B_FLAG                       0x02
 #define IMAGE_B_START_ADD                  (IMAGE_A_START_ADD + IMAGE_SIZE)
 #define IMAGE_B_SIZE                       IMAGE_SIZE
 
-/* imageIAP¶¨Òå */
+/* imageIAPå®šä¹‰ */
 #define IMAGE_IAP_FLAG                     0x03
 #define IMAGE_IAP_START_ADD                (IMAGE_B_START_ADD + IMAGE_SIZE)
 #define IMAGE_IAP_SIZE                     4 * 1024
 
-/* ´æ·ÅÔÚDataFlashµØÖ·£¬²»ÄÜÕ¼ÓÃÀ¶ÑÀµÄÎ»ÖÃ */
+/* å­˜æ”¾åœ¨DataFlashåœ°å€ï¼Œä¸èƒ½å ç”¨è“ç‰™çš„ä½ç½® */
 #define OTA_DATAFLASH_ADD                  0x00077000 - FLASH_ROM_MAX_SIZE
 
-/* ´æ·ÅÔÚDataFlashÀïµÄOTAĞÅÏ¢ */
+/* å­˜æ”¾åœ¨DataFlashé‡Œçš„OTAä¿¡æ¯ */
 typedef struct
 {
-    unsigned char ImageFlag; //¼ÇÂ¼µÄµ±Ç°µÄimage±êÖ¾
+    unsigned char ImageFlag; //è®°å½•çš„å½“å‰çš„imageæ ‡å¿—
     unsigned char Revd[3];
 } OTADataFlashInfo_t;
 
@@ -160,145 +160,145 @@ typedef union
 {
     struct
     {
-        uint8_t cmd;         /* ÃüÁîÂë CMD_PROVISION_INFO */
-        uint8_t set_flag;    /* ¿ØÖÆ×Ö Îª1±íÊ¾ÉèÖÃ£¬Îª0±íÊ¾²éÑ¯*/
+        uint8_t cmd;         /* å‘½ä»¤ç  CMD_PROVISION_INFO */
+        uint8_t set_flag;    /* æ§åˆ¶å­— ä¸º1è¡¨ç¤ºè®¾ç½®ï¼Œä¸º0è¡¨ç¤ºæŸ¥è¯¢*/
         uint8_t iv_index[4]; /* iv index */
         uint8_t flag;        /* Net key refresh flag */
-    } provision_info;        /* ÅäÍøĞÅÏ¢ÃüÁî */
+    } provision_info;        /* é…ç½‘ä¿¡æ¯å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;         /* ÃüÁîÂë CMD_PROVISION_INFO_ACK */
-        uint8_t status;      /* ×´Ì¬Âë*/
+        uint8_t cmd;         /* å‘½ä»¤ç  CMD_PROVISION_INFO_ACK */
+        uint8_t status;      /* çŠ¶æ€ç */
         uint8_t iv_index[4]; /* iv index */
         uint8_t flag;        /* Net key refresh flag */
-    } provision_info_ack;    /* ÅäÍøĞÅÏ¢ÃüÁîÓ¦´ğ */
+    } provision_info_ack;    /* é…ç½‘ä¿¡æ¯å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;                            /* ÃüÁîÂë CMD_PROVISION */
-        uint8_t net_key[PROVISION_NET_KEY_LEN]; /* ºóĞøÊı¾İ³¤¶È */
-        uint8_t addr[ADDRESS_LEN];              /* ÅäÍøµØÖ· */
-    } provision;                                /* ÅäÍøÃüÁî */
+        uint8_t cmd;                            /* å‘½ä»¤ç  CMD_PROVISION */
+        uint8_t net_key[PROVISION_NET_KEY_LEN]; /* åç»­æ•°æ®é•¿åº¦ */
+        uint8_t addr[ADDRESS_LEN];              /* é…ç½‘åœ°å€ */
+    } provision;                                /* é…ç½‘å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_PROVISION_ACK */
-        uint8_t addr[ADDRESS_LEN]; /* ÅäÍøµØÖ· */
-        uint8_t status;            /* ×´Ì¬Âë±¸ÓÃ */
-    } provision_ack;               /* ÅäÍøÃüÁîÓ¦´ğ */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_PROVISION_ACK */
+        uint8_t addr[ADDRESS_LEN]; /* é…ç½‘åœ°å€ */
+        uint8_t status;            /* çŠ¶æ€ç å¤‡ç”¨ */
+    } provision_ack;               /* é…ç½‘å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_DELETE_NODE */
-        uint8_t addr[ADDRESS_LEN]; /* É¾³ıµØÖ· */
-    } delete_node;                 /* É¾³ı½ÚµãÃüÁî */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_DELETE_NODE */
+        uint8_t addr[ADDRESS_LEN]; /* åˆ é™¤åœ°å€ */
+    } delete_node;                 /* åˆ é™¤èŠ‚ç‚¹å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_DELETE_NODE_ACK */
-        uint8_t addr[ADDRESS_LEN]; /* ·¢ËÍµØÖ· */
-        uint8_t status;            /* ×´Ì¬Âë */
-    } delete_node_ack;             /* É¾³ı½ÚµãÃüÁîÓ¦´ğ */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_DELETE_NODE_ACK */
+        uint8_t addr[ADDRESS_LEN]; /* å‘é€åœ°å€ */
+        uint8_t status;            /* çŠ¶æ€ç  */
+    } delete_node_ack;             /* åˆ é™¤èŠ‚ç‚¹å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;    /* ÃüÁîÂë CMD_DELETE_NODE_INFO */
-    } delete_node_info; /* É¾³ı´æ´¢µÄ½ÚµãĞÅÏ¢ÃüÁî */
+        uint8_t cmd;    /* å‘½ä»¤ç  CMD_DELETE_NODE_INFO */
+    } delete_node_info; /* åˆ é™¤å­˜å‚¨çš„èŠ‚ç‚¹ä¿¡æ¯å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_DELETE_NODE_INFO_ACK */
-        uint8_t addr[ADDRESS_LEN]; /* ·¢ËÍµØÖ· */
-    } delete_node_info_ack;        /* É¾³ı´æ´¢µÄ½ÚµãĞÅÏ¢ÃüÁîÓ¦´ğ */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_DELETE_NODE_INFO_ACK */
+        uint8_t addr[ADDRESS_LEN]; /* å‘é€åœ°å€ */
+    } delete_node_info_ack;        /* åˆ é™¤å­˜å‚¨çš„èŠ‚ç‚¹ä¿¡æ¯å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_ASK_STATUS */
-        uint8_t addr[ADDRESS_LEN]; /* ·¢ËÍµØÖ· */
-    } ask_status;                  /* ²éÑ¯½Úµã×´Ì¬ÃüÁî */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_ASK_STATUS */
+        uint8_t addr[ADDRESS_LEN]; /* å‘é€åœ°å€ */
+    } ask_status;                  /* æŸ¥è¯¢èŠ‚ç‚¹çŠ¶æ€å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_ASK_STATUS_ACK */
-        uint8_t addr[ADDRESS_LEN]; /* ·¢ËÍµØÖ· */
-        uint8_t status;            /* ×´Ì¬Âë±¸ÓÃ */
-    } ask_status_ack;              /* ²éÑ¯½Úµã×´Ì¬ÃüÁîÓ¦´ğ */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_ASK_STATUS_ACK */
+        uint8_t addr[ADDRESS_LEN]; /* å‘é€åœ°å€ */
+        uint8_t status;            /* çŠ¶æ€ç å¤‡ç”¨ */
+    } ask_status_ack;              /* æŸ¥è¯¢èŠ‚ç‚¹çŠ¶æ€å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;                       /* ÃüÁîÂë CMD_TRANSFER */
-        uint8_t addr[ADDRESS_LEN];         /* ·¢ËÍµØÖ· */
-        uint8_t data[APP_MAX_TX_SIZE - 3]; /* Êı¾İÄÚÈİ*/
-    } transfer;                            /* ·¢ËÍÊı¾İÃüÁî */
+        uint8_t cmd;                       /* å‘½ä»¤ç  CMD_TRANSFER */
+        uint8_t addr[ADDRESS_LEN];         /* å‘é€åœ°å€ */
+        uint8_t data[APP_MAX_TX_SIZE - 3]; /* æ•°æ®å†…å®¹*/
+    } transfer;                            /* å‘é€æ•°æ®å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;                       /* ÃüÁîÂë CMD_TRANSFER_ACK */
-        uint8_t addr[ADDRESS_LEN];         /* ·¢ËÍµØÖ· */
-        uint8_t data[APP_MAX_TX_SIZE - 3]; /* Êı¾İÄÚÈİ*/
-    } transfer_receive;                    /* ·¢ËÍÊı¾İÃüÁîÓ¦´ğ */
+        uint8_t cmd;                       /* å‘½ä»¤ç  CMD_TRANSFER_ACK */
+        uint8_t addr[ADDRESS_LEN];         /* å‘é€åœ°å€ */
+        uint8_t data[APP_MAX_TX_SIZE - 3]; /* æ•°æ®å†…å®¹*/
+    } transfer_receive;                    /* å‘é€æ•°æ®å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_IMAGE_INFO */
-        uint8_t addr[ADDRESS_LEN]; /* ·¢ËÍµØÖ· */
-    } image_info;                  /* OTA²éÑ¯ÃüÁî */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_IMAGE_INFO */
+        uint8_t addr[ADDRESS_LEN]; /* å‘é€åœ°å€ */
+    } image_info;                  /* OTAæŸ¥è¯¢å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_IMAGE_INFO_ACK */
-        uint8_t addr[ADDRESS_LEN]; /* ·¢ËÍµØÖ· */
-        uint8_t image_size[4];     /* image´óĞ¡ */
-        uint8_t block_size[2];     /* falsh¿é´óĞ¡ */
-        uint8_t chip_id[2];        /* Ğ¾Æ¬ĞÍºÅ */
-        uint8_t status;            /* ×´Ì¬Âë±¸ÓÃ */
-    } image_info_ack;              /* OTA²éÑ¯ÃüÁîÓ¦´ğ */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_IMAGE_INFO_ACK */
+        uint8_t addr[ADDRESS_LEN]; /* å‘é€åœ°å€ */
+        uint8_t image_size[4];     /* imageå¤§å° */
+        uint8_t block_size[2];     /* falshå—å¤§å° */
+        uint8_t chip_id[2];        /* èŠ¯ç‰‡å‹å· */
+        uint8_t status;            /* çŠ¶æ€ç å¤‡ç”¨ */
+    } image_info_ack;              /* OTAæŸ¥è¯¢å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;                             /* ÃüÁîÂë CMD_UPDATE */
-        uint8_t addr[ADDRESS_LEN];               /* ·¢ËÍµØÖ· */
-        uint8_t update_addr[UPDATE_ADDRESS_LEN]; /* Éı¼¶µØÖ· */
-        uint8_t data[APP_MAX_TX_SIZE - 5];       /* Éı¼¶Êı¾İÄÚÈİ*/
-    } update;                                    /* OTAÉı¼¶Êı¾İÃüÁî */
+        uint8_t cmd;                             /* å‘½ä»¤ç  CMD_UPDATE */
+        uint8_t addr[ADDRESS_LEN];               /* å‘é€åœ°å€ */
+        uint8_t update_addr[UPDATE_ADDRESS_LEN]; /* å‡çº§åœ°å€ */
+        uint8_t data[APP_MAX_TX_SIZE - 5];       /* å‡çº§æ•°æ®å†…å®¹*/
+    } update;                                    /* OTAå‡çº§æ•°æ®å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;                             /* ÃüÁîÂë CMD_UPDATE_ACK */
-        uint8_t addr[ADDRESS_LEN];               /* ·¢ËÍµØÖ· */
-        uint8_t update_addr[UPDATE_ADDRESS_LEN]; /* Éı¼¶µØÖ· */
-        uint8_t status;                          /* ×´Ì¬Âë±¸ÓÃ */
-    } update_ack;                                /* OTAÉı¼¶Êı¾İÃüÁîÓ¦´ğ */
+        uint8_t cmd;                             /* å‘½ä»¤ç  CMD_UPDATE_ACK */
+        uint8_t addr[ADDRESS_LEN];               /* å‘é€åœ°å€ */
+        uint8_t update_addr[UPDATE_ADDRESS_LEN]; /* å‡çº§åœ°å€ */
+        uint8_t status;                          /* çŠ¶æ€ç å¤‡ç”¨ */
+    } update_ack;                                /* OTAå‡çº§æ•°æ®å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;                             /* ÃüÁîÂë CMD_VERIFY */
-        uint8_t addr[ADDRESS_LEN];               /* ·¢ËÍµØÖ· */
-        uint8_t update_addr[UPDATE_ADDRESS_LEN]; /* Éı¼¶µØÖ· */
-        uint8_t data[APP_MAX_TX_SIZE - 5];       /* Éı¼¶Êı¾İÄÚÈİ*/
-    } verify;                                    /* OTAÑéÖ¤Êı¾İÃüÁî */
+        uint8_t cmd;                             /* å‘½ä»¤ç  CMD_VERIFY */
+        uint8_t addr[ADDRESS_LEN];               /* å‘é€åœ°å€ */
+        uint8_t update_addr[UPDATE_ADDRESS_LEN]; /* å‡çº§åœ°å€ */
+        uint8_t data[APP_MAX_TX_SIZE - 5];       /* å‡çº§æ•°æ®å†…å®¹*/
+    } verify;                                    /* OTAéªŒè¯æ•°æ®å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;                             /* ÃüÁîÂë CMD_VERIFY_ACK */
-        uint8_t addr[ADDRESS_LEN];               /* ·¢ËÍµØÖ· */
-        uint8_t update_addr[UPDATE_ADDRESS_LEN]; /* Éı¼¶µØÖ· */
-        uint8_t status;                          /* ×´Ì¬Âë±¸ÓÃ */
-    } verify_ack;                                /* OTAÑéÖ¤Êı¾İÃüÁîÓ¦´ğ */
+        uint8_t cmd;                             /* å‘½ä»¤ç  CMD_VERIFY_ACK */
+        uint8_t addr[ADDRESS_LEN];               /* å‘é€åœ°å€ */
+        uint8_t update_addr[UPDATE_ADDRESS_LEN]; /* å‡çº§åœ°å€ */
+        uint8_t status;                          /* çŠ¶æ€ç å¤‡ç”¨ */
+    } verify_ack;                                /* OTAéªŒè¯æ•°æ®å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_END */
-        uint8_t addr[ADDRESS_LEN]; /* ·¢ËÍµØÖ· */
-    } end;                         /* OTAÍê³ÉÃüÁî */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_END */
+        uint8_t addr[ADDRESS_LEN]; /* å‘é€åœ°å€ */
+    } end;                         /* OTAå®Œæˆå‘½ä»¤ */
     struct
     {
-        uint8_t cmd;                   /* ÃüÁîÂë CMD_SET_SUB */
-        uint8_t addr[ADDRESS_LEN];     /* ·¢ËÍµØÖ· */
-        uint8_t add_flag;              /* Îª1±íÊ¾Ìí¼Ó£¬Îª0±íÊ¾É¾³ı */
-        uint8_t sub_addr[ADDRESS_LEN]; /* ¶©ÔÄµØÖ· */
-    } set_sub;                         /* ÉèÖÃ¶©ÔÄÃüÁî */
+        uint8_t cmd;                   /* å‘½ä»¤ç  CMD_SET_SUB */
+        uint8_t addr[ADDRESS_LEN];     /* å‘é€åœ°å€ */
+        uint8_t add_flag;              /* ä¸º1è¡¨ç¤ºæ·»åŠ ï¼Œä¸º0è¡¨ç¤ºåˆ é™¤ */
+        uint8_t sub_addr[ADDRESS_LEN]; /* è®¢é˜…åœ°å€ */
+    } set_sub;                         /* è®¾ç½®è®¢é˜…å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;               /* ÃüÁîÂë CMD_SET_SUB_ACK */
-        uint8_t addr[ADDRESS_LEN]; /* ·¢ËÍµØÖ· */
-        uint8_t status;            /* ×´Ì¬Âë */
-    } set_sub_ack;                 /* ÉèÖÃ¶©ÔÄÃüÁîÓ¦´ğ */
+        uint8_t cmd;               /* å‘½ä»¤ç  CMD_SET_SUB_ACK */
+        uint8_t addr[ADDRESS_LEN]; /* å‘é€åœ°å€ */
+        uint8_t status;            /* çŠ¶æ€ç  */
+    } set_sub_ack;                 /* è®¾ç½®è®¢é˜…å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd; /* ÃüÁîÂë CMD_LOCAL_RESET */
-    } local_reset;   /* ±¾µØ»Ö¸´³ö³§ÉèÖÃÃüÁî */
+        uint8_t cmd; /* å‘½ä»¤ç  CMD_LOCAL_RESET */
+    } local_reset;   /* æœ¬åœ°æ¢å¤å‡ºå‚è®¾ç½®å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;    /* ÃüÁîÂë CMD_LOCAL_RESET */
-        uint8_t status; /* ×´Ì¬Âë±¸ÓÃ */
-    } local_reset_ack;  /* ±¾µØ»Ö¸´³ö³§ÉèÖÃÃüÁîÓ¦´ğ */
+        uint8_t cmd;    /* å‘½ä»¤ç  CMD_LOCAL_RESET */
+        uint8_t status; /* çŠ¶æ€ç å¤‡ç”¨ */
+    } local_reset_ack;  /* æœ¬åœ°æ¢å¤å‡ºå‚è®¾ç½®å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t buf[APP_MAX_TX_SIZE]; /* Êı¾İÄÚÈİ*/
+        uint8_t buf[APP_MAX_TX_SIZE]; /* æ•°æ®å†…å®¹*/
     } data;
 } app_mesh_manage_t;
 

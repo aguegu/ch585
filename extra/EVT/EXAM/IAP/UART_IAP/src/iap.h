@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/15
- * Description        : UART IAPÀý³Ì
+ * Description        : UART IAPä¾‹ç¨‹
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -25,13 +25,13 @@
 #define FLAG_USER_CALL_IAP   0x55
 #define FLAG_USER_CALL_APP   0xaa
 
-/* ´æ·ÅÔÚDataFlashµØÖ·£¬²»ÄÜÕ¼ÓÃÀ¶ÑÀµÄÎ»ÖÃ */
+/* å­˜æ”¾åœ¨DataFlashåœ°å€ï¼Œä¸èƒ½å ç”¨è“ç‰™çš„ä½ç½® */
 #define IAP_FLAG_DATAFLASH_ADD               0
 
-/* ´æ·ÅÔÚDataFlashÀïµÄOTAÐÅÏ¢ */
+/* å­˜æ”¾åœ¨DataFlashé‡Œçš„OTAä¿¡æ¯ */
 typedef struct
 {
-    unsigned char ImageFlag;            //¼ÇÂ¼µÄµ±Ç°µÄimage±êÖ¾
+    unsigned char ImageFlag;            //è®°å½•çš„å½“å‰çš„imageæ ‡å¿—
     unsigned char Revd[3];
 } IAPDataFlashInfo_t;
 
@@ -110,14 +110,14 @@ extern void Main_Circulation();
 
 typedef enum
 {
-    IAP_ERR_UNKNOWN = 0,/* ÃüÁîÎ´Öª£¬²»¿ÉÄÜ³öÏÖ */
-    IAP_ERR_OVERTIME,/* Ã¿´Î´®¿ÚÓÐÊý¾Ýºó£¬³¬¹ý10¸ö×Ö·ûÊ±¼äÃ»ÓÐÐÂÊý¾Ý£¬²¢ÇÒÒ²½âÎö²»µ½Ò»¸öºÏ·¨µÄÊý¾Ý°ü£¬¼´±¨´í */
-    IAP_ERR_CHECK,/* Ò»¸öºÏ·¨µÄÊý¾Ý°üÖÐÐ£ÑéºÍ²»Í¨¹ý£¬¼´±¨´í */
-    IAP_ERR_ADDR,/* ²Á³ýÊ±£¬µØÖ·²»¶Ô */
-    IAP_ERR_ERASE_FAIL,/* ²Á³ýÊ§°Ü */
-    IAP_ERR_PROG_NO_ERASE,/* Ã»ÓÐÏÈ²Á³ý£¬ÔÙÐ´Èë */
-    IAP_ERR_WRITE_FAIL,/* Ã»ÓÐÐ´ÈëÊ§°Ü */
-    IAP_ERR_VERIFY,/* Ð£ÑéÊ§°Ü */
+    IAP_ERR_UNKNOWN = 0,/* å‘½ä»¤æœªçŸ¥ï¼Œä¸å¯èƒ½å‡ºçŽ° */
+    IAP_ERR_OVERTIME,/* æ¯æ¬¡ä¸²å£æœ‰æ•°æ®åŽï¼Œè¶…è¿‡10ä¸ªå­—ç¬¦æ—¶é—´æ²¡æœ‰æ–°æ•°æ®ï¼Œå¹¶ä¸”ä¹Ÿè§£æžä¸åˆ°ä¸€ä¸ªåˆæ³•çš„æ•°æ®åŒ…ï¼Œå³æŠ¥é”™ */
+    IAP_ERR_CHECK,/* ä¸€ä¸ªåˆæ³•çš„æ•°æ®åŒ…ä¸­æ ¡éªŒå’Œä¸é€šè¿‡ï¼Œå³æŠ¥é”™ */
+    IAP_ERR_ADDR,/* æ“¦é™¤æ—¶ï¼Œåœ°å€ä¸å¯¹ */
+    IAP_ERR_ERASE_FAIL,/* æ“¦é™¤å¤±è´¥ */
+    IAP_ERR_PROG_NO_ERASE,/* æ²¡æœ‰å…ˆæ“¦é™¤ï¼Œå†å†™å…¥ */
+    IAP_ERR_WRITE_FAIL,/* æ²¡æœ‰å†™å…¥å¤±è´¥ */
+    IAP_ERR_VERIFY,/* æ ¡éªŒå¤±è´¥ */
 } IAP_ERR_t;
 
 typedef enum

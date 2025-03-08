@@ -3,8 +3,8 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/12/10
- * Description        : ÍâÉè´Ó»ú¶àÁ¬½ÓÓ¦ÓÃ³ÌĞò£¬³õÊ¼»¯¹ã²¥Á¬½Ó²ÎÊı£¬È»ºó¹ã²¥£¬Á¬½ÓÖ÷»úºó£¬
- *                      ÇëÇó¸üĞÂÁ¬½Ó²ÎÊı£¬Í¨¹ı×Ô¶¨Òå·şÎñ´«ÊäÊı¾İ
+ * Description        : å¤–è®¾ä»æœºå¤šè¿æ¥åº”ç”¨ç¨‹åºï¼Œåˆå§‹åŒ–å¹¿æ’­è¿æ¥å‚æ•°ï¼Œç„¶åå¹¿æ’­ï¼Œè¿æ¥ä¸»æœºåï¼Œ
+ *                      è¯·æ±‚æ›´æ–°è¿æ¥å‚æ•°ï¼Œé€šè¿‡è‡ªå®šä¹‰æœåŠ¡ä¼ è¾“æ•°æ®
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -697,19 +697,19 @@ static void simpleProfileChangeCB(uint8_t paramID, uint8_t *pValue, uint16_t len
     }
 }
 
-/* OTA Éı¼¶±êÖ¾ */
+/* OTA å‡çº§æ ‡å¿— */
 #define IMAGE_OTA_FLAG       0x03
 
-/* ´æ·ÅÔÚDataFlashµØÖ·£¬²»ÄÜÕ¼ÓÃÀ¶ÑÀµÄÎ»ÖÃ */
+/* å­˜æ”¾åœ¨DataFlashåœ°å€ï¼Œä¸èƒ½å ç”¨è“ç‰™çš„ä½ç½® */
 #define OTA_DATAFLASH_ADD    0x00077000 - FLASH_ROM_MAX_SIZE
 
-/* flashµÄÊı¾İÁÙÊ±´æ´¢ */
+/* flashçš„æ•°æ®ä¸´æ—¶å­˜å‚¨ */
 __attribute__((aligned(8))) uint8_t block_buf[16];
 
 /*********************************************************************
  * @fn      Jump_OTA
  *
- * @brief   Ìø×ªOTAÉı¼¶
+ * @brief   è·³è½¬OTAå‡çº§
  *
  * @return  none
  */
@@ -718,19 +718,19 @@ void Jump_OTA(void)
     uint16_t i;
     uint32_t ver_flag;
 
-    /* ¶ÁÈ¡µÚÒ»¿é */
+    /* è¯»å–ç¬¬ä¸€å— */
     EEPROM_READ(OTA_DATAFLASH_ADD, (uint32_t *)&block_buf[0], 4);
 
-    /* ²Á³ıµÚÒ»¿é */
+    /* æ“¦é™¤ç¬¬ä¸€å— */
     EEPROM_ERASE(OTA_DATAFLASH_ADD, EEPROM_PAGE_SIZE);
 
-    /* ¸üĞÂImageĞÅÏ¢ */
+    /* æ›´æ–°Imageä¿¡æ¯ */
     block_buf[0] = IMAGE_OTA_FLAG;
 
-    /* ±à³ÌDataFlash */
+    /* ç¼–ç¨‹DataFlash */
     EEPROM_WRITE(OTA_DATAFLASH_ADD, (uint32_t *)&block_buf[0], 4);
 
-    /* Èí¸´Î» */
+    /* è½¯å¤ä½ */
     SYS_ResetExecute();
 }
 

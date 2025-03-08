@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/06
- * Description        : ´®¿Ú1ÊÕ·¢ÑİÊ¾
+ * Description        : ä¸²å£1æ”¶å‘æ¼”ç¤º
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -19,7 +19,7 @@ uint8_t trigB;
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -30,18 +30,18 @@ int main()
     HSECFG_Capacitance(HSECap_18p);
     SetSysClock(CLK_SOURCE_HSE_PLL_62_4MHz);
 
-    /* ÅäÖÃ´®¿Ú1£ºÏÈÅäÖÃIO¿ÚÄ£Ê½£¬ÔÙÅäÖÃ´®¿Ú */
+    /* é…ç½®ä¸²å£1ï¼šå…ˆé…ç½®IOå£æ¨¡å¼ï¼Œå†é…ç½®ä¸²å£ */
     GPIOA_SetBits(GPIO_Pin_9);
-    GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);      // RXD-ÅäÖÃÉÏÀ­ÊäÈë
-    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA); // TXD-ÅäÖÃÍÆÍìÊä³ö£¬×¢ÒâÏÈÈÃIO¿ÚÊä³ö¸ßµçÆ½
+    GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);      // RXD-é…ç½®ä¸Šæ‹‰è¾“å…¥
+    GPIOA_ModeCfg(GPIO_Pin_9, GPIO_ModeOut_PP_5mA); // TXD-é…ç½®æ¨æŒ½è¾“å‡ºï¼Œæ³¨æ„å…ˆè®©IOå£è¾“å‡ºé«˜ç”µå¹³
     UART1_DefInit();
 
-#if 1 // ²âÊÔ´®¿Ú·¢ËÍ×Ö·û´®
+#if 1 // æµ‹è¯•ä¸²å£å‘é€å­—ç¬¦ä¸²
     UART1_SendString(TxBuff, sizeof(TxBuff));
 
 #endif
 
-#if 1 // ²éÑ¯·½Ê½£º½ÓÊÕÊı¾İºó·¢ËÍ³öÈ¥
+#if 1 // æŸ¥è¯¢æ–¹å¼ï¼šæ¥æ”¶æ•°æ®åå‘é€å‡ºå»
     while(1)
     {
         len = UART1_RecvString(RxBuff);
@@ -53,7 +53,7 @@ int main()
 
 #endif
 
-#if 0 // ÖĞ¶Ï·½Ê½£º½ÓÊÕÊı¾İºó·¢ËÍ³öÈ¥
+#if 0 // ä¸­æ–­æ–¹å¼ï¼šæ¥æ”¶æ•°æ®åå‘é€å‡ºå»
     UART1_ByteTrigCfg(UART_7BYTE_TRIG);
     trigB = 7;
     UART1_INTCfg(ENABLE, RB_IER_RECV_RDY | RB_IER_LINE_STAT);
@@ -66,7 +66,7 @@ int main()
 /*********************************************************************
  * @fn      UART1_IRQHandler
  *
- * @brief   UART1ÖĞ¶Ïº¯Êı
+ * @brief   UART1ä¸­æ–­å‡½æ•°
  *
  * @return  none
  */
@@ -78,13 +78,13 @@ void UART1_IRQHandler(void)
 
     switch(UART1_GetITFlag())
     {
-        case UART_II_LINE_STAT: // ÏßÂ·×´Ì¬´íÎó
+        case UART_II_LINE_STAT: // çº¿è·¯çŠ¶æ€é”™è¯¯
         {
             UART1_GetLinSTA();
             break;
         }
 
-        case UART_II_RECV_RDY: // Êı¾İ´ïµ½ÉèÖÃ´¥·¢µã
+        case UART_II_RECV_RDY: // æ•°æ®è¾¾åˆ°è®¾ç½®è§¦å‘ç‚¹
             for(i = 0; i != trigB; i++)
             {
                 RxBuff[i] = UART1_RecvByte();
@@ -92,15 +92,15 @@ void UART1_IRQHandler(void)
             }
             break;
 
-        case UART_II_RECV_TOUT: // ½ÓÊÕ³¬Ê±£¬ÔİÊ±Ò»Ö¡Êı¾İ½ÓÊÕÍê³É
+        case UART_II_RECV_TOUT: // æ¥æ”¶è¶…æ—¶ï¼Œæš‚æ—¶ä¸€å¸§æ•°æ®æ¥æ”¶å®Œæˆ
             i = UART1_RecvString(RxBuff);
             UART1_SendString(RxBuff, i);
             break;
 
-        case UART_II_THR_EMPTY: // ·¢ËÍ»º´æÇø¿Õ£¬¿É¼ÌĞø·¢ËÍ
+        case UART_II_THR_EMPTY: // å‘é€ç¼“å­˜åŒºç©ºï¼Œå¯ç»§ç»­å‘é€
             break;
 
-        case UART_II_MODEM_CHG: // Ö»Ö§³Ö´®¿Ú0
+        case UART_II_MODEM_CHG: // åªæ”¯æŒä¸²å£0
             break;
 
         default:

@@ -18,9 +18,9 @@
 /* Variable Definition */
 uint8_t    LongNameBuf[ LONG_NAME_BUF_LEN ];
 /*
-³¤ÎÄ¼şÃûÊ¾Àı(UNICODE±àÂëµÄ´óĞ¡¶Ë ±ØĞëÓëUNICODE_ENDIAN¶¨ÒåÏàÍ¬)
-ÒÔÏÂÊÇLongNameÀï±àÂëÄÚÈİ:
-½¨Á¢³¤ÎÄ¼şÃû£¬ÊäÈëÁ½¸ö²ÎÊı£º 1.²ÉÓÃ(unicode ´ó¶Ë)£¬×Ö·û´®Ä©Î²ÓÃÁ½¸ö0±íÊ¾½áÊø;2.ANSI±àÂë¶ÌÎÄ¼şÃû.TXT
+é•¿æ–‡ä»¶åç¤ºä¾‹(UNICODEç¼–ç çš„å¤§å°ç«¯ å¿…é¡»ä¸UNICODE_ENDIANå®šä¹‰ç›¸åŒ)
+ä»¥ä¸‹æ˜¯LongNameé‡Œç¼–ç å†…å®¹:
+å»ºç«‹é•¿æ–‡ä»¶åï¼Œè¾“å…¥ä¸¤ä¸ªå‚æ•°ï¼š 1.é‡‡ç”¨(unicode å¤§ç«¯)ï¼Œå­—ç¬¦ä¸²æœ«å°¾ç”¨ä¸¤ä¸ª0è¡¨ç¤ºç»“æŸ;2.ANSIç¼–ç çŸ­æ–‡ä»¶å.TXT
 */
 uint8_t LongName[ ] =
 #if UNICODE_ENDIAN == 1
@@ -63,15 +63,15 @@ void UDisk_USBH_Longname( void )
     if( ( ret == DISK_READY )&&( UDisk_Opeation_Flag == 1 ) )
     {
         UDisk_Opeation_Flag = 0;
-        /*==================== ÒÔÏÂÑİÊ¾´´½¨¼°¶ÁÈ¡³¤ÎÄ¼şÃû ============================*/
-        // ¸´ÖÆ³¤ÎÄ¼şÃû(UNICODE ´ó¶Ë)µ½LongNameBufÀï
+        /*==================== ä»¥ä¸‹æ¼”ç¤ºåˆ›å»ºåŠè¯»å–é•¿æ–‡ä»¶å ============================*/
+        // å¤åˆ¶é•¿æ–‡ä»¶å(UNICODE å¤§ç«¯)åˆ°LongNameBufé‡Œ
         len = LongName_Len;
         memcpy( LongNameBuf, LongName, len );
-        // Ä©Î²ÓÃÁ½¸ö0±íÊ¾½áÊø
+        // æœ«å°¾ç”¨ä¸¤ä¸ª0è¡¨ç¤ºç»“æŸ
         LongNameBuf[len] = 0x00;
         LongNameBuf[len + 1] = 0x00;
-        // ¸Ã³¤ÎÄ¼şÃûµÄANSI±àÂë¶ÌÎÄ¼şÃû(8+3¸ñÊ½)
-        strcpy( mCmdParam.Create.mPathName, "\\³¤ÎÄ¼şÃû.TXT" );
+        // è¯¥é•¿æ–‡ä»¶åçš„ANSIç¼–ç çŸ­æ–‡ä»¶å(8+3æ ¼å¼)
+        strcpy( mCmdParam.Create.mPathName, "\\é•¿æ–‡ä»¶å.TXT" );
         i = CHRV3CreateLongName( );
         if( i == ERR_SUCCESS )
         {
@@ -84,14 +84,14 @@ void UDisk_USBH_Longname( void )
         }
 
         PRINT( "Get long Name#\r\n" );
-        strcpy( mCmdParam.Open.mPathName, "\\³¤ÎÄ¼şÃû.TXT" );
-        // ÒÔÉÏĞèÒªÊäÈëÎÄ¼şÃûµÄÍêÕûÂ·¾¶
+        strcpy( mCmdParam.Open.mPathName, "\\é•¿æ–‡ä»¶å.TXT" );
+        // ä»¥ä¸Šéœ€è¦è¾“å…¥æ–‡ä»¶åçš„å®Œæ•´è·¯å¾„
         i = CHRV3GetLongName( );
         if( i == ERR_SUCCESS )
         {
-            // ³¤ÎÄ¼şÃûÊÕ¼¯Íê³É,ÒÔUNICODE±àÂë·½Ê½(°´UNICODE_ENDIAN¶¨Òå)
-            // ´æ·ÅÔÚLongNameBuf»º³åÀï,³¤ÎÄ¼şÃû×îºóÓÃÁ½¸ö0½áÊø.
-            // ÒÔÏÂÏÔÊ¾»º³åÇøÀïËùÓĞÊı¾İ
+            // é•¿æ–‡ä»¶åæ”¶é›†å®Œæˆ,ä»¥UNICODEç¼–ç æ–¹å¼(æŒ‰UNICODE_ENDIANå®šä¹‰)
+            // å­˜æ”¾åœ¨LongNameBufç¼“å†²é‡Œ,é•¿æ–‡ä»¶åæœ€åç”¨ä¸¤ä¸ª0ç»“æŸ.
+            // ä»¥ä¸‹æ˜¾ç¤ºç¼“å†²åŒºé‡Œæ‰€æœ‰æ•°æ®
             PRINT( "LongNameBuf: " );
             for( j=0; j!=LONG_NAME_BUF_LEN; j++ )
             {
@@ -110,9 +110,9 @@ void UDisk_USBH_Longname( void )
 /*********************************************************************
  * @fn      CheckNameSum
  *
- * @brief   ¼ì²é³¤ÎÄ¼şÃûµÄ¶ÌÎÄ¼şÃû¼ìÑéºÍ
+ * @brief   æ£€æŸ¥é•¿æ–‡ä»¶åçš„çŸ­æ–‡ä»¶åæ£€éªŒå’Œ
  *
- * @return  ¼ÆËãºóµÄĞ£ÑéºÍ
+ * @return  è®¡ç®—åçš„æ ¡éªŒå’Œ
  */
 uint8_t CheckNameSum( uint8_t *p )
 {
@@ -128,9 +128,9 @@ uint8_t Sum;
 /*********************************************************************
  * @fn      AnalyzeLongName
  *
- * @brief   ÕûÀí³¤ÎÄ¼şÃû ·µ»ØÓĞ¼¸¸öµÄ26³¤¶È
+ * @brief   æ•´ç†é•¿æ–‡ä»¶å è¿”å›æœ‰å‡ ä¸ªçš„26é•¿åº¦
  *
- * @return  ·µ»ØÓĞ¶àÉÙ¸ö26µÄ³¤¶È
+ * @return  è¿”å›æœ‰å¤šå°‘ä¸ª26çš„é•¿åº¦
  */
 uint8_t AnalyzeLongName( void )
 {
@@ -147,15 +147,15 @@ uint16_t  index;
         }
     }
     if( ( i == FALSE ) || ( index == 0) )
-        return 0;                   // ·µ»Ø0±íÊ¾´íÎóµÄ³¤ÎÄ¼şÃû
+        return 0;                   // è¿”å›0è¡¨ç¤ºé”™è¯¯çš„é•¿æ–‡ä»¶å
 
     i = index % 26;
     if( i != 0 )
     {
         index += 2;
-        if( index % 26 != 0 )       // ¼Ó0¸ÕºÃ½áÊø
+        if( index % 26 != 0 )       // åŠ 0åˆšå¥½ç»“æŸ
         {
-            for( j=i+2; j!=26; j++ )// °ÑÊ£ÓàÊı¾İÌîÎª0XFF
+            for( j=i+2; j!=26; j++ )// æŠŠå‰©ä½™æ•°æ®å¡«ä¸º0XFF
                 LongNameBuf[index++] = 0xff;
         }
     }
@@ -165,37 +165,37 @@ uint16_t  index;
 /*********************************************************************
  * @fn      CHRV3CreateLongName
  *
- * @brief   ´´½¨³¤ÎÄ¼şÃû,ĞèÒªÊäÈë¶ÌÎÄ¼şÃûµÄÍêÕûÂ·¾¶
+ * @brief   åˆ›å»ºé•¿æ–‡ä»¶å,éœ€è¦è¾“å…¥çŸ­æ–‡ä»¶åçš„å®Œæ•´è·¯å¾„
  *
- * @return  ²Ù×÷×´Ì¬
+ * @return  æ“ä½œçŠ¶æ€
  */
 uint8_t CHRV3CreateLongName( void )
 {
-// ·ÖÎö ±£ÁôÎÄ¼şÂ·¾¶ ´´½¨Ò»¸ö¿ÕÎÄ¼ş µÃµ½FDTÆ«ÒÆºÍÆäËùÔÚÉÈÇø É¾³ıÎÄ¼ş
-// ÏòºóÆ«ÒÆÉÈÇø ¿ÉÄÜÊ§°Ü ÈçFAT12/16´¦ÔÚ¸ùÄ¿Â¼´¦ Ìî³äÍê±ÏºóÔÙ´Î´´½¨ÎÄ¼ş
+// åˆ†æ ä¿ç•™æ–‡ä»¶è·¯å¾„ åˆ›å»ºä¸€ä¸ªç©ºæ–‡ä»¶ å¾—åˆ°FDTåç§»å’Œå…¶æ‰€åœ¨æ‰‡åŒº åˆ é™¤æ–‡ä»¶
+// å‘ååç§»æ‰‡åŒº å¯èƒ½å¤±è´¥ å¦‚FAT12/16å¤„åœ¨æ ¹ç›®å½•å¤„ å¡«å……å®Œæ¯•åå†æ¬¡åˆ›å»ºæ–‡ä»¶
 uint8_t   i;
-uint8_t   len;                                // ´æ·ÅÂ·¾¶µÄ³¤¶È
-uint16_t  index;                              // ³¤ÎÄ¼şÆ«ÒÆË÷Òı
-uint16_t  indexBak;                           // ³¤ÎÄ¼şÆ«ÒÆË÷Òı±¸·İ
-uint32_t  Secoffset;                          // ÉÈÇøÆ«ÒÆ
+uint8_t   len;                                // å­˜æ”¾è·¯å¾„çš„é•¿åº¦
+uint16_t  index;                              // é•¿æ–‡ä»¶åç§»ç´¢å¼•
+uint16_t  indexBak;                           // é•¿æ–‡ä»¶åç§»ç´¢å¼•å¤‡ä»½
+uint32_t  Secoffset;                          // æ‰‡åŒºåç§»
 
-uint8_t   Fbit;                               // µÚÒ»´Î½øÈëĞ´ÉÈÇø
-uint8_t   Mult;                               // ³¤ÎÄ¼şÃû³¤¶È26µÄ±¶Êı
-uint8_t   MultBak;                            // ³¤ÎÄ¼şÃû³¤¶È26µÄ±¶Êı±¸·İ
+uint8_t   Fbit;                               // ç¬¬ä¸€æ¬¡è¿›å…¥å†™æ‰‡åŒº
+uint8_t   Mult;                               // é•¿æ–‡ä»¶åé•¿åº¦26çš„å€æ•°
+uint8_t   MultBak;                            // é•¿æ–‡ä»¶åé•¿åº¦26çš„å€æ•°å¤‡ä»½
 
-uint16_t  Backoffset;                         // ±£´æÎÄ¼şÆ«ÒÆ±¸·İ
-uint16_t  BackoffsetBak;                      // ±£´æÆ«ÒÆ±¸·İµÄ±¸·İ
-uint32_t  BackFdtSector;                      // ±£´çÆ«ÒÆÉÏÒ»¸öÉÈÇø
-uint8_t   sum;                                // ±£´æ³¤ÎÄ¼şÃûµÄĞ£ÑéºÍ
+uint16_t  Backoffset;                         // ä¿å­˜æ–‡ä»¶åç§»å¤‡ä»½
+uint16_t  BackoffsetBak;                      // ä¿å­˜åç§»å¤‡ä»½çš„å¤‡ä»½
+uint32_t  BackFdtSector;                      // ä¿å¯¸åç§»ä¸Šä¸€ä¸ªæ‰‡åŒº
+uint8_t   sum;                                // ä¿å­˜é•¿æ–‡ä»¶åçš„æ ¡éªŒå’Œ
 
-uint8_t   BackPathBuf[MAX_PATH_LEN];    // ±£´æÎÄ¼şÂ·¾¶
+uint8_t   BackPathBuf[MAX_PATH_LEN];    // ä¿å­˜æ–‡ä»¶è·¯å¾„
 
-    Mult = AnalyzeLongName( );              // ±£´æ³¤ÎÄ¼şÃûÊÇ26µÄ±¶Êı
+    Mult = AnalyzeLongName( );              // ä¿å­˜é•¿æ–‡ä»¶åæ˜¯26çš„å€æ•°
     if( Mult == 0 )
         return ERR_LONG_NAME;
     MultBak = Mult;
 
-    i = CHRV3FileOpen();                    // ¶ÌÎÄ¼şÃû´æÔÚÔò·µ»Ø´íÎó
+    i = CHRV3FileOpen();                    // çŸ­æ–‡ä»¶åå­˜åœ¨åˆ™è¿”å›é”™è¯¯
     if( i == ERR_SUCCESS )
         return ERR_NAME_EXIST;
 
@@ -206,45 +206,45 @@ uint8_t   BackPathBuf[MAX_PATH_LEN];    // ±£´æÎÄ¼şÂ·¾¶
         BackoffsetBak = Backoffset;
         BackFdtSector = CHRV3vFdtLba;
         sum = CheckNameSum( &DISK_BASE_BUF[Backoffset ] );
-        for( i=0; i!=MAX_PATH_LEN; i++ )    // ¶ÔÎÄ¼şÂ·¾¶½øĞĞ±¸·İ
+        for( i=0; i!=MAX_PATH_LEN; i++ )    // å¯¹æ–‡ä»¶è·¯å¾„è¿›è¡Œå¤‡ä»½
             BackPathBuf[i] = mCmdParam.Open.mPathName[i];
-        CHRV3FileErase( );                  // É¾³ı´ËÎÄ¼ş
+        CHRV3FileErase( );                  // åˆ é™¤æ­¤æ–‡ä»¶
 
-        Secoffset   = 0;                    // ´Ó0¿ªÊ¼Æ«ÒÆ
-        index       = Mult*26;              // µÃµ½³¤ÎÄ¼şÃûµÄ³¤¶È
+        Secoffset   = 0;                    // ä»0å¼€å§‹åç§»
+        index       = Mult*26;              // å¾—åˆ°é•¿æ–‡ä»¶åçš„é•¿åº¦
         indexBak    = index;
-        Fbit        = FALSE;                // Ä¬ÈÏÃ»ÓĞ½øÈë
-        // ´ò¿ªÉÏ¼¶ ½øĞĞÊı¾İÌî³äÊı¾İ
+        Fbit        = FALSE;                // é»˜è®¤æ²¡æœ‰è¿›å…¥
+        // æ‰“å¼€ä¸Šçº§ è¿›è¡Œæ•°æ®å¡«å……æ•°æ®
         P_RETRY:
         for(len=0; len!=MAX_PATH_LEN; len++)
         {
             if(mCmdParam.Open.mPathName[len] == 0)
-                break;                      // µÃµ½×Ö·û´®³¤¶È
+                break;                      // å¾—åˆ°å­—ç¬¦ä¸²é•¿åº¦
         }
 
-        for(i=len-1; i!=0xff; i--)          // µÃµ½ÉÏ¼¶Ä¿Â¼Î»ÖÃ
+        for(i=len-1; i!=0xff; i--)          // å¾—åˆ°ä¸Šçº§ç›®å½•ä½ç½®
         {
             if((mCmdParam.Open.mPathName[i] == '\\') || (mCmdParam.Open.mPathName[i] == '/'))
                 break;
         }
         mCmdParam.Open.mPathName[i] = 0x00;
 
-        if( i==0 )                          // ´ò¿ªÒ»¼¶Ä¿Â¼×¢Òâ:´¦ÔÚ¸ùÄ¿Â¼¿ªÊ¼µÄÌØÊâÇé¿ö
+        if( i==0 )                          // æ‰“å¼€ä¸€çº§ç›®å½•æ³¨æ„:å¤„åœ¨æ ¹ç›®å½•å¼€å§‹çš„ç‰¹æ®Šæƒ…å†µ
         {
             mCmdParam.Open.mPathName[0] = '/';
             mCmdParam.Open.mPathName[1] = 0;
         }
 
-        i = CHRV3FileOpen();                // ´ò¿ªÉÏ¼¶Ä¿Â¼
+        i = CHRV3FileOpen();                // æ‰“å¼€ä¸Šçº§ç›®å½•
         if( i == ERR_OPEN_DIR )
         {
-            while( 1 )                      // Ñ­»·ÌîĞ´ Ö±µ½Íê³É
+            while( 1 )                      // å¾ªç¯å¡«å†™ ç›´åˆ°å®Œæˆ
             {
                 mCmdParam.Locate.mSectorOffset = Secoffset;
                 i = CHRV3FileLocate( );
                 if( i == ERR_SUCCESS )
                 {
-                    if( Fbit )             // µÚ¶ş´Î½øÈë´ÎĞ´ÉÈÇø
+                    if( Fbit )             // ç¬¬äºŒæ¬¡è¿›å…¥æ¬¡å†™æ‰‡åŒº
                     {
                         if( mCmdParam.Locate.mSectorOffset != 0x0FFFFFFFF )
                         {
@@ -253,28 +253,28 @@ uint8_t   BackPathBuf[MAX_PATH_LEN];    // ±£´æÎÄ¼şÂ·¾¶
                         }
                         else
                         {
-                            for( i=0; i!=MAX_PATH_LEN; i++ )// »¹Ô­ÎÄ¼şÂ·¾¶
+                            for( i=0; i!=MAX_PATH_LEN; i++ )// è¿˜åŸæ–‡ä»¶è·¯å¾„
                                 mCmdParam.Open.mPathName[i] = BackPathBuf[i];
-                            i = CHRV3FileCreate( );         // ½øĞĞ¿Õ¼äÀ©Õ¹
+                            i = CHRV3FileCreate( );         // è¿›è¡Œç©ºé—´æ‰©å±•
                             if( i != ERR_SUCCESS )
                                 return i;
                             CHRV3FileErase( );
-                            goto P_RETRY;                   // ÖØĞÂ´ò¿ªÉÏ¼¶Ä¿Â¼
+                            goto P_RETRY;                   // é‡æ–°æ‰“å¼€ä¸Šçº§ç›®å½•
                         }
                     }
 
                     if( BackFdtSector == mCmdParam.Locate.mSectorOffset )
                     {
-                        mCmdParam.Read.mSectorCount = 1;   // ¶ÁÒ»¸öÉÈÇøµ½´ÅÅÌ»º³åÇø
+                        mCmdParam.Read.mSectorCount = 1;   // è¯»ä¸€ä¸ªæ‰‡åŒºåˆ°ç£ç›˜ç¼“å†²åŒº
                         mCmdParam.Read.mDataBuffer = &DISK_BASE_BUF[0];
                         i = CHRV3FileRead( );
-                        CHRV3DirtyBuffer( );                // Çå³ı´ÅÅÌ»º³åÇø
+                        CHRV3DirtyBuffer( );                // æ¸…é™¤ç£ç›˜ç¼“å†²åŒº
                         if( i!= ERR_SUCCESS )
                             return i;
 
                         i = ( CHRV3vSectorSize - Backoffset ) / 32;
                         if( Mult > i )
-                            Mult = Mult - i;                // Ê£ÓàµÄ±¶Êı
+                            Mult = Mult - i;                // å‰©ä½™çš„å€æ•°
                         else
                         {
                             i = Mult;
@@ -285,8 +285,8 @@ uint8_t   BackPathBuf[MAX_PATH_LEN];    // ±£´æÎÄ¼şÂ·¾¶
                         {
                             indexBak -= 26;
                             index = indexBak;
-                            for( i=0; i!=5; i++)            // ³¤ÎÄ¼şÃûµÄ1-5¸ö×Ö·û
-                            {                               // ÔÚ´ÅÅÌÉÏUNICODEÓÃĞ¡¶Ë·½Ê½´æ·Å
+                            for( i=0; i!=5; i++)            // é•¿æ–‡ä»¶åçš„1-5ä¸ªå­—ç¬¦
+                            {                               // åœ¨ç£ç›˜ä¸ŠUNICODEç”¨å°ç«¯æ–¹å¼å­˜æ”¾
                                 #if UNICODE_ENDIAN == 1
                                 DISK_BASE_BUF[Backoffset + i*2 + 2 ] =
                                     LongNameBuf[index++];
@@ -300,7 +300,7 @@ uint8_t   BackPathBuf[MAX_PATH_LEN];    // ±£´æÎÄ¼şÂ·¾¶
                                 #endif
                             }
 
-                            for( i =0; i!=6; i++)           // ³¤ÎÄ¼şÃûµÄ6-11¸ö×Ö·û
+                            for( i =0; i!=6; i++)           // é•¿æ–‡ä»¶åçš„6-11ä¸ªå­—ç¬¦
                             {
                                 #if UNICODE_ENDIAN == 1
                                 DISK_BASE_BUF[Backoffset + 14 + i*2 + 1 ] =
@@ -315,7 +315,7 @@ uint8_t   BackPathBuf[MAX_PATH_LEN];    // ±£´æÎÄ¼şÂ·¾¶
                                 #endif
                             }
 
-                            for( i=0; i!=2; i++)            // ³¤ÎÄ¼şÃûµÄ12-13¸ö×Ö·û
+                            for( i=0; i!=2; i++)            // é•¿æ–‡ä»¶åçš„12-13ä¸ªå­—ç¬¦
                             {
                                 #if UNICODE_ENDIAN == 1
                                 DISK_BASE_BUF[Backoffset + 28 + i*2 + 1 ] =
@@ -350,7 +350,7 @@ uint8_t   BackPathBuf[MAX_PATH_LEN];    // ±£´æÎÄ¼şÂ·¾¶
                             return i;
 
                         if( Mult==0 )
-                        {   // »¹Ô­ÎÄ¼şÂ·¾¶
+                        {   // è¿˜åŸæ–‡ä»¶è·¯å¾„
 					        CHRV3FileClose( );
                             for( i=0; i!=MAX_PATH_LEN; i++ )
                                 mCmdParam.Open.mPathName[i] = BackPathBuf[i];
@@ -371,31 +371,31 @@ uint8_t   BackPathBuf[MAX_PATH_LEN];    // ±£´æÎÄ¼şÂ·¾¶
 /*********************************************************************
  * @fn      GetUpSectorData
  *
- * @brief   ÓÉµ±Ç°ÉÈÇøµÃµ½ÉÏÒ»¸öÉÈÇøµÄÊı¾İ£¬·ÅÔÚ´ÅÅÌ»º³åÇø
+ * @brief   ç”±å½“å‰æ‰‡åŒºå¾—åˆ°ä¸Šä¸€ä¸ªæ‰‡åŒºçš„æ•°æ®ï¼Œæ”¾åœ¨ç£ç›˜ç¼“å†²åŒº
  *
- * @return  ²Ù×÷×´Ì¬
+ * @return  æ“ä½œçŠ¶æ€
  */
 uint8_t GetUpSectorData( uint32_t *NowSector )
 {
 uint8_t  i;
-uint8_t  len;             // ´æ·ÅÂ·¾¶µÄ³¤¶È
-uint32_t index;           // Ä¿Â¼ÉÈÇøÆ«ÒÆÉÈÇøÊı
+uint8_t  len;             // å­˜æ”¾è·¯å¾„çš„é•¿åº¦
+uint32_t index;           // ç›®å½•æ‰‡åŒºåç§»æ‰‡åŒºæ•°
 
     index = 0;
     for(len=0; len!=MAX_PATH_LEN; len++)
     {
-        if(mCmdParam.Open.mPathName[len] == 0)          // µÃµ½×Ö·û´®³¤¶È
+        if(mCmdParam.Open.mPathName[len] == 0)          // å¾—åˆ°å­—ç¬¦ä¸²é•¿åº¦
             break;
     }
 
-    for(i=len-1; i!=0xff; i--)                          // µÃµ½ÉÏ¼¶Ä¿Â¼Î»ÖÃ
+    for(i=len-1; i!=0xff; i--)                          // å¾—åˆ°ä¸Šçº§ç›®å½•ä½ç½®
     {
         if((mCmdParam.Open.mPathName[i] == '\\') || (mCmdParam.Open.mPathName[i] == '/'))
             break;
     }
     mCmdParam.Open.mPathName[i] = 0x00;
 
-    if( i==0 )  // ´ò¿ªÒ»¼¶Ä¿Â¼×¢Òâ:´¦ÔÚ¸ùÄ¿Â¼¿ªÊ¼µÄÌØÊâÇé¿ö
+    if( i==0 )  // æ‰“å¼€ä¸€çº§ç›®å½•æ³¨æ„:å¤„åœ¨æ ¹ç›®å½•å¼€å§‹çš„ç‰¹æ®Šæƒ…å†µ
     {
         mCmdParam.Open.mPathName[0] = '/';
         mCmdParam.Open.mPathName[1] = 0;
@@ -417,17 +417,17 @@ uint32_t index;           // Ä¿Â¼ÉÈÇøÆ«ÒÆÉÈÇøÊı
                 {
                     if( *NowSector == mCmdParam.Locate.mSectorOffset )
                     {
-                        if( index==0 )                          // ´¦ÓÚ¸ùÄ¿Â¼ÉÈÇøµÄ¿ªÊ¼
+                        if( index==0 )                          // å¤„äºæ ¹ç›®å½•æ‰‡åŒºçš„å¼€å§‹
                             return ERR_NO_NAME;
                         mCmdParam.Locate.mSectorOffset = --index;
-                        i = CHRV3FileLocate( );                 // ¶ÁÉÏÒ»¸öÉÈÇøµÄÊı¾İ
+                        i = CHRV3FileLocate( );                 // è¯»ä¸Šä¸€ä¸ªæ‰‡åŒºçš„æ•°æ®
                         if( i == ERR_SUCCESS )
-                        {                                       // ÒÔÏÂ±£´æµ±Ç°ËùÔÚÉÈÇøÊı
+                        {                                       // ä»¥ä¸‹ä¿å­˜å½“å‰æ‰€åœ¨æ‰‡åŒºæ•°
                             *NowSector = mCmdParam.Locate.mSectorOffset;
-                            mCmdParam.Read.mSectorCount = 1;   // ¶ÁÒ»¸öÉÈÇøµ½´ÅÅÌ»º³åÇø
+                            mCmdParam.Read.mSectorCount = 1;   // è¯»ä¸€ä¸ªæ‰‡åŒºåˆ°ç£ç›˜ç¼“å†²åŒº
                             mCmdParam.Read.mDataBuffer = &DISK_BASE_BUF[0];
                             i = CHRV3FileRead( );
-                            CHRV3DirtyBuffer( );                // Çå³ı´ÅÅÌ»º³åÇø
+                            CHRV3DirtyBuffer( );                // æ¸…é™¤ç£ç›˜ç¼“å†²åŒº
                             return i;
                         }
                         else
@@ -446,31 +446,31 @@ uint32_t index;           // Ä¿Â¼ÉÈÇøÆ«ÒÆÉÈÇøÊı
 /*********************************************************************
  * @fn      CHRV3GetLongName
  *
- * @brief   ÓÉÍêÕû¶ÌÎÄ¼şÃûÂ·¾¶(¿ÉÒÔÊÇÎÄ¼ş»òÎÄ¼ş¼Ğ)µÃµ½ÏàÓ¦µÄ³¤ÎÄ¼şÃû
+ * @brief   ç”±å®Œæ•´çŸ­æ–‡ä»¶åè·¯å¾„(å¯ä»¥æ˜¯æ–‡ä»¶æˆ–æ–‡ä»¶å¤¹)å¾—åˆ°ç›¸åº”çš„é•¿æ–‡ä»¶å
  *
- * @return  ²Ù×÷×´Ì¬
+ * @return  æ“ä½œçŠ¶æ€
  */
 uint8_t CHRV3GetLongName( void )
 {
-// ĞèÒª±äÁ¿ÉÈÇø´óĞ¡
-// µÚÒ»²½£º´ò¿ªÎÄ¼şÊÇ·ñÕÒµ½ÎÄ¼ş,·ÖÎöÎÄ¼şÊÇ·ñ´æÔÚ,²¢µÃµ½FDTÔÚ´ËÉÈÇøµÄÆ«ÒÆºÍËùÔÚÉÈÇø
-// µÚ¶ş²½£º·ÖÎöÉÏÃæµÄĞÅÏ¢¿´ÊÇ·ñÓĞ³¤ÎÄ¼şÃû´æÔÚ£¬ÊÇ·ñ´¦ÓÚÄ¿Â¼µÄµÚÒ»¸öÉÈÇøµÄ¿ªÊ¼
-// µÚÈı²½£ºÊµÏÖÏòºóÆ«ÒÆÒ»¸öÉÈÇø?¶ÁÈ¡³¤ÎÄ¼şÃû(ÉÈÇø512×Ö½ÚµÄUÅÌ)
+// éœ€è¦å˜é‡æ‰‡åŒºå¤§å°
+// ç¬¬ä¸€æ­¥ï¼šæ‰“å¼€æ–‡ä»¶æ˜¯å¦æ‰¾åˆ°æ–‡ä»¶,åˆ†ææ–‡ä»¶æ˜¯å¦å­˜åœ¨,å¹¶å¾—åˆ°FDTåœ¨æ­¤æ‰‡åŒºçš„åç§»å’Œæ‰€åœ¨æ‰‡åŒº
+// ç¬¬äºŒæ­¥ï¼šåˆ†æä¸Šé¢çš„ä¿¡æ¯çœ‹æ˜¯å¦æœ‰é•¿æ–‡ä»¶åå­˜åœ¨ï¼Œæ˜¯å¦å¤„äºç›®å½•çš„ç¬¬ä¸€ä¸ªæ‰‡åŒºçš„å¼€å§‹
+// ç¬¬ä¸‰æ­¥ï¼šå®ç°å‘ååç§»ä¸€ä¸ªæ‰‡åŒº?è¯»å–é•¿æ–‡ä»¶å(æ‰‡åŒº512å­—èŠ‚çš„Uç›˜)
 uint8_t   i;
-uint16_t  index;          // ÔÚ³¤ÎÄ¼şÃû»º³åÇøÄÚµÄË÷Òı
-uint32_t  BackFdtSector;  // ±£´çÆ«ÒÆÉÏÒ»¸öÉÈÇø
-uint8_t   sum;            // ±£´æ³¤ÎÄ¼şÃûµÄĞ£ÑéºÍ
-//uint16_t  Backoffset;     // ±£´æÎÄ¼şÆ«ÒÆ±¸·İ
-uint16_t  offset;         // ÉÈÇøÄÚÎÄ¼şÆ«ÒÆ32±¶Êı
-uint8_t   FirstBit;       // ³¤ÎÄ¼şÃû¿çÔ½Á½¸öÉÈÇø±êÖ¾Î»
-uint8_t   BackPathBuf[MAX_PATH_LEN]; // ±£´æÎÄ¼şÂ·¾¶
+uint16_t  index;          // åœ¨é•¿æ–‡ä»¶åç¼“å†²åŒºå†…çš„ç´¢å¼•
+uint32_t  BackFdtSector;  // ä¿å¯¸åç§»ä¸Šä¸€ä¸ªæ‰‡åŒº
+uint8_t   sum;            // ä¿å­˜é•¿æ–‡ä»¶åçš„æ ¡éªŒå’Œ
+//uint16_t  Backoffset;     // ä¿å­˜æ–‡ä»¶åç§»å¤‡ä»½
+uint16_t  offset;         // æ‰‡åŒºå†…æ–‡ä»¶åç§»32å€æ•°
+uint8_t   FirstBit;       // é•¿æ–‡ä»¶åè·¨è¶Šä¸¤ä¸ªæ‰‡åŒºæ ‡å¿—ä½
+uint8_t   BackPathBuf[MAX_PATH_LEN]; // ä¿å­˜æ–‡ä»¶è·¯å¾„
 
     i = CHRV3FileOpen( );
     if( ( i == ERR_SUCCESS ) || ( i == ERR_OPEN_DIR ) )
     {
         for( i=0; i!=MAX_PATH_LEN; i++ )
             BackPathBuf[i] = mCmdParam.Open.mPathName[i];
-        // ÒÔÉÏÍê³É¶ÔÂ·¾¶µÄ±¸·İ
+        // ä»¥ä¸Šå®Œæˆå¯¹è·¯å¾„çš„å¤‡ä»½
 
         sum = CheckNameSum( &DISK_BASE_BUF[CHRV3vFdtOffset] );
         index = 0;
@@ -479,7 +479,7 @@ uint8_t   BackPathBuf[MAX_PATH_LEN]; // ±£´æÎÄ¼şÂ·¾¶
         BackFdtSector = CHRV3vFdtLba;
         if( CHRV3vFdtOffset == 0 )
         {
-            // ÏÈÅĞ¶ÏÊÇ·ñ´¦ÓÚÒ»¸öÉÈÇø¿ªÊ¼ ÊÇ·ñ´¦ÓÚ¸ùÄ¿Â¼¿ªÊ¼ £¬·ñÔòÏòºóÆ«ÒÆ
+            // å…ˆåˆ¤æ–­æ˜¯å¦å¤„äºä¸€ä¸ªæ‰‡åŒºå¼€å§‹ æ˜¯å¦å¤„äºæ ¹ç›®å½•å¼€å§‹ ï¼Œå¦åˆ™å‘ååç§»
             if( FirstBit == FALSE )
                 FirstBit = TRUE;
             i = GetUpSectorData( &BackFdtSector );
@@ -491,7 +491,7 @@ uint8_t   BackPathBuf[MAX_PATH_LEN]; // ±£´æÎÄ¼şÂ·¾¶
         }
         else
         {
-            // ¶ÁÈ¡Æ«ÒÆºóµÄÊı¾İ£¬Ö±µ½½áÊø¡£Èç¹û²»¹»ÔòÏòºóÆ«ÒÆ
+            // è¯»å–åç§»åçš„æ•°æ®ï¼Œç›´åˆ°ç»“æŸã€‚å¦‚æœä¸å¤Ÿåˆ™å‘ååç§»
             P_NEXT1:
             offset = CHRV3vFdtOffset;
             while( 1 )
@@ -505,8 +505,8 @@ uint8_t   BackPathBuf[MAX_PATH_LEN]; // ±£´æÎÄ¼şÂ·¾¶
                         if( (index + 26) > LONG_NAME_BUF_LEN )
                             return ERR_BUF_OVER;
 
-                        for( i=0; i!=5; i++)            // ³¤ÎÄ¼şÃûµÄ1-5¸ö×Ö·û
-                        {                               // ÔÚ´ÅÅÌÉÏUNICODEÓÃĞ¡¶Ë·½Ê½´æ·Å
+                        for( i=0; i!=5; i++)            // é•¿æ–‡ä»¶åçš„1-5ä¸ªå­—ç¬¦
+                        {                               // åœ¨ç£ç›˜ä¸ŠUNICODEç”¨å°ç«¯æ–¹å¼å­˜æ”¾
                             #if UNICODE_ENDIAN == 1
                             LongNameBuf[index++] =
                                 DISK_BASE_BUF[offset + i*2 + 2];
@@ -520,7 +520,7 @@ uint8_t   BackPathBuf[MAX_PATH_LEN]; // ±£´æÎÄ¼şÂ·¾¶
                             #endif
                         }
 
-                        for( i =0; i!=6; i++)           // ³¤ÎÄ¼şÃûµÄ6-11¸ö×Ö·û
+                        for( i =0; i!=6; i++)           // é•¿æ–‡ä»¶åçš„6-11ä¸ªå­—ç¬¦
                         {
                             #if UNICODE_ENDIAN == 1
                             LongNameBuf[index++] =
@@ -536,7 +536,7 @@ uint8_t   BackPathBuf[MAX_PATH_LEN]; // ±£´æÎÄ¼şÂ·¾¶
 
                         }
 
-                        for( i=0; i!=2; i++)            // ³¤ÎÄ¼şÃûµÄ12-13¸ö×Ö·û
+                        for( i=0; i!=2; i++)            // é•¿æ–‡ä»¶åçš„12-13ä¸ªå­—ç¬¦
                         {
                             #if UNICODE_ENDIAN == 1
                             LongNameBuf[index++] =
@@ -557,25 +557,25 @@ uint8_t   BackPathBuf[MAX_PATH_LEN]; // ±£´æÎÄ¼şÂ·¾¶
                                 && (LongNameBuf[index -2] ==0x00))
                                 || ((LongNameBuf[index -1] ==0xFF)
                                 && (LongNameBuf[index -2 ] ==0xFF))))
-                            {                           // ´¦Àí¸ÕºÃÎª26×Ö½Ú³¤±¶ÊıµÄÎÄ¼şÃû
+                            {                           // å¤„ç†åˆšå¥½ä¸º26å­—èŠ‚é•¿å€æ•°çš„æ–‡ä»¶å
                                 if(index + 52 >LONG_NAME_BUF_LEN )
                                     return ERR_BUF_OVER;
                                 LongNameBuf[ index ] = 0x00;
                                 LongNameBuf[ index + 1] = 0x00;
                             }
-                            return ERR_SUCCESS;         // ³É¹¦Íê³É³¤ÎÄ¼şÃûÊÕ¼¯Íê³É
+                            return ERR_SUCCESS;         // æˆåŠŸå®Œæˆé•¿æ–‡ä»¶åæ”¶é›†å®Œæˆ
                         }
                     }
                     else
-                        return ERR_NO_NAME;             // ´íÎóµÄ³¤ÎÄ¼şÃû,³ÌĞò·µ»Ø
+                        return ERR_NO_NAME;             // é”™è¯¯çš„é•¿æ–‡ä»¶å,ç¨‹åºè¿”å›
                 }
                 else
                 {
                     if( FirstBit == FALSE )
                         FirstBit = TRUE;
-                    else                                // ·ñÔòµÚ¶ş´Î½øÈë
+                    else                                // å¦åˆ™ç¬¬äºŒæ¬¡è¿›å…¥
                     {
-                        for( i=0; i!=MAX_PATH_LEN; i++ )// »¹Ô­Â·¾¶
+                        for( i=0; i!=MAX_PATH_LEN; i++ )// è¿˜åŸè·¯å¾„
                             mCmdParam.Open.mPathName[i] = BackPathBuf[i];
                     }
                     i = GetUpSectorData( &BackFdtSector );
@@ -586,11 +586,11 @@ uint8_t   BackPathBuf[MAX_PATH_LEN]; // ±£´æÎÄ¼şÂ·¾¶
                     }
                     else
                         return i;
-                    // ÏòºóÆ«ÒÆÉÈÇø
+                    // å‘ååç§»æ‰‡åŒº
                 }
             }
         }
     }
-    return i;                // ·µ»Ø´íÎó
+    return i;                // è¿”å›é”™è¯¯
 }
 

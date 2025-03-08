@@ -21,12 +21,12 @@
  * GLOBAL TYPEDEFS
  */
 
-// Ó¦ÓÃ²ã×î´ó·¢ËÍ³¤¶È£¬²»·Ö°ü×î´óÎªCONFIG_MESH_UNSEG_LENGTH_DEF£¬·Ö°ü×î´óÎªCONFIG_MESH_TX_SEG_DEF*BLE_MESH_APP_SEG_SDU_MAX-8£¨ÒÀ¾İRAMÊ¹ÓÃÇé¿ö¾ö¶¨£©
+// åº”ç”¨å±‚æœ€å¤§å‘é€é•¿åº¦ï¼Œä¸åˆ†åŒ…æœ€å¤§ä¸ºCONFIG_MESH_UNSEG_LENGTH_DEFï¼Œåˆ†åŒ…æœ€å¤§ä¸ºCONFIG_MESH_TX_SEG_DEF*BLE_MESH_APP_SEG_SDU_MAX-8ï¼ˆä¾æ®RAMä½¿ç”¨æƒ…å†µå†³å®šï¼‰
 #define APP_MAX_TX_SIZE    MAX(CONFIG_MESH_UNSEG_LENGTH_DEF, CONFIG_MESH_TX_SEG_DEF *BLE_MESH_APP_SEG_SDU_MAX - 8)
 
 static uint8_t vendor_model_cli_TaskID = 0; // Task ID for internal task/event processing
 static uint8_t cli_send_tid = 0;
-static int32_t cli_msg_timeout = K_SECONDS(2); //ÓĞÓ¦´ğµÄÊı¾İ´«Êä³¬Ê±Ê±¼ä£¬Ä¬ÈÏ2Ãë
+static int32_t cli_msg_timeout = K_SECONDS(2); //æœ‰åº”ç­”çš„æ•°æ®ä¼ è¾“è¶…æ—¶æ—¶é—´ï¼Œé»˜è®¤2ç§’
 
 static struct net_buf       cli_trans_buf;
 static struct bt_mesh_trans cli_trans = {
@@ -70,7 +70,7 @@ uint8_t vendor_cli_tid_get(void)
 /*********************************************************************
  * @fn      vendor_model_cli_reset
  *
- * @brief   ¸´Î»³§ÉÌÄ£ĞÍ·şÎñ£¬È¡ÏûËùÓĞÕıÔÚ·¢ËÍµÄÁ÷³Ì
+ * @brief   å¤ä½å‚å•†æ¨¡å‹æœåŠ¡ï¼Œå–æ¶ˆæ‰€æœ‰æ­£åœ¨å‘é€çš„æµç¨‹
  *
  * @return  none
  */
@@ -95,10 +95,10 @@ static void vendor_model_cli_reset(void)
 /*********************************************************************
  * @fn      vendor_model_cli_rsp_recv
  *
- * @brief   µ÷ÓÃÓ¦ÓÃ²ã´«ÈëµÄ»Øµ÷
+ * @brief   è°ƒç”¨åº”ç”¨å±‚ä¼ å…¥çš„å›è°ƒ
  *
- * @param   val     - »Øµ÷²ÎÊı£¬°üÀ¨ÏûÏ¢ÀàĞÍ¡¢Êı¾İÄÚÈİ¡¢³¤¶È¡¢À´Ô´µØÖ·
- * @param   statu   - ×´Ì¬
+ * @param   val     - å›è°ƒå‚æ•°ï¼ŒåŒ…æ‹¬æ¶ˆæ¯ç±»å‹ã€æ•°æ®å†…å®¹ã€é•¿åº¦ã€æ¥æºåœ°å€
+ * @param   statu   - çŠ¶æ€
  *
  * @return  none
  */
@@ -123,9 +123,9 @@ static void vendor_model_cli_rsp_recv(vendor_model_cli_status_t *val, uint8_t st
 /*********************************************************************
  * @fn      vendor_model_cli_wait
  *
- * @brief   Ä¬ÈÏÁ½Ãë³¬Ê±ºóÍ¨ÖªÓ¦ÓÃ²ã
+ * @brief   é»˜è®¤ä¸¤ç§’è¶…æ—¶åé€šçŸ¥åº”ç”¨å±‚
  *
- * @return  ²Î¿¼BLE_LIB err code
+ * @return  å‚è€ƒBLE_LIB err code
  */
 static int vendor_model_cli_wait(void)
 {
@@ -140,12 +140,12 @@ static int vendor_model_cli_wait(void)
 /*********************************************************************
  * @fn      vendor_model_cli_prepare
  *
- * @brief   Ô¤·¢ËÍ£¬¼ÇÂ¼µ±Ç°ÏûÏ¢ÀàĞÍ
+ * @brief   é¢„å‘é€ï¼Œè®°å½•å½“å‰æ¶ˆæ¯ç±»å‹
  *
- * @param   op_req  - ·¢³öÈ¥µÄÏûÏ¢ÀàĞÍ
- * @param   op      - ÆÚ´ıÊÕµ½µÄÏûÏ¢ÀàĞÍ
+ * @param   op_req  - å‘å‡ºå»çš„æ¶ˆæ¯ç±»å‹
+ * @param   op      - æœŸå¾…æ”¶åˆ°çš„æ¶ˆæ¯ç±»å‹
  *
- * @return  ´íÎóÂë
+ * @return  é”™è¯¯ç 
  */
 static int vendor_model_cli_prepare(uint32_t op_req, uint32_t op)
 {
@@ -170,7 +170,7 @@ static int vendor_model_cli_prepare(uint32_t op_req, uint32_t op)
 /*********************************************************************
  * @fn      vendor_cli_sync_handler
  *
- * @brief   Í¨ÖªÓ¦ÓÃ²ãµ±Ç°op_code³¬Ê±ÁË
+ * @brief   é€šçŸ¥åº”ç”¨å±‚å½“å‰op_codeè¶…æ—¶äº†
  *
  * @return  none
  */
@@ -188,12 +188,12 @@ static void vendor_cli_sync_handler(void)
 /*********************************************************************
  * @fn      vendor_message_cli_ack
  *
- * @brief   ·¢ËÍvendor_message_cli_ack - ¸ÃÏûÏ¢ÓÃÓÚVendor Model Client»Ø¸´¸øVendor Model Server£¬
- *          ÓÃÓÚ±íÊ¾ÒÑÊÕµ½Vendor Model Server·¢³öµÄIndication
+ * @brief   å‘é€vendor_message_cli_ack - è¯¥æ¶ˆæ¯ç”¨äºVendor Model Clientå›å¤ç»™Vendor Model Serverï¼Œ
+ *          ç”¨äºè¡¨ç¤ºå·²æ”¶åˆ°Vendor Model Serverå‘å‡ºçš„Indication
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -224,11 +224,11 @@ static void vendor_message_cli_ack(struct bt_mesh_model   *model,
 /*********************************************************************
  * @fn      vendor_message_cli_trans
  *
- * @brief   ÊÕµ½Í¸´«Êı¾İ
+ * @brief   æ”¶åˆ°é€ä¼ æ•°æ®
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -244,7 +244,7 @@ static void vendor_message_cli_trans(struct bt_mesh_model   *model,
     {
         vendor_model_cli->cli_tid.trans_tid = pData[0];
         vendor_model_cli->cli_tid.trans_addr = ctx->addr;
-        // ¿ªÍ·Îªtid
+        // å¼€å¤´ä¸ºtid
         pData++;
         len--;
         vendor_model_cli_status.vendor_model_cli_Hdr.opcode =
@@ -264,11 +264,11 @@ static void vendor_message_cli_trans(struct bt_mesh_model   *model,
 /*********************************************************************
  * @fn      vendor_message_cli_ind
  *
- * @brief   ÊÕµ½Indication Êı¾İ£¬ËæºóÓ¦´ğvendor_message_cli_ack
+ * @brief   æ”¶åˆ°Indication æ•°æ®ï¼Œéšååº”ç­”vendor_message_cli_ack
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -285,7 +285,7 @@ static void vendor_message_cli_ind(struct bt_mesh_model *model, struct bt_mesh_m
     {
         vendor_model_cli->cli_tid.ind_tid = pData[0];
         vendor_model_cli->cli_tid.trans_addr = ctx->addr;
-        // ¿ªÍ·Îªtid
+        // å¼€å¤´ä¸ºtid
         pData++;
         len--;
         vendor_model_cli_status.vendor_model_cli_Hdr.opcode =
@@ -306,12 +306,12 @@ static void vendor_message_cli_ind(struct bt_mesh_model *model, struct bt_mesh_m
 /*********************************************************************
  * @fn      vendor_message_cli_cfm
  *
- * @brief   ÊÕµ½vendor_message_cli_cfm - ¸ÃÏûÏ¢ÓÃÓÚVendor Model Server»Ø¸´¸øVendor Model Client£¬
- *          ÓÃÓÚ±íÊ¾ÒÑÊÕµ½Vendor Model Client·¢³öµÄ Write
+ * @brief   æ”¶åˆ°vendor_message_cli_cfm - è¯¥æ¶ˆæ¯ç”¨äºVendor Model Serverå›å¤ç»™Vendor Model Clientï¼Œ
+ *          ç”¨äºè¡¨ç¤ºå·²æ”¶åˆ°Vendor Model Clientå‘å‡ºçš„ Write
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -333,7 +333,7 @@ static void vendor_message_cli_cfm(struct bt_mesh_model   *model,
     }
 }
 
-// opcode ¶ÔÓ¦µÄ´¦Àíº¯Êı
+// opcode å¯¹åº”çš„å¤„ç†å‡½æ•°
 const struct bt_mesh_model_op vnd_model_cli_op[] = {
     {OP_VENDOR_MESSAGE_TRANSPARENT_MSG, 0, vendor_message_cli_trans},
     {OP_VENDOR_MESSAGE_TRANSPARENT_IND, 0, vendor_message_cli_ind},
@@ -344,13 +344,13 @@ const struct bt_mesh_model_op vnd_model_cli_op[] = {
 /*********************************************************************
  * @fn      vendor_message_cli_send_trans
  *
- * @brief   send_trans ,Í¸´«Êı¾İÍ¨µÀ
+ * @brief   send_trans ,é€ä¼ æ•°æ®é€šé“
  *
- * @param   param   - ·¢ËÍ²ÎÊı.
- * @param   pData   - Êı¾İÖ¸Õë.
- * @param   len     - Êı¾İ³¤¶È,×î´óÎª(APP_MAX_TX_SIZE).
+ * @param   param   - å‘é€å‚æ•°.
+ * @param   pData   - æ•°æ®æŒ‡é’ˆ.
+ * @param   len     - æ•°æ®é•¿åº¦,æœ€å¤§ä¸º(APP_MAX_TX_SIZE).
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 int vendor_message_cli_send_trans(struct send_param *param, uint8_t *pData,
                                   uint16_t len)
@@ -381,12 +381,12 @@ int vendor_message_cli_send_trans(struct send_param *param, uint8_t *pData,
 
     if(param->rand)
     {
-        // ÑÓ³Ù·¢ËÍ
+        // å»¶è¿Ÿå‘é€
         tmos_start_task(vendor_model_cli_TaskID, VENDOR_MODEL_CLI_TRANS_EVT, param->rand);
     }
     else
     {
-        // Ö±½Ó·¢ËÍ
+        // ç›´æ¥å‘é€
         adv_cli_trans_send();
     }
     return 0;
@@ -395,13 +395,13 @@ int vendor_message_cli_send_trans(struct send_param *param, uint8_t *pData,
 /*********************************************************************
  * @fn      vendor_message_cli_write
  *
- * @brief   write ,ÓĞÓ¦´ğ´«ÊäÊı¾İÍ¨µÀ
+ * @brief   write ,æœ‰åº”ç­”ä¼ è¾“æ•°æ®é€šé“
  *
- * @param   param   - ·¢ËÍ²ÎÊı.
- * @param   pData   - Êı¾İÖ¸Õë.
- * @param   len     - Êı¾İ³¤¶È,×î´óÎª(APP_MAX_TX_SIZE).
+ * @param   param   - å‘é€å‚æ•°.
+ * @param   pData   - æ•°æ®æŒ‡é’ˆ.
+ * @param   len     - æ•°æ®é•¿åº¦,æœ€å¤§ä¸º(APP_MAX_TX_SIZE).
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 int vendor_message_cli_write(struct send_param *param, uint8_t *pData, uint16_t len)
 {
@@ -443,7 +443,7 @@ int vendor_message_cli_write(struct send_param *param, uint8_t *pData, uint16_t 
 /*********************************************************************
  * @fn      adv_cli_trans_send
  *
- * @brief   ·¢ËÍ Í¸´« cli_trans
+ * @brief   å‘é€ é€ä¼  cli_trans
  *
  * @return  none
  */
@@ -495,7 +495,7 @@ static void adv_cli_trans_send(void)
         cli_trans.buf->__buf = NULL;
         return;
     }
-    // ÖØ´«
+    // é‡ä¼ 
     tmos_start_task(vendor_model_cli_TaskID, VENDOR_MODEL_CLI_TRANS_EVT,
                     cli_trans.param.period);
 }
@@ -503,7 +503,7 @@ static void adv_cli_trans_send(void)
 /*********************************************************************
  * @fn      vendor_message_cli_trans_reset
  *
- * @brief   È¡Ïû·¢ËÍtransÊı¾İµÄÈÎÎñ£¬ÊÍ·Å»º´æ
+ * @brief   å–æ¶ˆå‘é€transæ•°æ®çš„ä»»åŠ¡ï¼Œé‡Šæ”¾ç¼“å­˜
  *
  * @return  none
  */
@@ -517,10 +517,10 @@ void vendor_message_cli_trans_reset(void)
 /*********************************************************************
  * @fn      write_reset
  *
- * @brief   µ÷ÓÃwrite·¢ËÍÍê³É»Øµ÷£¬ÊÍ·Å»º´æ
+ * @brief   è°ƒç”¨writeå‘é€å®Œæˆå›è°ƒï¼Œé‡Šæ”¾ç¼“å­˜
  *
- * @param   write   - ĞèÒªÊÍ·ÅµÄwrite.
- * @param   err     - ´íÎó×´Ì¬.
+ * @param   write   - éœ€è¦é‡Šæ”¾çš„write.
+ * @param   err     - é”™è¯¯çŠ¶æ€.
  *
  * @return  none
  */
@@ -538,11 +538,11 @@ static void write_reset(struct bt_mesh_write *write, int err)
 /*********************************************************************
  * @fn      write_start
  *
- * @brief   ·¢ËÍ write ¿ªÊ¼»Øµ÷
+ * @brief   å‘é€ write å¼€å§‹å›è°ƒ
  *
- * @param   duration    - ´Ë´Î·¢ËÍ³ÖĞøµÄÊ±³¤£¨ms£©.
- * @param   err         - ´íÎó×´Ì¬.
- * @param   cb_data     - ´íÎó×´Ì¬·¢ËÍÊ±ÌîĞ´µÄ»Øµ÷²ÎÊı.
+ * @param   duration    - æ­¤æ¬¡å‘é€æŒç»­çš„æ—¶é•¿ï¼ˆmsï¼‰.
+ * @param   err         - é”™è¯¯çŠ¶æ€.
+ * @param   cb_data     - é”™è¯¯çŠ¶æ€å‘é€æ—¶å¡«å†™çš„å›è°ƒå‚æ•°.
  *
  * @return  none
  */
@@ -567,10 +567,10 @@ static void write_start(uint16_t duration, int err, void *cb_data)
 /*********************************************************************
  * @fn      write_end
  *
- * @brief   ·¢ËÍ write ½áÊø»Øµ÷
+ * @brief   å‘é€ write ç»“æŸå›è°ƒ
  *
- * @param   err         - ´íÎó×´Ì¬.
- * @param   cb_data     - ´íÎó×´Ì¬·¢ËÍÊ±ÌîĞ´µÄ»Øµ÷²ÎÊı.
+ * @param   err         - é”™è¯¯çŠ¶æ€.
+ * @param   cb_data     - é”™è¯¯çŠ¶æ€å‘é€æ—¶å¡«å†™çš„å›è°ƒå‚æ•°.
  *
  * @return  none
  */
@@ -588,7 +588,7 @@ static void write_end(int err, void *cb_data)
                     write->param.period);
 }
 
-// ·¢ËÍ indicate »Øµ÷½á¹¹Ìå
+// å‘é€ indicate å›è°ƒç»“æ„ä½“
 const struct bt_mesh_send_cb write_cb = {
     .start = write_start,
     .end = write_end,
@@ -597,7 +597,7 @@ const struct bt_mesh_send_cb write_cb = {
 /*********************************************************************
  * @fn      adv_cli_write_send
  *
- * @brief   ·¢ËÍ cli_write
+ * @brief   å‘é€ cli_write
  *
  * @return  none
  */
@@ -646,9 +646,9 @@ static void adv_cli_write_send(void)
 /*********************************************************************
  * @fn      vendor_model_cli_init
  *
- * @brief   ³§ÉÌÄ£ĞÍ³õÊ¼»¯
+ * @brief   å‚å•†æ¨¡å‹åˆå§‹åŒ–
  *
- * @param   model       - Ö¸Ïò³§ÉÌÄ£ĞÍ½á¹¹Ìå
+ * @param   model       - æŒ‡å‘å‚å•†æ¨¡å‹ç»“æ„ä½“
  *
  * @return  always SUCCESS
  */
@@ -664,7 +664,7 @@ int vendor_model_cli_init(struct bt_mesh_model *model)
 /*********************************************************************
  * @fn      vendor_model_cli_ProcessEvent
  *
- * @brief   ³§ÉÌÄ£ĞÍÊÂ¼ş´¦Àíº¯Êı
+ * @brief   å‚å•†æ¨¡å‹äº‹ä»¶å¤„ç†å‡½æ•°
  *
  * @param   task_id  - The TMOS assigned task ID.
  * @param   events - events to process.  This is a bit map and can

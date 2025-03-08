@@ -64,11 +64,11 @@ static uint16_t als_vendor_model_ProcessEvent(uint8_t task_id, uint16_t events);
 /*********************************************************************
  * @fn      tm_attr_get
  *
- * @brief   ÌìÃ¨»ñÈ¡ÊôĞÔÃüÁî
+ * @brief   å¤©çŒ«è·å–å±æ€§å‘½ä»¤
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -80,11 +80,11 @@ static void tm_attr_get(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *ctx
 /*********************************************************************
  * @fn      tm_attr_set
  *
- * @brief   ÌìÃ¨ÉèÖÃÊôĞÔÃüÁî
+ * @brief   å¤©çŒ«è®¾ç½®å±æ€§å‘½ä»¤
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -96,11 +96,11 @@ static void tm_attr_set(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *ctx
 /*********************************************************************
  * @fn      tm_attr_set_unack
  *
- * @brief   ÌìÃ¨ÉèÖÃÊôĞÔÃüÁî£¨ÎŞÓ¦´ğ£©
+ * @brief   å¤©çŒ«è®¾ç½®å±æ€§å‘½ä»¤ï¼ˆæ— åº”ç­”ï¼‰
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -112,11 +112,11 @@ static void tm_attr_set_unack(struct bt_mesh_model *model, struct bt_mesh_msg_ct
 /*********************************************************************
  * @fn      tm_attr_status
  *
- * @brief   ÌìÃ¨×´Ì¬Ó¦´ğ
+ * @brief   å¤©çŒ«çŠ¶æ€åº”ç­”
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -128,12 +128,12 @@ static void tm_attr_status(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *
 /*********************************************************************
  * @fn      tm_attr_confirm
  *
- * @brief   ÊÕµ½ÌìÃ¨¾«Áé·¢³öµÄconfirm - ¸ÃÏûÏ¢ÓÃÓÚVendor Model Client»Ø¸´¸øVendor Model Server£¬
-                                 ÓÃÓÚ±íÊ¾ÒÑÊÕµ½Vendor Model Server·¢³öµÄIndication
+ * @brief   æ”¶åˆ°å¤©çŒ«ç²¾çµå‘å‡ºçš„confirm - è¯¥æ¶ˆæ¯ç”¨äºVendor Model Clientå›å¤ç»™Vendor Model Serverï¼Œ
+                                 ç”¨äºè¡¨ç¤ºå·²æ”¶åˆ°Vendor Model Serverå‘å‡ºçš„Indication
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -160,11 +160,11 @@ static void tm_attr_confirm(struct bt_mesh_model *model, struct bt_mesh_msg_ctx 
 /*********************************************************************
  * @fn      tm_attr_trans
  *
- * @brief   ¸ÃÏûÏ¢ÓÃÓÚMeshÉè±¸ÓëÌìÃ¨¾«ÁéÖ®¼äÍ¸´«Êı¾İ
+ * @brief   è¯¥æ¶ˆæ¯ç”¨äºMeshè®¾å¤‡ä¸å¤©çŒ«ç²¾çµä¹‹é—´é€ä¼ æ•°æ®
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -173,7 +173,7 @@ static void tm_attr_trans(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *c
     APP_DBG(" ");
 }
 
-// opcode ¶ÔÓ¦µÄ´¦Àíº¯Êı
+// opcode å¯¹åº”çš„å¤„ç†å‡½æ•°
 static const struct bt_mesh_model_op vnd_model_op[] = {
     {OP_VENDOR_MESSAGE_ATTR_GET, 0, tm_attr_get},
     {OP_VENDOR_MESSAGE_ATTR_SET, 0, tm_attr_set},
@@ -209,9 +209,9 @@ uint8_t als_avail_tid_get(void)
 /*********************************************************************
  * @fn      uuid_generate
  *
- * @brief   Éú³É°¢Àï¹æ·¶µÄUUID
+ * @brief   ç”Ÿæˆé˜¿é‡Œè§„èŒƒçš„UUID
  *
- * @param   cfg - ÅäÖÃĞÅÏ¢
+ * @param   cfg - é…ç½®ä¿¡æ¯
  *
  * @return  none
  */
@@ -221,14 +221,14 @@ static void uuid_generate(struct bt_als_cfg const *cfg)
     tm_uuid[0] = cfg->cid;
     tm_uuid[1] = cfg->cid >> 8;
 
-    /*	bit3¡«0 £ºÀ¶ÑÀ¹ã²¥°ü°æ±¾ºÅ£¬Ä¿Ç°ÊÇ0x01
-            bit4Îª1£ºÒ»»úÒ»ÃÜ
-            bit5Îª1£ºÖ§³ÖOTA
-            bit7¡«6£ºÀ¶ÑÀĞ­Òé°æ±¾
-                                00£ºBLE4.0
-                                01£ºBLE4.2
-                                10£ºBLE5.0
-                                11£ºBLE5.0ÒÔÉÏ */
+    /*	bit3ï½0 ï¼šè“ç‰™å¹¿æ’­åŒ…ç‰ˆæœ¬å·ï¼Œç›®å‰æ˜¯0x01
+            bit4ä¸º1ï¼šä¸€æœºä¸€å¯†
+            bit5ä¸º1ï¼šæ”¯æŒOTA
+            bit7ï½6ï¼šè“ç‰™åè®®ç‰ˆæœ¬
+                                00ï¼šBLE4.0
+                                01ï¼šBLE4.2
+                                10ï¼šBLE5.0
+                                11ï¼šBLE5.0ä»¥ä¸Š */
     /* Advertising Verison */
     tm_uuid[2] = BIT(0) | /* adv version */
                  BIT(4) | /* secret */
@@ -258,11 +258,11 @@ static void uuid_generate(struct bt_als_cfg const *cfg)
 /*********************************************************************
  * @fn      num_to_str
  *
- * @brief   Êı×Ö×ª×Ö·û
+ * @brief   æ•°å­—è½¬å­—ç¬¦
  *
- * @param   out     - Êä³ö
- * @param   in      - ÊäÈë
- * @param   in_len  - ³¤¶È
+ * @param   out     - è¾“å‡º
+ * @param   in      - è¾“å…¥
+ * @param   in_len  - é•¿åº¦
  *
  * @return  none
  */
@@ -281,9 +281,9 @@ static void num_to_str(uint8_t *out, const uint8_t *in, uint16_t in_len)
 /*********************************************************************
  * @fn      oob_key_generate
  *
- * @brief   Éú³ÉOOB key
+ * @brief   ç”ŸæˆOOB key
  *
- * @param   cfg - ÅäÖÃĞÅÏ¢
+ * @param   cfg - é…ç½®ä¿¡æ¯
  *
  * @return  none
  */
@@ -330,10 +330,10 @@ static void oob_key_generate(struct bt_als_cfg const *cfg)
 /*********************************************************************
  * @fn      ind_reset
  *
- * @brief   ÒÆ³ıÁĞ±í£¬µ÷ÓÃ·¢ËÍÍê³É»Øµ÷£¬ÊÍ·Å»º´æ
+ * @brief   ç§»é™¤åˆ—è¡¨ï¼Œè°ƒç”¨å‘é€å®Œæˆå›è°ƒï¼Œé‡Šæ”¾ç¼“å­˜
  *
- * @param   ind     - ĞèÒªÖØÖÃµÄÍ¨Öª
- * @param   err     - ´íÎóÂë
+ * @param   ind     - éœ€è¦é‡ç½®çš„é€šçŸ¥
+ * @param   err     - é”™è¯¯ç 
  *
  * @return  none
  */
@@ -351,7 +351,7 @@ static void ind_reset(struct bt_mesh_indicate *ind, int err)
 /*********************************************************************
  * @fn      bt_mesh_indicate_reset
  *
- * @brief   ÊÍ·ÅËùÓĞÎ´·¢ËÍµÄÍ¨Öª
+ * @brief   é‡Šæ”¾æ‰€æœ‰æœªå‘é€çš„é€šçŸ¥
  *
  * @param   none
  *
@@ -372,11 +372,11 @@ void bt_mesh_indicate_reset(void)
 /*********************************************************************
  * @fn      ind_start
  *
- * @brief   ·¢ËÍ indicate ¿ªÊ¼»Øµ÷
+ * @brief   å‘é€ indicate å¼€å§‹å›è°ƒ
  *
- * @param   duration    - ±¾´Î·¢ËÍ½«Òª³ÖĞøµÄÊ±³¤
- * @param   err         - ´íÎóÂë
- * @param   cb_data     - »Øµ÷²ÎÊı
+ * @param   duration    - æœ¬æ¬¡å‘é€å°†è¦æŒç»­çš„æ—¶é•¿
+ * @param   err         - é”™è¯¯ç 
+ * @param   cb_data     - å›è°ƒå‚æ•°
  *
  * @return  none
  */
@@ -400,10 +400,10 @@ static void ind_start(uint16_t duration, int err, void *cb_data)
 /*********************************************************************
  * @fn      ind_end
  *
- * @brief   ·¢ËÍ indicate ½áÊø»Øµ÷
+ * @brief   å‘é€ indicate ç»“æŸå›è°ƒ
  *
- * @param   err         - ´íÎóÂë
- * @param   cb_data     - »Øµ÷²ÎÊı
+ * @param   err         - é”™è¯¯ç 
+ * @param   cb_data     - å›è°ƒå‚æ•°
  *
  * @return  none
  */
@@ -418,7 +418,7 @@ static void ind_end(int err, void *cb_data)
     tmos_start_task(als_vendor_model_TaskID, ind->event, ind->param.period);
 }
 
-// ·¢ËÍ indicate »Øµ÷½á¹¹Ìå
+// å‘é€ indicate å›è°ƒç»“æ„ä½“
 const struct bt_mesh_send_cb ind_cb =
     {
         .start = ind_start,
@@ -428,9 +428,9 @@ const struct bt_mesh_send_cb ind_cb =
 /*********************************************************************
  * @fn      adv_ind_send
  *
- * @brief   ·¢ËÍ indicate
+ * @brief   å‘é€ indicate
  *
- * @param   ind - ĞèÒª·¢ËÍµÄÍ¨Öª
+ * @param   ind - éœ€è¦å‘é€çš„é€šçŸ¥
  *
  * @return  none
  */
@@ -475,11 +475,11 @@ static void adv_ind_send(struct bt_mesh_indicate *ind)
 /*********************************************************************
  * @fn      bt_mesh_ind_alloc
  *
- * @brief   ÕÒÒ»¸ö¿ÕµÄindicate£¬²¢·ÖÅäÄÚ´æ
+ * @brief   æ‰¾ä¸€ä¸ªç©ºçš„indicateï¼Œå¹¶åˆ†é…å†…å­˜
  *
- * @param   len - ĞèÒª·ÖÅäµÄÊı¾İ³¤¶È
+ * @param   len - éœ€è¦åˆ†é…çš„æ•°æ®é•¿åº¦
  *
- * @return  indicate½á¹¹ÌåÖ¸Õë
+ * @return  indicateç»“æ„ä½“æŒ‡é’ˆ
  */
 struct bt_mesh_indicate *bt_mesh_ind_alloc(uint16_t len)
 {
@@ -504,9 +504,9 @@ struct bt_mesh_indicate *bt_mesh_ind_alloc(uint16_t len)
 /*********************************************************************
  * @fn      bt_mesh_indicate_send
  *
- * @brief   Æô¶¯·¢ËÍÍ¨ÖªµÄÊÂ¼ş
+ * @brief   å¯åŠ¨å‘é€é€šçŸ¥çš„äº‹ä»¶
  *
- * @param   ind - indicate½á¹¹ÌåÖ¸Õë
+ * @param   ind - indicateç»“æ„ä½“æŒ‡é’ˆ
  *
  * @return  none
  */
@@ -518,9 +518,9 @@ void bt_mesh_indicate_send(struct bt_mesh_indicate *ind)
 /*********************************************************************
  * @fn      send_led_indicate
  *
- * @brief   ·¢ËÍµ±Ç°LED×´Ì¬£¬µ±ÓĞLED×´Ì¬¸üĞÂÊ±¶¼ĞèÒªµ÷ÓÃ´Ëº¯Êı
+ * @brief   å‘é€å½“å‰LEDçŠ¶æ€ï¼Œå½“æœ‰LEDçŠ¶æ€æ›´æ–°æ—¶éƒ½éœ€è¦è°ƒç”¨æ­¤å‡½æ•°
  *
- * @param   param -  ·¢ËÍÍ¨ÖªµÄ·¢ËÍ²ÎÊı
+ * @param   param -  å‘é€é€šçŸ¥çš„å‘é€å‚æ•°
  *
  * @return  none
  */
@@ -554,9 +554,9 @@ void send_led_indicate(struct indicate_param *param)
 /*********************************************************************
  * @fn      send_lightness_indicate
  *
- * @brief   ·¢ËÍµ±Ç°LEDÁÁ¶È£¬µ±ÓĞLEDÁÁ¶È¸üĞÂÊ±¶¼ĞèÒªµ÷ÓÃ´Ëº¯Êı
+ * @brief   å‘é€å½“å‰LEDäº®åº¦ï¼Œå½“æœ‰LEDäº®åº¦æ›´æ–°æ—¶éƒ½éœ€è¦è°ƒç”¨æ­¤å‡½æ•°
  *
- * @param   param   - ·¢ËÍÍ¨ÖªµÄ·¢ËÍ²ÎÊı
+ * @param   param   - å‘é€é€šçŸ¥çš„å‘é€å‚æ•°
  *
  * @return  none
  */
@@ -581,7 +581,7 @@ void send_lightness_indicate(struct indicate_param *param)
     /* Add brightness attrbute opcode */
     net_buf_simple_add_le16(&(ind->buf->b), ALI_GEN_ATTR_TYPE_BRIGHTNESS);
 
-    /* Add brightness status (655~65535¶ÔÓ¦ÌìÃ¨¿ØÖÆ1~100) */
+    /* Add brightness status (655~65535å¯¹åº”å¤©çŒ«æ§åˆ¶1~100) */
     net_buf_simple_add_le16(&(ind->buf->b), read_led_lightness(MSG_PIN));
 
     bt_mesh_indicate_send(ind);
@@ -590,9 +590,9 @@ void send_lightness_indicate(struct indicate_param *param)
 /*********************************************************************
  * @fn      als_vendor_init
  *
- * @brief   °¢Àï ³§¼ÒÄ£ĞÍ ³õÊ¼»¯
+ * @brief   é˜¿é‡Œ å‚å®¶æ¨¡å‹ åˆå§‹åŒ–
  *
- * @param   model -  »Øµ÷Ä£ĞÍ²ÎÊı
+ * @param   model -  å›è°ƒæ¨¡å‹å‚æ•°
  *
  * @return  always success
  */
@@ -625,7 +625,7 @@ int als_vendor_init(struct bt_mesh_model *model)
 /*********************************************************************
  * @fn      als_vendor_model_ProcessEvent
  *
- * @brief   °¢Àï³§ÉÌÄ£ĞÍÊÂ¼ş´¦Àí
+ * @brief   é˜¿é‡Œå‚å•†æ¨¡å‹äº‹ä»¶å¤„ç†
  *
  * @param   task_id  - The TMOS assigned task ID.
  * @param   events - events to process.  This is a bit map and can

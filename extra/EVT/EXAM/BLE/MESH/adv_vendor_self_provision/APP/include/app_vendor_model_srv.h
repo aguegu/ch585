@@ -37,7 +37,7 @@ extern "C" {
 #define VENDOR_MODEL_SRV_INDICATE_EVT        (1 << 2)
 
 /**
- * @brief ·¢ËÍÊý¾ÝµÄ¿ªÊ¼ºÍ½áÊø»Øµ÷º¯Êý¶¨Òå
+ * @brief å‘é€æ•°æ®çš„å¼€å§‹å’Œç»“æŸå›žè°ƒå‡½æ•°å®šä¹‰
  */
 struct bt_adv_trans_cb
 {
@@ -46,7 +46,7 @@ struct bt_adv_trans_cb
 };
 
 /**
- * @brief ·¢ËÍ²ÎÊý½á¹¹Ìå
+ * @brief å‘é€å‚æ•°ç»“æž„ä½“
  */
 struct send_param
 {
@@ -64,7 +64,7 @@ struct send_param
 };
 
 /**
- * @brief indicate ·¢ËÍ»º´æ
+ * @brief indicate å‘é€ç¼“å­˜
  */
 struct bt_mesh_indicate
 {
@@ -73,7 +73,7 @@ struct bt_mesh_indicate
 };
 
 /**
- * @brief trans ·¢ËÍ»º´æ
+ * @brief trans å‘é€ç¼“å­˜
  */
 struct bt_mesh_trans
 {
@@ -82,7 +82,7 @@ struct bt_mesh_trans
 };
 
 /**
- * @brief write ·¢ËÍ»º´æ
+ * @brief write å‘é€ç¼“å­˜
  */
 struct bt_mesh_write
 {
@@ -91,7 +91,7 @@ struct bt_mesh_write
 };
 
 /**
- * @brief write »Øµ÷½á¹¹Ìå
+ * @brief write å›žè°ƒç»“æž„ä½“
  */
 struct bt_mesh_vendor_model_write
 {
@@ -101,7 +101,7 @@ struct bt_mesh_vendor_model_write
 };
 
 /**
- * @brief srv_trans »Øµ÷½á¹¹Ìå
+ * @brief srv_trans å›žè°ƒç»“æž„ä½“
  */
 struct bt_mesh_vendor_model_srv_trans
 {
@@ -140,7 +140,7 @@ typedef struct
 typedef void (*vendor_model_srv_rsp_handler_t)(const vendor_model_srv_status_t *val);
 
 /**
- * @brief ¼ÇÂ¼µ±Ç°·¢ËÍÊý¾Ý°üµÄtid
+ * @brief è®°å½•å½“å‰å‘é€æ•°æ®åŒ…çš„tid
  */
 struct vendor_model_srv_tid
 {
@@ -165,48 +165,48 @@ struct bt_mesh_vendor_model_srv
 extern const struct bt_mesh_model_op vnd_model_srv_op[];
 
 /**
- * @brief   ¶ÁÈ¡led×´Ì¬
+ * @brief   è¯»å–ledçŠ¶æ€
  *
- * @param   led_pin - Òý½Å
+ * @param   led_pin - å¼•è„š
  *
- * @return  led×´Ì¬
+ * @return  ledçŠ¶æ€
  */
 BOOL read_led_state(uint32_t led_pin);
 
 /**
- * @brief   ÉèÖÃled×´Ì¬
+ * @brief   è®¾ç½®ledçŠ¶æ€
  *
- * @param   led_pin - Òý½Å
- * @param   on      - ×´Ì¬
+ * @param   led_pin - å¼•è„š
+ * @param   on      - çŠ¶æ€
  */
 void set_led_state(uint32_t led_pin, BOOL on);
 
 /**
- * @brief   ·­×ªled×´Ì¬
+ * @brief   ç¿»è½¬ledçŠ¶æ€
  *
- * @param   led_pin - Òý½Å
+ * @param   led_pin - å¼•è„š
  */
 void toggle_led_state(uint32_t led_pin);
 
 /**
- * @brief   indicate,ÓÐÓ¦´ð´«ÊäÊý¾ÝÍ¨µÀ
+ * @brief   indicate,æœ‰åº”ç­”ä¼ è¾“æ•°æ®é€šé“
  *
- * @param   param   - ·¢ËÍ²ÎÊý.
- * @param   pData   - Êý¾ÝÖ¸Õë.
- * @param   len     - Êý¾Ý³¤¶È,×î´óÎª(APP_MAX_TX_SIZE).
+ * @param   param   - å‘é€å‚æ•°.
+ * @param   pData   - æ•°æ®æŒ‡é’ˆ.
+ * @param   len     - æ•°æ®é•¿åº¦,æœ€å¤§ä¸º(APP_MAX_TX_SIZE).
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 int vendor_message_srv_indicate(struct send_param *param, uint8_t *pData, uint16_t len);
 
 /**
- * @brief   send_trans,Í¸´«Êý¾ÝÍ¨µÀ
+ * @brief   send_trans,é€ä¼ æ•°æ®é€šé“
  *
- * @param   param   - ·¢ËÍ²ÎÊý.
- * @param   pData   - Êý¾ÝÖ¸Õë.
- * @param   len     - Êý¾Ý³¤¶È,×î´óÎª(APP_MAX_TX_SIZE).
+ * @param   param   - å‘é€å‚æ•°.
+ * @param   pData   - æ•°æ®æŒ‡é’ˆ.
+ * @param   len     - æ•°æ®é•¿åº¦,æœ€å¤§ä¸º(APP_MAX_TX_SIZE).
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 int vendor_message_srv_send_trans(struct send_param *param, uint8_t *pData, uint16_t len);
 
@@ -218,14 +218,14 @@ int vendor_message_srv_send_trans(struct send_param *param, uint8_t *pData, uint
 uint8_t vendor_srv_tid_get(void);
 
 /**
- * @brief   ¸´Î»³§ÉÌÄ£ÐÍ·þÎñ£¬È¡ÏûËùÓÐÕýÔÚ·¢ËÍµÄÁ÷³Ì
+ * @brief   å¤ä½åŽ‚å•†æ¨¡åž‹æœåŠ¡ï¼Œå–æ¶ˆæ‰€æœ‰æ­£åœ¨å‘é€çš„æµç¨‹
  */
 void vendor_message_srv_trans_reset(void);
 
 /**
- * @brief   ³§ÉÌÄ£ÐÍ³õÊ¼»¯
+ * @brief   åŽ‚å•†æ¨¡åž‹åˆå§‹åŒ–
  *
- * @param   model       - Ö¸Ïò³§ÉÌÄ£ÐÍ½á¹¹Ìå
+ * @param   model       - æŒ‡å‘åŽ‚å•†æ¨¡åž‹ç»“æž„ä½“
  *
  * @return  always SUCCESS
  */

@@ -98,14 +98,14 @@ static struct bt_mesh_elem elements[] = {
     }
 };
 
-// elements ¹¹³É Node Composition
+// elements æ„æˆ Node Composition
 const struct bt_mesh_comp app_comp = {
-    .cid = 0x07D7, // WCH ¹«Ë¾id
+    .cid = 0x07D7, // WCH å…¬å¸id
     .elem = elements,
     .elem_count = ARRAY_SIZE(elements),
 };
 
-// ÅäÍø²ÎÊıºÍ»Øµ÷
+// é…ç½‘å‚æ•°å’Œå›è°ƒ
 static const struct bt_mesh_prov app_prov = {
     .uuid = tm_uuid,
     .static_val_len = ARRAY_SIZE(static_key),
@@ -123,9 +123,9 @@ static const struct bt_mesh_prov app_prov = {
 /*********************************************************************
  * @fn      silen_adv_set
  *
- * @brief   ÉèÖÃ¾²Ä¬¹ã²¥
+ * @brief   è®¾ç½®é™é»˜å¹¿æ’­
  *
- * @param   flag   - 0£¨´¦ÓÚÎ´ÅäÍø¹ã²¥×´Ì¬£©£¬1£¨´¦ÓÚ¾²Ä¬¹ã²¥×´Ì¬£©.
+ * @param   flag   - 0ï¼ˆå¤„äºæœªé…ç½‘å¹¿æ’­çŠ¶æ€ï¼‰ï¼Œ1ï¼ˆå¤„äºé™é»˜å¹¿æ’­çŠ¶æ€ï¼‰.
  *
  * @return  none
  */
@@ -138,7 +138,7 @@ static void silen_adv_set(uint8_t flag)
 /*********************************************************************
  * @fn      prov_enable
  *
- * @brief   Ê¹ÄÜÅäÍø¹¦ÄÜ
+ * @brief   ä½¿èƒ½é…ç½‘åŠŸèƒ½
  *
  * @param   none
  *
@@ -169,9 +169,9 @@ static void prov_enable(void)
 /*********************************************************************
  * @fn      link_open
  *
- * @brief   ÅäÍøÊ±ºóµÄlink´ò¿ª»Øµ÷
+ * @brief   é…ç½‘æ—¶åçš„linkæ‰“å¼€å›è°ƒ
  *
- * @param   bearer  - µ±Ç°linkÊÇPB_ADV»¹ÊÇPB_GATT
+ * @param   bearer  - å½“å‰linkæ˜¯PB_ADVè¿˜æ˜¯PB_GATT
  *
  * @return  none
  */
@@ -185,10 +185,10 @@ static void link_open(bt_mesh_prov_bearer_t bearer)
 /*********************************************************************
  * @fn      link_close
  *
- * @brief   ÅäÍøºóµÄlink¹Ø±Õ»Øµ÷
+ * @brief   é…ç½‘åçš„linkå…³é—­å›è°ƒ
  *
- * @param   bearer  - µ±Ç°linkÊÇPB_ADV»¹ÊÇPB_GATT
- * @param   reason  - link¹Ø±ÕÔ­Òò
+ * @param   bearer  - å½“å‰linkæ˜¯PB_ADVè¿˜æ˜¯PB_GATT
+ * @param   reason  - linkå…³é—­åŸå› 
  *
  * @return  none
  */
@@ -202,10 +202,10 @@ static void link_close(bt_mesh_prov_bearer_t bearer, uint8_t reason)
     }
     else
     {
-        /*ÌìÃ¨¾«Áé²»»áÏÂ·¢Config_model_app_bindºÍConfig_Model_Subscrption_AddÏûÏ¢¡£
-            IOTÉè±¸ĞèÒª×ÔĞĞ¸øËùÓĞElementµÄËùÓĞmodel°ó¶¨ÏÂ·¢µÄAppKey£¬²¢¸ù¾İ²úÆ·ÀàĞÍÎª¸÷¸ö
-            model¶©ÔÄÏàÓ¦µÄ×é²¥µØÖ·£¨¾ßÌåÆ·Àà×é²¥µØÖ·Çë²ÎÔÄ¸÷²úÆ·Èí¼ş¹æ·¶£©¡£À¶ÑÀMeshÉè±¸
-            Íê³ÉÅäÍøºóĞèÒª½øĞĞÏûÏ¢ÉÏ±¨£¬ÉÏ±¨ÏûÏ¢°üÀ¨¸ÃÉè±¸ËùÓĞÖ§³ÖµÄ¿ÉÉÏ±¨µÄÊôĞÔ¡£*/
+        /*å¤©çŒ«ç²¾çµä¸ä¼šä¸‹å‘Config_model_app_bindå’ŒConfig_Model_Subscrption_Addæ¶ˆæ¯ã€‚
+            IOTè®¾å¤‡éœ€è¦è‡ªè¡Œç»™æ‰€æœ‰Elementçš„æ‰€æœ‰modelç»‘å®šä¸‹å‘çš„AppKeyï¼Œå¹¶æ ¹æ®äº§å“ç±»å‹ä¸ºå„ä¸ª
+            modelè®¢é˜…ç›¸åº”çš„ç»„æ’­åœ°å€ï¼ˆå…·ä½“å“ç±»ç»„æ’­åœ°å€è¯·å‚é˜…å„äº§å“è½¯ä»¶è§„èŒƒï¼‰ã€‚è“ç‰™Meshè®¾å¤‡
+            å®Œæˆé…ç½‘åéœ€è¦è¿›è¡Œæ¶ˆæ¯ä¸ŠæŠ¥ï¼Œä¸ŠæŠ¥æ¶ˆæ¯åŒ…æ‹¬è¯¥è®¾å¤‡æ‰€æœ‰æ”¯æŒçš„å¯ä¸ŠæŠ¥çš„å±æ€§ã€‚*/
 
         /* For Light Subscription group address */
         root_models[2].groups[0] = (uint16_t)0xC000;
@@ -228,18 +228,18 @@ static void link_close(bt_mesh_prov_bearer_t bearer, uint8_t reason)
 /*********************************************************************
  * @fn      prov_complete
  *
- * @brief   ÅäÍøÍê³É»Øµ÷£¬ÖØĞÂ¿ªÊ¼¹ã²¥
+ * @brief   é…ç½‘å®Œæˆå›è°ƒï¼Œé‡æ–°å¼€å§‹å¹¿æ’­
  *
- * @param   net_idx     - ÍøÂçkeyµÄindex
- * @param   addr        - ÍøÂçµØÖ·
- * @param   flags       - ÊÇ·ñ´¦ÓÚkey refresh×´Ì¬
- * @param   iv_index    - µ±Ç°ÍøÂçivµÄindex
+ * @param   net_idx     - ç½‘ç»œkeyçš„index
+ * @param   addr        - ç½‘ç»œåœ°å€
+ * @param   flags       - æ˜¯å¦å¤„äºkey refreshçŠ¶æ€
+ * @param   iv_index    - å½“å‰ç½‘ç»œivçš„index
  *
  * @return  none
  */
 static void prov_complete(uint16_t net_idx, uint16_t addr, uint8_t flags, uint32_t iv_index)
 {
-    /* Éè±¸ÉÏµçºó£¬Èç¹ûÒÑÅäÍø£¬Ò²ĞèÒªÔÚ1~10sËæ»ú¼ä¸ôºóÉÏ±¨ËùÓĞÖ§³ÖµÄÊôĞÔ×´Ì¬¡£ */
+    /* è®¾å¤‡ä¸Šç”µåï¼Œå¦‚æœå·²é…ç½‘ï¼Œä¹Ÿéœ€è¦åœ¨1~10séšæœºé—´éš”åä¸ŠæŠ¥æ‰€æœ‰æ”¯æŒçš„å±æ€§çŠ¶æ€ã€‚ */
     tmosTimer rand_timer;
     APP_DBG(" ");
 
@@ -250,7 +250,7 @@ static void prov_complete(uint16_t net_idx, uint16_t addr, uint8_t flags, uint32
 /*********************************************************************
  * @fn      prov_reset
  *
- * @brief   ¸´Î»ÅäÍø¹¦ÄÜ»Øµ÷
+ * @brief   å¤ä½é…ç½‘åŠŸèƒ½å›è°ƒ
  *
  * @param   none
  *
@@ -266,10 +266,10 @@ static void prov_reset(void)
 /*********************************************************************
  * @fn      ind_end_cb
  *
- * @brief   ·¢ËÍ¸´Î»ÊÂ¼şÍê³É»Øµ÷
+ * @brief   å‘é€å¤ä½äº‹ä»¶å®Œæˆå›è°ƒ
  *
- * @param   err     - ´íÎóÂë
- * @param   cb_data - »Øµ÷²ÎÊı
+ * @param   err     - é”™è¯¯ç 
+ * @param   cb_data - å›è°ƒå‚æ•°
  *
  * @return  none
  */
@@ -286,7 +286,7 @@ static const struct bt_adv_ind_send_cb reset_cb = {
 /*********************************************************************
  * @fn      send_support_attr
  *
- * @brief   ·¢ËÍËùÓĞÖ§³ÖµÄ¿ÉÉÏ±¨µÄÊôĞÔ¸øÌìÃ¨¾«Áé,´ËÏûÏ¢¾ö¶¨ÌìÃ¨¾«ÁéÅĞ¶ÏÉè±¸Ö§³ÖÄÇĞ©¹¦ÄÜ
+ * @brief   å‘é€æ‰€æœ‰æ”¯æŒçš„å¯ä¸ŠæŠ¥çš„å±æ€§ç»™å¤©çŒ«ç²¾çµ,æ­¤æ¶ˆæ¯å†³å®šå¤©çŒ«ç²¾çµåˆ¤æ–­è®¾å¤‡æ”¯æŒé‚£äº›åŠŸèƒ½
  *
  * @param   none
  *
@@ -320,7 +320,7 @@ void send_support_attr(void)
     /* Add tid field */
     net_buf_simple_add_u8(&(ind->buf->b), ind->param.tid);
 
-    // Ìí¼Ó¿ª¹ØÊôĞÔ
+    // æ·»åŠ å¼€å…³å±æ€§
     {
         /* Add generic onoff attrbute op */
         net_buf_simple_add_le16(&(ind->buf->b), ALI_GEN_ATTR_TYPE_POWER_STATE);
@@ -328,13 +328,13 @@ void send_support_attr(void)
         /* Add current generic onoff status */
         net_buf_simple_add_u8(&(ind->buf->b), read_led_state(MSG_PIN));
     }
-    //	// ¿ÉÑ¡¸ù¾İ°¢ÀïÔÆÉèÖÃµÄ²úÆ·ÊôĞÔ¹¦ÄÜÌí¼Ó¶ÔÓ¦ÊôĞÔ ( BLE_MESH_MODEL_OP_LIGHT_LIGHTNESS_SET )
-    //	// ÕâÀïÌí¼ÓÁÁ¶ÈÊôĞÔÁô×÷²Î¿¼,»¹ĞèÒªÌí¼Ó¶ÔÓ¦µÄopcode´¦Àíº¯Êı,Ìí¼Ó·½Ê½²Î¿¼¿ª¹ØÊôĞÔµÄ gen_onoff_op ½á¹¹
+    //	// å¯é€‰æ ¹æ®é˜¿é‡Œäº‘è®¾ç½®çš„äº§å“å±æ€§åŠŸèƒ½æ·»åŠ å¯¹åº”å±æ€§ ( BLE_MESH_MODEL_OP_LIGHT_LIGHTNESS_SET )
+    //	// è¿™é‡Œæ·»åŠ äº®åº¦å±æ€§ç•™ä½œå‚è€ƒ,è¿˜éœ€è¦æ·»åŠ å¯¹åº”çš„opcodeå¤„ç†å‡½æ•°,æ·»åŠ æ–¹å¼å‚è€ƒå¼€å…³å±æ€§çš„ gen_onoff_op ç»“æ„
     //	{
     //		/* Add brightness attrbute opcode */
     //		net_buf_simple_add_le16(&(ind->buf->b), ALI_GEN_ATTR_TYPE_BRIGHTNESS);
 
-    //	/* Add brightness status (655~65535¶ÔÓ¦ÌìÃ¨¿ØÖÆ1~100) */
+    //	/* Add brightness status (655~65535å¯¹åº”å¤©çŒ«æ§åˆ¶1~100) */
     //		net_buf_simple_add_le16(&(ind->buf->b), 65535);
     //	}
 
@@ -344,7 +344,7 @@ void send_support_attr(void)
 /*********************************************************************
  * @fn      send_led_state
  *
- * @brief   ·¢ËÍµ±Ç°µÆµÄ×´Ì¬¸øÌìÃ¨¾«Áé
+ * @brief   å‘é€å½“å‰ç¯çš„çŠ¶æ€ç»™å¤©çŒ«ç²¾çµ
  *
  * @param   none
  *
@@ -374,7 +374,7 @@ void send_led_state(void)
 /*********************************************************************
  * @fn      send_reset_indicate
  *
- * @brief   ·¢ËÍ¸´Î»ÊÂ¼ş¸øÌìÃ¨¾«Áé£¬·¢ËÍÍê³Éºó½«Çå³ıÅäÍø×´Ì¬£¬ÖØÖÃ×ÔÉímeshÍøÂç
+ * @brief   å‘é€å¤ä½äº‹ä»¶ç»™å¤©çŒ«ç²¾çµï¼Œå‘é€å®Œæˆåå°†æ¸…é™¤é…ç½‘çŠ¶æ€ï¼Œé‡ç½®è‡ªèº«meshç½‘ç»œ
  *
  * @param   none
  *
@@ -424,9 +424,9 @@ void send_reset_indicate(void)
 /*********************************************************************
  * @fn      keyPress
  *
- * @brief   °´¼ü»Øµ÷
+ * @brief   æŒ‰é”®å›è°ƒ
  *
- * @param   keys    - °´¼üÀàĞÍ
+ * @param   keys    - æŒ‰é”®ç±»å‹
  *
  * @return  none
  */
@@ -448,7 +448,7 @@ void keyPress(uint8_t keys)
 /*********************************************************************
  * @fn      app_silent_adv
  *
- * @brief   ³¬Ê±ºóÈç¹û»¹Î´ÅäÍø³É¹¦£¬Ôò½øÈë¾²Ä¬¹ã²¥Ä£Ê½,ÈôÒÑÅäÍø£¬·¢ËÍÖ§³ÖµÄÊôĞÔ¸øÌìÃ¨¾«Áé
+ * @brief   è¶…æ—¶åå¦‚æœè¿˜æœªé…ç½‘æˆåŠŸï¼Œåˆ™è¿›å…¥é™é»˜å¹¿æ’­æ¨¡å¼,è‹¥å·²é…ç½‘ï¼Œå‘é€æ”¯æŒçš„å±æ€§ç»™å¤©çŒ«ç²¾çµ
  *
  * @param   none
  *
@@ -472,7 +472,7 @@ static void app_silent_adv(void)
 /*********************************************************************
  * @fn      blemesh_on_sync
  *
- * @brief   Í¬²½mesh²ÎÊı£¬ÆôÓÃ¶ÔÓ¦¹¦ÄÜ£¬²»½¨ÒéĞŞ¸Ä
+ * @brief   åŒæ­¥meshå‚æ•°ï¼Œå¯ç”¨å¯¹åº”åŠŸèƒ½ï¼Œä¸å»ºè®®ä¿®æ”¹
  *
  * @param   none
  *
@@ -525,7 +525,7 @@ void blemesh_on_sync(void)
 #endif /* PROXY || PB-GATT */
 
 #if(CONFIG_BLE_MESH_PROXY_CLI)
-    bt_mesh_proxy_client_init(cli); //´ıÌí¼Ó
+    bt_mesh_proxy_client_init(cli); //å¾…æ·»åŠ 
 #endif                              /* PROXY_CLI */
 
     bt_mesh_prov_retransmit_init();
@@ -585,7 +585,7 @@ void blemesh_on_sync(void)
 /*********************************************************************
  * @fn      App_Init
  *
- * @brief   Ó¦ÓÃ²ã³õÊ¼»¯
+ * @brief   åº”ç”¨å±‚åˆå§‹åŒ–
  *
  * @return  none
  */
@@ -603,7 +603,7 @@ void App_Init(void)
 /*********************************************************************
  * @fn      App_ProcessEvent
  *
- * @brief   Ó¦ÓÃ²ãÊÂ¼ş´¦Àíº¯Êı
+ * @brief   åº”ç”¨å±‚äº‹ä»¶å¤„ç†å‡½æ•°
  *
  * @param   task_id  - The TMOS assigned task ID.
  * @param   events - events to process.  This is a bit map and can

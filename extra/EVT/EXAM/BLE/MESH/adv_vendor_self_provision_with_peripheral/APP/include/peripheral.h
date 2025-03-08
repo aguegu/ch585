@@ -62,12 +62,12 @@ extern uint16_t Peripheral_ProcessEvent(uint8_t task_id, uint16_t events);
 extern void peripheralChar4Notify(uint8_t *pValue, uint16_t len);
 
 /*
- * ĞŞ¸Ä¹ã²¥Êı¾İÄÚÅäÍø±êÖ¾.
+ * ä¿®æ”¹å¹¿æ’­æ•°æ®å†…é…ç½‘æ ‡å¿—.
  */
 extern void Peripheral_AdvertData_Privisioned(uint8_t privisioned);
 
 /*
- * ¶Ï¿ªÁ¬½Ó.
+ * æ–­å¼€è¿æ¥.
  */
 extern void Peripheral_TerminateLink(void);
 

@@ -217,7 +217,7 @@ int usb_send(struct simple_buf *buf)
 tmosEvents uart_processevent(tmosTaskID task_id, tmosEvents events)
 {
     if(events & SYS_EVENT_MSG)
-    { // ´¦ÀíHAL²ãÏûÏ¢£¬µ÷ÓÃtmos_msg_receive¶ÁÈ¡ÏûÏ¢£¬´¦ÀíÍê³ÉºóÉ¾³ıÏûÏ¢¡£
+    { // å¤„ç†HALå±‚æ¶ˆæ¯ï¼Œè°ƒç”¨tmos_msg_receiveè¯»å–æ¶ˆæ¯ï¼Œå¤„ç†å®Œæˆååˆ é™¤æ¶ˆæ¯ã€‚
         uint8_t *msgPtr;
 
         msgPtr = tmos_msg_receive(task_id);
@@ -361,7 +361,7 @@ void USB_Task_Init(void)
 /*********************************************************************
  * @fn      UART0_IRQHandler
  *
- * @brief   UART0ÖĞ¶Ïº¯Êı
+ * @brief   UART0ä¸­æ–­å‡½æ•°
  *
  * @return  none
  */
@@ -373,20 +373,20 @@ void UART0_IRQHandler(void)
 
     switch(UART0_GetITFlag())
     {
-        case UART_II_LINE_STAT: // ÏßÂ·×´Ì¬´íÎó
+        case UART_II_LINE_STAT: // çº¿è·¯çŠ¶æ€é”™è¯¯
         {
             (void)UART0_GetLinSTA();
             break;
         }
 
-        case UART_II_RECV_RDY: // Êı¾İ´ïµ½ÉèÖÃ´¥·¢µã
+        case UART_II_RECV_RDY: // æ•°æ®è¾¾åˆ°è®¾ç½®è§¦å‘ç‚¹
             for(i = 0; i < (7 - 1); i++)
             {
                 simple_buf_add_u8(uart_buf, UART0_RecvByte());
             }
             break;
 
-        case UART_II_RECV_TOUT: // ½ÓÊÕ³¬Ê±£¬ÔİÊ±Ò»Ö¡Êı¾İ½ÓÊÕÍê³É
+        case UART_II_RECV_TOUT: // æ¥æ”¶è¶…æ—¶ï¼Œæš‚æ—¶ä¸€å¸§æ•°æ®æ¥æ”¶å®Œæˆ
             while(R8_UART0_RFC)
             {
                 simple_buf_add_u8(uart_buf, UART0_RecvByte());
@@ -395,10 +395,10 @@ void UART0_IRQHandler(void)
             PFIC_DisableIRQ(UART0_IRQn);
             break;
 
-        case UART_II_THR_EMPTY: // ·¢ËÍ»º´æÇø¿Õ£¬¿É¼ÌĞø·¢ËÍ
+        case UART_II_THR_EMPTY: // å‘é€ç¼“å­˜åŒºç©ºï¼Œå¯ç»§ç»­å‘é€
             break;
 
-        case UART_II_MODEM_CHG: // Ö»Ö§³Ö´®¿Ú0
+        case UART_II_MODEM_CHG: // åªæ”¯æŒä¸²å£0
             break;
 
         default:
@@ -409,7 +409,7 @@ void UART0_IRQHandler(void)
 /*********************************************************************
  * @fn      UART1_IRQHandler
  *
- * @brief   UART1ÖĞ¶Ïº¯Êı
+ * @brief   UART1ä¸­æ–­å‡½æ•°
  *
  * @return  none
  */
@@ -421,20 +421,20 @@ void UART1_IRQHandler(void)
 
     switch(UART1_GetITFlag())
     {
-        case UART_II_LINE_STAT: // ÏßÂ·×´Ì¬´íÎó
+        case UART_II_LINE_STAT: // çº¿è·¯çŠ¶æ€é”™è¯¯
         {
             (void)UART1_GetLinSTA();
             break;
         }
 
-        case UART_II_RECV_RDY: // Êı¾İ´ïµ½ÉèÖÃ´¥·¢µã
+        case UART_II_RECV_RDY: // æ•°æ®è¾¾åˆ°è®¾ç½®è§¦å‘ç‚¹
             for(i = 0; i < (7 - 1); i++)
             {
                 simple_buf_add_u8(uart_buf, UART1_RecvByte());
             }
             break;
 
-        case UART_II_RECV_TOUT: // ½ÓÊÕ³¬Ê±£¬ÔİÊ±Ò»Ö¡Êı¾İ½ÓÊÕÍê³É
+        case UART_II_RECV_TOUT: // æ¥æ”¶è¶…æ—¶ï¼Œæš‚æ—¶ä¸€å¸§æ•°æ®æ¥æ”¶å®Œæˆ
             while(R8_UART1_RFC)
             {
                 simple_buf_add_u8(uart_buf, UART1_RecvByte());
@@ -443,7 +443,7 @@ void UART1_IRQHandler(void)
             PFIC_DisableIRQ(UART1_IRQn);
             break;
 
-        case UART_II_THR_EMPTY: // ·¢ËÍ»º´æÇø¿Õ£¬¿É¼ÌĞø·¢ËÍ
+        case UART_II_THR_EMPTY: // å‘é€ç¼“å­˜åŒºç©ºï¼Œå¯ç»§ç»­å‘é€
             break;
 
         default:

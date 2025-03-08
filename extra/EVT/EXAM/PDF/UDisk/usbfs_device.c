@@ -193,7 +193,7 @@ uint8_t USBFS_Endp_DataUp(uint8_t endp, uint8_t *pbuf, uint16_t len, uint8_t mod
 /*********************************************************************
  * @fn      USB_DevTransProcess
  *
- * @brief   USB ´«Êä´¦Àíº¯Êı
+ * @brief   USB ä¼ è¾“å¤„ç†å‡½æ•°
  *
  * @param   none
  *
@@ -208,10 +208,10 @@ void USB_DevTransProcess(void)
 
     if(intflag & RB_UIF_TRANSFER)
     {
-        if((R8_USB_INT_ST & MASK_UIS_TOKEN) != MASK_UIS_TOKEN) // ·Ç¿ÕÏĞ
+        if((R8_USB_INT_ST & MASK_UIS_TOKEN) != MASK_UIS_TOKEN) // éç©ºé—²
         {
             switch(R8_USB_INT_ST & (MASK_UIS_TOKEN | MASK_UIS_ENDP))
-            // ·ÖÎö²Ù×÷ÁîÅÆºÍ¶ËµãºÅ
+            // åˆ†ææ“ä½œä»¤ç‰Œå’Œç«¯ç‚¹å·
             {
                 /* end-point 0 data in interrupt */
                 case UIS_TOKEN_IN | DEF_UEP0:
@@ -219,12 +219,12 @@ void USB_DevTransProcess(void)
                     switch(USBFS_SetupReqCode)
                     {
                         case USB_GET_DESCRIPTOR:
-                            len = USBFS_SetupReqLen >= DEF_USBD_UEP0_SIZE ? DEF_USBD_UEP0_SIZE : USBFS_SetupReqLen; // ±¾´Î´«Êä³¤¶È
-                            pdf_memcpy(pEP0_DataBuf, pUSBFS_Descr, len);                          /* ¼ÓÔØÉÏ´«Êı¾İ */
+                            len = USBFS_SetupReqLen >= DEF_USBD_UEP0_SIZE ? DEF_USBD_UEP0_SIZE : USBFS_SetupReqLen; // æœ¬æ¬¡ä¼ è¾“é•¿åº¦
+                            pdf_memcpy(pEP0_DataBuf, pUSBFS_Descr, len);                          /* åŠ è½½ä¸Šä¼ æ•°æ® */
                             USBFS_SetupReqLen -= len;
                             pUSBFS_Descr += len;
                             R8_UEP0_T_LEN = len;
-                            R8_UEP0_CTRL ^= RB_UEP_T_TOG; // ·­×ª
+                            R8_UEP0_CTRL ^= RB_UEP_T_TOG; // ç¿»è½¬
                             break;
 
                         case USB_SET_ADDRESS:
@@ -233,7 +233,7 @@ void USB_DevTransProcess(void)
                             break;
 
                         default:
-                            R8_UEP0_T_LEN = 0; // ×´Ì¬½×¶ÎÍê³ÉÖĞ¶Ï»òÕßÊÇÇ¿ÖÆÉÏ´«0³¤¶ÈÊı¾İ°ü½áÊø¿ØÖÆ´«Êä
+                            R8_UEP0_T_LEN = 0; // çŠ¶æ€é˜¶æ®µå®Œæˆä¸­æ–­æˆ–è€…æ˜¯å¼ºåˆ¶ä¸Šä¼ 0é•¿åº¦æ•°æ®åŒ…ç»“æŸæ§åˆ¶ä¼ è¾“
                             R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
                             break;
                     }
@@ -253,7 +253,7 @@ void USB_DevTransProcess(void)
 
                 case UIS_TOKEN_OUT | DEF_UEP3:
                     if(R8_USB_INT_ST & RB_UIS_TOG_OK)
-                    { // ²»Í¬²½µÄÊı¾İ°ü½«¶ªÆú
+                    { // ä¸åŒæ­¥çš„æ•°æ®åŒ…å°†ä¸¢å¼ƒ
                         R8_UEP3_CTRL ^= RB_UEP_R_TOG;
                         len = R8_USB_RX_LEN;
                         R8_UEP3_CTRL = (R8_UEP3_CTRL & ~MASK_UEP_R_RES) | UEP_R_RES_NAK;
@@ -268,7 +268,7 @@ void USB_DevTransProcess(void)
             R8_USB_INT_FG = RB_UIF_TRANSFER;
         }
 
-        if(R8_USB_INT_ST & RB_UIS_SETUP_ACT) // Setup°ü´¦Àí
+        if(R8_USB_INT_ST & RB_UIS_SETUP_ACT) // SetupåŒ…å¤„ç†
         {
             R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_NAK;
             /* Store All Setup Values */
@@ -307,10 +307,10 @@ void USB_DevTransProcess(void)
                 }
                 else
                 {
-                    errflag = 0xFF; /* ·Ç±ê×¼ÇëÇó */
+                    errflag = 0xFF; /* éæ ‡å‡†è¯·æ±‚ */
                 }
             }
-            else /* ±ê×¼ÇëÇó */
+            else /* æ ‡å‡†è¯·æ±‚ */
             {
                 switch(USBFS_SetupReqCode)
                 {
@@ -363,7 +363,7 @@ void USB_DevTransProcess(void)
                                         break;
 
                                     default:
-                                        errflag = 0xFF; // ²»Ö§³ÖµÄ×Ö·û´®ÃèÊö·û
+                                        errflag = 0xFF; // ä¸æ”¯æŒçš„å­—ç¬¦ä¸²æè¿°ç¬¦
                                         break;
                                 }
                             }
@@ -374,7 +374,7 @@ void USB_DevTransProcess(void)
                                 break;
                         }
                         if(USBFS_SetupReqLen > len)
-                            USBFS_SetupReqLen = len; //Êµ¼ÊĞèÉÏ´«×Ü³¤¶È
+                            USBFS_SetupReqLen = len; //å®é™…éœ€ä¸Šä¼ æ€»é•¿åº¦
                         len = (USBFS_SetupReqLen >= DEF_USBD_UEP0_SIZE) ? DEF_USBD_UEP0_SIZE : USBFS_SetupReqLen;
                         pdf_memcpy(pEP0_DataBuf, pUSBFS_Descr, len);
                         pUSBFS_Descr += len;
@@ -398,7 +398,7 @@ void USB_DevTransProcess(void)
 
                     case USB_CLEAR_FEATURE:
                     {
-                        if((USBFS_SetupReqType & USB_REQ_RECIP_MASK) == USB_REQ_RECIP_ENDP) // ¶Ëµã
+                        if((USBFS_SetupReqType & USB_REQ_RECIP_MASK) == USB_REQ_RECIP_ENDP) // ç«¯ç‚¹
                         {
                             switch(USBFS_SetupReqIndex & 0xff)
                             {
@@ -415,7 +415,7 @@ void USB_DevTransProcess(void)
                                     R8_UEP1_CTRL = (R8_UEP1_CTRL & ~(RB_UEP_R_TOG | MASK_UEP_R_RES)) | UEP_R_RES_ACK;
                                     break;
                                 default:
-                                    errflag = 0xFF; // ²»Ö§³ÖµÄ¶Ëµã
+                                    errflag = 0xFF; // ä¸æ”¯æŒçš„ç«¯ç‚¹
                                     break;
                             }
                         }
@@ -443,24 +443,24 @@ void USB_DevTransProcess(void)
                 }
             }
 
-            if(errflag == 0xff) // ´íÎó»ò²»Ö§³Ö
+            if(errflag == 0xff) // é”™è¯¯æˆ–ä¸æ”¯æŒ
             {
                 //                  SetupReqCode = 0xFF;
                 R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_STALL | UEP_T_RES_STALL; // STALL
             }
             else
             {
-                if(USBFS_SetupReqType & 0x80) // ÉÏ´«
+                if(USBFS_SetupReqType & 0x80) // ä¸Šä¼ 
                 {
                     len = (USBFS_SetupReqLen > DEF_USBD_UEP0_SIZE) ? DEF_USBD_UEP0_SIZE : USBFS_SetupReqLen;
                     USBFS_SetupReqLen -= len;
                 }
                 else
                 {
-                    len = 0; // ÏÂ´«
+                    len = 0; // ä¸‹ä¼ 
                 }
                 R8_UEP0_T_LEN = len;
-                R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK; // Ä¬ÈÏÊı¾İ°üÊÇDATA1
+                R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK; // é»˜è®¤æ•°æ®åŒ…æ˜¯DATA1
             }
 
             R8_USB_INT_FG = RB_UIF_TRANSFER;
@@ -480,11 +480,11 @@ void USB_DevTransProcess(void)
         if(R8_USB_MIS_ST & RB_UMS_SUSPEND)
         {
             ;
-        } // ¹ÒÆğ
+        } // æŒ‚èµ·
         else
         {
             ;
-        } // »½ĞÑ
+        } // å”¤é†’
         R8_USB_INT_FG = RB_UIF_SUSPEND;
     }
     else
@@ -497,7 +497,7 @@ void USB_DevTransProcess(void)
 /*********************************************************************
  * @fn      USB_IRQHandler
  *
- * @brief   USBÖĞ¶Ïº¯Êı
+ * @brief   USBä¸­æ–­å‡½æ•°
  *
  * @param   none
  *
@@ -505,7 +505,7 @@ void USB_DevTransProcess(void)
  */
 __INTERRUPT
 __HIGH_CODE
-void USB_IRQHandler(void) /* USBÖĞ¶Ï·şÎñ³ÌĞò,Ê¹ÓÃ¼Ä´æÆ÷×é1 */
+void USB_IRQHandler(void) /* USBä¸­æ–­æœåŠ¡ç¨‹åº,ä½¿ç”¨å¯„å­˜å™¨ç»„1 */
 {
     USB_DevTransProcess();
 }

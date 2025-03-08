@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/12/10
- * Description        : OTAÉı¼¶À¶ÑÀÍ¨Ñ¶½Ó¿Ú
+ * Description        : OTAå‡çº§è“ç‰™é€šè®¯æ¥å£
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -137,11 +137,11 @@ gattServiceCBs_t OTAProfileCBs = {
 /*********************************************************************
  * @fn      OTAProfile_AddService
  *
- * @brief   OTA Profile³õÊ¼»¯
+ * @brief   OTA Profileåˆå§‹åŒ–
  *
- * @param   services    - ·şÎñ¿ØÖÆ×Ö
+ * @param   services    - æœåŠ¡æ§åˆ¶å­—
  *
- * @return  ³õÊ¼»¯µÄ×´Ì¬
+ * @return  åˆå§‹åŒ–çš„çŠ¶æ€
  */
 bStatus_t OTAProfile_AddService(uint32_t services)
 {
@@ -162,11 +162,11 @@ bStatus_t OTAProfile_AddService(uint32_t services)
 /*********************************************************************
  * @fn      OTAProfile_RegisterAppCBs
  *
- * @brief   OTA Profile¶ÁĞ´»Øµ÷º¯Êı×¢²á
+ * @brief   OTA Profileè¯»å†™å›è°ƒå‡½æ•°æ³¨å†Œ
  *
- * @param   appCallbacks    - º¯Êı½á¹¹ÌåÖ¸Õë
+ * @param   appCallbacks    - å‡½æ•°ç»“æ„ä½“æŒ‡é’ˆ
  *
- * @return  º¯ÊıÖ´ĞĞ×´Ì¬
+ * @return  å‡½æ•°æ‰§è¡ŒçŠ¶æ€
  */
 bStatus_t OTAProfile_RegisterAppCBs(OTAProfileCBs_t *appCallbacks)
 {
@@ -308,19 +308,19 @@ static bStatus_t OTAProfile_WriteAttrCB(uint16_t connHandle, gattAttribute_t *pA
 /*********************************************************************
  * @fn      OTAProfile_SendData
  *
- * @brief   OTA ProfileÍ¨µÀ·¢ËÍÊı¾İ
+ * @brief   OTA Profileé€šé“å‘é€æ•°æ®
  *
- * @param   paramID     - OTAÍ¨µÀÑ¡Ôñ
- * @param   p_data      - Êı¾İÖ¸Õë
- * @param   send_len    - ·¢ËÍÊı¾İ³¤¶È
+ * @param   paramID     - OTAé€šé“é€‰æ‹©
+ * @param   p_data      - æ•°æ®æŒ‡é’ˆ
+ * @param   send_len    - å‘é€æ•°æ®é•¿åº¦
  *
- * @return  º¯ÊıÖ´ĞĞ×´Ì¬
+ * @return  å‡½æ•°æ‰§è¡ŒçŠ¶æ€
  */
 bStatus_t OTAProfile_SendData(unsigned char paramID, unsigned char *p_data, unsigned char send_len)
 {
     bStatus_t status = SUCCESS;
 
-    /* Êı¾İ³¤¶È³¬³ö·¶Î§ */
+    /* æ•°æ®é•¿åº¦è¶…å‡ºèŒƒå›´ */
     if(send_len > 20)
         return 0xfe;
 

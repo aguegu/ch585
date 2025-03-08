@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/15
- * Description        : USBHS IAPÀý³Ì
+ * Description        : USBHS IAPä¾‹ç¨‹
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -17,9 +17,9 @@
 /*********************************************************************
  * @fn      SetSysClock
  *
- * @brief   ÅäÖÃÏµÍ³ÔËÐÐÊ±ÖÓ62.4Mhz
+ * @brief   é…ç½®ç³»ç»Ÿè¿è¡Œæ—¶é’Ÿ62.4Mhz
  *
- * @param   sc      - ÏµÍ³Ê±ÖÓÔ´Ñ¡Ôñ refer to SYS_CLKTypeDef
+ * @param   sc      - ç³»ç»Ÿæ—¶é’Ÿæºé€‰æ‹© refer to SYS_CLKTypeDef
  *
  * @return  none
  */
@@ -48,7 +48,7 @@ void mySetSysClock()
 /*********************************************************************
  * @fn      Main_Circulation
  *
- * @brief   IAPÖ÷Ñ­»·,³ÌÐò·ÅramÖÐÔËÐÐ£¬ÌáÉýËÙ¶È.
+ * @brief   IAPä¸»å¾ªçŽ¯,ç¨‹åºæ”¾ramä¸­è¿è¡Œï¼Œæå‡é€Ÿåº¦.
  *
  * @param   None.
  *
@@ -61,16 +61,16 @@ void Main_Circulation()
     while (1)
     {
         j++;
-        if (j > 5)//100us´¦ÀíÒ»´ÎÊý¾Ý
+        if (j > 5)//100uså¤„ç†ä¸€æ¬¡æ•°æ®
         {
             j = 0;
-            USB_DevTransProcess();//²ÉÓÃ²éÑ¯·½Ê½½øÐÐusb²Ù×÷£¬²»Ê¹ÓÃÖÐ¶Ï¡£
+            USB_DevTransProcess();//é‡‡ç”¨æŸ¥è¯¢æ–¹å¼è¿›è¡Œusbæ“ä½œï¼Œä¸ä½¿ç”¨ä¸­æ–­ã€‚
         }
         DelayUs(20);
         g_tcnt++;
         if (g_tcnt > 3000000)
         {
-            //1·ÖÖÓÃ»ÓÐ²Ù×÷£¬½øÈëapp
+            //1åˆ†é’Ÿæ²¡æœ‰æ“ä½œï¼Œè¿›å…¥app
             R8_USB2_CTRL = USBHS_UD_RST_SIE;
             R16_PIN_CONFIG &= ~RB_PIN_USB2_EN;
             DelayMs(10);
@@ -83,7 +83,7 @@ IAPDataFlashInfo_t p_image_flash;
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êý
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -92,7 +92,7 @@ int main()
     uint16_t i;
     uint8_t  s;
 
-    mySetSysClock(); //ÎªÁË¾«¼ò³ÌÐòÌå»ý£¬¸Ãº¯Êý±ÈÆÕÍ¨¿âµÄ³õÊ¼»¯º¯ÊýÓÐÐÞ¸Ä£¬Ö»¿ÉÒÔ½«Ê±ÖÓÉèÖÃÎª62.4M
+    mySetSysClock(); //ä¸ºäº†ç²¾ç®€ç¨‹åºä½“ç§¯ï¼Œè¯¥å‡½æ•°æ¯”æ™®é€šåº“çš„åˆå§‹åŒ–å‡½æ•°æœ‰ä¿®æ”¹ï¼Œåªå¯ä»¥å°†æ—¶é’Ÿè®¾ç½®ä¸º62.4M
 
 #if USE_EEPROM_FLAG
     EEPROM_READ(IAP_FLAG_DATAFLASH_ADD, &p_image_flash, 4);
@@ -101,7 +101,7 @@ int main()
         jumpApp();
     }
 #else
-    //PB4ÉÏÀ­ÊäÈë,×÷°´¼ü¼ì²âÌø×ªÓÃ
+    //PB4ä¸Šæ‹‰è¾“å…¥,ä½œæŒ‰é”®æ£€æµ‹è·³è½¬ç”¨
     R32_PB_PD_DRV &= ~GPIO_Pin_4;
     R32_PB_PU |= GPIO_Pin_4;
     R32_PB_DIR &= ~GPIO_Pin_4;
@@ -111,13 +111,13 @@ int main()
         DelayMs(5);
         if (GPIOB_ReadPortPin(GPIO_Pin_4))
         {
-            //Æô¶¯Ç°ÅÐ¶ÏÊÇ·ñ½øÈëiap£¬Ã»ÓÐ°´¼ü°´ÏÂ
+            //å¯åŠ¨å‰åˆ¤æ–­æ˜¯å¦è¿›å…¥iapï¼Œæ²¡æœ‰æŒ‰é”®æŒ‰ä¸‹
             jumpApp();
         }
     }
 #endif
 
-    /* USBHS³õÊ¼»¯ */
+    /* USBHSåˆå§‹åŒ– */
     R8_USBHS_PLL_CTRL = USBHS_PLL_EN;
     R16_PIN_CONFIG |= RB_PIN_USB2_EN;
 
@@ -152,9 +152,9 @@ int main()
     R8_USB2_BASE_MODE = USBHS_UD_SPEED_HIGH;
     R8_USB2_CTRL = USBHS_UD_DEV_EN | USBHS_UD_DMA_EN | USBHS_UD_LPM_EN | USBHS_UD_PHY_SUSPENDM;
     R16_PIN_CONFIG |= RB_PIN_USB2_EN;
-    R8_USB2_INT_FG = 0xFF;                       // ÇåÖÐ¶Ï±êÖ¾
-    R8_USB2_INT_EN = 0;                          //½ûÖ¹usbÖÐ¶Ï£¬²ÉÓÃ²éÑ¯·½Ê½
+    R8_USB2_INT_FG = 0xFF;                       // æ¸…ä¸­æ–­æ ‡å¿—
+    R8_USB2_INT_EN = 0;                          //ç¦æ­¢usbä¸­æ–­ï¼Œé‡‡ç”¨æŸ¥è¯¢æ–¹å¼
 
-    /* ½øÈëhighcodeÖ÷Ñ­»· */
+    /* è¿›å…¥highcodeä¸»å¾ªçŽ¯ */
     Main_Circulation();
 }

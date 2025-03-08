@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2023/8/5
- * Description        : ´¥Ãş°´¼üÀı³Ì
+ * Description        : è§¦æ‘¸æŒ‰é”®ä¾‹ç¨‹
  *******************************************************************************/
 
 /*********************************************************************
@@ -40,7 +40,7 @@ static void peripherals_WakeUp(void);
 /*********************************************************************
  * @fn      tky_on_TMOS_dataProcess
  *
- * @brief   ´¥ÃşÊı¾İ´¦Àíº¯Êı£¨»ùÓÚTMOS£©£¬À¶ÑÀÁ¬½Ó³É¹¦ºó½«»ñÈ¡µ½¼üÖµÒÔÍ¨ÖªµÄĞÎÊ½ÉÏ±¨¸øÉÏÎ»»úÀ¶ÑÀ
+ * @brief   è§¦æ‘¸æ•°æ®å¤„ç†å‡½æ•°ï¼ˆåŸºäºTMOSï¼‰ï¼Œè“ç‰™è¿æ¥æˆåŠŸåå°†è·å–åˆ°é”®å€¼ä»¥é€šçŸ¥çš„å½¢å¼ä¸ŠæŠ¥ç»™ä¸Šä½æœºè“ç‰™
  *
  * @return  none
  */
@@ -52,7 +52,7 @@ void tky_on_TMOS_dataProcess(void)
     {
         if (bleConnectState )
         {
-            peripheralChar2Notify( &key_val, 1 );//½«¼üÖµÉÏ±¨¸øÉÏÎ»»úÀ¶ÑÀ
+            peripheralChar2Notify( &key_val, 1 );//å°†é”®å€¼ä¸ŠæŠ¥ç»™ä¸Šä½æœºè“ç‰™
         }
     }
 }
@@ -61,21 +61,21 @@ void tky_on_TMOS_dataProcess(void)
 /*********************************************************************
  * @fn      PeriodicDealData
  *
- * @brief    ´¥ÃşĞİÃß×´Ì¬´¦Àí
+ * @brief    è§¦æ‘¸ä¼‘çœ çŠ¶æ€å¤„ç†
  *
  * @return  none
  */
 void PeriodicDealData(void)
 {
-    TKY_LoadAndRun(); //---ÔØÈëĞİÃßÇ°±£´æµÄ²¿·ÖÉèÖÃ---
+    TKY_LoadAndRun(); //---è½½å…¥ä¼‘çœ å‰ä¿å­˜çš„éƒ¨åˆ†è®¾ç½®---
 //    GPIOTK_PinSleep(  );
 
-    //---»½ĞÑÌ¬£¬»½ĞÑÊ±·½¿ÉÇĞ»»ÏÔÊ¾ÄÚÈİ¡ª¡ª»ùÏß»ò²âÁ¿Öµ£¬Ã¿´ÎÓĞ´¥ÃşÊ±£¬»½ĞÑ10¸öwakeupÊ±¼ä£¬°´´Ë¶¨Ê±Æ÷ÉèÖÃÊ±¼äÎª5s---
+    //---å”¤é†’æ€ï¼Œå”¤é†’æ—¶æ–¹å¯åˆ‡æ¢æ˜¾ç¤ºå†…å®¹â€”â€”åŸºçº¿æˆ–æµ‹é‡å€¼ï¼Œæ¯æ¬¡æœ‰è§¦æ‘¸æ—¶ï¼Œå”¤é†’10ä¸ªwakeupæ—¶é—´ï¼ŒæŒ‰æ­¤å®šæ—¶å™¨è®¾ç½®æ—¶é—´ä¸º5s---
     if (wakeUpCount)
     {
         wakeUpCount--;
 //        dg_log("wakeUpCount: :%d\n", wakeUpCount);
-        //---wakeUpCount¼ÆÊıÎª0£¬»½ĞÑÌ¬¼´½«×ªĞİÃß---
+        //---wakeUpCountè®¡æ•°ä¸º0ï¼Œå”¤é†’æ€å³å°†è½¬ä¼‘çœ ---
         if (wakeUpCount == 0)
         {
         	touch_ScanEnterSleep();
@@ -88,19 +88,19 @@ void PeriodicDealData(void)
             peripherals_EnterSleep();
         }
     }
-    else //---ĞİÃß×´Ì¬Ê±£¬ĞÑÀ´¼ä¸ô½øĞĞÉ¨Ãè---
+    else //---ä¼‘çœ çŠ¶æ€æ—¶ï¼Œé†’æ¥é—´éš”è¿›è¡Œæ‰«æ---
     {
         dg_log("wake up...\n");
 
-        scanData = TKY_ScanForWakeUp(tkyQueueAll); //---¶ÔËùÑ¡ÔñµÄ¶ÓÁĞÍ¨µÀ½øĞĞÉ¨Ãè---
+        scanData = TKY_ScanForWakeUp(tkyQueueAll); //---å¯¹æ‰€é€‰æ‹©çš„é˜Ÿåˆ—é€šé“è¿›è¡Œæ‰«æ---
 
-        if (scanData) //---ÈçÉ¨ÃèÓĞÒì³££¬Ôòµ÷ÓÃÕıÊ½É¨Ãèº¯ÊıÄ£Ê½3~4---
+        if (scanData) //---å¦‚æ‰«ææœ‰å¼‚å¸¸ï¼Œåˆ™è°ƒç”¨æ­£å¼æ‰«æå‡½æ•°æ¨¡å¼3~4---
         {
-            TKY_SetSleepStatusValue(~scanData); //---ÉèÖÃĞİÃß×´Ì¬£¬°ÑÓĞÒì³£×´Ì¬µÄÍ¨µÀÉèÖÃÎª·ÇĞİÃßÌ¬---
-            for (uint8_t i = 0; i < 40; i++) //---²¢·ÇÒ»¶¨ÒªÉ¨Âë64´Î£¬20´ÎÒÔÉÏ½Ô¿É£¬²¢ÇÒÏÂÃæ´úÂëÖĞÓĞµ±É¨ÃèÓĞ°´¼ü°´ÏÂ£¬ÔòÍË³öÑ­»·£¬Æô¶¯»½ĞÑÉ¨Ãè---
+            TKY_SetSleepStatusValue(~scanData); //---è®¾ç½®ä¼‘çœ çŠ¶æ€ï¼ŒæŠŠæœ‰å¼‚å¸¸çŠ¶æ€çš„é€šé“è®¾ç½®ä¸ºéä¼‘çœ æ€---
+            for (uint8_t i = 0; i < 40; i++) //---å¹¶éä¸€å®šè¦æ‰«ç 64æ¬¡ï¼Œ20æ¬¡ä»¥ä¸Šçš†å¯ï¼Œå¹¶ä¸”ä¸‹é¢ä»£ç ä¸­æœ‰å½“æ‰«ææœ‰æŒ‰é”®æŒ‰ä¸‹ï¼Œåˆ™é€€å‡ºå¾ªç¯ï¼Œå¯åŠ¨å”¤é†’æ‰«æ---
             {
                 keyData = TKY_PollForFilter();
-                if (keyData) //---Ò»µ©¼ì²âµ½ÓĞ°´¼ü°´ÏÂ£¬ÔòÍË³öÑ­»·É¨Ãè---
+                if (keyData) //---ä¸€æ—¦æ£€æµ‹åˆ°æœ‰æŒ‰é”®æŒ‰ä¸‹ï¼Œåˆ™é€€å‡ºå¾ªç¯æ‰«æ---
                 {
                 	touch_ScanWakeUp();
 
@@ -116,22 +116,22 @@ void PeriodicDealData(void)
             }
             if (keyData == 0)
             {
-                TKY_SaveAndStop(); //---¶ÔÏà¹Ø¼Ä´æÆ÷½øĞĞ±£´æ---
+                TKY_SaveAndStop(); //---å¯¹ç›¸å…³å¯„å­˜å™¨è¿›è¡Œä¿å­˜---
             }
         }
         else
         {
-            TKY_SaveAndStop(); //---¶ÔÏà¹Ø¼Ä´æÆ÷½øĞĞ±£´æ---
+            TKY_SaveAndStop(); //---å¯¹ç›¸å…³å¯„å­˜å™¨è¿›è¡Œä¿å­˜---
         }
     }
-    TKY_SaveAndStop(); //---¶ÔÏà¹Ø¼Ä´æÆ÷½øĞĞ±£´æ---
+    TKY_SaveAndStop(); //---å¯¹ç›¸å…³å¯„å­˜å™¨è¿›è¡Œä¿å­˜---
 }
 
 
 /*********************************************************************
  * @fn      tky_DealData_start
  *
- * @brief   ´¥ÃşÉ¨Ãè¿ªÆôº¯Êı
+ * @brief   è§¦æ‘¸æ‰«æå¼€å¯å‡½æ•°
  *
  * @return  none
  */
@@ -143,7 +143,7 @@ void tky_DealData_start(void)
 /*********************************************************************
  * @fn      tky_DealData_stop
  *
- * @brief   ´¥ÃşÉ¨ÃèÍ£Ö¹º¯Êı
+ * @brief   è§¦æ‘¸æ‰«æåœæ­¢å‡½æ•°
  *
  * @return  none
  */
@@ -156,7 +156,7 @@ void tky_DealData_stop(void)
 /*********************************************************************
  * @fn      Touch_Key_ProcessEvent
  *
- * @brief   ´¥Ãş°´¼ü´¦Àíº¯Êı
+ * @brief   è§¦æ‘¸æŒ‰é”®å¤„ç†å‡½æ•°
  *
  * @return  none
  */
@@ -202,18 +202,18 @@ tmosEvents Touch_Key_ProcessEvent(tmosTaskID task_id, tmosEvents events)
 /*********************************************************************
  * @fn      touch_on_TMOS_init
  *
- * @brief   ´¥Ãş³õÊ¼»¯º¯Êı£¨»ùÓÚTMOS£©
+ * @brief   è§¦æ‘¸åˆå§‹åŒ–å‡½æ•°ï¼ˆåŸºäºTMOSï¼‰
  *
  * @return  none
  */
 void touch_on_TMOS_init(void)
 {
     TouchKey_TaskID = TMOS_ProcessEventRegister(Touch_Key_ProcessEvent);
-    TKY_PeripheralInit();       /* ³õÊ¼ÍâÉè£¬ÀıÈç±³¹âºÍ·äÃùÆ÷µÈ */
+    TKY_PeripheralInit();       /* åˆå§‹å¤–è®¾ï¼Œä¾‹å¦‚èƒŒå…‰å’Œèœ‚é¸£å™¨ç­‰ */
     touch_InitKey();
 
-    wakeUpCount = 50; //---»½ĞÑÊ±¼ä---
-    wakeupflag = 1;   // ÖÃ³É»½ĞÑ×´Ì¬
+    wakeUpCount = 50; //---å”¤é†’æ—¶é—´---
+    wakeupflag = 1;   // ç½®æˆå”¤é†’çŠ¶æ€
     triggerTime = TRIGGER_TIME;
     TKY_SetSleepStatusValue(~tkyQueueAll);
 #if TKY_SLEEP_EN
@@ -239,7 +239,7 @@ void touch_on_TMOS_init(void)
 /*********************************************************************
  * @fn      TKY_PeripheralInit
  *
- * @brief   ´¥ÃşÍâÉè³õÊ¼»¯º¯Êı£¬ÓÃÓÚ³õÊ¼»¯Óë´¥Ãş¹¦ÄÜÏà¹ØµÄÍâÉè¹¦ÄÜ
+ * @brief   è§¦æ‘¸å¤–è®¾åˆå§‹åŒ–å‡½æ•°ï¼Œç”¨äºåˆå§‹åŒ–ä¸è§¦æ‘¸åŠŸèƒ½ç›¸å…³çš„å¤–è®¾åŠŸèƒ½
  *
  * @return  none
  */
@@ -251,7 +251,7 @@ static void TKY_PeripheralInit(void)
 /*********************************************************************
  * @fn      peripherals_EnterSleep
  *
- * @brief   ÍâÉèË¯Ãßº¯Êı£¬ÔÚ´¥Ãş×¼±¸ĞİÃßÊ±µ÷ÓÃ
+ * @brief   å¤–è®¾ç¡çœ å‡½æ•°ï¼Œåœ¨è§¦æ‘¸å‡†å¤‡ä¼‘çœ æ—¶è°ƒç”¨
  *
  * @return  none
  */
@@ -264,7 +264,7 @@ static void peripherals_EnterSleep(void)
 /*********************************************************************
  * @fn      peripherals_WakeUp
  *
- * @brief   ÍâÉè»½ĞÑº¯Êı£¬ÔÚ´¥Ãş±»»½ĞÑÊ±µ÷ÓÃ
+ * @brief   å¤–è®¾å”¤é†’å‡½æ•°ï¼Œåœ¨è§¦æ‘¸è¢«å”¤é†’æ—¶è°ƒç”¨
  *
  * @return  none
  */

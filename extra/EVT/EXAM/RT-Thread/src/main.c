@@ -3,9 +3,9 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2024/08/13
- * Description        : rt-thread nanoÒÆÖ²Àı³Ì£¬Ê¹ÓÃÓ²¼şÑ¹Õ»£¬ÖĞ¶ÏÇ¶Ì×¿ÉÑ¡£¬ÖĞ¶Ïº¯Êı²»ÔÙÊ¹ÓÃĞŞÊÎ
- *                      __attribute__((interrupt("WCH-Interrupt-fast")))£¬
- *                      ÖĞ¶Ïº¯ÊıÖ±½Ó°´ÕÕÆÕÍ¨º¯Êı¶¨Òå£¬Ö»Ê¹ÓÃHIGHCODEĞŞÊÎ¼´¿É¡£
+ * Description        : rt-thread nanoç§»æ¤ä¾‹ç¨‹ï¼Œä½¿ç”¨ç¡¬ä»¶å‹æ ˆï¼Œä¸­æ–­åµŒå¥—å¯é€‰ï¼Œä¸­æ–­å‡½æ•°ä¸å†ä½¿ç”¨ä¿®é¥°
+ *                      __attribute__((interrupt("WCH-Interrupt-fast")))ï¼Œ
+ *                      ä¸­æ–­å‡½æ•°ç›´æ¥æŒ‰ç…§æ™®é€šå‡½æ•°å®šä¹‰ï¼Œåªä½¿ç”¨HIGHCODEä¿®é¥°å³å¯ã€‚
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -22,7 +22,7 @@ static struct rt_thread task1_thread;
 /*********************************************************************
  * @fn      task1_entry
  *
- * @brief   task1ÈÎÎñº¯Êı
+ * @brief   task1ä»»åŠ¡å‡½æ•°
  *
  * @return  none
  */
@@ -43,7 +43,7 @@ static struct rt_thread task2_thread;
 /*********************************************************************
  * @fn      task2_entry
  *
- * @brief   task2ÈÎÎñº¯Êı
+ * @brief   task2ä»»åŠ¡å‡½æ•°
  *
  * @return  none
  */
@@ -65,7 +65,7 @@ static rt_sem_t gpioa_sem = RT_NULL;
 /*********************************************************************
  * @fn      task3_entry
  *
- * @brief   task3ÈÎÎñº¯Êı
+ * @brief   task3ä»»åŠ¡å‡½æ•°
  *
  * @return  none
  */
@@ -80,7 +80,7 @@ void task3_entry(void *parameter)
         PFIC_EnableIRQ(GPIO_A_IRQn);
         while(1)
         {
-            rt_sem_take(gpioa_sem, RT_WAITING_FOREVER); /* µÈ´ıĞÅºÅÁ¿ */
+            rt_sem_take(gpioa_sem, RT_WAITING_FOREVER); /* ç­‰å¾…ä¿¡å·é‡ */
             rt_kprintf("gpioa sem get\r\n");
         }
     }
@@ -93,7 +93,7 @@ void task3_entry(void *parameter)
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @note    main is one of threads in rt-thread.
  *
@@ -153,13 +153,13 @@ MSH_CMD_EXPORT(msh_test_print, this is a msh test);
 __HIGH_CODE
 void GPIOA_IRQHandler(void)
 {
-    /* ±¾º¯Êı¿ÉÒÔ×÷ÎªÔÚ±¾¹¤³Ìrt-thread nanoÖĞµÄÖĞ¶Ïº¯ÊıĞ´·¨Ê¾Àı */
+    /* æœ¬å‡½æ•°å¯ä»¥ä½œä¸ºåœ¨æœ¬å·¥ç¨‹rt-thread nanoä¸­çš„ä¸­æ–­å‡½æ•°å†™æ³•ç¤ºä¾‹ */
     uint16_t flag;
     flag = GPIOA_ReadITFlagPort();
     if((flag & GPIO_Pin_12) != 0)
     {
-        rt_sem_release(gpioa_sem);  /* ÊÍ·ÅĞÅºÅÁ¿ */
+        rt_sem_release(gpioa_sem);  /* é‡Šæ”¾ä¿¡å·é‡ */
     }
-    GPIOA_ClearITFlagBit(flag); /* Çå³ıÖĞ¶Ï±êÖ¾ */
+    GPIOA_ClearITFlagBit(flag); /* æ¸…é™¤ä¸­æ–­æ ‡å¿— */
 }
 

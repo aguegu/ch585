@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/15
- * Description        : USB IAP APPÀı³Ì
+ * Description        : USB IAP APPä¾‹ç¨‹
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -14,9 +14,9 @@
 /*********************************************************************
  * @fn      SwitchImageFlag
  *
- * @brief   ÇĞ»»dataflashÀïµÄFlag,ÈôÏëÇĞ»»µ½IAP£¬Ôò½«¸ÃflagÉèÖÃÎªImageFlag_USER_PROGRAM_CALL_IAP£¬Ìø×ªµ½0Î»ÖÃ¼´¿É
+ * @brief   åˆ‡æ¢dataflashé‡Œçš„Flag,è‹¥æƒ³åˆ‡æ¢åˆ°IAPï¼Œåˆ™å°†è¯¥flagè®¾ç½®ä¸ºImageFlag_USER_PROGRAM_CALL_IAPï¼Œè·³è½¬åˆ°0ä½ç½®å³å¯
  *
- * @param   new_flag    - ÇĞ»»µÄFlag
+ * @param   new_flag    - åˆ‡æ¢çš„Flag
  *
  * @return  none
  */
@@ -25,17 +25,17 @@ void SwitchImageFlag(uint8_t new_flag)
     UINT16 i;
     UINT32 ver_flag;
     __attribute__((aligned(4)))   IAPDataFlashInfo_t imgFlag;
-    /* ¶ÁÈ¡µÚÒ»¿é */
+    /* è¯»å–ç¬¬ä¸€å— */
     EEPROM_READ(IAP_FLAG_DATAFLASH_ADD, (PUINT32) &imgFlag, 4);
     if (imgFlag.ImageFlag != new_flag)
     {
-        /* ²Á³ıµÚÒ»¿é */
+        /* æ“¦é™¤ç¬¬ä¸€å— */
         EEPROM_ERASE(IAP_FLAG_DATAFLASH_ADD, EEPROM_PAGE_SIZE);
 
-        /* ¸üĞÂImageĞÅÏ¢ */
+        /* æ›´æ–°Imageä¿¡æ¯ */
         imgFlag.ImageFlag = new_flag;
 
-        /* ±à³ÌDataFlash */
+        /* ç¼–ç¨‹DataFlash */
         EEPROM_WRITE(IAP_FLAG_DATAFLASH_ADD, (PUINT32) &imgFlag, 4);
     }
 }
@@ -43,14 +43,14 @@ void SwitchImageFlag(uint8_t new_flag)
 /*********************************************************************
  * @fn      jumpToIap
  *
- * @brief   Ìø×ªµ½IAP
+ * @brief   è·³è½¬åˆ°IAP
  *
  * @return  none
  */
 void jumpToIap(void)
 {
     uint32_t irq_status;
-    SwitchImageFlag(FLAG_USER_CALL_IAP);//Èç¹ûIAP²ÉÓÃ°´¼ü¼ì²â£¬½«¸Ã¾ä»°×¢ÊÍµô
+    SwitchImageFlag(FLAG_USER_CALL_IAP);//å¦‚æœIAPé‡‡ç”¨æŒ‰é”®æ£€æµ‹ï¼Œå°†è¯¥å¥è¯æ³¨é‡Šæ‰
     SYS_DisableAllIrq(&irq_status);
     SYS_ResetExecute();
 }

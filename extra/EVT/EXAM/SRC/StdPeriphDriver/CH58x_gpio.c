@@ -15,10 +15,10 @@
 /*********************************************************************
  * @fn      GPIOA_ModeCfg
  *
- * @brief   GPIOA¶Ë¿ÚÒı½ÅÄ£Ê½ÅäÖÃ
+ * @brief   GPIOAç«¯å£å¼•è„šæ¨¡å¼é…ç½®
  *
  * @param   pin     - PA0-PA15
- * @param   mode    - ÊäÈëÊä³öÀàĞÍ
+ * @param   mode    - è¾“å…¥è¾“å‡ºç±»å‹
  *
  * @return  none
  */
@@ -62,10 +62,10 @@ void GPIOA_ModeCfg(uint32_t pin, GPIOModeTypeDef mode)
 /*********************************************************************
  * @fn      GPIOB_ModeCfg
  *
- * @brief   GPIOB¶Ë¿ÚÒı½ÅÄ£Ê½ÅäÖÃ
+ * @brief   GPIOBç«¯å£å¼•è„šæ¨¡å¼é…ç½®
  *
  * @param   pin     - PB0-PB23
- * @param   mode    - ÊäÈëÊä³öÀàĞÍ
+ * @param   mode    - è¾“å…¥è¾“å‡ºç±»å‹
  *
  * @return  none
  */
@@ -109,10 +109,10 @@ void GPIOB_ModeCfg(uint32_t pin, GPIOModeTypeDef mode)
 /*********************************************************************
  * @fn      GPIOA_ITModeCfg
  *
- * @brief   GPIOAÒı½ÅÖĞ¶ÏÄ£Ê½ÅäÖÃ
+ * @brief   GPIOAå¼•è„šä¸­æ–­æ¨¡å¼é…ç½®
  *
  * @param   pin     - PA0-PA15
- * @param   mode    - ´¥·¢ÀàĞÍ
+ * @param   mode    - è§¦å‘ç±»å‹
  *
  * @return  none
  */
@@ -120,22 +120,22 @@ void GPIOA_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode)
 {
     switch(mode)
     {
-        case GPIO_ITMode_LowLevel: // µÍµçÆ½´¥·¢
+        case GPIO_ITMode_LowLevel: // ä½ç”µå¹³è§¦å‘
             R16_PA_INT_MODE &= ~pin;
             R32_PA_CLR |= pin;
             break;
 
-        case GPIO_ITMode_HighLevel: // ¸ßµçÆ½´¥·¢
+        case GPIO_ITMode_HighLevel: // é«˜ç”µå¹³è§¦å‘
             R16_PA_INT_MODE &= ~pin;
             R32_PA_OUT |= pin;
             break;
 
-        case GPIO_ITMode_FallEdge: // ÏÂ½µÑØ´¥·¢
+        case GPIO_ITMode_FallEdge: // ä¸‹é™æ²¿è§¦å‘
             R16_PA_INT_MODE |= pin;
             R32_PA_CLR |= pin;
             break;
 
-        case GPIO_ITMode_RiseEdge: // ÉÏÉıÑØ´¥·¢
+        case GPIO_ITMode_RiseEdge: // ä¸Šå‡æ²¿è§¦å‘
             R16_PA_INT_MODE |= pin;
             R32_PA_OUT |= pin;
             break;
@@ -150,10 +150,10 @@ void GPIOA_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode)
 /*********************************************************************
  * @fn      GPIOB_ITModeCfg
  *
- * @brief   GPIOBÒı½ÅÖĞ¶ÏÄ£Ê½ÅäÖÃ
+ * @brief   GPIOBå¼•è„šä¸­æ–­æ¨¡å¼é…ç½®
  *
  * @param   pin     - PB0-PB23
- * @param   mode    - ´¥·¢ÀàĞÍ
+ * @param   mode    - è§¦å‘ç±»å‹
  *
  * @return  none
  */
@@ -162,22 +162,22 @@ void GPIOB_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode)
     uint32_t Pin = pin | ((pin & (GPIO_Pin_22 | GPIO_Pin_23)) >> 14);
     switch(mode)
     {
-        case GPIO_ITMode_LowLevel: // µÍµçÆ½´¥·¢
+        case GPIO_ITMode_LowLevel: // ä½ç”µå¹³è§¦å‘
             R16_PB_INT_MODE &= ~Pin;
             R32_PB_CLR |= pin;
             break;
 
-        case GPIO_ITMode_HighLevel: // ¸ßµçÆ½´¥·¢
+        case GPIO_ITMode_HighLevel: // é«˜ç”µå¹³è§¦å‘
             R16_PB_INT_MODE &= ~Pin;
             R32_PB_OUT |= pin;
             break;
 
-        case GPIO_ITMode_FallEdge: // ÏÂ½µÑØ´¥·¢
+        case GPIO_ITMode_FallEdge: // ä¸‹é™æ²¿è§¦å‘
             R16_PB_INT_MODE |= Pin;
             R32_PB_CLR |= pin;
             break;
 
-        case GPIO_ITMode_RiseEdge: // ÉÏÉıÑØ´¥·¢
+        case GPIO_ITMode_RiseEdge: // ä¸Šå‡æ²¿è§¦å‘
             R16_PB_INT_MODE |= Pin;
             R32_PB_OUT |= pin;
             break;
@@ -192,9 +192,9 @@ void GPIOB_ITModeCfg(uint32_t pin, GPIOITModeTpDef mode)
 /*********************************************************************
  * @fn      GPIOPinRemap
  *
- * @brief   ÍâÉè¹¦ÄÜÒı½ÅÓ³Éä
+ * @brief   å¤–è®¾åŠŸèƒ½å¼•è„šæ˜ å°„
  *
- * @param   s       - ÊÇ·ñÊ¹ÄÜÓ³Éä
+ * @param   s       - æ˜¯å¦ä½¿èƒ½æ˜ å°„
  * @param   perph   - RB_RF_ANT_SW_EN -  RF antenna switch control output on PA4/PA5/PA12/PA13/PA14/PA15
  *                    RB_PIN_U0_INV -  RXD0/RXD0_/TXD0/TXD0_ invert input/output
  *                    RB_PIN_INTX   -  INTX: INT24/INT25 PB8/PB9 -> INT24_/INT25_ PB22/PB23
@@ -228,10 +228,10 @@ void GPIOPinRemap(FunctionalState s, uint16_t perph)
 /*********************************************************************
  * @fn      GPIOAGPPCfg
  *
- * @brief   Ä£ÄâÍâÉèGPIOÒı½Å¹¦ÄÜ¿ØÖÆ
+ * @brief   æ¨¡æ‹Ÿå¤–è®¾GPIOå¼•è„šåŠŸèƒ½æ§åˆ¶
  *
- * @param   s       -   ENABLE  - ´ò¿ªÄ£ÄâÍâÉè¹¦ÄÜ£¬¹Ø±ÕÊı×Ö¹¦ÄÜ
- *                      DISABLE - ÆôÓÃÊı×Ö¹¦ÄÜ£¬¹Ø±ÕÄ£ÄâÍâÉè¹¦ÄÜ
+ * @param   s       -   ENABLE  - æ‰“å¼€æ¨¡æ‹Ÿå¤–è®¾åŠŸèƒ½ï¼Œå…³é—­æ•°å­—åŠŸèƒ½
+ *                      DISABLE - å¯ç”¨æ•°å­—åŠŸèƒ½ï¼Œå…³é—­æ¨¡æ‹Ÿå¤–è®¾åŠŸèƒ½
  * @param   perph   -   RB_DEBUG_PIN_SEL  - SWDIO/SWCLK alternate pin enable: 0=SWDIO/SWCLK on PA[8]/PA[9], 1=SWDIO/SWCLK on PA[14]/PA[15]
  *                      RB_PB16_8_SEL  - interupt pin select,0=PB8, 1=PB16
  *                      RB_PIN_USB2_EN  - USB high speed comunication pin select, 0=PB12/13 not use, 1=PB12/13 used
@@ -256,9 +256,9 @@ void GPIOAGPPCfg(FunctionalState s, uint16_t perph)
 /*********************************************************************
  * @fn      GPIOADigitalCfg
  *
- * @brief   I/O pinÊı×Ö¹¦ÄÜ¿ØÖÆ
+ * @brief   I/O pinæ•°å­—åŠŸèƒ½æ§åˆ¶
  *
- * @param   s       - ÊÇ·ñ´ò¿ª¶ÔÓ¦I/O pinÊı×Ö¹¦ÄÜ
+ * @param   s       - æ˜¯å¦æ‰“å¼€å¯¹åº”I/O pinæ•°å­—åŠŸèƒ½
  * @param   pin     - PA0-PA15
  */
 void GPIOADigitalCfg(FunctionalState s, uint16_t pin)
@@ -276,9 +276,9 @@ void GPIOADigitalCfg(FunctionalState s, uint16_t pin)
 /*********************************************************************
  * @fn      GPIOADigitalCfg
  *
- * @brief   I/O pinÊı×Ö¹¦ÄÜ¿ØÖÆ
+ * @brief   I/O pinæ•°å­—åŠŸèƒ½æ§åˆ¶
  *
- * @param   s       - ÊÇ·ñ´ò¿ª¶ÔÓ¦I/O pinÊı×Ö¹¦ÄÜ
+ * @param   s       - æ˜¯å¦æ‰“å¼€å¯¹åº”I/O pinæ•°å­—åŠŸèƒ½
  * @param   pin     - PB0-PB23
  */
 void GPIOBDigitalCfg(FunctionalState s, uint32_t pin)

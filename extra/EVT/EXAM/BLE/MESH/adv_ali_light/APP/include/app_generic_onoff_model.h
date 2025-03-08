@@ -24,26 +24,26 @@ extern "C" {
 extern const struct bt_mesh_model_op gen_onoff_op[];
 
 /**
- * @brief   »ñÈ¡µ±Ç°µÆ×´Ì¬.
+ * @brief   è·å–å½“å‰ç¯çŠ¶æ€.
  *
- * @param   led_pin - Òı½Å.
+ * @param   led_pin - å¼•è„š.
  *
- * @return  µÆ×´Ì¬
+ * @return  ç¯çŠ¶æ€
  */
 BOOL read_led_state(uint32_t led_pin);
 
 /**
- * @brief   ÉèÖÃµ±Ç°µÆ×´Ì¬.
+ * @brief   è®¾ç½®å½“å‰ç¯çŠ¶æ€.
  *
- * @param   led_pin - Òı½Å.
- * @param   on      - ×´Ì¬.
+ * @param   led_pin - å¼•è„š.
+ * @param   on      - çŠ¶æ€.
  */
 void set_led_state(uint32_t led_pin, BOOL on);
 
 /**
- * @brief   ·­×ªµ±Ç°µÆ×´Ì¬
+ * @brief   ç¿»è½¬å½“å‰ç¯çŠ¶æ€
  *
- * @param   led_pin - Òı½Å.
+ * @param   led_pin - å¼•è„š.
  */
 void toggle_led_state(uint32_t led_pin);
 

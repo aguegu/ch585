@@ -23,12 +23,12 @@
 
 #define ALI_DEF_TTL    (10)
 
-// Ä£ÄâwindspeedÖµ
+// æ¨¡æ‹Ÿwindspeedå€¼
 uint8_t device_windspeed = 1;
 
 /*******************************************************************************
  * Function Name  : read_windspeed
- * Description    : »ñÈ¡µ±Ç°windspeed
+ * Description    : è·å–å½“å‰windspeed
  * Input          : None
  * Return         : None
  *******************************************************************************/
@@ -40,7 +40,7 @@ uint8_t read_windspeed(void)
 
 /*******************************************************************************
  * Function Name  : set_windspeeds
- * Description    : ÉèÖÃµ±Ç°windspeed
+ * Description    : è®¾ç½®å½“å‰windspeed
  * Input          : None
  * Return         : None
  *******************************************************************************/
@@ -51,9 +51,9 @@ void set_windspeed(uint8_t windspeed)
 
 /*******************************************************************************
  * Function Name  : gen_windspeed_status
- * Description    : »Ø¸´ÌìÃ¨¾«Áéwindspeed
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
+ * Description    : å›å¤å¤©çŒ«ç²¾çµwindspeed
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
  * Return         : None
  *******************************************************************************/
 static void gen_windspeed_status(struct bt_mesh_model   *model,
@@ -91,10 +91,10 @@ static void gen_windspeed_status(struct bt_mesh_model   *model,
 
 /*******************************************************************************
  * Function Name  : gen_windspeed_get
- * Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄ»ñÈ¡windspeedÃüÁî
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
- *										buf: Êı¾İÄÚÈİ
+ * Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è·å–windspeedå‘½ä»¤
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
+ *										buf: æ•°æ®å†…å®¹
  * Return         : None
  *******************************************************************************/
 void gen_windspeed_get(struct bt_mesh_model   *model,
@@ -107,11 +107,11 @@ void gen_windspeed_get(struct bt_mesh_model   *model,
 
 /*******************************************************************************
 * Function Name  : gen_windspeed_set
-* Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃwindspeedÃüÁî
-                                        Èç¹ûÓëµ±Ç°windspeed²»Í¬,»¹ĞèÒª·¢ËÍind¸øÌìÃ¨
-* Input          : model: Ä£ĞÍ²ÎÊı
-*										ctx£ºÊı¾İ²ÎÊı
-*										buf: Êı¾İÄÚÈİ
+* Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®windspeedå‘½ä»¤
+                                        å¦‚æœä¸å½“å‰windspeedä¸åŒ,è¿˜éœ€è¦å‘é€indç»™å¤©çŒ«
+* Input          : model: æ¨¡å‹å‚æ•°
+*										ctxï¼šæ•°æ®å‚æ•°
+*										buf: æ•°æ®å†…å®¹
 * Return         : None
 *******************************************************************************/
 void gen_windspeed_set(struct bt_mesh_model   *model,
@@ -130,14 +130,14 @@ void gen_windspeed_set(struct bt_mesh_model   *model,
 
     if((buf->data[1] | (buf->data[2] << 8)) < ALI_GEN_ATTR_TYPE_WORK_STATUS)
     {
-        // ÃüÁîÎªÉè¶¨Öµ
+        // å‘½ä»¤ä¸ºè®¾å®šå€¼
         set_windspeed(buf->data[3]);
     }
     else
     {
         switch(buf->data[1] | (buf->data[2] << 8))
         {
-            // ÃüÁîÎªÉè¶¨±ä»¯Á¿
+            // å‘½ä»¤ä¸ºè®¾å®šå˜åŒ–é‡
             case ALI_GEN_ATTR_TYPE_DELTA_VALUE:
             {
                 char delta = (char)buf->data[5];
@@ -166,10 +166,10 @@ void gen_windspeed_set(struct bt_mesh_model   *model,
 
 /*******************************************************************************
  * Function Name  : gen_windspeed_set_unack
- * Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃwindspeedÃüÁî(ÎŞÓ¦´ğ)
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
- *										buf: Êı¾İÄÚÈİ
+ * Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®windspeedå‘½ä»¤(æ— åº”ç­”)
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
+ *										buf: æ•°æ®å†…å®¹
  * Return         : None
  *******************************************************************************/
 void gen_windspeed_set_unack(struct bt_mesh_model   *model,
@@ -180,14 +180,14 @@ void gen_windspeed_set_unack(struct bt_mesh_model   *model,
 
     if((buf->data[1] | (buf->data[2] << 8)) < ALI_GEN_ATTR_TYPE_WORK_STATUS)
     {
-        // ÃüÁîÎªÉè¶¨Öµ
+        // å‘½ä»¤ä¸ºè®¾å®šå€¼
         set_windspeed(buf->data[3]);
     }
     else
     {
         switch(buf->data[1] | (buf->data[2] << 8))
         {
-            // ÃüÁîÎªÉè¶¨±ä»¯Á¿
+            // å‘½ä»¤ä¸ºè®¾å®šå˜åŒ–é‡
             case ALI_GEN_ATTR_TYPE_DELTA_VALUE:
             {
                 char delta = (char)buf->data[5];

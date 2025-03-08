@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/06
- * Description 		   : PWM4-11π¶ƒ‹—› æ
+ * Description 		   : PWM4-11ÂäüËÉΩÊºîÁ§∫
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -18,7 +18,7 @@
 /*********************************************************************
  * @fn      main
  *
- * @brief   ÷˜∫Ø ˝
+ * @brief   ‰∏ªÂáΩÊï∞
  *
  * @return  none
  */
@@ -29,7 +29,7 @@ int main()
 
 #if PWM8
 
-    /* ≈‰÷√GPIO */
+    /* ÈÖçÁΩÆGPIO */
     GPIOA_ModeCfg(GPIO_Pin_12, GPIO_ModeOut_PP_5mA); // PA12 - PWM4
     GPIOA_ModeCfg(GPIO_Pin_13, GPIO_ModeOut_PP_5mA); // PA13 - PWM5
     GPIOB_ModeCfg(GPIO_Pin_0, GPIO_ModeOut_PP_5mA);  // PB0 - PWM6
@@ -37,23 +37,23 @@ int main()
     GPIOB_ModeCfg(GPIO_Pin_6, GPIO_ModeOut_PP_5mA);  // PB6 - PWM8
     GPIOB_ModeCfg(GPIO_Pin_7, GPIO_ModeOut_PP_5mA);  // PB7 - PWM9
     GPIOB_ModeCfg(GPIO_Pin_14, GPIO_ModeOut_PP_5mA); // PB14 - PWM10
-                                                     //  GPIOB_ModeCfg(GPIO_Pin_23, GPIO_ModeOut_PP_5mA); // PB23 - PWM11 ¥ÀΩ≈∏¥”√Œ™Õ‚≤ø∏¥ŒªΩ≈£¨–Ë“™πÿ±’¥Àπ¶ƒ‹≤≈ƒ‹ø™∆ÙPWMπ¶ƒ‹
+                                                     //  GPIOB_ModeCfg(GPIO_Pin_23, GPIO_ModeOut_PP_5mA); // PB23 - PWM11 Ê≠§ËÑöÂ§çÁî®‰∏∫Â§ñÈÉ®Â§ç‰ΩçËÑöÔºåÈúÄË¶ÅÂÖ≥Èó≠Ê≠§ÂäüËÉΩÊâçËÉΩÂºÄÂêØPWMÂäüËÉΩ
 
     PWMX_CLKCfg(4);                                   // cycle = 4/Fsys
-    PWMX_CycleCfg(PWMX_Cycle_64);                     // ÷‹∆⁄ = 64*cycle
-    PWMX_ACTOUT(CH_PWM4, 64 / 4, Low_Level, ENABLE);  // 25% ’ºø’±»
-    PWMX_ACTOUT(CH_PWM5, 64 / 4, Low_Level, ENABLE);  // 25% ’ºø’±»
-    PWMX_ACTOUT(CH_PWM6, 64 / 4, Low_Level, ENABLE);  // 25% ’ºø’±»
-    PWMX_ACTOUT(CH_PWM7, 64 / 4, Low_Level, ENABLE);  // 25% ’ºø’±»
-    PWMX_ACTOUT(CH_PWM8, 64 / 4, Low_Level, ENABLE);  // 25% ’ºø’±»
-    PWMX_ACTOUT(CH_PWM9, 64 / 4, Low_Level, ENABLE);  // 25% ’ºø’±»
-    PWMX_ACTOUT(CH_PWM10, 64 / 4, Low_Level, ENABLE); // 25% ’ºø’±»
+    PWMX_CycleCfg(PWMX_Cycle_64);                     // Âë®Êúü = 64*cycle
+    PWMX_ACTOUT(CH_PWM4, 64 / 4, Low_Level, ENABLE);  // 25% Âç†Á©∫ÊØî
+    PWMX_ACTOUT(CH_PWM5, 64 / 4, Low_Level, ENABLE);  // 25% Âç†Á©∫ÊØî
+    PWMX_ACTOUT(CH_PWM6, 64 / 4, Low_Level, ENABLE);  // 25% Âç†Á©∫ÊØî
+    PWMX_ACTOUT(CH_PWM7, 64 / 4, Low_Level, ENABLE);  // 25% Âç†Á©∫ÊØî
+    PWMX_ACTOUT(CH_PWM8, 64 / 4, Low_Level, ENABLE);  // 25% Âç†Á©∫ÊØî
+    PWMX_ACTOUT(CH_PWM9, 64 / 4, Low_Level, ENABLE);  // 25% Âç†Á©∫ÊØî
+    PWMX_ACTOUT(CH_PWM10, 64 / 4, Low_Level, ENABLE); // 25% Âç†Á©∫ÊØî
 
 #endif
 
 #if PWM16
 
-    /* ≈‰÷√GPIO */
+    /* ÈÖçÁΩÆGPIO */
     GPIOA_ModeCfg(GPIO_Pin_12, GPIO_ModeOut_PP_5mA); // PA12 - PWM4
     GPIOA_ModeCfg(GPIO_Pin_13, GPIO_ModeOut_PP_5mA); // PA13 - PWM5
     GPIOB_ModeCfg(GPIO_Pin_0, GPIO_ModeOut_PP_5mA);  // PB0 - PWM6
@@ -62,13 +62,13 @@ int main()
     GPIOB_ModeCfg(GPIO_Pin_7, GPIO_ModeOut_PP_5mA);  // PB7 - PWM9
 
     PWMX_CLKCfg(4);                                   // cycle = 4/Fsys
-    PWMX_16bit_CycleCfg(60000);                       // 16  ˝æ›øÌ∂» ±µƒPWM ±÷”÷‹∆⁄
-    PWMX_16bit_ACTOUT(CH_PWM4, 30000, Low_Level, ENABLE);  // 50%’ºø’±»
-    PWMX_16bit_ACTOUT(CH_PWM5, 15000, Low_Level, ENABLE);  // 25%’ºø’±»
-    PWMX_16bit_ACTOUT(CH_PWM6, 45000, Low_Level, ENABLE);  // 75%’ºø’±»
-    PWMX_16bit_ACTOUT(CH_PWM7, 30000, High_Level, ENABLE); // 50%’ºø’±»
-    PWMX_16bit_ACTOUT(CH_PWM8, 15000, High_Level, ENABLE); // 25%’ºø’±»
-    PWMX_16bit_ACTOUT(CH_PWM9, 45000, High_Level, ENABLE); // 75%’ºø’±»
+    PWMX_16bit_CycleCfg(60000);                       // 16 Êï∞ÊçÆÂÆΩÂ∫¶Êó∂ÁöÑPWMÊó∂ÈíüÂë®Êúü
+    PWMX_16bit_ACTOUT(CH_PWM4, 30000, Low_Level, ENABLE);  // 50%Âç†Á©∫ÊØî
+    PWMX_16bit_ACTOUT(CH_PWM5, 15000, Low_Level, ENABLE);  // 25%Âç†Á©∫ÊØî
+    PWMX_16bit_ACTOUT(CH_PWM6, 45000, Low_Level, ENABLE);  // 75%Âç†Á©∫ÊØî
+    PWMX_16bit_ACTOUT(CH_PWM7, 30000, High_Level, ENABLE); // 50%Âç†Á©∫ÊØî
+    PWMX_16bit_ACTOUT(CH_PWM8, 15000, High_Level, ENABLE); // 25%Âç†Á©∫ÊØî
+    PWMX_16bit_ACTOUT(CH_PWM9, 45000, High_Level, ENABLE); // 75%Âç†Á©∫ÊØî
 
 #endif
 

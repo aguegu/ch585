@@ -16,12 +16,12 @@
 
 /*******************************************************************************
 * Function Name  : CreateDirectory
-* Description    : ĞÂ½¨Ä¿Â¼²¢´ò¿ª,Èç¹ûÄ¿Â¼ÒÑ¾­´æÔÚÔòÖ±½Ó´ò¿ª£¬Ä¿Â¼ÃûÔÚmCmdParam.Create.mPathNameÖĞ,ÓëÎÄ¼şÃû¹æÔòÏàÍ¬
+* Description    : æ–°å»ºç›®å½•å¹¶æ‰“å¼€,å¦‚æœç›®å½•å·²ç»å­˜åœ¨åˆ™ç›´æ¥æ‰“å¼€ï¼Œç›®å½•ååœ¨mCmdParam.Create.mPathNameä¸­,ä¸æ–‡ä»¶åè§„åˆ™ç›¸åŒ
 * Input          :
 * Output         : None
-* Return         : ERR_SUCCESS = ´ò¿ªÄ¿Â¼³É¹¦»òÕß´´½¨Ä¿Â¼³É¹¦,
-                   ERR_FOUND_NAME = ÒÑ¾­´æÔÚÍ¬ÃûÎÄ¼ş,
-                   ERR_MISS_DIR = Â·¾¶ÃûÎŞĞ§»òÕßÉÏ¼¶Ä¿Â¼²»´æÔÚ
+* Return         : ERR_SUCCESS = æ‰“å¼€ç›®å½•æˆåŠŸæˆ–è€…åˆ›å»ºç›®å½•æˆåŠŸ,
+                   ERR_FOUND_NAME = å·²ç»å­˜åœ¨åŒåæ–‡ä»¶,
+                   ERR_MISS_DIR = è·¯å¾„åæ— æ•ˆæˆ–è€…ä¸Šçº§ç›®å½•ä¸å­˜åœ¨
 *******************************************************************************/
 uint8_t CreateDirectory( void )
 {
@@ -30,7 +30,7 @@ uint8_t CreateDirectory( void )
     uint8_t * DirXramBuf;
     uint8_t  *DirConstData;
     j = 0xFF;
-    for ( i = 0; i != sizeof( mCmdParam.Create.mPathName ); i ++ )    //¼ì²éÄ¿Â¼Â·¾¶
+    for ( i = 0; i != sizeof( mCmdParam.Create.mPathName ); i ++ )    //æ£€æŸ¥ç›®å½•è·¯å¾„
     {
         if ( mCmdParam.Create.mPathName[ i ] == 0 )
         {
@@ -38,79 +38,79 @@ uint8_t CreateDirectory( void )
         }
         if ( mCmdParam.Create.mPathName[ i ] == PATH_SEPAR_CHAR1 || mCmdParam.Create.mPathName[ i ] == PATH_SEPAR_CHAR2 )
         {
-            j = i;                                                     //¼ÇÂ¼ÉÏ¼¶Ä¿Â¼
+            j = i;                                                     //è®°å½•ä¸Šçº§ç›®å½•
         }
     }
     i = ERR_SUCCESS;
     if ( j == 0 || (j == 2 && mCmdParam.Create.mPathName[1] == ':') )
     {
-        UpDirCluster = 0;                                              //ÔÚ¸ùÄ¿Â¼ÏÂ´´½¨×ÓÄ¿Â¼
+        UpDirCluster = 0;                                              //åœ¨æ ¹ç›®å½•ä¸‹åˆ›å»ºå­ç›®å½•
     }
     else
     {
-        if ( j != 0xFF )                                               //¶ÔÓÚ¾ø¶ÔÂ·¾¶Ó¦¸Ã»ñÈ¡ÉÏ¼¶Ä¿Â¼µÄÆğÊ¼´ØºÅ
+        if ( j != 0xFF )                                               //å¯¹äºç»å¯¹è·¯å¾„åº”è¯¥è·å–ä¸Šçº§ç›®å½•çš„èµ·å§‹ç°‡å·
         {
             mCmdParam.Create.mPathName[ j ] = 0;
-            i = CHRV3FileOpen( );                                      //´ò¿ªÉÏ¼¶Ä¿Â¼
+            i = CHRV3FileOpen( );                                      //æ‰“å¼€ä¸Šçº§ç›®å½•
             if ( i == ERR_SUCCESS )
             {
-                i = ERR_MISS_DIR;                                      //ÊÇÎÄ¼ş¶ø·ÇÄ¿Â¼
+                i = ERR_MISS_DIR;                                      //æ˜¯æ–‡ä»¶è€Œéç›®å½•
             }
             else if ( i == ERR_OPEN_DIR )
             {
-                i = ERR_SUCCESS;                                       //³É¹¦´ò¿ªÉÏ¼¶Ä¿Â¼
+                i = ERR_SUCCESS;                                       //æˆåŠŸæ‰“å¼€ä¸Šçº§ç›®å½•
             }
-            mCmdParam.Create.mPathName[ j ] = PATH_SEPAR_CHAR1;        //»Ö¸´Ä¿Â¼·Ö¸ô·û
+            mCmdParam.Create.mPathName[ j ] = PATH_SEPAR_CHAR1;        //æ¢å¤ç›®å½•åˆ†éš”ç¬¦
         }
-        UpDirCluster = CHRV3vStartCluster;                             //±£´æÉÏ¼¶Ä¿Â¼µÄÆğÊ¼´ØºÅ
+        UpDirCluster = CHRV3vStartCluster;                             //ä¿å­˜ä¸Šçº§ç›®å½•çš„èµ·å§‹ç°‡å·
     }
-    if ( i == ERR_SUCCESS )                                            //³É¹¦»ñÈ¡ÉÏ¼¶Ä¿Â¼µÄÆğÊ¼´ØºÅ
+    if ( i == ERR_SUCCESS )                                            //æˆåŠŸè·å–ä¸Šçº§ç›®å½•çš„èµ·å§‹ç°‡å·
     {
-        i = CHRV3FileOpen( );                                          //´ò¿ª±¾¼¶×ÓÄ¿Â¼
+        i = CHRV3FileOpen( );                                          //æ‰“å¼€æœ¬çº§å­ç›®å½•
         if ( i == ERR_SUCCESS )
         {
-            i = ERR_FOUND_NAME;                                        //ÊÇÎÄ¼ş¶ø·ÇÄ¿Â¼
+            i = ERR_FOUND_NAME;                                        //æ˜¯æ–‡ä»¶è€Œéç›®å½•
         }
         else if ( i == ERR_OPEN_DIR )
         {
-            i = ERR_SUCCESS;                                           //Ä¿Â¼ÒÑ¾­´æÔÚ
+            i = ERR_SUCCESS;                                           //ç›®å½•å·²ç»å­˜åœ¨
         }
-        else if ( i == ERR_MISS_FILE )                                 //Ä¿Â¼²»´æÔÚ,¿ÉÒÔĞÂ½¨
+        else if ( i == ERR_MISS_FILE )                                 //ç›®å½•ä¸å­˜åœ¨,å¯ä»¥æ–°å»º
         {
-            i = CHRV3FileCreate( );                                    //ÒÔ´´½¨ÎÄ¼şµÄ·½·¨´´½¨Ä¿Â¼
+            i = CHRV3FileCreate( );                                    //ä»¥åˆ›å»ºæ–‡ä»¶çš„æ–¹æ³•åˆ›å»ºç›®å½•
             if ( i == ERR_SUCCESS )
             {
                 if ( pDISK_FAT_BUF == pDISK_BASE_BUF )
                 {
-                    memset(pDISK_FAT_BUF,0,CHRV3vSectorSize);     //Èç¹ûFILE_DATA_BUFÓëDISK_BASE_BUFºÏÓÃÔò±ØĞëÇå³ı´ÅÅÌ»º³åÇø
+                    memset(pDISK_FAT_BUF,0,CHRV3vSectorSize);     //å¦‚æœFILE_DATA_BUFä¸DISK_BASE_BUFåˆç”¨åˆ™å¿…é¡»æ¸…é™¤ç£ç›˜ç¼“å†²åŒº
                 }
-                DirXramBuf = pDISK_FAT_BUF;                            //ÎÄ¼şÊı¾İ»º³åÇø
+                DirXramBuf = pDISK_FAT_BUF;                            //æ–‡ä»¶æ•°æ®ç¼“å†²åŒº
                 DirConstData = ".          \x10\x0\x0\x0\x0\x0\x0\x0\x0\x0\x0\x0\x0\x21\x30\x0\x0\x0\x0\x0\x0..         \x10\x0\x0\x0\x0\x0\x0\x0\x0\x0\x0\x0\x0\x21\x30\x0\x0\x0\x0\x0\x0";
-                for ( i = 0x40; i != 0; i -- )                         //Ä¿Â¼µÄ±£Áôµ¥Ôª,·Ö±ğÖ¸Ïò×ÔÉíºÍÉÏ¼¶Ä¿Â¼
+                for ( i = 0x40; i != 0; i -- )                         //ç›®å½•çš„ä¿ç•™å•å…ƒ,åˆ†åˆ«æŒ‡å‘è‡ªèº«å’Œä¸Šçº§ç›®å½•
                 {
                     *DirXramBuf = *DirConstData;
                     DirXramBuf ++;
                     DirConstData ++;
                 }
-                *(pDISK_FAT_BUF+0x1A) = ( (uint8_t *)&CHRV3vStartCluster )[3];//×ÔÉíµÄÆğÊ¼´ØºÅ
+                *(pDISK_FAT_BUF+0x1A) = ( (uint8_t *)&CHRV3vStartCluster )[3];//è‡ªèº«çš„èµ·å§‹ç°‡å·
                 *(pDISK_FAT_BUF+0x1B) = ( (uint8_t *)&CHRV3vStartCluster )[2];
                 *(pDISK_FAT_BUF+0x14) = ( (uint8_t *)&CHRV3vStartCluster )[1];
                 *(pDISK_FAT_BUF+0x15) = ( (uint8_t *)&CHRV3vStartCluster )[0];
-                *(pDISK_FAT_BUF+0x20+0x1A) = ( (uint8_t *)&UpDirCluster )[3];//ÉÏ¼¶Ä¿Â¼µÄÆğÊ¼´ØºÅ
+                *(pDISK_FAT_BUF+0x20+0x1A) = ( (uint8_t *)&UpDirCluster )[3];//ä¸Šçº§ç›®å½•çš„èµ·å§‹ç°‡å·
                 *(pDISK_FAT_BUF+0x20+0x1B) = ( (uint8_t *)&UpDirCluster )[2];
                 *(pDISK_FAT_BUF+0x20+0x14) = ( (uint8_t *)&UpDirCluster )[1];
                 *(pDISK_FAT_BUF+0x20+0x15) = ( (uint8_t *)&UpDirCluster )[0];
-//              for ( count = 0x40; count != CHRV3vSectorSizeH*256; count ++ ) {  /* Çå¿ÕÄ¿Â¼ÇøÊ£Óà²¿·Ö */
+//              for ( count = 0x40; count != CHRV3vSectorSizeH*256; count ++ ) {  /* æ¸…ç©ºç›®å½•åŒºå‰©ä½™éƒ¨åˆ† */
 //                  *DirXramBuf = 0;
 //                  DirXramBuf ++;
 //              }
                 mCmdParam.Write.mSectorCount = 1;
-                mCmdParam.Write.mDataBuffer = pDISK_FAT_BUF;                //Ö¸ÏòÎÄ¼şÊı¾İ»º³åÇøµÄÆğÊ¼µØÖ·
-                i = CHRV3FileWrite( );                                      //ÏòÎÄ¼şĞ´ÈëÊı¾İ
+                mCmdParam.Write.mDataBuffer = pDISK_FAT_BUF;                //æŒ‡å‘æ–‡ä»¶æ•°æ®ç¼“å†²åŒºçš„èµ·å§‹åœ°å€
+                i = CHRV3FileWrite( );                                      //å‘æ–‡ä»¶å†™å…¥æ•°æ®
                 if ( i == ERR_SUCCESS )
                 {
                     DirXramBuf = pDISK_FAT_BUF;
-                    for ( i = 0x40; i != 0; i -- )                          //Çå¿ÕÄ¿Â¼Çø
+                    for ( i = 0x40; i != 0; i -- )                          //æ¸…ç©ºç›®å½•åŒº
                     {
                         *DirXramBuf = 0;
                         DirXramBuf ++;
@@ -119,23 +119,23 @@ uint8_t CreateDirectory( void )
                     {
                         if ( pDISK_FAT_BUF == pDISK_BASE_BUF )
                         {
-                            memset(pDISK_FAT_BUF,0,CHRV3vSectorSize);   //Èç¹ûFILE_DATA_BUFÓëDISK_BASE_BUFºÏÓÃÔò±ØĞëÇå³ı´ÅÅÌ»º³åÇø
+                            memset(pDISK_FAT_BUF,0,CHRV3vSectorSize);   //å¦‚æœFILE_DATA_BUFä¸DISK_BASE_BUFåˆç”¨åˆ™å¿…é¡»æ¸…é™¤ç£ç›˜ç¼“å†²åŒº
                         }
                         mCmdParam.Write.mSectorCount = 1;
-                        mCmdParam.Write.mDataBuffer = pDISK_FAT_BUF;         //Ö¸ÏòÎÄ¼şÊı¾İ»º³åÇøµÄÆğÊ¼µØÖ·
-                        i = CHRV3FileWrite( );                               //Çå¿ÕÄ¿Â¼µÄÊ£ÓàÉÈÇø
+                        mCmdParam.Write.mDataBuffer = pDISK_FAT_BUF;         //æŒ‡å‘æ–‡ä»¶æ•°æ®ç¼“å†²åŒºçš„èµ·å§‹åœ°å€
+                        i = CHRV3FileWrite( );                               //æ¸…ç©ºç›®å½•çš„å‰©ä½™æ‰‡åŒº
                         if ( i != ERR_SUCCESS )
                         {
                             break;
                         }
                     }
-                    if ( j == CHRV3vSecPerClus )                              //³É¹¦Çå¿ÕÄ¿Â¼
+                    if ( j == CHRV3vSecPerClus )                              //æˆåŠŸæ¸…ç©ºç›®å½•
                     {
-                        mCmdParam.Modify.mFileSize = 0;                       //Ä¿Â¼µÄ³¤¶È×ÜÊÇ0
+                        mCmdParam.Modify.mFileSize = 0;                       //ç›®å½•çš„é•¿åº¦æ€»æ˜¯0
                         mCmdParam.Modify.mFileDate = 0xFFFF;
                         mCmdParam.Modify.mFileTime = 0xFFFF;
-                        mCmdParam.Modify.mFileAttr = 0x10;                    //ÖÃÄ¿Â¼ÊôĞÔ
-                        i = CHRV3FileModify( );                               //½«ÎÄ¼şĞÅÏ¢ĞŞ¸ÄÎªÄ¿Â¼
+                        mCmdParam.Modify.mFileAttr = 0x10;                    //ç½®ç›®å½•å±æ€§
+                        i = CHRV3FileModify( );                               //å°†æ–‡ä»¶ä¿¡æ¯ä¿®æ”¹ä¸ºç›®å½•
                     }
                 }
             }
@@ -162,32 +162,32 @@ void UDisk_USBH_CreatDirectory( void )
         UDisk_Opeation_Flag = 0;
         printf("CHRV3DiskStatus:%02x\r\n",CHRV3DiskStatus);
         printf( "Create Level 1 Directory /YEAR2004 \r\n" );
-        strcpy( mCmdParam.Create.mPathName, "/YEAR2004" );             //Ä¿Â¼Ãû,¸ÃÄ¿Â¼½¨ÔÚ¸ùÄ¿Â¼ÏÂ
-        ret = CreateDirectory( );                                      //ĞÂ½¨»òÕß´ò¿ªÄ¿Â¼
+        strcpy( mCmdParam.Create.mPathName, "/YEAR2004" );             //ç›®å½•å,è¯¥ç›®å½•å»ºåœ¨æ ¹ç›®å½•ä¸‹
+        ret = CreateDirectory( );                                      //æ–°å»ºæˆ–è€…æ‰“å¼€ç›®å½•
         mStopIfError( ret );
-        /* Ä¿Â¼ĞÂ½¨»òÕß´ò¿ª³É¹¦,ÏÂÃæÔÚÕâ¸ö×ÓÄ¿Â¼ÖĞĞÂ½¨Ò»¸öÑİÊ¾ÎÄ¼ş */
+        /* ç›®å½•æ–°å»ºæˆ–è€…æ‰“å¼€æˆåŠŸ,ä¸‹é¢åœ¨è¿™ä¸ªå­ç›®å½•ä¸­æ–°å»ºä¸€ä¸ªæ¼”ç¤ºæ–‡ä»¶ */
         printf( "Create New File /YEAR2004/DEMO2004.TXT \r\n" );
-        strcpy( mCmdParam.Create.mPathName, "/YEAR2004/DEMO2004.TXT" );//ÎÄ¼şÃû
-        ret = CHRV3FileCreate( );                                      //ĞÂ½¨ÎÄ¼ş²¢´ò¿ª,Èç¹ûÎÄ¼şÒÑ¾­´æÔÚÔòÏÈÉ¾³ıºóÔÙĞÂ½¨
+        strcpy( mCmdParam.Create.mPathName, "/YEAR2004/DEMO2004.TXT" );//æ–‡ä»¶å
+        ret = CHRV3FileCreate( );                                      //æ–°å»ºæ–‡ä»¶å¹¶æ‰“å¼€,å¦‚æœæ–‡ä»¶å·²ç»å­˜åœ¨åˆ™å…ˆåˆ é™¤åå†æ–°å»º
         mStopIfError( ret );
         printf( "Write some data to file DEMO2004.TXT \r\n" );
-        i = sprintf( Com_Buffer, "ÑİÊ¾ÎÄ¼ş\xd\xa" );
-        mCmdParam.ByteWrite.mByteCount = i;                            //Ö¸¶¨±¾´ÎĞ´ÈëµÄ×Ö½ÚÊı,µ¥´Î¶ÁĞ´µÄ³¤¶È²»ÄÜ³¬¹ıMAX_BYTE_IO
-        mCmdParam.ByteWrite.mByteBuffer = Com_Buffer;                  //Ö¸Ïò»º³åÇø
-        ret = CHRV3ByteWrite( );                                       //ÒÔ×Ö½ÚÎªµ¥Î»ÏòÎÄ¼şĞ´ÈëÊı¾İ,µ¥´Î¶ÁĞ´µÄ³¤¶È²»ÄÜ³¬¹ıMAX_BYTE_IO
+        i = sprintf( Com_Buffer, "æ¼”ç¤ºæ–‡ä»¶\xd\xa" );
+        mCmdParam.ByteWrite.mByteCount = i;                            //æŒ‡å®šæœ¬æ¬¡å†™å…¥çš„å­—èŠ‚æ•°,å•æ¬¡è¯»å†™çš„é•¿åº¦ä¸èƒ½è¶…è¿‡MAX_BYTE_IO
+        mCmdParam.ByteWrite.mByteBuffer = Com_Buffer;                  //æŒ‡å‘ç¼“å†²åŒº
+        ret = CHRV3ByteWrite( );                                       //ä»¥å­—èŠ‚ä¸ºå•ä½å‘æ–‡ä»¶å†™å…¥æ•°æ®,å•æ¬¡è¯»å†™çš„é•¿åº¦ä¸èƒ½è¶…è¿‡MAX_BYTE_IO
         mStopIfError( ret );
         printf( "Close file DEMO2004.TXT \r\n" );
-        mCmdParam.Close.mUpdateLen = 1;                                //×Ô¶¯¼ÆËãÎÄ¼ş³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»Ğ´ÎÄ¼ş,½¨ÒéÈÃ³ÌĞò¿â¹Ø±ÕÎÄ¼şÒÔ±ã×Ô¶¯¸üĞÂÎÄ¼ş³¤¶È
+        mCmdParam.Close.mUpdateLen = 1;                                //è‡ªåŠ¨è®¡ç®—æ–‡ä»¶é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½å†™æ–‡ä»¶,å»ºè®®è®©ç¨‹åºåº“å…³é—­æ–‡ä»¶ä»¥ä¾¿è‡ªåŠ¨æ›´æ–°æ–‡ä»¶é•¿åº¦
         ret = CHRV3FileClose( );
         mStopIfError( ret );
-        /* ÏÂÃæĞÂ½¨¶ş¼¶×ÓÄ¿Â¼,·½·¨ÓëÇ°ÃæµÄÒ»¼¶×ÓÄ¿Â¼ÍêÈ«ÏàÍ¬ */
+        /* ä¸‹é¢æ–°å»ºäºŒçº§å­ç›®å½•,æ–¹æ³•ä¸å‰é¢çš„ä¸€çº§å­ç›®å½•å®Œå…¨ç›¸åŒ */
         printf( "Create Level 2 Directory /YEAR2004/MONTH05 \r\n" );
-        strcpy( mCmdParam.Create.mPathName, "/YEAR2004/MONTH05" );    //Ä¿Â¼Ãû,¸ÃÄ¿Â¼½¨ÔÚYEAR2004×ÓÄ¿Â¼ÏÂ,YEAR2004Ä¿Â¼±ØĞëÊÂÏÈ´æÔÚ
-        ret = CreateDirectory( );                                     //ĞÂ½¨»òÕß´ò¿ªÄ¿Â¼
+        strcpy( mCmdParam.Create.mPathName, "/YEAR2004/MONTH05" );    //ç›®å½•å,è¯¥ç›®å½•å»ºåœ¨YEAR2004å­ç›®å½•ä¸‹,YEAR2004ç›®å½•å¿…é¡»äº‹å…ˆå­˜åœ¨
+        ret = CreateDirectory( );                                     //æ–°å»ºæˆ–è€…æ‰“å¼€ç›®å½•
         mStopIfError( ret );
         printf( "Close\r\n" );
-        mCmdParam.Close.mUpdateLen = 0;                               //¶ÔÓÚÄ¿Â¼²»ĞèÒª×Ô¶¯¸üĞÂÎÄ¼ş³¤¶È
-        ret = CHRV3FileClose( );                                      //¹Ø±ÕÄ¿Â¼,Ä¿Â¼²»ĞèÒª¹Ø±Õ,¹Ø±ÕÖ»ÊÇÎªÁË·ÀÖ¹ÏÂÃæÎó²Ù×÷
+        mCmdParam.Close.mUpdateLen = 0;                               //å¯¹äºç›®å½•ä¸éœ€è¦è‡ªåŠ¨æ›´æ–°æ–‡ä»¶é•¿åº¦
+        ret = CHRV3FileClose( );                                      //å…³é—­ç›®å½•,ç›®å½•ä¸éœ€è¦å…³é—­,å…³é—­åªæ˜¯ä¸ºäº†é˜²æ­¢ä¸‹é¢è¯¯æ“ä½œ
         mStopIfError( ret );
     }
 }

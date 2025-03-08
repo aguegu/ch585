@@ -14,8 +14,8 @@
 #include "CH58x_common.h"
 
 /**
- * Note: ������ӻ���DEBUG�ӿ���Ҫͬʱ�򿪻�رգ�
- * ��������ʱ�����⡣
+ * Note: 主机与从机的DEBUG接口需要同时打开或关闭，
+ * 否则会产生时序问题。
  */
 // #define CONFIG_I2C_DEBUG
 

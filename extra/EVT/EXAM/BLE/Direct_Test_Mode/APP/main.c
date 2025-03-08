@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include <usbhs_device.h>
 #include "CONFIG.h"
 #include "HAL.h"
@@ -31,7 +31,7 @@ const uint8_t MacAddr[6] = {0x84, 0xC2, 0xE4, 0x03, 0x02, 0x02};
 /*********************************************************************
  * @fn      Main_Circulation
  *
- * @brief   Ö÷Ñ­»·
+ * @brief   ä¸»å¾ªç¯
  *
  * @return  none
  */
@@ -48,7 +48,7 @@ void Main_Circulation()
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -64,7 +64,7 @@ int main(void)
     GPIOB_ModeCfg(GPIO_Pin_All, GPIO_ModeIN_PU);
 #endif
 #ifdef DEBUG
-#if  DEBUG == 0     // 0ÎªÄ¬ÈÏUART0´òÓ¡£¬UART1Îª²âÊÔ(ÔÚ¹¤³ÌÅäÖÃÖĞĞŞ¸ÄDEBUG)
+#if  DEBUG == 0     // 0ä¸ºé»˜è®¤UART0æ‰“å°ï¼ŒUART1ä¸ºæµ‹è¯•(åœ¨å·¥ç¨‹é…ç½®ä¸­ä¿®æ”¹DEBUG)
     GPIOA_SetBits(GPIO_Pin_14);
     GPIOPinRemap(ENABLE, RB_PIN_UART0);
     GPIOA_ModeCfg(GPIO_Pin_15, GPIO_ModeIN_PU);

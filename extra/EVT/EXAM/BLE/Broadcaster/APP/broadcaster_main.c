@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/06
- * Description        : ¹ã²¥Ó¦ÓÃÖ÷º¯Êı¼°ÈÎÎñÏµÍ³³õÊ¼»¯
+ * Description        : å¹¿æ’­åº”ç”¨ä¸»å‡½æ•°åŠä»»åŠ¡ç³»ç»Ÿåˆå§‹åŒ–
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "CONFIG.h"
 #include "HAL.h"
 #include "broadcaster.h"
@@ -29,7 +29,7 @@ const uint8_t MacAddr[6] =
 /*********************************************************************
  * @fn      Main_Circulation
  *
- * @brief   Ö÷Ñ­»·
+ * @brief   ä¸»å¾ªç¯
  *
  * @return  none
  */
@@ -46,7 +46,7 @@ void Main_Circulation()
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */

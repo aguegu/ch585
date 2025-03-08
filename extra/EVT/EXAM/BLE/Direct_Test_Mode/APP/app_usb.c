@@ -34,23 +34,23 @@ UINT16 SetupReqLen;
 const uint8_t *pDescr;
 
 #define DevEP0SIZE  0x40
-// Éè±¸ÃèÊö·û
+// è®¾å¤‡æè¿°ç¬¦
 const uint8_t My_DevDescr[] = { 0x12,0x01,0x10,0x01,0xFF,0x00,0x00,DevEP0SIZE,
                              0x86,0x1A,0x23,0x75,0x63,0x02,0x00,0x02,
                              0x00,0x01 };
-// ÅäÖÃÃèÊö·û
-const uint8_t MyCfgDescr[] = {   0x09,0x02,0x27,0x00,0x01,0x01,0x00,0x80,0xf0,              //ÅäÖÃÃèÊö·û£¬½Ó¿ÚÃèÊö·û,¶ËµãÃèÊö·û
+// é…ç½®æè¿°ç¬¦
+const uint8_t MyCfgDescr[] = {   0x09,0x02,0x27,0x00,0x01,0x01,0x00,0x80,0xf0,              //é…ç½®æè¿°ç¬¦ï¼Œæ¥å£æè¿°ç¬¦,ç«¯ç‚¹æè¿°ç¬¦
                                  0x09,0x04,0x00,0x00,0x03,0xff,0x01,0x02,0x00,
-                                 0x07,0x05,0x82,0x02,0x20,0x00,0x00,                        //ÅúÁ¿ÉÏ´«¶Ëµã
-                                 0x07,0x05,0x02,0x02,0x20,0x00,0x00,                        //ÅúÁ¿ÏÂ´«¶Ëµã
-                                 0x07,0x05,0x81,0x03,0x08,0x00,0x01};                       //ÖĞ¶ÏÉÏ´«¶Ëµã
-// ÓïÑÔÃèÊö·û
+                                 0x07,0x05,0x82,0x02,0x20,0x00,0x00,                        //æ‰¹é‡ä¸Šä¼ ç«¯ç‚¹
+                                 0x07,0x05,0x02,0x02,0x20,0x00,0x00,                        //æ‰¹é‡ä¸‹ä¼ ç«¯ç‚¹
+                                 0x07,0x05,0x81,0x03,0x08,0x00,0x01};                       //ä¸­æ–­ä¸Šä¼ ç«¯ç‚¹
+// è¯­è¨€æè¿°ç¬¦
 //const uint8_t MyLangDescr[] = { 0x04, 0x03, 0x09, 0x04 };
-// ³§¼ÒĞÅÏ¢
+// å‚å®¶ä¿¡æ¯
 //const uint8_t MyManuInfo[] = { 0x0E, 0x03, 'w', 0, 'c', 0, 'h', 0, '.', 0, 'c', 0, 'n', 0 };
-// ²úÆ·ĞÅÏ¢
+// äº§å“ä¿¡æ¯
 //const uint8_t MyProdInfo[] = { 0x0C, 0x03, 'C', 0, 'H', 0, '5', 0, '9', 0, 'x', 0 };
-/*²úÆ·ÃèÊö·û*/
+/*äº§å“æè¿°ç¬¦*/
 const uint8_t StrDesc[28] =
 {
   0x1C,0x03,0x55,0x00,0x53,0x00,0x42,0x00,
@@ -67,7 +67,7 @@ const uint8_t Return3[2] = {0x9F,0xEE};
  * LOCAL VARIABLES
  */
 
-/******** ÓÃ»§×Ô¶¨Òå·ÖÅä¶ËµãRAM ****************************************/
+/******** ç”¨æˆ·è‡ªå®šä¹‰åˆ†é…ç«¯ç‚¹RAM ****************************************/
 __attribute__((aligned(4)))  uint8_t EP0_Databuf[64 + 64 + 64];    //ep0(64)+ep4_out(64)+ep4_in(64)
 __attribute__((aligned(4)))  uint8_t EP1_Databuf[64 + 64];    //ep1_out(64)+ep1_in(64)
 __attribute__((aligned(4)))  uint8_t EP2_Databuf[64 + 64];    //ep2_out(64)+ep2_in(64)
@@ -80,7 +80,7 @@ __attribute__((aligned(4)))  uint8_t EP3_Databuf[64 + 64];    //ep3_out(64)+ep3_
 /*********************************************************************
  * @fn      app_usb_init
  *
- * @brief   ³õÊ¼»¯usb
+ * @brief   åˆå§‹åŒ–usb
  *
  * @return  none
  */
@@ -98,7 +98,7 @@ void app_usb_init()
 /*********************************************************************
  * @fn      USBSendData
  *
- * @brief   ·¢ËÍÊı¾İ¸øÖ÷»ú
+ * @brief   å‘é€æ•°æ®ç»™ä¸»æœº
  *
  * @return  none
  */
@@ -125,24 +125,24 @@ uint8_t USBSendData(uint8_t *buf, uint16_t len)
 /*********************************************************************
  * @fn      DevEP1_OUT_Deal
  *
- * @brief   ¶Ëµã1Êı¾İ´¦Àí
+ * @brief   ç«¯ç‚¹1æ•°æ®å¤„ç†
  *
  * @return  none
  */
 void DevEP1_OUT_Deal( uint8_t l )
-{ /* ÓÃ»§¿É×Ô¶¨Òå */
+{ /* ç”¨æˆ·å¯è‡ªå®šä¹‰ */
 
 }
 
 /*********************************************************************
  * @fn      DevEP2_OUT_Deal
  *
- * @brief   ¶Ëµã2Êı¾İ´¦Àí
+ * @brief   ç«¯ç‚¹2æ•°æ®å¤„ç†
  *
  * @return  none
  */
 void DevEP2_OUT_Deal( uint8_t l )
-{ /* ÓÃ»§¿É×Ô¶¨Òå */
+{ /* ç”¨æˆ·å¯è‡ªå®šä¹‰ */
     uint8_t i;
 
     for(i = 0; i < l; i++)
@@ -155,29 +155,29 @@ void DevEP2_OUT_Deal( uint8_t l )
 /*********************************************************************
  * @fn      DevEP3_OUT_Deal
  *
- * @brief   ¶Ëµã3Êı¾İ´¦Àí
+ * @brief   ç«¯ç‚¹3æ•°æ®å¤„ç†
  *
  * @return  none
  */
 void DevEP3_OUT_Deal( uint8_t l )
-{ /* ÓÃ»§¿É×Ô¶¨Òå */
+{ /* ç”¨æˆ·å¯è‡ªå®šä¹‰ */
 }
 
 /*********************************************************************
  * @fn      DevEP4_OUT_Deal
  *
- * @brief   ¶Ëµã4Êı¾İ´¦Àí
+ * @brief   ç«¯ç‚¹4æ•°æ®å¤„ç†
  *
  * @return  none
  */
 void DevEP4_OUT_Deal( uint8_t l )
-{ /* ÓÃ»§¿É×Ô¶¨Òå */
+{ /* ç”¨æˆ·å¯è‡ªå®šä¹‰ */
 }
 
 /*********************************************************************
  * @fn      USB_DevTransProcess
  *
- * @brief   USB ´«Êä´¦Àíº¯Êı
+ * @brief   USB ä¼ è¾“å¤„ç†å‡½æ•°
  *
  * @return  none
  */
@@ -189,10 +189,10 @@ void USB_DevTransProcess( void )
   intflag = R8_USB_INT_FG;
   if ( intflag & RB_UIF_TRANSFER )
   {
-    if ( ( R8_USB_INT_ST & MASK_UIS_TOKEN ) != MASK_UIS_TOKEN )    // ·Ç¿ÕÏĞ
+    if ( ( R8_USB_INT_ST & MASK_UIS_TOKEN ) != MASK_UIS_TOKEN )    // éç©ºé—²
     {
       switch ( R8_USB_INT_ST & ( MASK_UIS_TOKEN | MASK_UIS_ENDP ) )
-      // ·ÖÎö²Ù×÷ÁîÅÆºÍ¶ËµãºÅ
+      // åˆ†ææ“ä½œä»¤ç‰Œå’Œç«¯ç‚¹å·
       {
         case UIS_TOKEN_IN :
         {
@@ -200,19 +200,19 @@ void USB_DevTransProcess( void )
           {
             case USB_GET_DESCRIPTOR :
               len = SetupReqLen >= DevEP0SIZE ?
-                  DevEP0SIZE : SetupReqLen;    // ±¾´Î´«Êä³¤¶È
-              memcpy( pEP0_DataBuf, pDescr, len ); /* ¼ÓÔØÉÏ´«Êı¾İ */
+                  DevEP0SIZE : SetupReqLen;    // æœ¬æ¬¡ä¼ è¾“é•¿åº¦
+              memcpy( pEP0_DataBuf, pDescr, len ); /* åŠ è½½ä¸Šä¼ æ•°æ® */
               SetupReqLen -= len;
               pDescr += len;
               R8_UEP0_T_LEN = len;
-              R8_UEP0_CTRL ^= RB_UEP_T_TOG;                             // ·­×ª
+              R8_UEP0_CTRL ^= RB_UEP_T_TOG;                             // ç¿»è½¬
               break;
             case USB_SET_ADDRESS :
               R8_USB_DEV_AD = ( R8_USB_DEV_AD & RB_UDA_GP_BIT ) | SetupReqLen;
               R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
               break;
             default :
-              R8_UEP0_T_LEN = 0;                                      // ×´Ì¬½×¶ÎÍê³ÉÖĞ¶Ï»òÕßÊÇÇ¿ÖÆÉÏ´«0³¤¶ÈÊı¾İ°ü½áÊø¿ØÖÆ´«Êä
+              R8_UEP0_T_LEN = 0;                                      // çŠ¶æ€é˜¶æ®µå®Œæˆä¸­æ–­æˆ–è€…æ˜¯å¼ºåˆ¶ä¸Šä¼ 0é•¿åº¦æ•°æ®åŒ…ç»“æŸæ§åˆ¶ä¼ è¾“
               R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
               break;
           }
@@ -228,7 +228,7 @@ void USB_DevTransProcess( void )
         case UIS_TOKEN_OUT | 1 :
         {
           if ( R8_USB_INT_ST & RB_UIS_TOG_OK )
-          {                       // ²»Í¬²½µÄÊı¾İ°ü½«¶ªÆú
+          {                       // ä¸åŒæ­¥çš„æ•°æ®åŒ…å°†ä¸¢å¼ƒ
             len = R8_USB_RX_LEN;
             DevEP1_OUT_Deal( len );
           }
@@ -242,7 +242,7 @@ void USB_DevTransProcess( void )
         case UIS_TOKEN_OUT | 2 :
         {
           if ( R8_USB_INT_ST & RB_UIS_TOG_OK )
-          {                       // ²»Í¬²½µÄÊı¾İ°ü½«¶ªÆú
+          {                       // ä¸åŒæ­¥çš„æ•°æ®åŒ…å°†ä¸¢å¼ƒ
             len = R8_USB_RX_LEN;
             DevEP2_OUT_Deal( len );
           }
@@ -256,7 +256,7 @@ void USB_DevTransProcess( void )
         case UIS_TOKEN_OUT | 3 :
         {
           if ( R8_USB_INT_ST & RB_UIS_TOG_OK )
-          {                       // ²»Í¬²½µÄÊı¾İ°ü½«¶ªÆú
+          {                       // ä¸åŒæ­¥çš„æ•°æ®åŒ…å°†ä¸¢å¼ƒ
             len = R8_USB_RX_LEN;
             DevEP3_OUT_Deal( len );
           }
@@ -288,7 +288,7 @@ void USB_DevTransProcess( void )
       }
       R8_USB_INT_FG = RB_UIF_TRANSFER;
     }
-    if ( R8_USB_INT_ST & RB_UIS_SETUP_ACT )                  // Setup°ü´¦Àí
+    if ( R8_USB_INT_ST & RB_UIS_SETUP_ACT )                  // SetupåŒ…å¤„ç†
     {
       R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_NAK;
       SetupReqLen = pSetupReqPak->wLength;
@@ -330,7 +330,7 @@ void USB_DevTransProcess( void )
           len = 0;
         }
       }
-      else /* ±ê×¼ÇëÇó */
+      else /* æ ‡å‡†è¯·æ±‚ */
       {
         switch ( SetupReqCode )
         {
@@ -354,19 +354,19 @@ void USB_DevTransProcess( void )
 
               case USB_DESCR_TYP_REPORT :
 //              {
-//                if ( ( ( pSetupReqPak->wIndex ) & 0xff ) == 0 )                             //½Ó¿Ú0±¨±íÃèÊö·û
+//                if ( ( ( pSetupReqPak->wIndex ) & 0xff ) == 0 )                             //æ¥å£0æŠ¥è¡¨æè¿°ç¬¦
 //                {
-//                  pDescr = KeyRepDesc;                                  //Êı¾İ×¼±¸ÉÏ´«
+//                  pDescr = KeyRepDesc;                                  //æ•°æ®å‡†å¤‡ä¸Šä¼ 
 //                  len = sizeof( KeyRepDesc );
 //                }
-//                else if ( ( ( pSetupReqPak->wIndex ) & 0xff ) == 1 )                        //½Ó¿Ú1±¨±íÃèÊö·û
+//                else if ( ( ( pSetupReqPak->wIndex ) & 0xff ) == 1 )                        //æ¥å£1æŠ¥è¡¨æè¿°ç¬¦
 //                {
-//                  pDescr = MouseRepDesc;                                //Êı¾İ×¼±¸ÉÏ´«
+//                  pDescr = MouseRepDesc;                                //æ•°æ®å‡†å¤‡ä¸Šä¼ 
 //                  len = sizeof( MouseRepDesc );
-//                  Ready = 1;                                            //Èç¹ûÓĞ¸ü¶à½Ó¿Ú£¬¸Ã±ê×¼Î»Ó¦¸ÃÔÚ×îºóÒ»¸ö½Ó¿ÚÅäÖÃÍê³ÉºóÓĞĞ§
+//                  Ready = 1;                                            //å¦‚æœæœ‰æ›´å¤šæ¥å£ï¼Œè¯¥æ ‡å‡†ä½åº”è¯¥åœ¨æœ€åä¸€ä¸ªæ¥å£é…ç½®å®Œæˆåæœ‰æ•ˆ
 //                }
 //                else
-//                  len = 0xff;                                           //±¾³ÌĞòÖ»ÓĞ2¸ö½Ó¿Ú£¬Õâ¾ä»°Õı³£²»¿ÉÄÜÖ´ĞĞ
+//                  len = 0xff;                                           //æœ¬ç¨‹åºåªæœ‰2ä¸ªæ¥å£ï¼Œè¿™å¥è¯æ­£å¸¸ä¸å¯èƒ½æ‰§è¡Œ
 //              }
                 break;
 
@@ -387,7 +387,7 @@ void USB_DevTransProcess( void )
                     len = MyLangDescr[0];
                     break;
                   default :
-                    errflag = 0xFF;                               // ²»Ö§³ÖµÄ×Ö·û´®ÃèÊö·û
+                    errflag = 0xFF;                               // ä¸æ”¯æŒçš„å­—ç¬¦ä¸²æè¿°ç¬¦
                     break;
                 }
               }
@@ -398,7 +398,7 @@ void USB_DevTransProcess( void )
                 break;
             }
             if ( SetupReqLen > len )
-              SetupReqLen = len;      //Êµ¼ÊĞèÉÏ´«×Ü³¤¶È
+              SetupReqLen = len;      //å®é™…éœ€ä¸Šä¼ æ€»é•¿åº¦
             len = ( SetupReqLen >= DevEP0SIZE ) ?
                 DevEP0SIZE : SetupReqLen;
             memcpy( pEP0_DataBuf, pDescr, len );
@@ -422,7 +422,7 @@ void USB_DevTransProcess( void )
 
           case USB_CLEAR_FEATURE :
           {
-            if ( ( pSetupReqPak->bRequestType & USB_REQ_RECIP_MASK ) == USB_REQ_RECIP_ENDP )    // ¶Ëµã
+            if ( ( pSetupReqPak->bRequestType & USB_REQ_RECIP_MASK ) == USB_REQ_RECIP_ENDP )    // ç«¯ç‚¹
             {
               switch ( ( pSetupReqPak->wIndex ) & 0xff )
               {
@@ -439,7 +439,7 @@ void USB_DevTransProcess( void )
                   R8_UEP1_CTRL = ( R8_UEP1_CTRL & ~( RB_UEP_R_TOG | MASK_UEP_R_RES ) ) | UEP_R_RES_ACK;
                   break;
                 default :
-                  errflag = 0xFF;                                 // ²»Ö§³ÖµÄ¶Ëµã
+                  errflag = 0xFF;                                 // ä¸æ”¯æŒçš„ç«¯ç‚¹
                   break;
               }
             }
@@ -466,23 +466,23 @@ void USB_DevTransProcess( void )
             break;
         }
       }
-      if ( errflag == 0xff )        // ´íÎó»ò²»Ö§³Ö
+      if ( errflag == 0xff )        // é”™è¯¯æˆ–ä¸æ”¯æŒ
       {
 //                  SetupReqCode = 0xFF;
         R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_STALL | UEP_T_RES_STALL;    // STALL
       }
       else
       {
-        if ( chtype & 0x80 )     // ÉÏ´«
+        if ( chtype & 0x80 )     // ä¸Šä¼ 
         {
           len = ( SetupReqLen > DevEP0SIZE ) ?
               DevEP0SIZE : SetupReqLen;
           SetupReqLen -= len;
         }
         else
-          len = 0;        // ÏÂ´«
+          len = 0;        // ä¸‹ä¼ 
         R8_UEP0_T_LEN = len;
-        R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK;    // Ä¬ÈÏÊı¾İ°üÊÇDATA1
+        R8_UEP0_CTRL = RB_UEP_R_TOG | RB_UEP_T_TOG | UEP_R_RES_ACK | UEP_T_RES_ACK;    // é»˜è®¤æ•°æ®åŒ…æ˜¯DATA1
       }
 
       R8_USB_INT_FG = RB_UIF_TRANSFER;
@@ -502,11 +502,11 @@ void USB_DevTransProcess( void )
     if ( R8_USB_MIS_ST & RB_UMS_SUSPEND )
     {
       ;
-    }    // ¹ÒÆğ
+    }    // æŒ‚èµ·
     else
     {
       ;
-    }               // »½ĞÑ
+    }               // å”¤é†’
     R8_USB_INT_FG = RB_UIF_SUSPEND;
   }
   else
@@ -518,13 +518,13 @@ void USB_DevTransProcess( void )
 /*********************************************************************
  * @fn      USB_IRQHandler
  *
- * @brief   USBÖĞ¶Ïº¯Êı
+ * @brief   USBä¸­æ–­å‡½æ•°
  *
  * @return  none
  */
 __attribute__((interrupt("WCH-Interrupt-fast")))
 __attribute__((section(".highcode")))
-void USB_IRQHandler( void ) /* USBÖĞ¶Ï·şÎñ³ÌĞò,Ê¹ÓÃ¼Ä´æÆ÷×é1 */
+void USB_IRQHandler( void ) /* USBä¸­æ–­æœåŠ¡ç¨‹åº,ä½¿ç”¨å¯„å­˜å™¨ç»„1 */
 {
    USB_DevTransProcess();
 }

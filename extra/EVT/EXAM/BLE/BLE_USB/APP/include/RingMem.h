@@ -37,16 +37,16 @@
 
 typedef int (*RingMemProtection_t)(uint8_t enable);
 
-//»º³åÇø½á¹¹Ìå
+//ç¼“å†²åŒºç»“æ„ä½“
 typedef struct
 {
-    uint8_t volatile *pData;       //»º³åÇøÊ×µØÖ·
-    uint8_t volatile *pWrite;      //Ğ´Ö¸Õë
-    uint8_t volatile *pRead;       //¶ÁÖ¸Õë
-    uint8_t volatile *pEnd;        //»º³åÇøÄ©µØÖ·
-    uint32_t volatile RemanentLen; //Ê£Óà¿Õ¼ä´óĞ¡
-    uint32_t volatile CurrentLen;  //ÒÑÓÃ¿Õ¼ä´óĞ¡
-    uint32_t volatile MaxLen;      //×Ü¿Õ¼ä´óĞ¡
+    uint8_t volatile *pData;       //ç¼“å†²åŒºé¦–åœ°å€
+    uint8_t volatile *pWrite;      //å†™æŒ‡é’ˆ
+    uint8_t volatile *pRead;       //è¯»æŒ‡é’ˆ
+    uint8_t volatile *pEnd;        //ç¼“å†²åŒºæœ«åœ°å€
+    uint32_t volatile RemanentLen; //å‰©ä½™ç©ºé—´å¤§å°
+    uint32_t volatile CurrentLen;  //å·²ç”¨ç©ºé—´å¤§å°
+    uint32_t volatile MaxLen;      //æ€»ç©ºé—´å¤§å°
 } RingMemParm_t;
 
 /*********************************************************************

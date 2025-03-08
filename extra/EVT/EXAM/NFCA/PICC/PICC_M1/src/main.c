@@ -3,18 +3,18 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2024/07/22
- * Description        : NFC PCD Mifare Classic²âÊÔÀı³Ì
+ * Description        : NFC PCD Mifare Classicæµ‹è¯•ä¾‹ç¨‹
  * Copyright (c) 2024 Nanjing Qinheng Microelectronics Co., Ltd.
  * SPDX-License-Identifier: Apache-2.0
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "CH58x_common.h"
 #include "wch_nfca_picc_bsp.h"
 #include "wch_nfca_picc_m1.h"
 
-/* Ã¿¸öÎÄ¼şµ¥¶Àdebug´òÓ¡µÄ¿ª¹Ø£¬ÖÃ0¿ÉÒÔ½ûÖ¹±¾ÎÄ¼şÄÚ²¿´òÓ¡ */
+/* æ¯ä¸ªæ–‡ä»¶å•ç‹¬debugæ‰“å°çš„å¼€å…³ï¼Œç½®0å¯ä»¥ç¦æ­¢æœ¬æ–‡ä»¶å†…éƒ¨æ‰“å° */
 #define DEBUG_PRINT_IN_THIS_FILE 1
 #if DEBUG_PRINT_IN_THIS_FILE
     #define PRINTF(...) PRINT(__VA_ARGS__)
@@ -29,7 +29,7 @@
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -48,7 +48,7 @@ int main(void)
     GPIOA_ModeCfg(GPIO_Pin_15, GPIO_ModeIN_PU);
     GPIOA_ModeCfg(GPIO_Pin_14, GPIO_ModeOut_PP_5mA);
     UART0_BaudRateCfg(115200);
-    R8_UART0_FCR = (2 << 6) | RB_FCR_TX_FIFO_CLR | RB_FCR_RX_FIFO_CLR | RB_FCR_FIFO_EN; // FIFO´ò¿ª£¬´¥·¢µã4×Ö½Ú
+    R8_UART0_FCR = (2 << 6) | RB_FCR_TX_FIFO_CLR | RB_FCR_RX_FIFO_CLR | RB_FCR_FIFO_EN; // FIFOæ‰“å¼€ï¼Œè§¦å‘ç‚¹4å­—èŠ‚
     R8_UART0_LCR = RB_LCR_WORD_SZ;
     R8_UART0_IER = RB_IER_TXD_EN;
     R8_UART0_DIV = 1;

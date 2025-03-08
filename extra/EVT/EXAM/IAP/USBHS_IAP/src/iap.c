@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/15
- * Description        : USBHS IAPÀı³Ì
+ * Description        : USBHS IAPä¾‹ç¨‹
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -12,7 +12,7 @@
 #include "iap.h"
 #include "usb_desc.h"
 
-#undef pSetupReqPak     /* ½â¾öºÍÍâÉè¿âÍ·ÎÄ¼ş³åÍ»  */
+#undef pSetupReqPak     /* è§£å†³å’Œå¤–è®¾åº“å¤´æ–‡ä»¶å†²çª  */
 #define pSetupReqPak          ((PUSB_SETUP_REQ)EP0_Databuf)
 
 /* Endpoint tx busy flag */
@@ -54,41 +54,41 @@ __attribute__ ((aligned(4))) uint8_t USBHS_EP2_Tx_Buf[ DEF_USB_EP2_HS_SIZE];
 __attribute__ ((aligned(4))) uint8_t USBHS_EP2_Rx_Buf[ DEF_USB_EP2_HS_SIZE];
 
 #define DevEP0SIZE  64
-// Éè±¸ÃèÊö·û
+// è®¾å¤‡æè¿°ç¬¦
 const uint8_t MyDevDescr[] =
 {
     0x12, 0x01, 0x10, 0x01, 0xFF, 0x80, 0x55,
-    DevEP0SIZE, 0x48, 0x43, 0xe0, 0x55,      // ³§ÉÌIDºÍ²úÆ·ID
+    DevEP0SIZE, 0x48, 0x43, 0xe0, 0x55,      // å‚å•†IDå’Œäº§å“ID
     0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
 };
-// ÅäÖÃÃèÊö·û
+// é…ç½®æè¿°ç¬¦
 const uint8_t MyCfgDescr[] =
 {
     0x09, 0x02, 0x20, 0x00, 0x01, 0x01, 0x00, 0x80, 0x32, 0x09, 0x04, 0x00, 0x00,
     0x02, 0xFF, 0x80, 0x55, 0x00, 0x07, 0x05, 0x82, 0x02, 0x40, 0x00, 0x00,
     0x07, 0x05, 0x02, 0x02, 0x40, 0x00, 0x00
 };
-// ÓïÑÔÃèÊö·û
+// è¯­è¨€æè¿°ç¬¦
 const uint8_t MyLangDescr[] =
 { 0x04, 0x03, 0x09, 0x04 };
-// ³§¼ÒĞÅÏ¢
+// å‚å®¶ä¿¡æ¯
 const uint8_t MyManuInfo[] =
 { 0x0E, 0x03, 'w', 0, 'c', 0, 'h', 0, '.', 0, 'c', 0, 'n', 0 };
-// ²úÆ·ĞÅÏ¢
+// äº§å“ä¿¡æ¯
 const uint8_t MyProdInfo[] =
 { 0x0C, 0x03, 'C', 0, 'H', 0, '5', 0, '8', 0, 'x', 0 };
-// ÉÏÏÂ´«Êäº¯ÊıÉùÃ÷
+// ä¸Šä¸‹ä¼ è¾“å‡½æ•°å£°æ˜
 void myDevEP2_OUT_Deal(uint8_t l);
 void myDevEP2_IN_Deal(uint8_t s);
 
-//USBÏà¹Ø±äÁ¿
+//USBç›¸å…³å˜é‡
 uint8_t DevConfig;
 uint8_t SetupReqCode;
 uint16_t SetupReqLen;
 const uint8_t *pDescr;
 
-//Éı¼¶Ïà¹Ø±äÁ¿
-__attribute__((aligned(4)))   uint8_t g_write_buf[256 + 64]; //Ã¿´ÎÂú256×Ö½ÚÔÙĞ´flash£¬ÌáÉıËÙ¶È
+//å‡çº§ç›¸å…³å˜é‡
+__attribute__((aligned(4)))   uint8_t g_write_buf[256 + 64]; //æ¯æ¬¡æ»¡256å­—èŠ‚å†å†™flashï¼Œæå‡é€Ÿåº¦
 volatile uint16_t g_buf_write_ptr = 0;
 volatile uint32_t g_flash_write_ptr = 0;
 uint32_t g_tcnt;
@@ -97,7 +97,7 @@ __attribute__((aligned(4))) iap_cmd_t g_iap_cmd;
 /*********************************************************************
  * @fn      USB_DevTransProcess
  *
- * @brief   IAP USBÖ÷Ñ­»·,³ÌĞò·ÅramÖĞÔËĞĞ£¬ÌáÉıËÙ¶È.
+ * @brief   IAP USBä¸»å¾ªç¯,ç¨‹åºæ”¾ramä¸­è¿è¡Œï¼Œæå‡é€Ÿåº¦.
  *
  * @param   None.
  *
@@ -115,7 +115,7 @@ void USB_DevTransProcess(void)
 
     if( intflag & USBHS_UDIF_TRANSFER )
     {
-        g_tcnt = 0; //USBÓĞÊı¾İ£¬Çå¿Õ³¬Ê±¼ÆÊı
+        g_tcnt = 0; //USBæœ‰æ•°æ®ï¼Œæ¸…ç©ºè¶…æ—¶è®¡æ•°
 
         endp_num = intst & USBHS_UDIS_EP_ID_MASK;
         if( !(R8_USB2_INT_ST & USBHS_UDIS_EP_DIR )) // SETUP/OUT Transaction
@@ -519,7 +519,7 @@ void USB_DevTransProcess(void)
 /*********************************************************************
  * @fn      myDevEP2_OUT_Deal
  *
- * @brief   IAP USBÊı¾İ´¦Àíº¯Êı£¬·ÅÈëramÖĞÔËĞĞÌáÉıËÙ¶È.
+ * @brief   IAP USBæ•°æ®å¤„ç†å‡½æ•°ï¼Œæ”¾å…¥ramä¸­è¿è¡Œæå‡é€Ÿåº¦.
  *
  * @param   None.
  *
@@ -528,7 +528,7 @@ void USB_DevTransProcess(void)
 __HIGH_CODE
 void myDevEP2_OUT_Deal(uint8_t l)
 {
-    /* ÓÃ»§¿É×Ô¶¨Òå */
+    /* ç”¨æˆ·å¯è‡ªå®šä¹‰ */
     uint8_t s = 0;
     uint32_t addr;
     switch (g_iap_cmd.other.buf[0])
@@ -538,7 +538,7 @@ void myDevEP2_OUT_Deal(uint8_t l)
         {
             if (g_buf_write_ptr != 0)
             {
-            	g_buf_write_ptr = ((g_buf_write_ptr + 3) & (~3)); //ËÄ×Ö½Ú¶ÔÆë
+            	g_buf_write_ptr = ((g_buf_write_ptr + 3) & (~3)); //å››å­—èŠ‚å¯¹é½
                 s = FLASH_ROM_WRITE(g_flash_write_ptr, (PUINT32)g_write_buf, g_buf_write_ptr);
                 g_buf_write_ptr = 0;
             }
@@ -551,14 +551,14 @@ void myDevEP2_OUT_Deal(uint8_t l)
             {
                 s = FLASH_ROM_WRITE(g_flash_write_ptr, (PUINT32)g_write_buf, 256);
                 g_flash_write_ptr += 256;
-                g_buf_write_ptr = g_buf_write_ptr - 256;    //³¬³öµÄ³¤¶È
-                my_memcpy(g_write_buf, g_write_buf + 256, g_buf_write_ptr); //±£´æÊ£ÏÂµÄiap_cmd.program.buf + g_iap_cmd.program.len - g_buf_write_ptr
+                g_buf_write_ptr = g_buf_write_ptr - 256;    //è¶…å‡ºçš„é•¿åº¦
+                my_memcpy(g_write_buf, g_write_buf + 256, g_buf_write_ptr); //ä¿å­˜å‰©ä¸‹çš„iap_cmd.program.buf + g_iap_cmd.program.len - g_buf_write_ptr
             }
         }
         myDevEP2_IN_Deal(s);
         break;
     case CMD_IAP_ERASE:
-    	//ÕâÀï¿ÉÒÔÌí¼ÓµØÖ·ÅĞ¶Ï£¬Ò²¿ÉÒÔÖ±½Ó²Á³ıÖ¸¶¨Î»ÖÃ
+    	//è¿™é‡Œå¯ä»¥æ·»åŠ åœ°å€åˆ¤æ–­ï¼Œä¹Ÿå¯ä»¥ç›´æ¥æ“¦é™¤æŒ‡å®šä½ç½®
     	addr = (g_iap_cmd.erase.addr[0]
 				| (uint32_t) g_iap_cmd.erase.addr[1] << 8
 				| (uint32_t) g_iap_cmd.erase.addr[2] << 16
@@ -566,7 +566,7 @@ void myDevEP2_OUT_Deal(uint8_t l)
     	if(addr == APP_CODE_START_ADDR)
     	{
 			s = FLASH_ROM_ERASE(APP_CODE_START_ADDR, APP_CODE_END_ADDR - APP_CODE_START_ADDR);
-			g_buf_write_ptr = 0;    //¼ÆÊıÇåÁã
+			g_buf_write_ptr = 0;    //è®¡æ•°æ¸…é›¶
 			g_flash_write_ptr = APP_CODE_START_ADDR;
     	}
     	else
@@ -585,7 +585,7 @@ void myDevEP2_OUT_Deal(uint8_t l)
         myDevEP2_IN_Deal(s);
         break;
     case CMD_IAP_END:
-        /*½áÊøÉı¼¶£¬¸´Î»USB£¬Ìø×ªµ½app*/
+        /*ç»“æŸå‡çº§ï¼Œå¤ä½USBï¼Œè·³è½¬åˆ°app*/
         R8_USB2_CTRL = USBHS_UD_RST_SIE;
         R16_PIN_CONFIG &= ~RB_PIN_USB2_EN;
         DelayMs(10);
@@ -601,8 +601,8 @@ void myDevEP2_OUT_Deal(uint8_t l)
 
 /*******************************************************************************
  * Function Name  : myDevEP2_IN_Deal
- * Description    : ¶Ëµã2Êı¾İÉÏ´«
- * Input          : l: ÉÏ´«Êı¾İ³¤¶È(<64B)
+ * Description    : ç«¯ç‚¹2æ•°æ®ä¸Šä¼ 
+ * Input          : l: ä¸Šä¼ æ•°æ®é•¿åº¦(<64B)
  * Return         : None
  *******************************************************************************/
 __HIGH_CODE
@@ -625,7 +625,7 @@ void myDevEP2_IN_Deal(uint8_t s)
 /*********************************************************************
  * @fn      my_memcpy
  *
- * @brief   Êı¾İ¿½±´º¯Êı,³ÌĞò·ÅramÖĞÔËĞĞ£¬ÌáÉıËÙ¶È
+ * @brief   æ•°æ®æ‹·è´å‡½æ•°,ç¨‹åºæ”¾ramä¸­è¿è¡Œï¼Œæå‡é€Ÿåº¦
  *
  * @param   None.
  *

@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/12/10
- * Description        : ÍâÉè´Ó»úÓ¦ÓÃ³ÌĞò£¬³õÊ¼»¯¹ã²¥Á¬½Ó²ÎÊı£¬È»ºó¹ã²¥£¬Ö±ÖÁÁ¬½ÓÖ÷»úºó£¬Í¨¹ı×Ô¶¨Òå·şÎñ´«ÊäÊı¾İ
+ * Description        : å¤–è®¾ä»æœºåº”ç”¨ç¨‹åºï¼Œåˆå§‹åŒ–å¹¿æ’­è¿æ¥å‚æ•°ï¼Œç„¶åå¹¿æ’­ï¼Œç›´è‡³è¿æ¥ä¸»æœºåï¼Œé€šè¿‡è‡ªå®šä¹‰æœåŠ¡ä¼ è¾“æ•°æ®
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -128,26 +128,26 @@ static uint8_t advertData[] = {
 static uint8_t attDeviceName[GAP_DEVICE_NAME_LEN] = "OTAOTA_OTAOTA_OTA";
 
 // OTA IAP VARIABLES
-/* OTAÍ¨Ñ¶µÄÖ¡ */
+/* OTAé€šè®¯çš„å¸§ */
 OTA_IAP_CMD_t iap_rec_data;
 
-/* OTA½âÎö½á¹û */
+/* OTAè§£æç»“æœ */
 uint32_t OpParaDataLen = 0;
 uint32_t OpAdd = 0;
 
-/* flashµÄÊı¾İÁÙÊ±´æ´¢ */
+/* flashçš„æ•°æ®ä¸´æ—¶å­˜å‚¨ */
 __attribute__((aligned(8))) uint8_t block_buf[16];
 
-/* ImageÌø×ªº¯ÊıµØÖ·¶¨Òå */
+/* Imageè·³è½¬å‡½æ•°åœ°å€å®šä¹‰ */
 typedef int (*pImageTaskFn)(void);
 pImageTaskFn user_image_tasks;
 
-/* Flash ²Á³ı¹ı³Ì */
-uint32_t EraseAdd = 0;      //²Á³ıµØÖ·
-uint32_t EraseBlockNum = 0; //ĞèÒª²Á³ıµÄ¿éÊı
-uint32_t EraseBlockCnt = 0; //²Á³ıµÄ¿é¼ÆÊı
+/* Flash æ“¦é™¤è¿‡ç¨‹ */
+uint32_t EraseAdd = 0;      //æ“¦é™¤åœ°å€
+uint32_t EraseBlockNum = 0; //éœ€è¦æ“¦é™¤çš„å—æ•°
+uint32_t EraseBlockCnt = 0; //æ“¦é™¤çš„å—è®¡æ•°
 
-/* FLASH Ğ£Ñé¹ı³Ì */
+/* FLASH æ ¡éªŒè¿‡ç¨‹ */
 uint8_t VerifyStatus = 0;
 
 /*********************************************************************
@@ -312,7 +312,7 @@ uint16_t Peripheral_ProcessEvent(uint8_t task_id, uint16_t events)
         PRINT("ERASE:%08x num:%d\r\n", (int)(EraseAdd + EraseBlockCnt * FLASH_BLOCK_SIZE), (int)EraseBlockCnt);
         status = FLASH_ROM_ERASE(EraseAdd + EraseBlockCnt * FLASH_BLOCK_SIZE, FLASH_BLOCK_SIZE);
 
-        /* ²Á³ıÊ§°Ü */
+        /* æ“¦é™¤å¤±è´¥ */
         if(status != SUCCESS)
         {
             OTA_IAP_SendCMDDealSta(status);
@@ -321,7 +321,7 @@ uint16_t Peripheral_ProcessEvent(uint8_t task_id, uint16_t events)
 
         EraseBlockCnt++;
 
-        /* ²Á³ı½áÊø */
+        /* æ“¦é™¤ç»“æŸ */
         if(EraseBlockCnt >= EraseBlockNum)
         {
             PRINT("ERASE Complete\r\n");
@@ -438,10 +438,10 @@ static void performPeriodicTask(void)
 /*********************************************************************
  * @fn      OTA_IAP_SendData
  *
- * @brief   OTA IAP·¢ËÍÊı¾İ£¬Ê¹ÓÃÊ±ÏŞÖÆ20×Ö½ÚÒÔÄÚ
+ * @brief   OTA IAPå‘é€æ•°æ®ï¼Œä½¿ç”¨æ—¶é™åˆ¶20å­—èŠ‚ä»¥å†…
  *
- * @param   p_send_data - ·¢ËÍÊı¾İµÄÖ¸Õë
- * @param   send_len    - ·¢ËÍÊı¾İµÄ³¤¶È
+ * @param   p_send_data - å‘é€æ•°æ®çš„æŒ‡é’ˆ
+ * @param   send_len    - å‘é€æ•°æ®çš„é•¿åº¦
  *
  * @return  none
  */
@@ -453,9 +453,9 @@ void OTA_IAP_SendData(uint8_t *p_send_data, uint8_t send_len)
 /*********************************************************************
  * @fn      OTA_IAP_SendCMDDealSta
  *
- * @brief   OTA IAPÖ´ĞĞµÄ×´Ì¬·µ»Ø
+ * @brief   OTA IAPæ‰§è¡Œçš„çŠ¶æ€è¿”å›
  *
- * @param   deal_status - ·µ»ØµÄ×´Ì¬
+ * @param   deal_status - è¿”å›çš„çŠ¶æ€
  *
  * @return  none
  */
@@ -471,7 +471,7 @@ void OTA_IAP_SendCMDDealSta(uint8_t deal_status)
 /*********************************************************************
  * @fn      OTA_IAP_CMDErrDeal
  *
- * @brief   OTA IAPÒì³£ÃüÁîÂë´¦Àí
+ * @brief   OTA IAPå¼‚å¸¸å‘½ä»¤ç å¤„ç†
  *
  * @return  none
  */
@@ -483,9 +483,9 @@ void OTA_IAP_CMDErrDeal(void)
 /*********************************************************************
  * @fn      SwitchImageFlag
  *
- * @brief   ÇĞ»»dataflashÀïµÄImageFlag
+ * @brief   åˆ‡æ¢dataflashé‡Œçš„ImageFlag
  *
- * @param   new_flag    - ÇĞ»»µÄImageFlag
+ * @param   new_flag    - åˆ‡æ¢çš„ImageFlag
  *
  * @return  none
  */
@@ -494,23 +494,23 @@ void SwitchImageFlag(uint8_t new_flag)
     uint16_t i;
     uint32_t ver_flag;
 
-    /* ¶ÁÈ¡µÚÒ»¿é */
+    /* è¯»å–ç¬¬ä¸€å— */
     EEPROM_READ(OTA_DATAFLASH_ADD, (uint32_t *)&block_buf[0], 4);
 
-    /* ²Á³ıµÚÒ»¿é */
+    /* æ“¦é™¤ç¬¬ä¸€å— */
     EEPROM_ERASE(OTA_DATAFLASH_ADD, EEPROM_PAGE_SIZE);
 
-    /* ¸üĞÂImageĞÅÏ¢ */
+    /* æ›´æ–°Imageä¿¡æ¯ */
     block_buf[0] = new_flag;
 
-    /* ±à³ÌDataFlash */
+    /* ç¼–ç¨‹DataFlash */
     EEPROM_WRITE(OTA_DATAFLASH_ADD, (uint32_t *)&block_buf[0], 4);
 }
 
 /*********************************************************************
  * @fn      DisableAllIRQ
  *
- * @brief   ¹Ø±ÕËùÓĞµÄÖĞ¶Ï
+ * @brief   å…³é—­æ‰€æœ‰çš„ä¸­æ–­
  *
  * @return  none
  */
@@ -522,7 +522,7 @@ void DisableAllIRQ(void)
 /*********************************************************************
  * @fn      Rec_OTA_IAP_DataDeal
  *
- * @brief   ½ÓÊÕµ½OTAÊı¾İ°ü´¦Àí
+ * @brief   æ¥æ”¶åˆ°OTAæ•°æ®åŒ…å¤„ç†
  *
  * @return  none
  */
@@ -530,7 +530,7 @@ void Rec_OTA_IAP_DataDeal(void)
 {
     switch(iap_rec_data.other.buf[0])
     {
-        /* ±à³Ì */
+        /* ç¼–ç¨‹ */
         case CMD_IAP_PROM:
         {
             uint32_t i;
@@ -543,12 +543,12 @@ void Rec_OTA_IAP_DataDeal(void)
 
             PRINT("IAP_PROM: %08x len:%d \r\n", (int)OpAdd, (int)OpParaDataLen);
 
-            /* µ±Ç°ÊÇImageA£¬Ö±½Ó±à³Ì */
+            /* å½“å‰æ˜¯ImageAï¼Œç›´æ¥ç¼–ç¨‹ */
             status = FLASH_ROM_WRITE(OpAdd, iap_rec_data.program.buf, (uint16_t)OpParaDataLen);
             OTA_IAP_SendCMDDealSta(status);
             break;
         }
-        /* ²Á³ı -- À¶ÑÀ²Á³ıÓÉÖ÷»ú¿ØÖÆ */
+        /* æ“¦é™¤ -- è“ç‰™æ“¦é™¤ç”±ä¸»æœºæ§åˆ¶ */
         case CMD_IAP_ERASE:
         {
             OpAdd = (uint32_t)(iap_rec_data.erase.addr[0]);
@@ -560,7 +560,7 @@ void Rec_OTA_IAP_DataDeal(void)
             EraseAdd = OpAdd;
             EraseBlockCnt = 0;
 
-            /* ¼ìÑé¾Í·ÅÔÚ²Á³ıÀïÇå0 */
+            /* æ£€éªŒå°±æ”¾åœ¨æ“¦é™¤é‡Œæ¸…0 */
             VerifyStatus = 0;
 
             PRINT("IAP_ERASE start:%08x num:%d\r\n", (int)OpAdd, (int)EraseBlockNum);
@@ -571,15 +571,15 @@ void Rec_OTA_IAP_DataDeal(void)
             }
             else
             {
-                /* ĞŞ¸ÄDataFlash£¬ÇĞ»»ÖÁImageB */
+                /* ä¿®æ”¹DataFlashï¼Œåˆ‡æ¢è‡³ImageB */
                 SwitchImageFlag(IMAGE_B_FLAG);
 
-                /* Æô¶¯²Á³ı */
+                /* å¯åŠ¨æ“¦é™¤ */
                 tmos_set_event(Peripheral_TaskID, OTA_FLASH_ERASE_EVT);
             }
             break;
         }
-        /* Ğ£Ñé */
+        /* æ ¡éªŒ */
         case CMD_IAP_VERIFY:
         {
             uint32_t i;
@@ -598,22 +598,22 @@ void Rec_OTA_IAP_DataDeal(void)
             OTA_IAP_SendCMDDealSta(VerifyStatus);
             break;
         }
-        /* ±à³Ì½áÊø */
+        /* ç¼–ç¨‹ç»“æŸ */
         case CMD_IAP_END:
         {
             PRINT("IAP_END \r\n");
 
-            /* ¹Ø±Õµ±Ç°ËùÓĞÊ¹ÓÃÖĞ¶Ï£¬»òÕß·½±ãÒ»µãÖ±½ÓÈ«²¿¹Ø±Õ */
+            /* å…³é—­å½“å‰æ‰€æœ‰ä½¿ç”¨ä¸­æ–­ï¼Œæˆ–è€…æ–¹ä¾¿ä¸€ç‚¹ç›´æ¥å…¨éƒ¨å…³é—­ */
             DisableAllIRQ();
 
-            /* ĞŞ¸ÄDataFlash£¬ÇĞ»»ÖÁImageA */
+            /* ä¿®æ”¹DataFlashï¼Œåˆ‡æ¢è‡³ImageA */
             SwitchImageFlag(IMAGE_A_FLAG);
 
-            /* µÈ´ı´òÓ¡Íê³É £¬Ìø×ªImageB*/
+            /* ç­‰å¾…æ‰“å°å®Œæˆ ï¼Œè·³è½¬ImageB*/
             mDelaymS(10);
             jumpApp();
 
-            /* ²»»áÖ´ĞĞµ½Õâ */
+            /* ä¸ä¼šæ‰§è¡Œåˆ°è¿™ */
             SYS_ResetExecute();
 
             break;
@@ -639,9 +639,9 @@ void Rec_OTA_IAP_DataDeal(void)
 
             send_buf[7] = CHIP_ID&0xFF;
             send_buf[8] = (CHIP_ID>>8)&0xFF;
-            /* ÓĞĞèÒªÔÙÔö¼Ó */
+            /* æœ‰éœ€è¦å†å¢åŠ  */
 
-            /* ·¢ËÍĞÅÏ¢ */
+            /* å‘é€ä¿¡æ¯ */
             OTA_IAP_SendData(send_buf, 20);
 
             break;
@@ -658,9 +658,9 @@ void Rec_OTA_IAP_DataDeal(void)
 /*********************************************************************
  * @fn      OTA_IAPReadDataComplete
  *
- * @brief   OTA Êı¾İ¶ÁÈ¡Íê³É´¦Àí
+ * @brief   OTA æ•°æ®è¯»å–å®Œæˆå¤„ç†
  *
- * @param   index   - OTA Í¨µÀĞòºÅ
+ * @param   index   - OTA é€šé“åºå·
  *
  * @return  none
  */
@@ -672,11 +672,11 @@ void OTA_IAPReadDataComplete(unsigned char index)
 /*********************************************************************
  * @fn      OTA_IAPWriteData
  *
- * @brief   OTA Í¨µÀÊı¾İ½ÓÊÕÍê³É´¦Àí
+ * @brief   OTA é€šé“æ•°æ®æ¥æ”¶å®Œæˆå¤„ç†
  *
- * @param   index   - OTA Í¨µÀĞòºÅ
- * @param   p_data  - Ğ´ÈëµÄÊı¾İ
- * @param   w_len   - Ğ´ÈëµÄ³¤¶È
+ * @param   index   - OTA é€šé“åºå·
+ * @param   p_data  - å†™å…¥çš„æ•°æ®
+ * @param   w_len   - å†™å…¥çš„é•¿åº¦
  *
  * @return  none
  */

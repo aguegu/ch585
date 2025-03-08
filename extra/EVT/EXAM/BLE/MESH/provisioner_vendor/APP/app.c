@@ -39,8 +39,8 @@ static uint8_t App_TaskID = 0; // Task ID for internal task/event processing
 
 static uint16_t App_ProcessEvent(uint8_t task_id, uint16_t events);
 
-static uint8_t dev_uuid[16] = {0}; // ´ËÉè±¸µÄUUID
-uint8_t        MACAddr[6];         // ´ËÉè±¸µÄmac
+static uint8_t dev_uuid[16] = {0}; // æ­¤è®¾å¤‡çš„UUID
+uint8_t        MACAddr[6];         // æ­¤è®¾å¤‡çš„mac
 
 static const uint8_t self_prov_net_key[16] = {
     0x00, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef,
@@ -59,12 +59,12 @@ static const uint8_t self_prov_app_key[16] = {
 
 /*  The key indexes are 12-bit values ranging from 0x000 to 0xFFF
     inclusive. A network key at index 0x000 is called the primary NetKey*/
-const uint16_t self_prov_net_idx = 0x0000;      // ×ÔÅäÍøËùÓÃµÄnet key
-const uint16_t self_prov_app_idx = 0x0001;      // ×ÔÅäÍøËùÓÃµÄapp key
-const uint32_t self_prov_iv_index = 0x00000000; // ×ÔÅäÍøµÄiv_index
-const uint16_t self_prov_addr = 0x0001;         // ×ÔÅäÍøµÄ×ÔÉíÖ÷ÔªËØµØÖ·
-const uint8_t  self_prov_flags = 0x00;          // ÊÇ·ñ´¦ÓÚkey¸üĞÂ×´Ì¬£¬Ä¬ÈÏÎª·ñ
-const uint16_t vendor_sub_addr = 0xC000;        // ÅäÖÃ×Ô¶¨ÒåÄ£ĞÍµÄ¶©ÔÄgroupµØÖ·
+const uint16_t self_prov_net_idx = 0x0000;      // è‡ªé…ç½‘æ‰€ç”¨çš„net key
+const uint16_t self_prov_app_idx = 0x0001;      // è‡ªé…ç½‘æ‰€ç”¨çš„app key
+const uint32_t self_prov_iv_index = 0x00000000; // è‡ªé…ç½‘çš„iv_index
+const uint16_t self_prov_addr = 0x0001;         // è‡ªé…ç½‘çš„è‡ªèº«ä¸»å…ƒç´ åœ°å€
+const uint8_t  self_prov_flags = 0x00;          // æ˜¯å¦å¤„äºkeyæ›´æ–°çŠ¶æ€ï¼Œé»˜è®¤ä¸ºå¦
+const uint16_t vendor_sub_addr = 0xC000;        // é…ç½®è‡ªå®šä¹‰æ¨¡å‹çš„è®¢é˜…groupåœ°å€
 
 #if(!CONFIG_BLE_MESH_PB_GATT)
 NET_BUF_SIMPLE_DEFINE_STATIC(rx_buf, 65);
@@ -98,11 +98,11 @@ static struct bt_mesh_cfg_srv cfg_srv = {
 #if(CONFIG_BLE_MESH_PROXY)
     .gatt_proxy = BLE_MESH_GATT_PROXY_ENABLED,
 #endif
-    /* Ä¬ÈÏTTLÎª3 */
+    /* é»˜è®¤TTLä¸º3 */
     .default_ttl = 3,
-    /* µ×²ã·¢ËÍÊı¾İÖØÊÔ7´Î£¬Ã¿´Î¼ä¸ô10ms£¨²»º¬ÄÚ²¿Ëæ»úÊı£© */
+    /* åº•å±‚å‘é€æ•°æ®é‡è¯•7æ¬¡ï¼Œæ¯æ¬¡é—´éš”10msï¼ˆä¸å«å†…éƒ¨éšæœºæ•°ï¼‰ */
     .net_transmit = BLE_MESH_TRANSMIT(7, 10),
-    /* µ×²ã×ª·¢Êı¾İÖØÊÔ7´Î£¬Ã¿´Î¼ä¸ô10ms£¨²»º¬ÄÚ²¿Ëæ»úÊı£© */
+    /* åº•å±‚è½¬å‘æ•°æ®é‡è¯•7æ¬¡ï¼Œæ¯æ¬¡é—´éš”10msï¼ˆä¸å«å†…éƒ¨éšæœºæ•°ï¼‰ */
     .relay_retransmit = BLE_MESH_TRANSMIT(7, 10),
 };
 
@@ -123,7 +123,7 @@ uint16_t cfg_cli_groups[CONFIG_MESH_MOD_GROUP_COUNT_DEF] = {BLE_MESH_ADDR_UNASSI
 uint16_t health_srv_keys[CONFIG_MESH_MOD_KEY_COUNT_DEF] = {BLE_MESH_KEY_UNUSED};
 uint16_t health_srv_groups[CONFIG_MESH_MOD_GROUP_COUNT_DEF] = {BLE_MESH_ADDR_UNASSIGNED};
 
-// rootÄ£ĞÍ¼ÓÔØ
+// rootæ¨¡å‹åŠ è½½
 static struct bt_mesh_model root_models[] = {
     BLE_MESH_MODEL_CFG_SRV(cfg_srv_keys, cfg_srv_groups, &cfg_srv),
     BLE_MESH_MODEL_CFG_CLI(cfg_cli_keys, cfg_cli_groups, &cfg_cli),
@@ -139,13 +139,13 @@ struct bt_mesh_vendor_model_cli vendor_model_cli = {
 uint16_t vnd_model_cli_keys[CONFIG_MESH_MOD_KEY_COUNT_DEF] = {BLE_MESH_KEY_UNUSED};
 uint16_t vnd_model_cli_groups[CONFIG_MESH_MOD_GROUP_COUNT_DEF] = {BLE_MESH_ADDR_UNASSIGNED};
 
-// ×Ô¶¨ÒåÄ£ĞÍ¼ÓÔØ
+// è‡ªå®šä¹‰æ¨¡å‹åŠ è½½
 struct bt_mesh_model vnd_models[] = {
     BLE_MESH_MODEL_VND_CB(CID_WCH, BLE_MESH_MODEL_ID_WCH_CLI, vnd_model_cli_op, NULL, vnd_model_cli_keys,
                           vnd_model_cli_groups, &vendor_model_cli, NULL),
 };
 
-// Ä£ĞÍ×é³É elements
+// æ¨¡å‹ç»„æˆ elements
 static struct bt_mesh_elem elements[] = {
     {
         /* Location Descriptor (GATT Bluetooth Namespace Descriptors) */
@@ -157,14 +157,14 @@ static struct bt_mesh_elem elements[] = {
     }
 };
 
-// elements ¹¹³É Node Composition
+// elements æ„æˆ Node Composition
 const struct bt_mesh_comp app_comp = {
-    .cid = 0x07D7, // WCH ¹«Ë¾id
+    .cid = 0x07D7, // WCH å…¬å¸id
     .elem = elements,
     .elem_count = ARRAY_SIZE(elements),
 };
 
-// ÅäÍø²ÎÊıºÍ»Øµ÷
+// é…ç½‘å‚æ•°å’Œå›è°ƒ
 static const struct bt_mesh_prov app_prov = {
     .uuid = dev_uuid,
     .link_open = link_open,
@@ -174,7 +174,7 @@ static const struct bt_mesh_prov app_prov = {
     .node_added = node_added,
 };
 
-// ÅäÍøÕß¹ÜÀíµÄ½Úµã£¬µÚ0¸öÎª×Ô¼º£¬µÚ1£¬2ÒÀ´ÎÎªÅäÍøË³ĞòµÄ½Úµã
+// é…ç½‘è€…ç®¡ç†çš„èŠ‚ç‚¹ï¼Œç¬¬0ä¸ªä¸ºè‡ªå·±ï¼Œç¬¬1ï¼Œ2ä¾æ¬¡ä¸ºé…ç½‘é¡ºåºçš„èŠ‚ç‚¹
 node_t app_nodes[1 + CONFIG_MESH_PROV_NODE_COUNT_DEF] = {0};
 
 app_mesh_manage_t app_mesh_manage;
@@ -188,9 +188,9 @@ uint8_t settings_load_over = FALSE;
 /*********************************************************************
  * @fn      link_open
  *
- * @brief   ÅäÍøÊ±ºóµÄlink´ò¿ª»Øµ÷
+ * @brief   é…ç½‘æ—¶åçš„linkæ‰“å¼€å›è°ƒ
  *
- * @param   bearer  - µ±Ç°linkÊÇPB_ADV»¹ÊÇPB_GATT
+ * @param   bearer  - å½“å‰linkæ˜¯PB_ADVè¿˜æ˜¯PB_GATT
  *
  * @return  none
  */
@@ -202,10 +202,10 @@ static void link_open(bt_mesh_prov_bearer_t bearer)
 /*********************************************************************
  * @fn      link_close
  *
- * @brief   ÅäÍøºóµÄlink¹Ø±Õ»Øµ÷
+ * @brief   é…ç½‘åçš„linkå…³é—­å›è°ƒ
  *
- * @param   bearer  - µ±Ç°linkÊÇPB_ADV»¹ÊÇPB_GATT
- * @param   reason  - link¹Ø±ÕÔ­Òò
+ * @param   bearer  - å½“å‰linkæ˜¯PB_ADVè¿˜æ˜¯PB_GATT
+ * @param   reason  - linkå…³é—­åŸå› 
  *
  * @return  none
  */
@@ -214,7 +214,7 @@ static void link_close(bt_mesh_prov_bearer_t bearer, uint8_t reason)
     APP_DBG("reason %x", reason);
     if(reason == CLOSE_REASON_RESOURCES)
     {
-        // ´æ´¢µÄ½ÚµãÒÑÂú£¬¿ÉÑ¡Ôñ Í£Ö¹·¢ÆğÅäÍø »ò Çå³ıÈ«²¿½Úµã »ò °´µØÖ·Çå³ı½Úµã(×¢ÒâÓ¦ÓÃ²ã¹ÜÀíµÄ½ÚµãÒ²ĞèÒª¶ÔÓ¦Çå³ı)
+        // å­˜å‚¨çš„èŠ‚ç‚¹å·²æ»¡ï¼Œå¯é€‰æ‹© åœæ­¢å‘èµ·é…ç½‘ æˆ– æ¸…é™¤å…¨éƒ¨èŠ‚ç‚¹ æˆ– æŒ‰åœ°å€æ¸…é™¤èŠ‚ç‚¹(æ³¨æ„åº”ç”¨å±‚ç®¡ç†çš„èŠ‚ç‚¹ä¹Ÿéœ€è¦å¯¹åº”æ¸…é™¤)
         bt_mesh_provisioner_disable(BLE_MESH_PROV_ADV, TRUE);
         //bt_mesh_node_clear();node_init();
         //bt_mesh_node_del_by_addr(app_nodes[1].node_addr);
@@ -228,7 +228,7 @@ static void link_close(bt_mesh_prov_bearer_t bearer, uint8_t reason)
 /*********************************************************************
  * @fn      node_unblock_get
  *
- * @brief   »ñÈ¡ Ò»¸öÎ´×èÈûµÄ node
+ * @brief   è·å– ä¸€ä¸ªæœªé˜»å¡çš„ node
  *
  * @return  node_t / NULL
  */
@@ -249,7 +249,7 @@ static node_t *node_unblock_get(void)
 /*********************************************************************
  * @fn      node_block_get
  *
- * @brief   »ñÈ¡Ò»¸öÕıÔÚ×èÈûµÄ node
+ * @brief   è·å–ä¸€ä¸ªæ­£åœ¨é˜»å¡çš„ node
  *
  * @return  node_t / NULL
  */
@@ -270,10 +270,10 @@ static node_t *node_block_get(void)
 /*********************************************************************
  * @fn      node_work_handler
  *
- * @brief   node ÈÎÎñµ½ÆÚÖ´ĞĞ£¬ÅĞ¶ÏÊÇ·ñ»¹ÓĞÎ´ÅäÖÃÍê³ÉµÄ½Úµã£¬µ÷ÓÃ½ÚµãÅäÖÃº¯Êı
+ * @brief   node ä»»åŠ¡åˆ°æœŸæ‰§è¡Œï¼Œåˆ¤æ–­æ˜¯å¦è¿˜æœ‰æœªé…ç½®å®Œæˆçš„èŠ‚ç‚¹ï¼Œè°ƒç”¨èŠ‚ç‚¹é…ç½®å‡½æ•°
  *
- * @return  TRUE    ¼ÌĞøÖ´ĞĞÅäÖÃ½Úµã
- *          FALSE   ½ÚµãÅäÖÃÍê³É£¬Í£Ö¹ÈÎÎñ
+ * @return  TRUE    ç»§ç»­æ‰§è¡Œé…ç½®èŠ‚ç‚¹
+ *          FALSE   èŠ‚ç‚¹é…ç½®å®Œæˆï¼Œåœæ­¢ä»»åŠ¡
  */
 static BOOL node_work_handler(void)
 {
@@ -289,7 +289,7 @@ static BOOL node_work_handler(void)
     if(node->retry_cnt-- == 0)
     {
         APP_DBG("Ran Out of Retransmit");
-        // Èç¹ûÅäÖÃÊ§°ÜÔòÉ¾³ı½Úµã
+        // å¦‚æœé…ç½®å¤±è´¥åˆ™åˆ é™¤èŠ‚ç‚¹
         bt_mesh_node_del_by_addr(node->node_addr);
         node = node_get(node->node_addr);
         node->stage.node = NODE_INIT;
@@ -320,7 +320,7 @@ unblock:
 /*********************************************************************
  * @fn      node_init
  *
- * @brief   node ³õÊ¼»¯
+ * @brief   node åˆå§‹åŒ–
  *
  * @return  none
  */
@@ -338,7 +338,7 @@ static void node_init(void)
 /*********************************************************************
  * @fn      free_node_get
  *
- * @brief   »ñÈ¡Ò»¸ö¿ÕµÄnode
+ * @brief   è·å–ä¸€ä¸ªç©ºçš„node
  *
  * @return  node_t / NULL
  */
@@ -357,9 +357,9 @@ static node_t *free_node_get(void)
 /*********************************************************************
  * @fn      node_get
  *
- * @brief   »ñÈ¡Æ¥ÅäµÄnode
+ * @brief   è·å–åŒ¹é…çš„node
  *
- * @param   node_addr   - nodeÍøÂçµØÖ·
+ * @param   node_addr   - nodeç½‘ç»œåœ°å€
  *
  * @return  node_t / NULL
  */
@@ -378,12 +378,12 @@ static node_t *node_get(uint16_t node_addr)
 /*********************************************************************
  * @fn      node_should_blocked
  *
- * @brief   ÅĞ¶Ï´ËnodeÅäÖÃÁ÷³ÌÊÇ·ñ×èÈû
+ * @brief   åˆ¤æ–­æ­¤nodeé…ç½®æµç¨‹æ˜¯å¦é˜»å¡
  *
- * @param   node_addr   - nodeÍøÂçµØÖ·
+ * @param   node_addr   - nodeç½‘ç»œåœ°å€
  *
- * @return  TRUE    nodeÎ´Íê³ÉÅäÖÃ
- *          FALSE   nodeÒÑ¾­Íê³ÉÅäÖÃ»ò²»ĞèÒªÅäÖÃ
+ * @return  TRUE    nodeæœªå®Œæˆé…ç½®
+ *          FALSE   nodeå·²ç»å®Œæˆé…ç½®æˆ–ä¸éœ€è¦é…ç½®
  */
 static BOOL node_should_blocked(uint16_t node_addr)
 {
@@ -403,12 +403,12 @@ static BOOL node_should_blocked(uint16_t node_addr)
 /*********************************************************************
  * @fn      node_cfg_process
  *
- * @brief   ÕÒÒ»¸ö¿ÕÏĞµÄ½Úµã£¬Ö´ĞĞÅäÖÃÁ÷³Ì
+ * @brief   æ‰¾ä¸€ä¸ªç©ºé—²çš„èŠ‚ç‚¹ï¼Œæ‰§è¡Œé…ç½®æµç¨‹
  *
- * @param   node        - ¿Õ½ÚµãÖ¸Õë
- * @param   net_idx     - ÍøÂçkey±àºÅ
- * @param   addr        - ÍøÂçµØÖ·
- * @param   num_elem    - ÔªËØÊıÁ¿
+ * @param   node        - ç©ºèŠ‚ç‚¹æŒ‡é’ˆ
+ * @param   net_idx     - ç½‘ç»œkeyç¼–å·
+ * @param   addr        - ç½‘ç»œåœ°å€
+ * @param   num_elem    - å…ƒç´ æ•°é‡
  *
  * @return  node_t / NULL
  */
@@ -439,10 +439,10 @@ static node_t *node_cfg_process(node_t *node, uint16_t net_idx, uint16_t addr, u
 /*********************************************************************
  * @fn      node_stage_set
  *
- * @brief   ÉèÖÃÔ¶¶ËnodeÅäÖÃµÄÏÂÒ»¸ö½×¶Î
+ * @brief   è®¾ç½®è¿œç«¯nodeé…ç½®çš„ä¸‹ä¸€ä¸ªé˜¶æ®µ
  *
- * @param   node        - ÒªÅäÖÃµÄ½Úµã
- * @param   new_stage   - ÏÂÒ»¸ö½×¶Î
+ * @param   node        - è¦é…ç½®çš„èŠ‚ç‚¹
+ * @param   new_stage   - ä¸‹ä¸€ä¸ªé˜¶æ®µ
  *
  * @return  none
  */
@@ -455,10 +455,10 @@ static void node_stage_set(node_t *node, node_stage_t new_stage)
 /*********************************************************************
  * @fn      local_stage_set
  *
- * @brief   ÉèÖÃ±¾µØnodeÅäÖÃµÄÏÂÒ»¸ö½×¶Î£¨¼´ÅäÖÃ×ÔÉí£©
+ * @brief   è®¾ç½®æœ¬åœ°nodeé…ç½®çš„ä¸‹ä¸€ä¸ªé˜¶æ®µï¼ˆå³é…ç½®è‡ªèº«ï¼‰
  *
- * @param   node        - ÒªÅäÖÃµÄ½Úµã
- * @param   new_stage   - ÏÂÒ»¸ö½×¶Î
+ * @param   node        - è¦é…ç½®çš„èŠ‚ç‚¹
+ * @param   new_stage   - ä¸‹ä¸€ä¸ªé˜¶æ®µ
  *
  * @return  none
  */
@@ -471,10 +471,10 @@ static void local_stage_set(node_t *node, local_stage_t new_stage)
 /*********************************************************************
  * @fn      node_rsp
  *
- * @brief   Ã¿Ö´ĞĞÒ»¸öÔ¶¶Ë½ÚµãÅäÖÃÁ÷³ÌµÄ»Øµ÷£¬ÉèÖÃÏÂÒ»¸öÅäÖÃ½×¶Î
+ * @brief   æ¯æ‰§è¡Œä¸€ä¸ªè¿œç«¯èŠ‚ç‚¹é…ç½®æµç¨‹çš„å›è°ƒï¼Œè®¾ç½®ä¸‹ä¸€ä¸ªé…ç½®é˜¶æ®µ
  *
- * @param   p1      - ÒªÅäÖÃµÄÔ¶¶Ënode
- * @param   p2      - µ±Ç°µÄ×´Ì¬
+ * @param   p1      - è¦é…ç½®çš„è¿œç«¯node
+ * @param   p2      - å½“å‰çš„çŠ¶æ€
  *
  * @return  none
  */
@@ -506,10 +506,10 @@ static void node_rsp(void *p1, const void *p2)
 /*********************************************************************
  * @fn      local_rsp
  *
- * @brief   Ã¿Ö´ĞĞÒ»¸ö±¾µØ½ÚµãÅäÖÃÁ÷³ÌµÄ»Øµ÷£¬ÉèÖÃÏÂÒ»¸öÅäÖÃ½×¶Î
+ * @brief   æ¯æ‰§è¡Œä¸€ä¸ªæœ¬åœ°èŠ‚ç‚¹é…ç½®æµç¨‹çš„å›è°ƒï¼Œè®¾ç½®ä¸‹ä¸€ä¸ªé…ç½®é˜¶æ®µ
  *
- * @param   p1      - ÒªÅäÖÃµÄ±¾µØnode
- * @param   p2      - µ±Ç°µÄ×´Ì¬
+ * @param   p1      - è¦é…ç½®çš„æœ¬åœ°node
+ * @param   p2      - å½“å‰çš„çŠ¶æ€
  *
  * @return  none
  */
@@ -537,12 +537,12 @@ static void local_rsp(void *p1, const void *p2)
 /*********************************************************************
  * @fn      node_stage
  *
- * @brief   Ô¶¶Ë½ÚµãÅäÖÃ£¬Ìí¼Óapp key£¬²¢Îª×Ô¶¨Òå·şÎñ°ó¶¨app key£¬ÉèÖÃÄ£ĞÍ¶©ÔÄ
+ * @brief   è¿œç«¯èŠ‚ç‚¹é…ç½®ï¼Œæ·»åŠ app keyï¼Œå¹¶ä¸ºè‡ªå®šä¹‰æœåŠ¡ç»‘å®šapp keyï¼Œè®¾ç½®æ¨¡å‹è®¢é˜…
  *
- * @param   p1      - ÒªÅäÖÃµÄ±¾µØnode
+ * @param   p1      - è¦é…ç½®çš„æœ¬åœ°node
  *
- * @return  TRUE    ÅäÖÃ·¢ËÍÊ§°Ü
- *          FALSE   ÅäÖÃ·¢ËÍÕı³£
+ * @return  TRUE    é…ç½®å‘é€å¤±è´¥
+ *          FALSE   é…ç½®å‘é€æ­£å¸¸
  */
 static BOOL node_stage(void *p1)
 {
@@ -570,7 +570,7 @@ static BOOL node_stage(void *p1)
             }
             break;
 
-            // ÉèÖÃÄ£ĞÍ¶©ÔÄ
+            // è®¾ç½®æ¨¡å‹è®¢é˜…
         case NODE_MOD_SUB_SET:
             err = bt_mesh_cfg_mod_sub_add_vnd(node->net_idx, node->node_addr, node->node_addr, vendor_sub_addr, BLE_MESH_MODEL_ID_WCH_SRV, CID_WCH);
             if(err)
@@ -591,12 +591,12 @@ static BOOL node_stage(void *p1)
 /*********************************************************************
  * @fn      local_stage
  *
- * @brief   ±¾µØ½ÚµãÅäÖÃ£¬Ìí¼Óapp key£¬²¢Îª×Ô¶¨Òå¿Í»§¶Ë°ó¶¨app key
+ * @brief   æœ¬åœ°èŠ‚ç‚¹é…ç½®ï¼Œæ·»åŠ app keyï¼Œå¹¶ä¸ºè‡ªå®šä¹‰å®¢æˆ·ç«¯ç»‘å®šapp key
  *
- * @param   p1      - ÒªÅäÖÃµÄ±¾µØnode
+ * @param   p1      - è¦é…ç½®çš„æœ¬åœ°node
  *
- * @return  TRUE    ÅäÖÃ·¢ËÍÊ§°Ü
- *          FALSE   ÅäÖÃ·¢ËÍÕı³£
+ * @return  TRUE    é…ç½®å‘é€å¤±è´¥
+ *          FALSE   é…ç½®å‘é€æ­£å¸¸
  */
 static BOOL local_stage(void *p1)
 {
@@ -645,12 +645,12 @@ static const cfg_cb_t local_cfg_cb = {
 /*********************************************************************
  * @fn      prov_complete
  *
- * @brief   ÅäÍøÍê³É»Øµ÷£¬ÖØĞÂ¿ªÊ¼¹ã²¥
+ * @brief   é…ç½‘å®Œæˆå›è°ƒï¼Œé‡æ–°å¼€å§‹å¹¿æ’­
  *
- * @param   net_idx     - ÍøÂçkeyµÄindex
- * @param   addr        - link¹Ø±ÕÔ­ÒòÍøÂçµØÖ·
- * @param   flags       - ÊÇ·ñ´¦ÓÚkey refresh×´Ì¬
- * @param   iv_index    - µ±Ç°ÍøÂçivµÄindex
+ * @param   net_idx     - ç½‘ç»œkeyçš„index
+ * @param   addr        - linkå…³é—­åŸå› ç½‘ç»œåœ°å€
+ * @param   flags       - æ˜¯å¦å¤„äºkey refreshçŠ¶æ€
+ * @param   iv_index    - å½“å‰ç½‘ç»œivçš„index
  *
  * @return  none
  */
@@ -678,7 +678,7 @@ static void prov_complete(uint16_t net_idx, uint16_t addr, uint8_t flags, uint32
         }
 
         node->cb = &local_cfg_cb;
-        // ÅĞ¶Ïµ±Ç°ÊÇ·ñÒÑ¼ÓÔØÍê³É£¬Èç¹û»¹ÔÚ¼ÓÔØÖĞÔòËµÃ÷ÉÏ´ÎÔËĞĞÒÑÅäÖÃ£¬Ö±½ÓÈÏÎªÒÑÍê³É
+        // åˆ¤æ–­å½“å‰æ˜¯å¦å·²åŠ è½½å®Œæˆï¼Œå¦‚æœè¿˜åœ¨åŠ è½½ä¸­åˆ™è¯´æ˜ä¸Šæ¬¡è¿è¡Œå·²é…ç½®ï¼Œç›´æ¥è®¤ä¸ºå·²å®Œæˆ
         if( settings_load_over )
         {
             local_stage_set(node, LOCAL_APPKEY_ADD);
@@ -693,12 +693,12 @@ static void prov_complete(uint16_t net_idx, uint16_t addr, uint8_t flags, uint32
 /*********************************************************************
  * @fn      unprov_recv
  *
- * @brief   ÊÕµ½Î´ÅäÍø¹ã²¥£¬·¢ÆğÅäÍø
+ * @brief   æ”¶åˆ°æœªé…ç½‘å¹¿æ’­ï¼Œå‘èµ·é…ç½‘
  *
- * @param   bearer      - ÔÚPB_ADV/PB_GATTÊÕµ½Î´ÅäÍø¹ã²¥
- * @param   uuid        - Î´ÅäÍø¹ã²¥Êı¾İÖĞ°üº¬µÄUUID£¬Í¨¹ı´ËÊı¾İÅĞ¶ÏÉè±¸ĞÅÏ¢
- * @param   oob_info    - ´øÍâÊı¾İĞÅÏ¢
- * @param   info        - ÆäËûÎ´ÅäÍøĞÅÏ¢
+ * @param   bearer      - åœ¨PB_ADV/PB_GATTæ”¶åˆ°æœªé…ç½‘å¹¿æ’­
+ * @param   uuid        - æœªé…ç½‘å¹¿æ’­æ•°æ®ä¸­åŒ…å«çš„UUIDï¼Œé€šè¿‡æ­¤æ•°æ®åˆ¤æ–­è®¾å¤‡ä¿¡æ¯
+ * @param   oob_info    - å¸¦å¤–æ•°æ®ä¿¡æ¯
+ * @param   info        - å…¶ä»–æœªé…ç½‘ä¿¡æ¯
  *
  * @return  none
  */
@@ -722,11 +722,11 @@ static void unprov_recv(bt_mesh_prov_bearer_t bearer,
 /*********************************************************************
  * @fn      node_added
  *
- * @brief   Ô¶¶Ë½ÚµãÅäÍø³É¹¦£¬Ìí¼Óµ½±¾µØ½Úµã¹ÜÀí£¬²¢¿ªÊ¼Ô¶¶Ë½ÚµãÅäÖÃÁ÷³Ì
+ * @brief   è¿œç«¯èŠ‚ç‚¹é…ç½‘æˆåŠŸï¼Œæ·»åŠ åˆ°æœ¬åœ°èŠ‚ç‚¹ç®¡ç†ï¼Œå¹¶å¼€å§‹è¿œç«¯èŠ‚ç‚¹é…ç½®æµç¨‹
  *
- * @param   net_idx     - ½ÚµãÊ¹ÓÃµÄÍøÂçkey±àºÅ
- * @param   addr        - ½ÚµãµÄÍøÂçµØÖ·
- * @param   num_elem    - ½Úµã°üº¬µÄÔªËØÊıÁ¿
+ * @param   net_idx     - èŠ‚ç‚¹ä½¿ç”¨çš„ç½‘ç»œkeyç¼–å·
+ * @param   addr        - èŠ‚ç‚¹çš„ç½‘ç»œåœ°å€
+ * @param   num_elem    - èŠ‚ç‚¹åŒ…å«çš„å…ƒç´ æ•°é‡
  *
  * @return  none
  */
@@ -746,7 +746,7 @@ static void node_added(uint16_t net_idx, uint16_t addr, uint8_t num_elem)
         }
 
         node->cb = &node_cfg_cb;
-        // ÅĞ¶Ïµ±Ç°ÊÇ·ñÒÑ¼ÓÔØÍê³É£¬Èç¹û»¹ÔÚ¼ÓÔØÖĞÔòËµÃ÷ÉÏ´ÎÔËĞĞÒÑÅäÖÃ£¬Ö±½ÓÈÏÎªÒÑÍê³É
+        // åˆ¤æ–­å½“å‰æ˜¯å¦å·²åŠ è½½å®Œæˆï¼Œå¦‚æœè¿˜åœ¨åŠ è½½ä¸­åˆ™è¯´æ˜ä¸Šæ¬¡è¿è¡Œå·²é…ç½®ï¼Œç›´æ¥è®¤ä¸ºå·²å®Œæˆ
         if( settings_load_over )
         {
             node_stage_set(node, NODE_APPKEY_ADD);
@@ -761,10 +761,10 @@ static void node_added(uint16_t net_idx, uint16_t addr, uint8_t num_elem)
 /*********************************************************************
  * @fn      cfg_cli_rsp_handler
  *
- * @brief   ÊÕµ½cfgÃüÁîµÄÓ¦´ğ»Øµ÷£¬´Ë´¦Àı³ÌÖ»´¦ÀíÅäÖÃ½ÚµãÃüÁîÓ¦´ğ£¬
- *          Èç¹û³¬Ê±ÔòÑÓ³Ù1ÃëºóÔÙ´ÎÖ´ĞĞÅäÖÃ½ÚµãÁ÷³Ì
+ * @brief   æ”¶åˆ°cfgå‘½ä»¤çš„åº”ç­”å›è°ƒï¼Œæ­¤å¤„ä¾‹ç¨‹åªå¤„ç†é…ç½®èŠ‚ç‚¹å‘½ä»¤åº”ç­”ï¼Œ
+ *          å¦‚æœè¶…æ—¶åˆ™å»¶è¿Ÿ1ç§’åå†æ¬¡æ‰§è¡Œé…ç½®èŠ‚ç‚¹æµç¨‹
  *
- * @param   val     - »Øµ÷²ÎÊı£¬°üº¬ÃüÁîÀàĞÍºÍ·µ»ØÊı¾İ
+ * @param   val     - å›è°ƒå‚æ•°ï¼ŒåŒ…å«å‘½ä»¤ç±»å‹å’Œè¿”å›æ•°æ®
  *
  * @return  none
  */
@@ -773,7 +773,7 @@ static void cfg_cli_rsp_handler(const cfg_cli_status_t *val)
     node_t *node;
     APP_DBG("");
 
-    // Í¨¹ıĞ­ÒéÕ»É¾³ı½ÚµãµÄÓ¦´ğ,ÓÉÓÚÓĞ¿ÉÄÜ½ÚµãÒÑ±»É¾³ıËùÒÔÊÕ²»µ½Ó¦´ğ£¬ËùÒÔ²»¹ÜÊÇ·ñÓ¦´ğÒ»ÂÉËã³É¹¦¡£×¢ÒâÈç¹û½ÚµãÎ´ÔÚÏßÔò½Úµã×ÔÉí²»»áÊÕµ½É¾³ıÃüÁî
+    // é€šè¿‡åè®®æ ˆåˆ é™¤èŠ‚ç‚¹çš„åº”ç­”,ç”±äºæœ‰å¯èƒ½èŠ‚ç‚¹å·²è¢«åˆ é™¤æ‰€ä»¥æ”¶ä¸åˆ°åº”ç­”ï¼Œæ‰€ä»¥ä¸ç®¡æ˜¯å¦åº”ç­”ä¸€å¾‹ç®—æˆåŠŸã€‚æ³¨æ„å¦‚æœèŠ‚ç‚¹æœªåœ¨çº¿åˆ™èŠ‚ç‚¹è‡ªèº«ä¸ä¼šæ”¶åˆ°åˆ é™¤å‘½ä»¤
     if(val->cfgHdr.opcode == OP_NODE_RESET)
     {
         if(reset_node_addr != BLE_MESH_ADDR_UNASSIGNED)
@@ -810,9 +810,9 @@ end:
 /*********************************************************************
  * @fn      vendor_model_cli_rsp_handler
  *
- * @brief   ÊÕµ½³§ÉÌÄ£ĞÍÊı¾İµÄ»Øµ÷£¬
+ * @brief   æ”¶åˆ°å‚å•†æ¨¡å‹æ•°æ®çš„å›è°ƒï¼Œ
  *
- * @param   val     - »Øµ÷²ÎÊı£¬°üº¬ÃüÁîÀàĞÍºÍ·µ»ØÊı¾İÄÚÈİ£¬³¤¶ÈºÍÀ´Ô´µØÖ·
+ * @param   val     - å›è°ƒå‚æ•°ï¼ŒåŒ…å«å‘½ä»¤ç±»å‹å’Œè¿”å›æ•°æ®å†…å®¹ï¼Œé•¿åº¦å’Œæ¥æºåœ°å€
  *
  * @return  none
  */
@@ -820,20 +820,20 @@ static void vendor_model_cli_rsp_handler(const vendor_model_cli_status_t *val)
 {
     if(val->vendor_model_cli_Hdr.status)
     {
-        // ÓĞÓ¦´ğÊı¾İ´«Êä ³¬Ê±Î´ÊÕµ½Ó¦´ğ
+        // æœ‰åº”ç­”æ•°æ®ä¼ è¾“ è¶…æ—¶æœªæ”¶åˆ°åº”ç­”
         APP_DBG("Timeout opcode 0x%02x", val->vendor_model_cli_Hdr.opcode);
         return;
     }
     if(val->vendor_model_cli_Hdr.opcode == OP_VENDOR_MESSAGE_TRANSPARENT_MSG)
     {
-        // ÊÕµ½Í¸´«Êı¾İ
+        // æ”¶åˆ°é€ä¼ æ•°æ®
         APP_DBG("trans len %d, data 0x%02x from 0x%04x", val->vendor_model_cli_Event.trans.len,
                 val->vendor_model_cli_Event.trans.pdata[0],
                 val->vendor_model_cli_Event.trans.addr);
         tmos_memcpy(&app_mesh_manage, val->vendor_model_cli_Event.trans.pdata, val->vendor_model_cli_Event.trans.len);
         switch(app_mesh_manage.data.buf[0])
         {
-            // ÅĞ¶ÏÊÇ·ñÎªÓ¦ÓÃ²ã×Ô¶¨ÒåÉ¾³ıÃüÁîÓ¦´ğ
+            // åˆ¤æ–­æ˜¯å¦ä¸ºåº”ç”¨å±‚è‡ªå®šä¹‰åˆ é™¤å‘½ä»¤åº”ç­”
             case CMD_DELETE_NODE_ACK:
             {
                 if(val->vendor_model_cli_Event.trans.len != DELETE_NODE_ACK_DATA_LEN)
@@ -855,14 +855,14 @@ static void vendor_model_cli_rsp_handler(const vendor_model_cli_status_t *val)
     }
     else if(val->vendor_model_cli_Hdr.opcode == OP_VENDOR_MESSAGE_TRANSPARENT_IND)
     {
-        // ÊÕµ½indicateÊı¾İ
+        // æ”¶åˆ°indicateæ•°æ®
         APP_DBG("ind len %d, data 0x%02x from 0x%04x", val->vendor_model_cli_Event.ind.len,
                 val->vendor_model_cli_Event.ind.pdata[0],
                 val->vendor_model_cli_Event.ind.addr);
     }
     else if(val->vendor_model_cli_Hdr.opcode == OP_VENDOR_MESSAGE_TRANSPARENT_WRT)
     {
-        // ÊÕµ½writeµÄÓ¦´ğ
+        // æ”¶åˆ°writeçš„åº”ç­”
     }
     else
     {
@@ -873,35 +873,35 @@ static void vendor_model_cli_rsp_handler(const vendor_model_cli_status_t *val)
 /*********************************************************************
  * @fn      vendor_model_cli_send
  *
- * @brief   Í¨¹ı³§ÉÌ×Ô¶¨ÒåÄ£ĞÍ·¢ËÍÊı¾İ
+ * @brief   é€šè¿‡å‚å•†è‡ªå®šä¹‰æ¨¡å‹å‘é€æ•°æ®
  *
- * @param   addr    - ĞèÒª·¢ËÍµÄÄ¿µÄµØÖ·
- *          pData   - ĞèÒª·¢ËÍµÄÊı¾İÖ¸Õë
- *          len     - ĞèÒª·¢ËÍµÄÊı¾İ³¤¶È
+ * @param   addr    - éœ€è¦å‘é€çš„ç›®çš„åœ°å€
+ *          pData   - éœ€è¦å‘é€çš„æ•°æ®æŒ‡é’ˆ
+ *          len     - éœ€è¦å‘é€çš„æ•°æ®é•¿åº¦
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 static int vendor_model_cli_send(uint16_t addr, uint8_t *pData, uint16_t len)
 {
     struct send_param param = {
-        .app_idx = self_prov_app_idx,     // ´ËÏûÏ¢Ê¹ÓÃµÄapp key
-        .addr = addr,                     // ´ËÏûÏ¢·¢ÍùµÄÄ¿µÄµØµØÖ·£¬´Ë´¦ÎªµÚ1¸öÅäÍøµÄ½Úµã
-        .trans_cnt = 0x01,                // ´ËÏûÏ¢µÄÓÃ»§²ã·¢ËÍ´ÎÊı
-        .period = K_MSEC(400),            // ´ËÏûÏ¢ÖØ´«µÄ¼ä¸ô£¬½¨Òé²»Ğ¡ÓÚ(200+50*TTL)ms£¬ÈôÊı¾İ½Ï´óÔò½¨Òé¼Ó³¤
-        .rand = (0),                      // ´ËÏûÏ¢·¢ËÍµÄËæ»úÑÓ³Ù
-        .tid = vendor_cli_tid_get(),      // tid£¬Ã¿¸ö¶ÀÁ¢ÏûÏ¢µİÔöÑ­»·£¬cliÊ¹ÓÃ0~127
-        .send_ttl = BLE_MESH_TTL_DEFAULT, // ttl£¬ÎŞÌØ¶¨ÔòÊ¹ÓÃÄ¬ÈÏÖµ
+        .app_idx = self_prov_app_idx,     // æ­¤æ¶ˆæ¯ä½¿ç”¨çš„app key
+        .addr = addr,                     // æ­¤æ¶ˆæ¯å‘å¾€çš„ç›®çš„åœ°åœ°å€ï¼Œæ­¤å¤„ä¸ºç¬¬1ä¸ªé…ç½‘çš„èŠ‚ç‚¹
+        .trans_cnt = 0x01,                // æ­¤æ¶ˆæ¯çš„ç”¨æˆ·å±‚å‘é€æ¬¡æ•°
+        .period = K_MSEC(400),            // æ­¤æ¶ˆæ¯é‡ä¼ çš„é—´éš”ï¼Œå»ºè®®ä¸å°äº(200+50*TTL)msï¼Œè‹¥æ•°æ®è¾ƒå¤§åˆ™å»ºè®®åŠ é•¿
+        .rand = (0),                      // æ­¤æ¶ˆæ¯å‘é€çš„éšæœºå»¶è¿Ÿ
+        .tid = vendor_cli_tid_get(),      // tidï¼Œæ¯ä¸ªç‹¬ç«‹æ¶ˆæ¯é€’å¢å¾ªç¯ï¼Œcliä½¿ç”¨0~127
+        .send_ttl = BLE_MESH_TTL_DEFAULT, // ttlï¼Œæ— ç‰¹å®šåˆ™ä½¿ç”¨é»˜è®¤å€¼
     };
-//    return vendor_message_cli_write(&param, pData, len);  // µ÷ÓÃ×Ô¶¨ÒåÄ£ĞÍ¿Í»§¶ËµÄÓĞÓ¦´ğĞ´º¯Êı·¢ËÍÊı¾İ£¬Ä¬ÈÏ³¬Ê±2s
-    return vendor_message_cli_send_trans(&param, pData, len); // »òÕßµ÷ÓÃ×Ô¶¨ÒåÄ£ĞÍ·şÎñµÄÍ¸´«º¯Êı·¢ËÍÊı¾İ£¬Ö»·¢ËÍ£¬ÎŞÓ¦´ğ»úÖÆ
+//    return vendor_message_cli_write(&param, pData, len);  // è°ƒç”¨è‡ªå®šä¹‰æ¨¡å‹å®¢æˆ·ç«¯çš„æœ‰åº”ç­”å†™å‡½æ•°å‘é€æ•°æ®ï¼Œé»˜è®¤è¶…æ—¶2s
+    return vendor_message_cli_send_trans(&param, pData, len); // æˆ–è€…è°ƒç”¨è‡ªå®šä¹‰æ¨¡å‹æœåŠ¡çš„é€ä¼ å‡½æ•°å‘é€æ•°æ®ï¼Œåªå‘é€ï¼Œæ— åº”ç­”æœºåˆ¶
 }
 
 /*********************************************************************
  * @fn      keyPress
  *
- * @brief   °´¼ü»Øµ÷
+ * @brief   æŒ‰é”®å›è°ƒ
  *
- * @param   keys    - °´¼üÀàĞÍ
+ * @param   keys    - æŒ‰é”®ç±»å‹
  *
  * @return  none
  */
@@ -915,7 +915,7 @@ void keyPress(uint8_t keys)
         {
             if(0)
             {
-                // ·¢ËÍÊı¾İ
+                // å‘é€æ•°æ®
                 if(app_nodes[1].node_addr)
                 {
                     uint8_t status;
@@ -930,14 +930,14 @@ void keyPress(uint8_t keys)
             }
             if(1)
             {
-                // É¾³ı½Úµã£¬¿ÉÒÔÍ¨¹ıĞ­ÒéÕ»Ğ´ºÃµÄÃüÁîÉ¾³ı£¬Ò²¿ÉÒÔÍ¨¹ıÓ¦ÓÃ²ã×Ô¶¨Ğ­ÒéÉ¾³ı
+                // åˆ é™¤èŠ‚ç‚¹ï¼Œå¯ä»¥é€šè¿‡åè®®æ ˆå†™å¥½çš„å‘½ä»¤åˆ é™¤ï¼Œä¹Ÿå¯ä»¥é€šè¿‡åº”ç”¨å±‚è‡ªå®šåè®®åˆ é™¤
                 if(app_nodes[1].node_addr)
                 {
                     uint8_t status;
                     APP_DBG("node1_addr %x", app_nodes[1].node_addr);
                     if(0)
                     {
-                        // Í¨¹ıĞ­ÒéÕ»Ğ´ºÃµÄÃüÁîÉ¾³ı
+                        // é€šè¿‡åè®®æ ˆå†™å¥½çš„å‘½ä»¤åˆ é™¤
                         status = bt_mesh_cfg_node_reset(self_prov_net_idx, app_nodes[1].node_addr);
                         if(status)
                         {
@@ -950,7 +950,7 @@ void keyPress(uint8_t keys)
                     }
                     if(1)
                     {
-                        // Í¨¹ıÓ¦ÓÃ²ã×Ô¶¨Ğ­ÒéÉ¾³ı
+                        // é€šè¿‡åº”ç”¨å±‚è‡ªå®šåè®®åˆ é™¤
                         app_mesh_manage.delete_node.cmd = CMD_DELETE_NODE;
                         app_mesh_manage.delete_node.addr[0] = app_nodes[1].node_addr&0xFF;
                         app_mesh_manage.delete_node.addr[1] = (app_nodes[1].node_addr>>8)&0xFF;
@@ -961,7 +961,7 @@ void keyPress(uint8_t keys)
                         }
                         else
                         {
-                            // ¶¨Ê±ÈıÃë£¬Î´ÊÕµ½Ó¦´ğ¾Í³¬Ê±
+                            // å®šæ—¶ä¸‰ç§’ï¼Œæœªæ”¶åˆ°åº”ç­”å°±è¶…æ—¶
                             tmos_start_task(App_TaskID, APP_DELETE_NODE_TIMEOUT_EVT, 4800);
                         }
                     }
@@ -975,7 +975,7 @@ void keyPress(uint8_t keys)
 /*********************************************************************
  * @fn      blemesh_on_sync
  *
- * @brief   Í¬²½mesh²ÎÊı£¬ÆôÓÃ¶ÔÓ¦¹¦ÄÜ£¬²»½¨ÒéĞŞ¸Ä
+ * @brief   åŒæ­¥meshå‚æ•°ï¼Œå¯ç”¨å¯¹åº”åŠŸèƒ½ï¼Œä¸å»ºè®®ä¿®æ”¹
  *
  * @param   none
  *
@@ -1028,7 +1028,7 @@ void blemesh_on_sync(void)
 #endif /* PROXY || PB-GATT */
 
 #if(CONFIG_BLE_MESH_PROXY_CLI)
-    bt_mesh_proxy_client_init(cli); //´ıÌí¼Ó
+    bt_mesh_proxy_client_init(cli); //å¾…æ·»åŠ 
 #endif                              /* PROXY_CLI */
 
     bt_mesh_prov_retransmit_init();
@@ -1097,7 +1097,7 @@ void blemesh_on_sync(void)
 /*********************************************************************
  * @fn      App_Init
  *
- * @brief   Ó¦ÓÃ²ã³õÊ¼»¯
+ * @brief   åº”ç”¨å±‚åˆå§‹åŒ–
  *
  * @return  none
  */
@@ -1111,14 +1111,14 @@ void App_Init(void)
     HAL_KeyInit();
     HalKeyConfig(keyPress);
 
-    // Ìí¼ÓÒ»¸ö²âÊÔÈÎÎñ£¬¶¨Ê±ÏòµÚÒ»¸öÅäÍøµÄÉè±¸·¢ËÍÍ¸´«Êı¾İ
+    // æ·»åŠ ä¸€ä¸ªæµ‹è¯•ä»»åŠ¡ï¼Œå®šæ—¶å‘ç¬¬ä¸€ä¸ªé…ç½‘çš„è®¾å¤‡å‘é€é€ä¼ æ•°æ®
     tmos_start_task(App_TaskID, APP_NODE_TEST_EVT, 4800);
 }
 
 /*********************************************************************
  * @fn      App_ProcessEvent
  *
- * @brief   Ó¦ÓÃ²ãÊÂ¼ş´¦Àíº¯Êı
+ * @brief   åº”ç”¨å±‚äº‹ä»¶å¤„ç†å‡½æ•°
  *
  * @param   task_id  - The TMOS assigned task ID.
  * @param   events - events to process.  This is a bit map and can
@@ -1128,7 +1128,7 @@ void App_Init(void)
  */
 static uint16_t App_ProcessEvent(uint8_t task_id, uint16_t events)
 {
-    // ½ÚµãÅäÖÃÈÎÎñÊÂ¼ş´¦Àí
+    // èŠ‚ç‚¹é…ç½®ä»»åŠ¡äº‹ä»¶å¤„ç†
     if(events & APP_NODE_EVT)
     {
         if(node_work_handler())
@@ -1137,7 +1137,7 @@ static uint16_t App_ProcessEvent(uint8_t task_id, uint16_t events)
             return (events ^ APP_NODE_EVT);
     }
 
-    // ²âÊÔÈÎÎñÊÂ¼ş´¦Àí
+    // æµ‹è¯•ä»»åŠ¡äº‹ä»¶å¤„ç†
     if(events & APP_NODE_TEST_EVT)
     {
         if(app_nodes[1].node_addr)
@@ -1145,7 +1145,7 @@ static uint16_t App_ProcessEvent(uint8_t task_id, uint16_t events)
             uint8_t status;
             APP_DBG("app_nodes[1] ADDR %x", app_nodes[1].node_addr);
             uint8_t data[4] = {0, 1, 2, 3};
-            status = vendor_model_cli_send(app_nodes[1].node_addr, data, 4); // µ÷ÓÃ×Ô¶¨ÒåÄ£ĞÍ¿Í»§¶ËµÄÍ¸´«º¯Êı·¢ËÍÊı¾İ
+            status = vendor_model_cli_send(app_nodes[1].node_addr, data, 4); // è°ƒç”¨è‡ªå®šä¹‰æ¨¡å‹å®¢æˆ·ç«¯çš„é€ä¼ å‡½æ•°å‘é€æ•°æ®
             if(status)
                 APP_DBG("trans failed %d", status);
         }
@@ -1155,7 +1155,7 @@ static uint16_t App_ProcessEvent(uint8_t task_id, uint16_t events)
 
     if(events & APP_DELETE_NODE_TIMEOUT_EVT)
     {
-        // Í¨¹ıÓ¦ÓÃ²ã×Ô¶¨Ğ­ÒéÉ¾³ı³¬Ê±£¬¿ÉÌí¼ÓÆäËûÁ÷³Ì
+        // é€šè¿‡åº”ç”¨å±‚è‡ªå®šåè®®åˆ é™¤è¶…æ—¶ï¼Œå¯æ·»åŠ å…¶ä»–æµç¨‹
         APP_DBG("Delete node failed ");
         return (events ^ APP_DELETE_NODE_TIMEOUT_EVT);
     }

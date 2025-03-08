@@ -3,9 +3,9 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2024/08/13
- * Description        : FreeRTOSÀı³Ì£¬Ê¹ÓÃÓ²¼şÑ¹Õ»£¬ÖĞ¶ÏÇ¶Ì×¿ÉÑ¡£¬ÖĞ¶Ïº¯Êı²»ÔÙÊ¹ÓÃĞŞÊÎ
- *                      __attribute__((interrupt("WCH-Interrupt-fast")))£¬
- *                      ÖĞ¶Ïº¯ÊıÖ±½Ó°´ÕÕÆÕÍ¨º¯Êı¶¨Òå£¬Ö»Ê¹ÓÃHIGHCODEĞŞÊÎ¼´¿É¡£
+ * Description        : FreeRTOSä¾‹ç¨‹ï¼Œä½¿ç”¨ç¡¬ä»¶å‹æ ˆï¼Œä¸­æ–­åµŒå¥—å¯é€‰ï¼Œä¸­æ–­å‡½æ•°ä¸å†ä½¿ç”¨ä¿®é¥°
+ *                      __attribute__((interrupt("WCH-Interrupt-fast")))ï¼Œ
+ *                      ä¸­æ–­å‡½æ•°ç›´æ¥æŒ‰ç…§æ™®é€šå‡½æ•°å®šä¹‰ï¼Œåªä½¿ç”¨HIGHCODEä¿®é¥°å³å¯ã€‚
  *********************************************************************************
  * Copyright (c) 2024 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -13,7 +13,7 @@
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "CH58x_common.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -24,7 +24,7 @@
  * GLOBAL TYPEDEFS
  */
 #define TASK1_TASK_PRIO     5
-#define TASK1_STK_SIZE      256     /* ÒòÔÚÈÎÎñÖĞÊ¹ÓÃÁËAPP_PrintfËùÒÔÕ»¿Õ¼ä±ØĞëÒª´óÓÚAPP_PrintfÖĞµÄbuf_strµÄ´óĞ¡+configMINIMAL_STACK_SIZE */
+#define TASK1_STK_SIZE      256     /* å› åœ¨ä»»åŠ¡ä¸­ä½¿ç”¨äº†APP_Printfæ‰€ä»¥æ ˆç©ºé—´å¿…é¡»è¦å¤§äºAPP_Printfä¸­çš„buf_strçš„å¤§å°+configMINIMAL_STACK_SIZE */
 #define TASK2_TASK_PRIO     5
 #define TASK2_STK_SIZE      256
 #define TASK3_TASK_PRIO     configMAX_PRIORITIES - 1
@@ -49,7 +49,7 @@ SemaphoreHandle_t xBinarySem;
 __HIGH_CODE
 void App_Printf(const char *fmt, ...)
 {
-    char  buf_str[128]; /* ĞèÒª×¢ÒâÔÚÕâÀïµÄÄÚ´æ¿Õ¼äÊÇ·ñ×ã¹»´òÓ¡ */
+    char  buf_str[128]; /* éœ€è¦æ³¨æ„åœ¨è¿™é‡Œçš„å†…å­˜ç©ºé—´æ˜¯å¦è¶³å¤Ÿæ‰“å° */
     va_list   v_args;
 
     va_start(v_args, fmt);
@@ -59,7 +59,7 @@ void App_Printf(const char *fmt, ...)
                                   v_args);
     va_end(v_args);
 
-    /* »¥³âÁ¿²Ù×÷£¬²»¿ÉÔÚÖĞ¶ÏÖĞÊ¹ÓÃ */
+    /* äº’æ–¥é‡æ“ä½œï¼Œä¸å¯åœ¨ä¸­æ–­ä¸­ä½¿ç”¨ */
     xSemaphoreTake(printMutex, portMAX_DELAY);
     printf("%s", buf_str);
     xSemaphoreGive(printMutex);
@@ -220,16 +220,16 @@ int main(void)
 __HIGH_CODE
 void GPIOA_IRQHandler(void)
 {
-    /* ±¾º¯Êı¿ÉÒÔ×÷ÎªÔÚ±¾¹¤³ÌFreeRTOSÖĞµÄÖĞ¶Ïº¯ÊıĞ´·¨Ê¾Àı */
+    /* æœ¬å‡½æ•°å¯ä»¥ä½œä¸ºåœ¨æœ¬å·¥ç¨‹FreeRTOSä¸­çš„ä¸­æ–­å‡½æ•°å†™æ³•ç¤ºä¾‹ */
     uint16_t flag;
     portBASE_TYPE xHigherPriorityTaskWoken;
     flag = GPIOA_ReadITFlagPort();
     if((flag & GPIO_Pin_12) != 0)
     {
         xSemaphoreGiveFromISR(xBinarySem, &xHigherPriorityTaskWoken);
-        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);   /* ¸ù¾İĞèÒª·¢ÆğÇĞ»»ÇëÇó */
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);   /* æ ¹æ®éœ€è¦å‘èµ·åˆ‡æ¢è¯·æ±‚ */
     }
-    GPIOA_ClearITFlagBit(flag); /* Çå³ıÖĞ¶Ï±êÖ¾ */
+    GPIOA_ClearITFlagBit(flag); /* æ¸…é™¤ä¸­æ–­æ ‡å¿— */
 }
 
 /******************************** endfile @ main ******************************/

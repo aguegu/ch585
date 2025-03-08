@@ -18,12 +18,12 @@
 /*********************************************************************
  * GLOBAL TYPEDEFS
  */
-// Ó¦ÓÃ²ã×î´ó·¢ËÍ³¤¶È£¬²»·Ö°ü×î´óÎªCONFIG_MESH_UNSEG_LENGTH_DEF£¬·Ö°ü×î´óÎªCONFIG_MESH_TX_SEG_DEF*BLE_MESH_APP_SEG_SDU_MAX-8£¨ÒÀ¾İRAMÊ¹ÓÃÇé¿ö¾ö¶¨£©
+// åº”ç”¨å±‚æœ€å¤§å‘é€é•¿åº¦ï¼Œä¸åˆ†åŒ…æœ€å¤§ä¸ºCONFIG_MESH_UNSEG_LENGTH_DEFï¼Œåˆ†åŒ…æœ€å¤§ä¸ºCONFIG_MESH_TX_SEG_DEF*BLE_MESH_APP_SEG_SDU_MAX-8ï¼ˆä¾æ®RAMä½¿ç”¨æƒ…å†µå†³å®šï¼‰
 #define APP_MAX_TX_SIZE    MAX(CONFIG_MESH_UNSEG_LENGTH_DEF, CONFIG_MESH_TX_SEG_DEF *BLE_MESH_APP_SEG_SDU_MAX - 8)
 
 static uint8_t vendor_model_srv_TaskID = 0; // Task ID for internal task/event processing
 static uint8_t srv_send_tid = 128;
-static int32_t srv_msg_timeout = K_SECONDS(2); //ÓĞÓ¦´ğµÄÊı¾İ´«Êä³¬Ê±Ê±¼ä£¬Ä¬ÈÏ2Ãë
+static int32_t srv_msg_timeout = K_SECONDS(2); //æœ‰åº”ç­”çš„æ•°æ®ä¼ è¾“è¶…æ—¶æ—¶é—´ï¼Œé»˜è®¤2ç§’
 
 static struct net_buf          ind_buf;
 static struct bt_mesh_indicate indicate = {
@@ -61,7 +61,7 @@ uint8_t vendor_srv_tid_get(void)
 /*********************************************************************
  * @fn      vendor_model_srv_reset
  *
- * @brief   ¸´Î»³§ÉÌÄ£ĞÍ·şÎñ£¬È¡ÏûËùÓĞÕıÔÚ·¢ËÍµÄÁ÷³Ì
+ * @brief   å¤ä½å‚å•†æ¨¡å‹æœåŠ¡ï¼Œå–æ¶ˆæ‰€æœ‰æ­£åœ¨å‘é€çš„æµç¨‹
  *
  * @return  none
  */
@@ -87,10 +87,10 @@ static void vendor_model_srv_reset(void)
 /*********************************************************************
  * @fn      vendor_model_srv_rsp_recv
  *
- * @brief   µ÷ÓÃÓ¦ÓÃ²ã´«ÈëµÄ»Øµ÷
+ * @brief   è°ƒç”¨åº”ç”¨å±‚ä¼ å…¥çš„å›è°ƒ
  *
- * @param   val     - »Øµ÷²ÎÊı£¬°üÀ¨ÏûÏ¢ÀàĞÍ¡¢Êı¾İÄÚÈİ¡¢³¤¶È¡¢À´Ô´µØÖ·
- * @param   statu   - ×´Ì¬
+ * @param   val     - å›è°ƒå‚æ•°ï¼ŒåŒ…æ‹¬æ¶ˆæ¯ç±»å‹ã€æ•°æ®å†…å®¹ã€é•¿åº¦ã€æ¥æºåœ°å€
+ * @param   statu   - çŠ¶æ€
  *
  * @return  none
  */
@@ -116,9 +116,9 @@ static void vendor_model_srv_rsp_recv(vendor_model_srv_status_t *val,
 /*********************************************************************
  * @fn      vendor_model_srv_wait
  *
- * @brief   Ä¬ÈÏÁ½Ãë³¬Ê±ºóÍ¨ÖªÓ¦ÓÃ²ã
+ * @brief   é»˜è®¤ä¸¤ç§’è¶…æ—¶åé€šçŸ¥åº”ç”¨å±‚
  *
- * @return  ²Î¿¼BLE_LIB err code
+ * @return  å‚è€ƒBLE_LIB err code
  */
 static int vendor_model_srv_wait(void)
 {
@@ -133,12 +133,12 @@ static int vendor_model_srv_wait(void)
 /*********************************************************************
  * @fn      vendor_model_srv_prepare
  *
- * @brief   Ô¤·¢ËÍ£¬¼ÇÂ¼µ±Ç°ÏûÏ¢ÀàĞÍ
+ * @brief   é¢„å‘é€ï¼Œè®°å½•å½“å‰æ¶ˆæ¯ç±»å‹
  *
- * @param   op_req  - ·¢³öÈ¥µÄÏûÏ¢ÀàĞÍ
- * @param   op      - ÆÚ´ıÊÕµ½µÄÏûÏ¢ÀàĞÍ
+ * @param   op_req  - å‘å‡ºå»çš„æ¶ˆæ¯ç±»å‹
+ * @param   op      - æœŸå¾…æ”¶åˆ°çš„æ¶ˆæ¯ç±»å‹
  *
- * @return  ´íÎóÂë
+ * @return  é”™è¯¯ç 
  */
 static int vendor_model_srv_prepare(uint32_t op_req, uint32_t op)
 {
@@ -163,7 +163,7 @@ static int vendor_model_srv_prepare(uint32_t op_req, uint32_t op)
 /*********************************************************************
  * @fn      vendor_srv_sync_handler
  *
- * @brief   Í¨ÖªÓ¦ÓÃ²ãµ±Ç°op_code³¬Ê±ÁË
+ * @brief   é€šçŸ¥åº”ç”¨å±‚å½“å‰op_codeè¶…æ—¶äº†
  *
  * @return  none
  */
@@ -182,12 +182,12 @@ static void vendor_srv_sync_handler(void)
 /*********************************************************************
  * @fn      vendor_message_srv_confirm
  *
- * @brief   ·¢ËÍvendor_message_srv_confirm - ¸ÃÏûÏ¢ÓÃÓÚVendor Model Server»Ø¸´¸øVendor Model Client£¬
- *          ÓÃÓÚ±íÊ¾ÒÑÊÕµ½Vendor Model Client·¢³öµÄ Write
+ * @brief   å‘é€vendor_message_srv_confirm - è¯¥æ¶ˆæ¯ç”¨äºVendor Model Serverå›å¤ç»™Vendor Model Clientï¼Œ
+ *          ç”¨äºè¡¨ç¤ºå·²æ”¶åˆ°Vendor Model Clientå‘å‡ºçš„ Write
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -218,11 +218,11 @@ static void vendor_message_srv_confirm(struct bt_mesh_model   *model,
 /*********************************************************************
  * @fn      vendor_message_srv_trans
  *
- * @brief   ÊÕµ½Í¸´«Êı¾İ
+ * @brief   æ”¶åˆ°é€ä¼ æ•°æ®
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -238,7 +238,7 @@ static void vendor_message_srv_trans(struct bt_mesh_model   *model,
     {
         vendor_model_srv->srv_tid.trans_tid = pData[0];
         vendor_model_srv->srv_tid.trans_addr = ctx->addr;
-        // ¿ªÍ·Îªtid
+        // å¼€å¤´ä¸ºtid
         pData++;
         len--;
         vendor_model_srv_status.vendor_model_srv_Hdr.opcode =
@@ -257,11 +257,11 @@ static void vendor_message_srv_trans(struct bt_mesh_model   *model,
 /*********************************************************************
  * @fn      vendor_message_srv_write
  *
- * @brief   ÊÕµ½write Êı¾İ£¬ËæºóÓ¦´ğvendor_message_srv_confirm
+ * @brief   æ”¶åˆ°write æ•°æ®ï¼Œéšååº”ç­”vendor_message_srv_confirm
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -277,7 +277,7 @@ static void vendor_message_srv_write(struct bt_mesh_model   *model,
     {
         vendor_model_srv->srv_tid.write_tid = pData[0];
         vendor_model_srv->srv_tid.write_addr = ctx->addr;
-        // ¿ªÍ·Îªtid
+        // å¼€å¤´ä¸ºtid
         pData++;
         len--;
         vendor_model_srv_status.vendor_model_srv_Hdr.opcode =
@@ -297,12 +297,12 @@ static void vendor_message_srv_write(struct bt_mesh_model   *model,
 /*********************************************************************
  * @fn      vendor_message_srv_ack
  *
- * @brief   ÊÕµ½vendor_message_srv_ack - ¸ÃÏûÏ¢ÓÃÓÚVendor Model Client»Ø¸´¸øVendor Model Server£¬
- *          ÓÃÓÚ±íÊ¾ÒÑÊÕµ½Vendor Model Server·¢³öµÄIndication
+ * @brief   æ”¶åˆ°vendor_message_srv_ack - è¯¥æ¶ˆæ¯ç”¨äºVendor Model Clientå›å¤ç»™Vendor Model Serverï¼Œ
+ *          ç”¨äºè¡¨ç¤ºå·²æ”¶åˆ°Vendor Model Serverå‘å‡ºçš„Indication
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -324,7 +324,7 @@ static void vendor_message_srv_ack(struct bt_mesh_model   *model,
     }
 }
 
-// opcode ¶ÔÓ¦µÄ´¦Àíº¯Êı
+// opcode å¯¹åº”çš„å¤„ç†å‡½æ•°
 const struct bt_mesh_model_op vnd_model_srv_op[] = {
     {OP_VENDOR_MESSAGE_TRANSPARENT_MSG, 0, vendor_message_srv_trans},
     {OP_VENDOR_MESSAGE_TRANSPARENT_WRT, 0, vendor_message_srv_write},
@@ -335,13 +335,13 @@ const struct bt_mesh_model_op vnd_model_srv_op[] = {
 /*********************************************************************
  * @fn      vendor_message_srv_indicate
  *
- * @brief   indicate,ÓĞÓ¦´ğ´«ÊäÊı¾İÍ¨µÀ
+ * @brief   indicate,æœ‰åº”ç­”ä¼ è¾“æ•°æ®é€šé“
  *
- * @param   param   - ·¢ËÍ²ÎÊı.
- * @param   pData   - Êı¾İÖ¸Õë.
- * @param   len     - Êı¾İ³¤¶È,×î´óÎª(APP_MAX_TX_SIZE).
+ * @param   param   - å‘é€å‚æ•°.
+ * @param   pData   - æ•°æ®æŒ‡é’ˆ.
+ * @param   len     - æ•°æ®é•¿åº¦,æœ€å¤§ä¸º(APP_MAX_TX_SIZE).
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 int vendor_message_srv_indicate(struct send_param *param, uint8_t *pData,
                                 uint16_t len)
@@ -384,13 +384,13 @@ int vendor_message_srv_indicate(struct send_param *param, uint8_t *pData,
 /*********************************************************************
  * @fn      vendor_message_srv_send_trans
  *
- * @brief   send_trans,Í¸´«Êı¾İÍ¨µÀ
+ * @brief   send_trans,é€ä¼ æ•°æ®é€šé“
  *
- * @param   param   - ·¢ËÍ²ÎÊı.
- * @param   pData   - Êı¾İÖ¸Õë.
- * @param   len     - Êı¾İ³¤¶È,×î´óÎª(APP_MAX_TX_SIZE).
+ * @param   param   - å‘é€å‚æ•°.
+ * @param   pData   - æ•°æ®æŒ‡é’ˆ.
+ * @param   len     - æ•°æ®é•¿åº¦,æœ€å¤§ä¸º(APP_MAX_TX_SIZE).
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 int vendor_message_srv_send_trans(struct send_param *param, uint8_t *pData,
                                   uint16_t len)
@@ -422,13 +422,13 @@ int vendor_message_srv_send_trans(struct send_param *param, uint8_t *pData,
 
     if(param->rand)
     {
-        // ÑÓ³Ù·¢ËÍ
+        // å»¶è¿Ÿå‘é€
         tmos_start_task(vendor_model_srv_TaskID, VENDOR_MODEL_SRV_TRANS_EVT,
                         param->rand);
     }
     else
     {
-        // Ö±½Ó·¢ËÍ
+        // ç›´æ¥å‘é€
         adv_srv_trans_send();
     }
     return 0;
@@ -437,7 +437,7 @@ int vendor_message_srv_send_trans(struct send_param *param, uint8_t *pData,
 /*********************************************************************
  * @fn      vendor_message_srv_trans_reset
  *
- * @brief   È¡Ïû·¢ËÍtransÊı¾İµÄÈÎÎñ£¬ÊÍ·Å»º´æ
+ * @brief   å–æ¶ˆå‘é€transæ•°æ®çš„ä»»åŠ¡ï¼Œé‡Šæ”¾ç¼“å­˜
  *
  * @return  none
  */
@@ -451,10 +451,10 @@ void vendor_message_srv_trans_reset(void)
 /*********************************************************************
  * @fn      ind_reset
  *
- * @brief   µ÷ÓÃindicate·¢ËÍÍê³É»Øµ÷£¬ÊÍ·Å»º´æ
+ * @brief   è°ƒç”¨indicateå‘é€å®Œæˆå›è°ƒï¼Œé‡Šæ”¾ç¼“å­˜
  *
- * @param   ind     - ĞèÒªÊÍ·ÅµÄindicate.
- * @param   err     - ´íÎó×´Ì¬.
+ * @param   ind     - éœ€è¦é‡Šæ”¾çš„indicate.
+ * @param   err     - é”™è¯¯çŠ¶æ€.
  *
  * @return  none
  */
@@ -472,11 +472,11 @@ static void ind_reset(struct bt_mesh_indicate *ind, int err)
 /*********************************************************************
  * @fn      ind_start
  *
- * @brief   ·¢ËÍ indicate ¿ªÊ¼»Øµ÷
+ * @brief   å‘é€ indicate å¼€å§‹å›è°ƒ
  *
- * @param   duration    - ´Ë´Î·¢ËÍ³ÖĞøµÄÊ±³¤£¨ms£©.
- * @param   err         - ´íÎó×´Ì¬.
- * @param   cb_data     - ´íÎó×´Ì¬·¢ËÍÊ±ÌîĞ´µÄ»Øµ÷²ÎÊı.
+ * @param   duration    - æ­¤æ¬¡å‘é€æŒç»­çš„æ—¶é•¿ï¼ˆmsï¼‰.
+ * @param   err         - é”™è¯¯çŠ¶æ€.
+ * @param   cb_data     - é”™è¯¯çŠ¶æ€å‘é€æ—¶å¡«å†™çš„å›è°ƒå‚æ•°.
  *
  * @return  none
  */
@@ -501,10 +501,10 @@ static void ind_start(uint16_t duration, int err, void *cb_data)
 /*********************************************************************
  * @fn      ind_end
  *
- * @brief   ·¢ËÍ indicate ½áÊø»Øµ÷
+ * @brief   å‘é€ indicate ç»“æŸå›è°ƒ
  *
- * @param   err         - ´íÎó×´Ì¬.
- * @param   cb_data     - ´íÎó×´Ì¬·¢ËÍÊ±ÌîĞ´µÄ»Øµ÷²ÎÊı.
+ * @param   err         - é”™è¯¯çŠ¶æ€.
+ * @param   cb_data     - é”™è¯¯çŠ¶æ€å‘é€æ—¶å¡«å†™çš„å›è°ƒå‚æ•°.
  *
  * @return  none
  */
@@ -521,7 +521,7 @@ static void ind_end(int err, void *cb_data)
                     ind->param.period);
 }
 
-// ·¢ËÍ indicate »Øµ÷½á¹¹Ìå
+// å‘é€ indicate å›è°ƒç»“æ„ä½“
 const struct bt_mesh_send_cb ind_cb = {
     .start = ind_start,
     .end = ind_end,
@@ -530,7 +530,7 @@ const struct bt_mesh_send_cb ind_cb = {
 /*********************************************************************
  * @fn      adv_ind_send
  *
- * @brief   ·¢ËÍ indicate
+ * @brief   å‘é€ indicate
  *
  * @return  none
  */
@@ -578,7 +578,7 @@ static void adv_ind_send(void)
 /*********************************************************************
  * @fn      adv_srv_trans_send
  *
- * @brief   ·¢ËÍ Í¸´« srv_trans
+ * @brief   å‘é€ é€ä¼  srv_trans
  *
  * @return  none
  */
@@ -629,7 +629,7 @@ static void adv_srv_trans_send(void)
         srv_trans.buf->__buf = NULL;
         return;
     }
-    // ÖØ´«
+    // é‡ä¼ 
     tmos_start_task(vendor_model_srv_TaskID, VENDOR_MODEL_SRV_TRANS_EVT,
                     srv_trans.param.period);
 }
@@ -637,9 +637,9 @@ static void adv_srv_trans_send(void)
 /*********************************************************************
  * @fn      vendor_model_srv_init
  *
- * @brief   ³§ÉÌÄ£ĞÍ³õÊ¼»¯
+ * @brief   å‚å•†æ¨¡å‹åˆå§‹åŒ–
  *
- * @param   model       - Ö¸Ïò³§ÉÌÄ£ĞÍ½á¹¹Ìå
+ * @param   model       - æŒ‡å‘å‚å•†æ¨¡å‹ç»“æ„ä½“
  *
  * @return  always SUCCESS
  */
@@ -656,7 +656,7 @@ int vendor_model_srv_init(struct bt_mesh_model *model)
 /*********************************************************************
  * @fn      vendor_model_srv_ProcessEvent
  *
- * @brief   ³§ÉÌÄ£ĞÍÊÂ¼ş´¦Àíº¯Êı
+ * @brief   å‚å•†æ¨¡å‹äº‹ä»¶å¤„ç†å‡½æ•°
  *
  * @param   task_id  - The TMOS assigned task ID.
  * @param   events - events to process.  This is a bit map and can

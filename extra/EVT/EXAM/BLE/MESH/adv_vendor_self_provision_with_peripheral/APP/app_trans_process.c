@@ -38,11 +38,11 @@
 /*********************************************************************
  * @fn      read_led_state
  *
- * @brief   »ñÈ¡µ±Ç°µÆ×´Ì¬.
+ * @brief   è·å–å½“å‰ç¯çŠ¶æ€.
  *
- * @param   led_pin - Òı½Å.
+ * @param   led_pin - å¼•è„š.
  *
- * @return  µÆ×´Ì¬
+ * @return  ç¯çŠ¶æ€
  */
 BOOL read_led_state(uint32_t led_pin)
 {
@@ -52,10 +52,10 @@ BOOL read_led_state(uint32_t led_pin)
 /*********************************************************************
  * @fn      set_led_state
  *
- * @brief   ÉèÖÃµ±Ç°µÆ×´Ì¬.
+ * @brief   è®¾ç½®å½“å‰ç¯çŠ¶æ€.
  *
- * @param   led_pin - Òı½Å.
- * @param   on      - ×´Ì¬.
+ * @param   led_pin - å¼•è„š.
+ * @param   on      - çŠ¶æ€.
  *
  * @return  none
  */
@@ -68,9 +68,9 @@ void set_led_state(uint32_t led_pin, BOOL on)
 /*********************************************************************
  * @fn      toggle_led_state
  *
- * @brief   ·­×ªµ±Ç°µÆ×´Ì¬
+ * @brief   ç¿»è½¬å½“å‰ç¯çŠ¶æ€
  *
- * @param   led_pin - Òı½Å.
+ * @param   led_pin - å¼•è„š.
  *
  * @return  none
  */
@@ -83,12 +83,12 @@ void toggle_led_state(uint32_t led_pin)
 /*********************************************************************
  * @fn      app_trans_process
  *
- * @brief   ´¦ÀíÊÕµ½µÄtransÊı¾İ
+ * @brief   å¤„ç†æ”¶åˆ°çš„transæ•°æ®
  *
- * @param   pValue      - Êı¾İÖ¸Õë.
- *          len         - Êı¾İ³¤¶È.
- *          src_Addr    - Êı¾İÀ´Ô´µØÖ·.
- *          dst_Addr    - Êı¾İÄ¿µÄµØÖ·.
+ * @param   pValue      - æ•°æ®æŒ‡é’ˆ.
+ *          len         - æ•°æ®é•¿åº¦.
+ *          src_Addr    - æ•°æ®æ¥æºåœ°å€.
+ *          dst_Addr    - æ•°æ®ç›®çš„åœ°å€.
  *
  * @return  none
  */

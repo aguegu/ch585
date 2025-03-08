@@ -39,11 +39,11 @@ void FLASH_Port_Init( void )
     GPIOA_ModeCfg(GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14, GPIO_ModeOut_PP_5mA);
     GPIOA_ModeCfg(GPIO_Pin_15, GPIO_ModeIN_Floating);
 
-    R8_SPI0_CLOCK_DIV = 5; // Ö÷ÆµÊ±ÖÓ5·ÖÆµ,12M
+    R8_SPI0_CLOCK_DIV = 5; // ä¸»é¢‘æ—¶é’Ÿ5åˆ†é¢‘,12M
     R8_SPI0_CTRL_MOD = RB_SPI_ALL_CLEAR;
     R8_SPI0_CTRL_MOD = RB_SPI_MOSI_OE | RB_SPI_SCK_OE|RB_SPI_MST_SCK_MOD; //Mode3
-    R8_SPI0_CTRL_CFG |= RB_SPI_AUTO_IF;     // ·ÃÎÊBUFFER/FIFO×Ô¶¯Çå³ıIF_BYTE_END±êÖ¾
-    R8_SPI0_CTRL_CFG &= ~RB_SPI_DMA_ENABLE; // ²»Æô¶¯DMA·½Ê½
+    R8_SPI0_CTRL_CFG |= RB_SPI_AUTO_IF;     // è®¿é—®BUFFER/FIFOè‡ªåŠ¨æ¸…é™¤IF_BYTE_ENDæ ‡å¿—
+    R8_SPI0_CTRL_CFG &= ~RB_SPI_DMA_ENABLE; // ä¸å¯åŠ¨DMAæ–¹å¼
 }
 
 /*********************************************************************
@@ -220,8 +220,8 @@ void FLASH_RD_Block_Start( uint32_t address )
  *
  * @brief   FLASH read block
  *
- * @param   pbuf - Êı¾İ»º³åÇø
- *          len - Êı¾İ³¤¶È
+ * @param   pbuf - æ•°æ®ç¼“å†²åŒº
+ *          len - æ•°æ®é•¿åº¦
  *
  * @return  none
  */
@@ -253,9 +253,9 @@ void FLASH_RD_Block_End( void )
  *
  * @brief   Flash page program
  *
- * @param   pbuf - Êı¾İ»º³åÇø
- *          address - µØÖ·
- *          len - Êı¾İ³¤¶È
+ * @param   pbuf - æ•°æ®ç¼“å†²åŒº
+ *          address - åœ°å€
+ *          len - æ•°æ®é•¿åº¦
  *
  * @return  none
  */
@@ -289,9 +289,9 @@ void W25XXX_WR_Page( uint8_t *pbuf, uint32_t address, uint32_t len )
  *
  * @brief   W25XXX block write
  *
- * @param   pbuf - Êı¾İ»º³åÇø
- *          address - µØÖ·
- *          len - Êı¾İ³¤¶È
+ * @param   pbuf - æ•°æ®ç¼“å†²åŒº
+ *          address - åœ°å€
+ *          len - æ•°æ®é•¿åº¦
  *
  * @return  none
  */

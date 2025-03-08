@@ -23,12 +23,12 @@
 
 #define ALI_DEF_TTL    (10)
 
-// Ä£Äâled_colorÖµ
+// æ¨¡æ‹Ÿled_colorå€¼
 int32_t device_led_color_adj = 0;
 
 /*******************************************************************************
  * Function Name  : read_led_color
- * Description    : »ñÈ¡µ±Ç°led_color
+ * Description    : è·å–å½“å‰led_color
  * Input          : None
  * Return         : None
  *******************************************************************************/
@@ -40,7 +40,7 @@ void read_led_color(int32_t *pcolor)
 
 /*******************************************************************************
  * Function Name  : set_led_colors
- * Description    : ÉèÖÃµ±Ç°led_color
+ * Description    : è®¾ç½®å½“å‰led_color
  * Input          : None
  * Return         : None
  *******************************************************************************/
@@ -51,9 +51,9 @@ void set_led_color(int32_t color)
 
 /*******************************************************************************
  * Function Name  : gen_led_color_status
- * Description    : »Ø¸´ÌìÃ¨¾«Áéled_color
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
+ * Description    : å›å¤å¤©çŒ«ç²¾çµled_color
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
  * Return         : None
  *******************************************************************************/
 static void gen_led_color_status(struct bt_mesh_model   *model,
@@ -92,10 +92,10 @@ static void gen_led_color_status(struct bt_mesh_model   *model,
 
 /*******************************************************************************
  * Function Name  : gen_led_color_get
- * Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄ»ñÈ¡led_colorÃüÁî
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
- *										buf: Êı¾İÄÚÈİ
+ * Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è·å–led_colorå‘½ä»¤
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
+ *										buf: æ•°æ®å†…å®¹
  * Return         : None
  *******************************************************************************/
 void gen_led_color_get(struct bt_mesh_model   *model,
@@ -108,11 +108,11 @@ void gen_led_color_get(struct bt_mesh_model   *model,
 
 /*******************************************************************************
 * Function Name  : gen_led_color_set
-* Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃled_colorÃüÁî
-                                        Èç¹ûÓëµ±Ç°led_color²»Í¬,»¹ĞèÒª·¢ËÍind¸øÌìÃ¨
-* Input          : model: Ä£ĞÍ²ÎÊı
-*										ctx£ºÊı¾İ²ÎÊı
-*										buf: Êı¾İÄÚÈİ
+* Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®led_colorå‘½ä»¤
+                                        å¦‚æœä¸å½“å‰led_colorä¸åŒ,è¿˜éœ€è¦å‘é€indç»™å¤©çŒ«
+* Input          : model: æ¨¡å‹å‚æ•°
+*										ctxï¼šæ•°æ®å‚æ•°
+*										buf: æ•°æ®å†…å®¹
 * Return         : None
 *******************************************************************************/
 void gen_led_color_set(struct bt_mesh_model   *model,
@@ -134,7 +134,7 @@ void gen_led_color_set(struct bt_mesh_model   *model,
         APP_DBG("%x %x %x %x %x %x ",
                 buf->data[0], buf->data[1], buf->data[2], buf->data[3], buf->data[4], buf->data[5]);
         int32_t color = (buf->data[3] | (buf->data[4] << 8) | (buf->data[5] << 16) | (buf->data[6] << 24));
-        // ÃüÁîÎªÉè¶¨Öµ
+        // å‘½ä»¤ä¸ºè®¾å®šå€¼
         set_led_color(color);
     }
 
@@ -158,10 +158,10 @@ void gen_led_color_set(struct bt_mesh_model   *model,
 
 /*******************************************************************************
  * Function Name  : gen_led_color_set_unack
- * Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃled_colorÃüÁî(ÎŞÓ¦´ğ)
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
- *										buf: Êı¾İÄÚÈİ
+ * Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®led_colorå‘½ä»¤(æ— åº”ç­”)
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
+ *										buf: æ•°æ®å†…å®¹
  * Return         : None
  *******************************************************************************/
 void gen_led_color_set_unack(struct bt_mesh_model   *model,
@@ -173,7 +173,7 @@ void gen_led_color_set_unack(struct bt_mesh_model   *model,
     if((buf->data[1] | (buf->data[2] << 8)) == ALI_GEN_ATTR_TYPE_LIGHTCOLOR_ADJ)
     {
         uint32_t color = (buf->data[3] | (buf->data[4] << 8) | (buf->data[5] << 16) | (buf->data[6] << 24));
-        // ÃüÁîÎªÉè¶¨Öµ
+        // å‘½ä»¤ä¸ºè®¾å®šå€¼
         set_led_color(color);
     }
 }

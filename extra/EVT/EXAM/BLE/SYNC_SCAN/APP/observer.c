@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/12/10
- * Description        : 观察应用程序，初始化扫描参数，然后定时扫描，如果扫描结果不为空，则打印扫描到的广播地址
+ * Description        : 瑙傚療搴旂敤绋嬪簭锛屽垵濮嬪寲鎵弿鍙傛暟锛岀劧鍚庡畾鏃舵壂鎻忥紝濡傛灉鎵弿缁撴灉涓嶄负绌猴紝鍒欐墦鍗版壂鎻忓埌鐨勫箍鎾湴鍧�
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 

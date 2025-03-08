@@ -3,8 +3,8 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/18
- * Description        : ÍâÉè´Ó»ú¶àÁ¬½ÓÓ¦ÓÃ³ÌĞò£¬³õÊ¼»¯¹ã²¥Á¬½Ó²ÎÊı£¬È»ºó¹ã²¥£¬Á¬½ÓÖ÷»úºó£¬
- *                      ÇëÇó¸üĞÂÁ¬½Ó²ÎÊı£¬Í¨¹ı×Ô¶¨Òå·şÎñ´«ÊäÊı¾İ
+ * Description        : å¤–è®¾ä»æœºå¤šè¿æ¥åº”ç”¨ç¨‹åºï¼Œåˆå§‹åŒ–å¹¿æ’­è¿æ¥å‚æ•°ï¼Œç„¶åå¹¿æ’­ï¼Œè¿æ¥ä¸»æœºåï¼Œ
+ *                      è¯·æ±‚æ›´æ–°è¿æ¥å‚æ•°ï¼Œé€šè¿‡è‡ªå®šä¹‰æœåŠ¡ä¼ è¾“æ•°æ®
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -347,17 +347,17 @@ uint16_t Peripheral_ProcessEvent(uint8_t task_id, uint16_t events)
         return (events ^ SBP_START_DEVICE_EVT);
     }
 
-    // Á¬½Ó0µÄÈÎÎñ´¦Àí
+    // è¿æ¥0çš„ä»»åŠ¡å¤„ç†
     if(task_id == peripheralConnList[CONNECT0_ITEM].taskID)
     {
         return connect0_ProcessEvent(task_id, events);
     }
-    // Á¬½Ó1µÄÈÎÎñ´¦Àí
+    // è¿æ¥1çš„ä»»åŠ¡å¤„ç†
     else if(task_id == peripheralConnList[CONNECT1_ITEM].taskID)
     {
         return connect1_ProcessEvent(task_id, events);
     }
-    // Á¬½Ó2µÄÈÎÎñ´¦Àí
+    // è¿æ¥2çš„ä»»åŠ¡å¤„ç†
     else if(task_id == peripheralConnList[CONNECT2_ITEM].taskID)
     {
         return connect2_ProcessEvent(task_id, events);
@@ -620,7 +620,7 @@ static void Peripheral_LinkEstablished(gapRoleEvent_t *pEvent)
     gapEstLinkReqEvent_t *event = (gapEstLinkReqEvent_t *)pEvent;
     // See if already connected
     uint8_t connItem;
-    // ²éÑ¯ÊÇ·ñÓĞ¿ÕÓàÁ¬½ÓÌõÄ¿
+    // æŸ¥è¯¢æ˜¯å¦æœ‰ç©ºä½™è¿æ¥æ¡ç›®
     for(connItem = 0; connItem < PERIPHERAL_MAX_CONNECTION; connItem++)
     {
         if(peripheralConnList[connItem].connHandle == GAP_CONNHANDLE_INIT)
@@ -654,7 +654,7 @@ static void Peripheral_LinkEstablished(gapRoleEvent_t *pEvent)
 
         PRINT("Conn %x - Int %x \n", event->connectionHandle, event->connInterval);
 
-        // ²éÑ¯ÊÇ·ñÓĞ¿ÕÓàÁ¬½ÓÌõÄ¿
+        // æŸ¥è¯¢æ˜¯å¦æœ‰ç©ºä½™è¿æ¥æ¡ç›®
         for(connItem = 0; connItem < PERIPHERAL_MAX_CONNECTION; connItem++)
         {
             PRINT("connItem check: %#x\n", connItem);
@@ -697,7 +697,7 @@ static void Peripheral_LinkTerminated(gapRoleEvent_t *pEvent)
     }
     if(connItem == PERIPHERAL_MAX_CONNECTION)
     {
-        //²»»áÖ´ĞĞµ½´Ë´¦
+        //ä¸ä¼šæ‰§è¡Œåˆ°æ­¤å¤„
     }
     peripheralConnList[connItem].connHandle = GAP_CONNHANDLE_INIT;
     peripheralConnList[connItem].connInterval = 0;

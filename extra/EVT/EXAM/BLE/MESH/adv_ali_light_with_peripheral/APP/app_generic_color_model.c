@@ -24,17 +24,17 @@
 
 #define ALI_DEF_TTL    (10)
 
-// Ä£ÄâÉ«ÎÂÖµ
+// æ¨¡æ‹Ÿè‰²æ¸©å€¼
 uint16_t led_color = 20000;
 
 /*********************************************************************
  * @fn      read_led_color
  *
- * @brief   »ñÈ¡µ±Ç°µÆÉ«ÎÂ
+ * @brief   è·å–å½“å‰ç¯è‰²æ¸©
  *
- * @param   led_pin     - LEDÒı½Å.
+ * @param   led_pin     - LEDå¼•è„š.
  *
- * @return  É«ÎÂ
+ * @return  è‰²æ¸©
  */
 uint16_t read_led_color(uint32_t led_pin)
 {
@@ -45,10 +45,10 @@ uint16_t read_led_color(uint32_t led_pin)
 /*********************************************************************
  * @fn      set_led_color
  *
- * @brief   ÉèÖÃµ±Ç°µÆÉ«ÎÂ
+ * @brief   è®¾ç½®å½“å‰ç¯è‰²æ¸©
  *
- * @param   led_pin     - LEDÒı½Å.
- * @param   color   - É«ÎÂ.
+ * @param   led_pin     - LEDå¼•è„š.
+ * @param   color   - è‰²æ¸©.
  *
  * @return  none
  */
@@ -60,10 +60,10 @@ void set_led_color(uint32_t led_pin, uint16_t color)
 /*********************************************************************
  * @fn      gen_color_status
  *
- * @brief   »Ø¸´ÌìÃ¨¾«ÁéÉ«ÎÂ
+ * @brief   å›å¤å¤©çŒ«ç²¾çµè‰²æ¸©
  *
- * @param   model       - Ä£ĞÍ²ÎÊı
- * @param   ctx         - Êı¾İ²ÎÊı
+ * @param   model       - æ¨¡å‹å‚æ•°
+ * @param   ctx         - æ•°æ®å‚æ•°
  *
  * @return  none
  */
@@ -72,7 +72,7 @@ static void gen_color_status(struct bt_mesh_model *model, struct bt_mesh_msg_ctx
     NET_BUF_SIMPLE_DEFINE(msg, 32);
     int err;
 
-    bt_mesh_model_msg_init(&msg, BLE_MESH_MODEL_OP_LIGHT_CTL_STATUS );  //½ÓÊÕ×´Ì¬Öµ
+    bt_mesh_model_msg_init(&msg, BLE_MESH_MODEL_OP_LIGHT_CTL_STATUS );  //æ¥æ”¶çŠ¶æ€å€¼
     net_buf_simple_add_le16(&msg, read_led_color(MSG_PIN));
 
     APP_DBG("ttl: 0x%02x dst: 0x%04x", ctx->recv_ttl, ctx->recv_dst);
@@ -96,11 +96,11 @@ static void gen_color_status(struct bt_mesh_model *model, struct bt_mesh_msg_ctx
 /*********************************************************************
  * @fn      gen_onoff_get
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄ»ñÈ¡É«ÎÂÃüÁî
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è·å–è‰²æ¸©å‘½ä»¤
  *
- * @param   model       - Ä£ĞÍ²ÎÊı
- * @param   ctx         - Êı¾İ²ÎÊı
- * @param   buf         - Êı¾İÄÚÈİ
+ * @param   model       - æ¨¡å‹å‚æ•°
+ * @param   ctx         - æ•°æ®å‚æ•°
+ * @param   buf         - æ•°æ®å†…å®¹
  *
  * @return  none
  */
@@ -114,11 +114,11 @@ static void gen_color_get(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *c
 /*********************************************************************
  * @fn      gen_color_set
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃÉ«ÎÂÃüÁî,Èç¹ûÓëµ±Ç°É«ÎÂ²»Í¬,»¹ĞèÒª·¢ËÍind¸øÌìÃ¨
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®è‰²æ¸©å‘½ä»¤,å¦‚æœä¸å½“å‰è‰²æ¸©ä¸åŒ,è¿˜éœ€è¦å‘é€indç»™å¤©çŒ«
  *
- * @param   model       - Ä£ĞÍ²ÎÊı
- * @param   ctx         - Êı¾İ²ÎÊı
- * @param   buf         - Êı¾İÄÚÈİ
+ * @param   model       - æ¨¡å‹å‚æ•°
+ * @param   ctx         - æ•°æ®å‚æ•°
+ * @param   buf         - æ•°æ®å†…å®¹
  *
  * @return  none
  */
@@ -162,11 +162,11 @@ static void gen_color_set(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *c
 /*********************************************************************
  * @fn      gen_color_set_unack
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃÉ«ÎÂÃüÁî(ÎŞÓ¦´ğ),Èç¹ûÓëµ±Ç°É«ÎÂ²»Í¬,»¹ĞèÒª·¢ËÍind¸øÌìÃ¨
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®è‰²æ¸©å‘½ä»¤(æ— åº”ç­”),å¦‚æœä¸å½“å‰è‰²æ¸©ä¸åŒ,è¿˜éœ€è¦å‘é€indç»™å¤©çŒ«
  *
- * @param   model       - Ä£ĞÍ²ÎÊı
- * @param   ctx         - Êı¾İ²ÎÊı
- * @param   buf         - Êı¾İÄÚÈİ
+ * @param   model       - æ¨¡å‹å‚æ•°
+ * @param   ctx         - æ•°æ®å‚æ•°
+ * @param   buf         - æ•°æ®å†…å®¹
  *
  * @return  none
  */

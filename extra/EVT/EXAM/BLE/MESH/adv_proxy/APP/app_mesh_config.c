@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "CONFIG.h"
 #include "app_mesh_config.h"
 #include "MESH_LIB.h"
@@ -70,9 +70,9 @@ const ble_mesh_cfg_t app_mesh_cfg = {
  *
  * @brief   read flash
  *
- * @param   offset  - µØÖ·Æ«ÒÆ
- * @param   data    - Êı¾İÖ¸Õë
- * @param   len     - ³¤¶È
+ * @param   offset  - åœ°å€åç§»
+ * @param   data    - æ•°æ®æŒ‡é’ˆ
+ * @param   len     - é•¿åº¦
  *
  * @return  always success
  */
@@ -87,9 +87,9 @@ int read_flash(int offset, void *data, unsigned int len)
  *
  * @brief   write flash
  *
- * @param   offset  - µØÖ·Æ«ÒÆ
- * @param   data    - Êı¾İÖ¸Õë
- * @param   len     - ³¤¶È
+ * @param   offset  - åœ°å€åç§»
+ * @param   data    - æ•°æ®æŒ‡é’ˆ
+ * @param   len     - é•¿åº¦
  *
  * @return  state
  */
@@ -112,8 +112,8 @@ int write_flash(int offset, const void *data, unsigned int len)
  *
  * @brief   erase flash
  *
- * @param   offset  - µØÖ·Æ«ÒÆ
- * @param   len     - ³¤¶È
+ * @param   offset  - åœ°å€åç§»
+ * @param   len     - é•¿åº¦
  *
  * @return  state
  */

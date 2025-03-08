@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/11/12
- * Description        : ¹Û²ìÓ¦ÓÃÖ÷º¯Êı¼°ÈÎÎñÏµÍ³³õÊ¼»¯
+ * Description        : è§‚å¯Ÿåº”ç”¨ä¸»å‡½æ•°åŠä»»åŠ¡ç³»ç»Ÿåˆå§‹åŒ–
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * SPDX-License-Identifier: Apache-2.0
  *******************************************************************************/

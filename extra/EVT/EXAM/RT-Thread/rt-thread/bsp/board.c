@@ -60,8 +60,8 @@ void rt_hw_board_init()
     HSECFG_Capacitance(HSECap_18p);
     SetSysClock(CLK_SOURCE_HSE_PLL_62_4MHz);
 
-    SetVTFIRQ((uint32_t)SW_Handler, SWI_IRQn, 0, ENABLE);                   /* 提升任务切换速度，不从统一入口执行，在处理期间不可中断嵌套 */
-    SetVTFIRQ((uint32_t)SysTick_Handler, SysTick_IRQn, 1, ENABLE);          /* 提升systick中断速度，不从统一入口执行，在处理期间不可中断嵌套 */
+    SetVTFIRQ((uint32_t)SW_Handler, SWI_IRQn, 0, ENABLE);                   /* 鎻愬崌浠诲姟鍒囨崲閫熷害锛屼笉浠庣粺涓�鍏ュ彛鎵ц锛屽湪澶勭悊鏈熼棿涓嶅彲涓柇宓屽 */
+    SetVTFIRQ((uint32_t)SysTick_Handler, SysTick_IRQn, 1, ENABLE);          /* 鎻愬崌systick涓柇閫熷害锛屼笉浠庣粺涓�鍏ュ彛鎵ц锛屽湪澶勭悊鏈熼棿涓嶅彲涓柇宓屽 */
 
     /* System Tick Configuration */
     _SysTick_Config(GetSysClock() / RT_TICK_PER_SECOND);

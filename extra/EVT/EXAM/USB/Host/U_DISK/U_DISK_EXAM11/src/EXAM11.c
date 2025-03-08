@@ -3,17 +3,17 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/11
- * Description        : CH573 CÓïÑÔµÄUÅÌÄ¿Â¼ÎÄ¼þÃ¶¾Ù³ÌÐò
- * Ö§³Ö: FAT12/FAT16/FAT32
- * ×¢Òâ°üº¬ CHRV3UFI.LIB/USBHOST.C/DEBUG.C
+ * Description        : CH573 Cè¯­è¨€çš„Uç›˜ç›®å½•æ–‡ä»¶æžšä¸¾ç¨‹åº
+ * æ”¯æŒ: FAT12/FAT16/FAT32
+ * æ³¨æ„åŒ…å« CHRV3UFI.LIB/USBHOST.C/DEBUG.C
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
  * microcontroller manufactured by Nanjing Qinheng Microelectronics.
  *******************************************************************************/
 
-/** ²»Ê¹ÓÃUÅÌÎÄ¼þÏµÍ³¿â£¬ÐèÒªÔÚ¹¤³ÌÊôÐÔÔ¤±àÒëÖÐÐÞ¸Ä DISK_LIB_ENABLE=0        */
-/** UÅÌ¹ÒÔØUSBhubÏÂÃæ£¬ÐèÒªÔÚ¹¤³ÌÊôÐÔÔ¤±àÒëÖÐÐÞ¸Ä DISK_WITHOUT_USB_HUB=0  */
+/** ä¸ä½¿ç”¨Uç›˜æ–‡ä»¶ç³»ç»Ÿåº“ï¼Œéœ€è¦åœ¨å·¥ç¨‹å±žæ€§é¢„ç¼–è¯‘ä¸­ä¿®æ”¹ DISK_LIB_ENABLE=0        */
+/** Uç›˜æŒ‚è½½USBhubä¸‹é¢ï¼Œéœ€è¦åœ¨å·¥ç¨‹å±žæ€§é¢„ç¼–è¯‘ä¸­ä¿®æ”¹ DISK_WITHOUT_USB_HUB=0  */
 
 #include "CH58x_common.h"
 #include "CHRV3UFI.H"
@@ -24,9 +24,9 @@ __attribute__((aligned(4))) uint8_t TxBuffer[MAX_PACKET_SIZE]; // OUT, must even
 /*********************************************************************
  * @fn      mStopIfError
  *
- * @brief   ¼ì²é²Ù×÷×´Ì¬,Èç¹û´íÎóÔòÏÔÊ¾´íÎó´úÂë²¢Í£»ú
+ * @brief   æ£€æŸ¥æ“ä½œçŠ¶æ€,å¦‚æžœé”™è¯¯åˆ™æ˜¾ç¤ºé”™è¯¯ä»£ç å¹¶åœæœº
  *
- * @param   iError  - ´íÎóÂë
+ * @param   iError  - é”™è¯¯ç 
  *
  * @return  none
  */
@@ -34,13 +34,13 @@ void mStopIfError(uint8_t iError)
 {
     if(iError == ERR_SUCCESS)
     {
-        return; /* ²Ù×÷³É¹¦ */
+        return; /* æ“ä½œæˆåŠŸ */
     }
-    PRINT("Error: %02X\n", (uint16_t)iError); /* ÏÔÊ¾´íÎó */
-    /* Óöµ½´íÎóºó,Ó¦¸Ã·ÖÎö´íÎóÂëÒÔ¼°CHRV3DiskStatus×´Ì¬,ÀýÈçµ÷ÓÃCHRV3DiskReady²éÑ¯µ±Ç°UÅÌÊÇ·ñÁ¬½Ó,Èç¹ûUÅÌÒÑ¶Ï¿ªÄÇÃ´¾ÍÖØÐÂµÈ´ýUÅÌ²åÉÏÔÙ²Ù×÷,
-     ½¨Òé³ö´íºóµÄ´¦Àí²½Öè:
-     1¡¢µ÷ÓÃÒ»´ÎCHRV3DiskReady,³É¹¦Ôò¼ÌÐø²Ù×÷,ÀýÈçOpen,Read/WriteµÈ
-     2¡¢Èç¹ûCHRV3DiskReady²»³É¹¦,ÄÇÃ´Ç¿ÐÐ½«´ÓÍ·¿ªÊ¼²Ù×÷(µÈ´ýUÅÌÁ¬½Ó£¬CHRV3DiskReadyµÈ) */
+    PRINT("Error: %02X\n", (uint16_t)iError); /* æ˜¾ç¤ºé”™è¯¯ */
+    /* é‡åˆ°é”™è¯¯åŽ,åº”è¯¥åˆ†æžé”™è¯¯ç ä»¥åŠCHRV3DiskStatusçŠ¶æ€,ä¾‹å¦‚è°ƒç”¨CHRV3DiskReadyæŸ¥è¯¢å½“å‰Uç›˜æ˜¯å¦è¿žæŽ¥,å¦‚æžœUç›˜å·²æ–­å¼€é‚£ä¹ˆå°±é‡æ–°ç­‰å¾…Uç›˜æ’ä¸Šå†æ“ä½œ,
+     å»ºè®®å‡ºé”™åŽçš„å¤„ç†æ­¥éª¤:
+     1ã€è°ƒç”¨ä¸€æ¬¡CHRV3DiskReady,æˆåŠŸåˆ™ç»§ç»­æ“ä½œ,ä¾‹å¦‚Open,Read/Writeç­‰
+     2ã€å¦‚æžœCHRV3DiskReadyä¸æˆåŠŸ,é‚£ä¹ˆå¼ºè¡Œå°†ä»Žå¤´å¼€å§‹æ“ä½œ(ç­‰å¾…Uç›˜è¿žæŽ¥ï¼ŒCHRV3DiskReadyç­‰) */
     while(1)
     {
     }
@@ -49,7 +49,7 @@ void mStopIfError(uint8_t iError)
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êý
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -72,17 +72,17 @@ int main()
     pHOST_RX_RAM_Addr = RxBuffer;
     pHOST_TX_RAM_Addr = TxBuffer;
     USB_HostInit();
-    CHRV3LibInit(); //³õÊ¼»¯UÅÌ³ÌÐò¿âÒÔÖ§³ÖUÅÌÎÄ¼þ
+    CHRV3LibInit(); //åˆå§‹åŒ–Uç›˜ç¨‹åºåº“ä»¥æ”¯æŒUç›˜æ–‡ä»¶
 
     FoundNewDev = 0;
     PRINT("Wait Device In\n");
     while(1)
     {
         s = ERR_SUCCESS;
-        if(R8_USB_INT_FG & RB_UIF_DETECT) // Èç¹ûÓÐUSBÖ÷»ú¼ì²âÖÐ¶ÏÔò´¦Àí
+        if(R8_USB_INT_FG & RB_UIF_DETECT) // å¦‚æžœæœ‰USBä¸»æœºæ£€æµ‹ä¸­æ–­åˆ™å¤„ç†
         {
-            R8_USB_INT_FG = RB_UIF_DETECT; // ÇåÁ¬½ÓÖÐ¶Ï±êÖ¾
-            s = AnalyzeRootHub();          // ·ÖÎöROOT-HUB×´Ì¬
+            R8_USB_INT_FG = RB_UIF_DETECT; // æ¸…è¿žæŽ¥ä¸­æ–­æ ‡å¿—
+            s = AnalyzeRootHub();          // åˆ†æžROOT-HUBçŠ¶æ€
             if(s == ERR_USB_CONNECT)
             {
                 FoundNewDev = 1;
@@ -91,14 +91,14 @@ int main()
 
         if(FoundNewDev || s == ERR_USB_CONNECT)
         {
-            // ÓÐÐÂµÄUSBÉè±¸²åÈë
+            // æœ‰æ–°çš„USBè®¾å¤‡æ’å…¥
             FoundNewDev = 0;
-            mDelaymS(200);        // ÓÉÓÚUSBÉè±¸¸Õ²åÈëÉÐÎ´ÎÈ¶¨,¹ÊµÈ´ýUSBÉè±¸Êý°ÙºÁÃë,Ïû³ý²å°Î¶¶¶¯
-            s = InitRootDevice(); // ³õÊ¼»¯USBÉè±¸
+            mDelaymS(200);        // ç”±äºŽUSBè®¾å¤‡åˆšæ’å…¥å°šæœªç¨³å®š,æ•…ç­‰å¾…USBè®¾å¤‡æ•°ç™¾æ¯«ç§’,æ¶ˆé™¤æ’æ‹”æŠ–åŠ¨
+            s = InitRootDevice(); // åˆå§‹åŒ–USBè®¾å¤‡
             if(s == ERR_SUCCESS)
             {
                 PRINT("Start UDISK_demo @CHRV3UFI library\n");
-                // UÅÌ²Ù×÷Á÷³Ì£ºUSB×ÜÏß¸´Î»¡¢UÅÌÁ¬½Ó¡¢»ñÈ¡Éè±¸ÃèÊö·ûºÍÉèÖÃUSBµØÖ·¡¢¿ÉÑ¡µÄ»ñÈ¡ÅäÖÃÃèÊö·û£¬Ö®ºóµ½´ï´Ë´¦£¬ÓÉCHRV3×Ó³ÌÐò¿â¼ÌÐøÍê³ÉºóÐø¹¤×÷
+                // Uç›˜æ“ä½œæµç¨‹ï¼šUSBæ€»çº¿å¤ä½ã€Uç›˜è¿žæŽ¥ã€èŽ·å–è®¾å¤‡æè¿°ç¬¦å’Œè®¾ç½®USBåœ°å€ã€å¯é€‰çš„èŽ·å–é…ç½®æè¿°ç¬¦ï¼Œä¹‹åŽåˆ°è¾¾æ­¤å¤„ï¼Œç”±CHRV3å­ç¨‹åºåº“ç»§ç»­å®ŒæˆåŽç»­å·¥ä½œ
                 CHRV3DiskStatus = DISK_USB_ADDR;
                 for(i = 0; i != 10; i++)
                 {
@@ -110,60 +110,60 @@ int main()
                     }
                     mDelaymS(50);
                 }
-                if(CHRV3DiskStatus >= DISK_MOUNTED) //UÅÌ×¼±¸ºÃ
+                if(CHRV3DiskStatus >= DISK_MOUNTED) //Uç›˜å‡†å¤‡å¥½
                 {
-                    /* ¶ÁÎÄ¼þ */
+                    /* è¯»æ–‡ä»¶ */
                     PRINT("Open\n");
-                    strcpy((uint8_t *)mCmdParam.Open.mPathName, "/C51/CHRV3HFT.C"); //ÉèÖÃÒª²Ù×÷µÄÎÄ¼þÃûºÍÂ·¾¶
-                    s = CHRV3FileOpen();                                            //´ò¿ªÎÄ¼þ
+                    strcpy((uint8_t *)mCmdParam.Open.mPathName, "/C51/CHRV3HFT.C"); //è®¾ç½®è¦æ“ä½œçš„æ–‡ä»¶åå’Œè·¯å¾„
+                    s = CHRV3FileOpen();                                            //æ‰“å¼€æ–‡ä»¶
                     if(s == ERR_MISS_DIR)
                     {
-                        PRINT("²»´æÔÚ¸ÃÎÄ¼þ¼ÐÔòÁÐ³ö¸ùÄ¿Â¼ËùÓÐÎÄ¼þ\n");
+                        PRINT("ä¸å­˜åœ¨è¯¥æ–‡ä»¶å¤¹åˆ™åˆ—å‡ºæ ¹ç›®å½•æ‰€æœ‰æ–‡ä»¶\n");
                         pCodeStr = (uint8_t *)"/*";
                     }
                     else
                     {
-                        pCodeStr = (uint8_t *)"/C51/*"; //ÁÐ³ö\C51×ÓÄ¿Â¼ÏÂµÄµÄÎÄ¼þ
+                        pCodeStr = (uint8_t *)"/C51/*"; //åˆ—å‡º\C51å­ç›®å½•ä¸‹çš„çš„æ–‡ä»¶
                     }
 
                     PRINT("List file %s\n", pCodeStr);
-                    for(j = 0; j < 10000; j++) //ÏÞ¶¨10000¸öÎÄ¼þ,Êµ¼ÊÉÏÃ»ÓÐÏÞÖÆ
+                    for(j = 0; j < 10000; j++) //é™å®š10000ä¸ªæ–‡ä»¶,å®žé™…ä¸Šæ²¡æœ‰é™åˆ¶
                     {
-                        strcpy((uint8_t *)mCmdParam.Open.mPathName, (const uint8_t *)pCodeStr); //ËÑË÷ÎÄ¼þÃû,*ÎªÍ¨Åä·û,ÊÊÓÃÓÚËùÓÐÎÄ¼þ»òÕß×ÓÄ¿Â¼
+                        strcpy((uint8_t *)mCmdParam.Open.mPathName, (const uint8_t *)pCodeStr); //æœç´¢æ–‡ä»¶å,*ä¸ºé€šé…ç¬¦,é€‚ç”¨äºŽæ‰€æœ‰æ–‡ä»¶æˆ–è€…å­ç›®å½•
                         i = strlen((uint8_t *)mCmdParam.Open.mPathName);
-                        mCmdParam.Open.mPathName[i] = 0xFF; //¸ù¾Ý×Ö·û´®³¤¶È½«½áÊø·ûÌæ»»ÎªËÑË÷µÄÐòºÅ,´Ó0µ½254,Èç¹ûÊÇ0xFF¼´255ÔòËµÃ÷ËÑË÷ÐòºÅÔÚCHRV3vFileSize±äÁ¿ÖÐ
-                        CHRV3vFileSize = j;                 //Ö¸¶¨ËÑË÷/Ã¶¾ÙµÄÐòºÅ
-                        i = CHRV3FileOpen();                //´ò¿ªÎÄ¼þ,Èç¹ûÎÄ¼þÃûÖÐº¬ÓÐÍ¨Åä·û*,ÔòÎªËÑË÷ÎÄ¼þ¶ø²»´ò¿ª
-                        /* CHRV3FileEnum Óë CHRV3FileOpen µÄÎ¨Ò»Çø±ðÊÇµ±ºóÕß·µ»ØERR_FOUND_NAMEÊ±ÄÇÃ´¶ÔÓ¦ÓÚÇ°Õß·µ»ØERR_SUCCESS */
+                        mCmdParam.Open.mPathName[i] = 0xFF; //æ ¹æ®å­—ç¬¦ä¸²é•¿åº¦å°†ç»“æŸç¬¦æ›¿æ¢ä¸ºæœç´¢çš„åºå·,ä»Ž0åˆ°254,å¦‚æžœæ˜¯0xFFå³255åˆ™è¯´æ˜Žæœç´¢åºå·åœ¨CHRV3vFileSizeå˜é‡ä¸­
+                        CHRV3vFileSize = j;                 //æŒ‡å®šæœç´¢/æžšä¸¾çš„åºå·
+                        i = CHRV3FileOpen();                //æ‰“å¼€æ–‡ä»¶,å¦‚æžœæ–‡ä»¶åä¸­å«æœ‰é€šé…ç¬¦*,åˆ™ä¸ºæœç´¢æ–‡ä»¶è€Œä¸æ‰“å¼€
+                        /* CHRV3FileEnum ä¸Ž CHRV3FileOpen çš„å”¯ä¸€åŒºåˆ«æ˜¯å½“åŽè€…è¿”å›žERR_FOUND_NAMEæ—¶é‚£ä¹ˆå¯¹åº”äºŽå‰è€…è¿”å›žERR_SUCCESS */
                         if(i == ERR_MISS_FILE)
                         {
-                            break; //ÔÙÒ²ËÑË÷²»µ½Æ¥ÅäµÄÎÄ¼þ,ÒÑ¾­Ã»ÓÐÆ¥ÅäµÄÎÄ¼þÃû
+                            break; //å†ä¹Ÿæœç´¢ä¸åˆ°åŒ¹é…çš„æ–‡ä»¶,å·²ç»æ²¡æœ‰åŒ¹é…çš„æ–‡ä»¶å
                         }
-                        if(i == ERR_FOUND_NAME) //ËÑË÷µ½ÓëÍ¨Åä·ûÏàÆ¥ÅäµÄÎÄ¼þÃû,ÎÄ¼þÃû¼°ÆäÍêÕûÂ·¾¶ÔÚÃüÁî»º³åÇøÖÐ
+                        if(i == ERR_FOUND_NAME) //æœç´¢åˆ°ä¸Žé€šé…ç¬¦ç›¸åŒ¹é…çš„æ–‡ä»¶å,æ–‡ä»¶ååŠå…¶å®Œæ•´è·¯å¾„åœ¨å‘½ä»¤ç¼“å†²åŒºä¸­
                         {
-                            PRINT("  match file %04d#: %s\n", (unsigned int)j, mCmdParam.Open.mPathName); /* ÏÔÊ¾ÐòºÅºÍËÑË÷µ½µÄÆ¥ÅäÎÄ¼þÃû»òÕß×ÓÄ¿Â¼Ãû */
-                            continue;                                                                      /* ¼ÌÐøËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÎÄ¼þÃû,ÏÂ´ÎËÑË÷Ê±ÐòºÅ»á¼Ó1 */
+                            PRINT("  match file %04d#: %s\n", (unsigned int)j, mCmdParam.Open.mPathName); /* æ˜¾ç¤ºåºå·å’Œæœç´¢åˆ°çš„åŒ¹é…æ–‡ä»¶åæˆ–è€…å­ç›®å½•å */
+                            continue;                                                                      /* ç»§ç»­æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„æ–‡ä»¶å,ä¸‹æ¬¡æœç´¢æ—¶åºå·ä¼šåŠ 1 */
                         }
-                        else //³ö´í
+                        else //å‡ºé”™
                         {
                             mStopIfError(i);
                             break;
                         }
                     }
-                    i = CHRV3FileClose(); //¹Ø±ÕÎÄ¼þ
-                    PRINT("UÅÌÑÝÊ¾Íê³É\n");
+                    i = CHRV3FileClose(); //å…³é—­æ–‡ä»¶
+                    PRINT("Uç›˜æ¼”ç¤ºå®Œæˆ\n");
                 }
                 else
                 {
-                    PRINT("UÅÌÃ»ÓÐ×¼±¸ºÃ ERR =%02X\n", (uint16_t)s);
+                    PRINT("Uç›˜æ²¡æœ‰å‡†å¤‡å¥½ ERR =%02X\n", (uint16_t)s);
                 }
             }
             else
             {
-                PRINT("³õÊ¼»¯UÅÌÊ§°Ü£¬Çë°ÎÏÂUÅÌÖØÊÔ\n");
+                PRINT("åˆå§‹åŒ–Uç›˜å¤±è´¥ï¼Œè¯·æ‹”ä¸‹Uç›˜é‡è¯•\n");
             }
         }
-        mDelaymS(100);  // Ä£Äâµ¥Æ¬»ú×öÆäËüÊÂ
-        SetUsbSpeed(1); // Ä¬ÈÏÎªÈ«ËÙ
+        mDelaymS(100);  // æ¨¡æ‹Ÿå•ç‰‡æœºåšå…¶å®ƒäº‹
+        SetUsbSpeed(1); // é»˜è®¤ä¸ºå…¨é€Ÿ
     }
 }

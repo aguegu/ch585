@@ -3,7 +3,7 @@
 * Author             : WCH
 * Version            : V1.0
 * Date               : 2024/11/20
-* Description        : LEDÇý¶¯Í·ÎÄ¼þ
+* Description        : LEDé©±åŠ¨å¤´æ–‡ä»¶
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for
@@ -22,12 +22,12 @@ typedef enum {
 }ch58x_led_out_mode_t;
 
 /**
- * @brief   LEDÊä³öÊ¹ÄÜ
+ * @brief   LEDè¾“å‡ºä½¿èƒ½
  */
 #define  LED_ENABLE()   (R8_LED_CTRL_MOD |= RB_LED_OUT_EN)
 
 /**
- * @brief   LEDÊä³öÊ§ÄÜ
+ * @brief   LEDè¾“å‡ºå¤±èƒ½
  */
 #define  LED_DISABLE()  (R8_LED_CTRL_MOD &= ~(RB_LED_DMA_EN))
 

@@ -3,15 +3,15 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2023/11/10
- * Description        : kernel_liteos_mÀı³Ì£¬Ê¹ÓÃÓ²¼şÑ¹Õ»£¬ÖĞ¶ÏÇ¶Ì×¿ÉÑ¡£¬ÖĞ¶Ïº¯Êı²»ÔÙÊ¹ÓÃĞŞÊÎ
- *                      __attribute__((interrupt("WCH-Interrupt-fast")))£¬
- *                      ÖĞ¶Ïº¯ÊıÖ±½Ó°´ÕÕÆÕÍ¨º¯Êı¶¨Òå£¬Ö»Ê¹ÓÃHIGHCODEĞŞÊÎ¼´¿É¡£
+ * Description        : kernel_liteos_mä¾‹ç¨‹ï¼Œä½¿ç”¨ç¡¬ä»¶å‹æ ˆï¼Œä¸­æ–­åµŒå¥—å¯é€‰ï¼Œä¸­æ–­å‡½æ•°ä¸å†ä½¿ç”¨ä¿®é¥°
+ *                      __attribute__((interrupt("WCH-Interrupt-fast")))ï¼Œ
+ *                      ä¸­æ–­å‡½æ•°ç›´æ¥æŒ‰ç…§æ™®é€šå‡½æ•°å®šä¹‰ï¼Œåªä½¿ç”¨HIGHCODEä¿®é¥°å³å¯ã€‚
  * Copyright (c) 2023 Nanjing Qinheng Microelectronics Co., Ltd.
  * SPDX-License-Identifier: Apache-2.0
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "CH58x_common.h"
 #include "stdarg.h"
 #include "los_tick.h"
@@ -38,7 +38,7 @@ static UINT32 gs_printMutexId;
 __HIGH_CODE
 void App_Printf(const char *fmt, ...)
 {
-    char  buf_str[128]; /* ĞèÒª×¢ÒâÔÚÕâÀïµÄÄÚ´æ¿Õ¼äÊÇ·ñ×ã¹»´òÓ¡ */
+    char  buf_str[128]; /* éœ€è¦æ³¨æ„åœ¨è¿™é‡Œçš„å†…å­˜ç©ºé—´æ˜¯å¦è¶³å¤Ÿæ‰“å° */
     va_list   v_args;
 
     va_start(v_args, fmt);
@@ -48,10 +48,10 @@ void App_Printf(const char *fmt, ...)
                                   v_args);
     va_end(v_args);
 
-    /* »¥³âÁ¿²Ù×÷£¬²»¿ÉÔÚÖĞ¶ÏÖĞÊ¹ÓÃ */
+    /* äº’æ–¥é‡æ“ä½œï¼Œä¸å¯åœ¨ä¸­æ–­ä¸­ä½¿ç”¨ */
     LOS_MuxPend(gs_printMutexId , LOS_WAIT_FOREVER);
     printf("%s", buf_str);
-    LOS_MuxPost(gs_printMutexId);   //¸ø³ö»¥³âÁ¿
+    LOS_MuxPost(gs_printMutexId);   //ç»™å‡ºäº’æ–¥é‡
 }
 
 /*********************************************************************
@@ -215,7 +215,7 @@ LITE_OS_SEC_TEXT_INIT int main(void)
 __HIGH_CODE
 void GPIOA_IRQHandler(void)
 {
-    /* ±¾º¯Êı¿ÉÒÔ×÷ÎªÔÚ±¾¹¤³ÌLiteOSÖĞµÄÖĞ¶Ïº¯ÊıĞ´·¨Ê¾Àı */
+    /* æœ¬å‡½æ•°å¯ä»¥ä½œä¸ºåœ¨æœ¬å·¥ç¨‹LiteOSä¸­çš„ä¸­æ–­å‡½æ•°å†™æ³•ç¤ºä¾‹ */
     uint16_t flag;
 
     flag = GPIOA_ReadITFlagPort();
@@ -223,7 +223,7 @@ void GPIOA_IRQHandler(void)
     {
         LOS_SemPost(g_semId);
     }
-    GPIOA_ClearITFlagBit(flag); //Çå³ıÖĞ¶Ï±êÖ¾
+    GPIOA_ClearITFlagBit(flag); //æ¸…é™¤ä¸­æ–­æ ‡å¿—
 }
 
 /******************************** endfile @ main ******************************/

@@ -26,7 +26,7 @@ typedef struct
     char ProtectionGrade[8];
     char ProbeType[24];
     LPDF_UINT StorageSpace;
-    LPDF_REAL MaxMeauRange;    //²âÁ¿·¶Î§
+    LPDF_REAL MaxMeauRange;    //æµ‹é‡èŒƒå›´
     LPDF_REAL MinMeauRange;
     LPDF_UINT RecodeInterval;
 }LPDF_Device_Info;

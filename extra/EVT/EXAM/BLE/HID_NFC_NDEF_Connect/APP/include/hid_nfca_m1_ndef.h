@@ -19,7 +19,7 @@ extern "C" {
 #include "wch_nfca_picc.h"
 #include "wch_nfca_picc_m1.h"
 
-#define HID_NFCA_M1_NDEF_INCLUDE_BLE_NAME               0       /* ÊÇ·ñ°üÀ¨BLEÃû³Æ */
+#define HID_NFCA_M1_NDEF_INCLUDE_BLE_NAME               0       /* æ˜¯å¦åŒ…æ‹¬BLEåç§° */
 
 extern void hid_nfca_m1_ndef_init(void);
 

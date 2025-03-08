@@ -22,36 +22,36 @@ extern "C" {
 
 /******************************************************************************/
 /**
- * @brief   ¶ÁÈ¡led×´Ì¬
+ * @brief   è¯»å–ledçŠ¶æ€
  *
- * @param   led_pin - Òı½Å
+ * @param   led_pin - å¼•è„š
  *
- * @return  led×´Ì¬
+ * @return  ledçŠ¶æ€
  */
 BOOL read_led_state(uint32_t led_pin);
 
 /**
- * @brief   ÉèÖÃled×´Ì¬
+ * @brief   è®¾ç½®ledçŠ¶æ€
  *
- * @param   led_pin - Òı½Å
- * @param   on      - ×´Ì¬
+ * @param   led_pin - å¼•è„š
+ * @param   on      - çŠ¶æ€
  */
 void set_led_state(uint32_t led_pin, BOOL on);
 
 /**
- * @brief   ·­×ªled×´Ì¬
+ * @brief   ç¿»è½¬ledçŠ¶æ€
  *
- * @param   led_pin - Òı½Å
+ * @param   led_pin - å¼•è„š
  */
 void toggle_led_state(uint32_t led_pin);
 
 /**
- * @brief   ´¦ÀítransÊı¾İ
+ * @brief   å¤„ç†transæ•°æ®
  *
- * @param   pValue      - Êı¾İÖ¸Õë.
- *          len         - Êı¾İ³¤¶È.
- *          src_Addr    - Êı¾İÀ´Ô´µØÖ·.
- *          dst_Addr    - Êı¾İÄ¿µÄµØÖ·.
+ * @param   pValue      - æ•°æ®æŒ‡é’ˆ.
+ *          len         - æ•°æ®é•¿åº¦.
+ *          src_Addr    - æ•°æ®æ¥æºåœ°å€.
+ *          dst_Addr    - æ•°æ®ç›®çš„åœ°å€.
  */
 extern void app_trans_process(uint8_t *pValue, uint8_t len, uint16_t src_Addr, uint16_t dst_Addr);
 

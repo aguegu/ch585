@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/06
- * Description        : FALSH¶ÁĞ´Àı³Ì
+ * Description        : FALSHè¯»å†™ä¾‹ç¨‹
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -12,14 +12,14 @@
 
 #include "CH58x_common.h"
 
-#define WRProt_Size    0x08  /* ´úÂë°üº¬´óĞ¡£¬µ¥Î»4KB */
+#define WRProt_Size    0x08  /* ä»£ç åŒ…å«å¤§å°ï¼Œå•ä½4KB */
 
 uint8_t TestBuf[1024];
 
 /*********************************************************************
  * @fn      DebugInit
  *
- * @brief   µ÷ÊÔ³õÊ¼»¯
+ * @brief   è°ƒè¯•åˆå§‹åŒ–
  *
  * @return  none
  */
@@ -34,7 +34,7 @@ void DebugInit(void)
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -46,11 +46,11 @@ int main()
     HSECFG_Capacitance(HSECap_18p);
     SetSysClock(CLK_SOURCE_HSE_PLL_62_4MHz);
 
-    /* ÅäÖÃ´®¿Úµ÷ÊÔ */
+    /* é…ç½®ä¸²å£è°ƒè¯• */
     DebugInit();
     PRINT("Start @ChipID=%02X\n", R8_CHIP_ID);
 
-#if 1 // ¶ÁĞ´Data-Flash
+#if 1 // è¯»å†™Data-Flash
 
     PRINT("EEPROM_READ...\n");
     EEPROM_READ(0, TestBuf, 500);
@@ -84,7 +84,7 @@ int main()
 
 #endif
 
-#if 1 // »ñÈ¡Î¨Ò»ID£¬MACµØÖ·£¬¶ÁĞ´Flash-ROM
+#if 1 // è·å–å”¯ä¸€IDï¼ŒMACåœ°å€ï¼Œè¯»å†™Flash-ROM
 
     PRINT("GET_UNIQUE_ID...\n");
     GET_UNIQUE_ID(TestBuf);
@@ -139,7 +139,7 @@ int main()
 
 #endif
 
-#if 0 /* ĞŞ¸ÄÓÃ»§ÅäÖÃÖµ */
+#if 0 /* ä¿®æ”¹ç”¨æˆ·é…ç½®å€¼ */
     s = UserOptionByteConfig(ENABLE, ENABLE, ENABLE, WRProt_Size);
     if(s)
         PRINT("ERR\n");
@@ -151,7 +151,7 @@ int main()
     }
 #endif
 
-#if 0 /* ¹Ø±ÕÁ½Ïßµ÷ÊÔ½Ó¿Ú */
+#if 0 /* å…³é—­ä¸¤çº¿è°ƒè¯•æ¥å£ */
     s = UserOptionByteClose_SWD();
     if(s)
         PRINT("ERR\n");

@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/06
- * Description        : 蓝牙拍照器应用程序，初始化广播连接参数，然后广播，直至连接主机后，定时上传音量键下键
+ * Description        : 钃濈墮鎷嶇収鍣ㄥ簲鐢ㄧ▼搴忥紝鍒濆鍖栧箍鎾繛鎺ュ弬鏁帮紝鐒跺悗骞挎挱锛岀洿鑷宠繛鎺ヤ富鏈哄悗锛屽畾鏃朵笂浼犻煶閲忛敭涓嬮敭
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 

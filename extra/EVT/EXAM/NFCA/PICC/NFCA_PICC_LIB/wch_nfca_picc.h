@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2024/09/20
- * Description        : nfc picc¿âÍ·ÎÄ¼ş
+ * Description        : nfc piccåº“å¤´æ–‡ä»¶
  *********************************************************************************
  * Copyright (c) 2024 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for
@@ -21,11 +21,11 @@ extern "C" {
 
 typedef __attribute__((aligned(4))) struct _nfca_picc_config_struct
 {
-    uint32_t    *signal_buf;        /* ÓÃÓÚNFC PICC·¢ËÍºÍ½ÓÊÕÔ­Ê¼²¨ĞÎÊı¾İµÄ»º³åÇø */
-    uint8_t     *data_buf;          /* ÓÃÓÚNFC PICC·¢ËÍºÍ½ÓÊÕÊı¾İµÄ»º³åÇø */
-    uint8_t     *parity_buf;        /* ÓÃÓÚNFC PICC·¢ËÍºÍ½ÓÊÕÊı¾İĞ£ÑéÎ»µÄ»º³åÇø */
-    uint16_t    signal_buf_len;     /* ÓÃÓÚNFC PICC·¢ËÍºÍ½ÓÊÕÔ­Ê¼²¨ĞÎÊı¾İµÄ»º³åÇø³¤¶È */
-    uint16_t    data_buf_len;       /* data_bufºÍparity_buf³¤¶È±ØĞëÒ»ÖÂ */
+    uint32_t    *signal_buf;        /* ç”¨äºNFC PICCå‘é€å’Œæ¥æ”¶åŸå§‹æ³¢å½¢æ•°æ®çš„ç¼“å†²åŒº */
+    uint8_t     *data_buf;          /* ç”¨äºNFC PICCå‘é€å’Œæ¥æ”¶æ•°æ®çš„ç¼“å†²åŒº */
+    uint8_t     *parity_buf;        /* ç”¨äºNFC PICCå‘é€å’Œæ¥æ”¶æ•°æ®æ ¡éªŒä½çš„ç¼“å†²åŒº */
+    uint16_t    signal_buf_len;     /* ç”¨äºNFC PICCå‘é€å’Œæ¥æ”¶åŸå§‹æ³¢å½¢æ•°æ®çš„ç¼“å†²åŒºé•¿åº¦ */
+    uint16_t    data_buf_len;       /* data_bufå’Œparity_bufé•¿åº¦å¿…é¡»ä¸€è‡´ */
 } nfca_picc_config_t;
 
 typedef __attribute__((aligned(4))) struct _nfca_picc_callback_struct

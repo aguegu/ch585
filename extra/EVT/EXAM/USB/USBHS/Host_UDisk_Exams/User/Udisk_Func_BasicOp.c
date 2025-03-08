@@ -16,7 +16,7 @@
 uint8_t  *pCodeStr;
 /*******************************************************************************/
 /* Variable Definition */
-__attribute__((aligned(4)))  uint8_t  MY_DATA_BUF[ DISK_BASE_BUF_LEN ];   /* MY_DATA_BUFÖ¸ÏòÍâ²¿RAMµÄ´ÅÅÌÊı¾İ»º³åÇø,»º³åÇø³¤¶ÈÎªÖÁÉÙÒ»¸öÉÈÇøµÄ³¤¶È,ÓÃÓÚÓÃ»§Êı¾İ»º´æ */
+__attribute__((aligned(4)))  uint8_t  MY_DATA_BUF[ DISK_BASE_BUF_LEN ];   /* MY_DATA_BUFæŒ‡å‘å¤–éƒ¨RAMçš„ç£ç›˜æ•°æ®ç¼“å†²åŒº,ç¼“å†²åŒºé•¿åº¦ä¸ºè‡³å°‘ä¸€ä¸ªæ‰‡åŒºçš„é•¿åº¦,ç”¨äºç”¨æˆ·æ•°æ®ç¼“å­˜ */
 uint8_t  *pCodeStr;
 
 /*********************************************************************
@@ -38,95 +38,95 @@ void UDisk_USBH_ByteOperation( void )
     {
         UDisk_Opeation_Flag = 0;
         printf("CHRV3DiskStatus:%02x\r\n",CHRV3DiskStatus);
-        /* ¶ÁÎÄ¼ş */
-        strcpy( (char *)mCmdParam.Open.mPathName, "/NEWFILE.C" ); //ÉèÖÃ½«Òª²Ù×÷µÄÎÄ¼şÂ·¾¶ºÍÎÄ¼şÃû/NEWFILE.C
-        ret = CHRV3FileOpen( );                                       //´ò¿ªÎÄ¼ş
-        if ( ret == ERR_MISS_DIR || ret == ERR_MISS_FILE )            //Ã»ÓĞÕÒµ½ÎÄ¼ş
+        /* è¯»æ–‡ä»¶ */
+        strcpy( (char *)mCmdParam.Open.mPathName, "/NEWFILE.C" ); //è®¾ç½®å°†è¦æ“ä½œçš„æ–‡ä»¶è·¯å¾„å’Œæ–‡ä»¶å/NEWFILE.C
+        ret = CHRV3FileOpen( );                                       //æ‰“å¼€æ–‡ä»¶
+        if ( ret == ERR_MISS_DIR || ret == ERR_MISS_FILE )            //æ²¡æœ‰æ‰¾åˆ°æ–‡ä»¶
         {
-            //´´½¨ÎÄ¼şÑİÊ¾
+            //åˆ›å»ºæ–‡ä»¶æ¼”ç¤º
             printf( "Find No File And Create\r\n" );
-            strcpy( (char *)mCmdParam.Create.mPathName, "/NEWFILE.C" );  //ĞÂÎÄ¼şÃû,ÔÚ¸ùÄ¿Â¼ÏÂ,ÖĞÎÄÎÄ¼şÃû
-            ret = CHRV3FileCreate( );                                        //ĞÂ½¨ÎÄ¼ş²¢´ò¿ª,Èç¹ûÎÄ¼şÒÑ¾­´æÔÚÔòÏÈÉ¾³ıºóÔÙĞÂ½¨
+            strcpy( (char *)mCmdParam.Create.mPathName, "/NEWFILE.C" );  //æ–°æ–‡ä»¶å,åœ¨æ ¹ç›®å½•ä¸‹,ä¸­æ–‡æ–‡ä»¶å
+            ret = CHRV3FileCreate( );                                        //æ–°å»ºæ–‡ä»¶å¹¶æ‰“å¼€,å¦‚æœæ–‡ä»¶å·²ç»å­˜åœ¨åˆ™å…ˆåˆ é™¤åå†æ–°å»º
             mStopIfError( ret );
             printf( "ByteWrite\r\n" );
-            //Êµ¼ÊÓ¦¸ÃÅĞ¶ÏĞ´Êı¾İ³¤¶ÈºÍ¶¨Òå»º³åÇø³¤¶ÈÊÇ·ñÏà·û£¬Èç¹û´óÓÚ»º³åÇø³¤¶ÈÔòĞèÒª¶à´ÎĞ´Èë
-            i = sprintf( (char *)Com_Buffer,"Note: \xd\xaÕâ¸ö³ÌĞòÊÇÒÔ×Ö½ÚÎªµ¥Î»½øĞĞUÅÌÎÄ¼ş¶ÁĞ´,¼òµ¥ÑİÊ¾¹¦ÄÜ¡£\xd\xa");
+            //å®é™…åº”è¯¥åˆ¤æ–­å†™æ•°æ®é•¿åº¦å’Œå®šä¹‰ç¼“å†²åŒºé•¿åº¦æ˜¯å¦ç›¸ç¬¦ï¼Œå¦‚æœå¤§äºç¼“å†²åŒºé•¿åº¦åˆ™éœ€è¦å¤šæ¬¡å†™å…¥
+            i = sprintf( (char *)Com_Buffer,"Note: \xd\xaè¿™ä¸ªç¨‹åºæ˜¯ä»¥å­—èŠ‚ä¸ºå•ä½è¿›è¡ŒUç›˜æ–‡ä»¶è¯»å†™,ç®€å•æ¼”ç¤ºåŠŸèƒ½ã€‚\xd\xa");
             for(t=0; t<10; t++)
             {
-                mCmdParam.ByteWrite.mByteCount = i;                           //Ö¸¶¨±¾´ÎĞ´ÈëµÄ×Ö½ÚÊı
-                mCmdParam.ByteWrite.mByteBuffer = Com_Buffer;                 //Ö¸Ïò»º³åÇø
-                ret = CHRV3ByteWrite( );                                      //ÒÔ×Ö½ÚÎªµ¥Î»ÏòÎÄ¼şĞ´ÈëÊı¾İ
+                mCmdParam.ByteWrite.mByteCount = i;                           //æŒ‡å®šæœ¬æ¬¡å†™å…¥çš„å­—èŠ‚æ•°
+                mCmdParam.ByteWrite.mByteBuffer = Com_Buffer;                 //æŒ‡å‘ç¼“å†²åŒº
+                ret = CHRV3ByteWrite( );                                      //ä»¥å­—èŠ‚ä¸ºå•ä½å‘æ–‡ä»¶å†™å…¥æ•°æ®
                 mStopIfError( ret );
-                printf("³É¹¦Ğ´Èë %02X´Î\r\n",(uint16_t)t);
+                printf("æˆåŠŸå†™å…¥ %02Xæ¬¡\r\n",(uint16_t)t);
             }
-            //ÑİÊ¾ĞŞ¸ÄÎÄ¼şÊôĞÔ
+            //æ¼”ç¤ºä¿®æ”¹æ–‡ä»¶å±æ€§
             printf( "Modify\r\n" );
-            mCmdParam.Modify.mFileAttr = 0xff;   //ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÊôĞÔ,Îª0FFHÔò²»ĞŞ¸Ä
-            mCmdParam.Modify.mFileTime = 0xffff;   //ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÊ±¼ä,Îª0FFFFHÔò²»ĞŞ¸Ä,Ê¹ÓÃĞÂ½¨ÎÄ¼ş²úÉúµÄÄ¬ÈÏÊ±¼ä
-            mCmdParam.Modify.mFileDate = MAKE_FILE_DATE( 2015, 5, 18 );  //ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÈÕÆÚ: 2015.05.18
-            mCmdParam.Modify.mFileSize = 0xffffffff;  // ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼ş³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»Ğ´ÎÄ¼şÓ¦¸ÃÓÉ³ÌĞò¿â¹Ø±ÕÎÄ¼şÊ±×Ô¶¯¸üĞÂ³¤¶È,ËùÒÔ´Ë´¦²»ĞŞ¸Ä
-            i = CHRV3FileModify( );   //ĞŞ¸Äµ±Ç°ÎÄ¼şµÄĞÅÏ¢,ĞŞ¸ÄÈÕÆÚ
+            mCmdParam.Modify.mFileAttr = 0xff;   //è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶å±æ€§,ä¸º0FFHåˆ™ä¸ä¿®æ”¹
+            mCmdParam.Modify.mFileTime = 0xffff;   //è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶æ—¶é—´,ä¸º0FFFFHåˆ™ä¸ä¿®æ”¹,ä½¿ç”¨æ–°å»ºæ–‡ä»¶äº§ç”Ÿçš„é»˜è®¤æ—¶é—´
+            mCmdParam.Modify.mFileDate = MAKE_FILE_DATE( 2015, 5, 18 );  //è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶æ—¥æœŸ: 2015.05.18
+            mCmdParam.Modify.mFileSize = 0xffffffff;  // è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½å†™æ–‡ä»¶åº”è¯¥ç”±ç¨‹åºåº“å…³é—­æ–‡ä»¶æ—¶è‡ªåŠ¨æ›´æ–°é•¿åº¦,æ‰€ä»¥æ­¤å¤„ä¸ä¿®æ”¹
+            i = CHRV3FileModify( );   //ä¿®æ”¹å½“å‰æ–‡ä»¶çš„ä¿¡æ¯,ä¿®æ”¹æ—¥æœŸ
             mStopIfError( i );
             printf( "Close\r\n" );
-            mCmdParam.Close.mUpdateLen = 1;     //×Ô¶¯¼ÆËãÎÄ¼ş³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»Ğ´ÎÄ¼ş,½¨ÒéÈÃ³ÌĞò¿â¹Ø±ÕÎÄ¼şÒÔ±ã×Ô¶¯¸üĞÂÎÄ¼ş³¤¶È
+            mCmdParam.Close.mUpdateLen = 1;     //è‡ªåŠ¨è®¡ç®—æ–‡ä»¶é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½å†™æ–‡ä»¶,å»ºè®®è®©ç¨‹åºåº“å…³é—­æ–‡ä»¶ä»¥ä¾¿è‡ªåŠ¨æ›´æ–°æ–‡ä»¶é•¿åº¦
             i = CHRV3FileClose( );
             mStopIfError( i );
 
-            /* É¾³ıÄ³ÎÄ¼ş */
+            /* åˆ é™¤æŸæ–‡ä»¶ */
 //            printf( "Erase\n" );
-//            strcpy( (char *)mCmdParam.Create.mPathName, "/OLD" );  //½«±»É¾³ıµÄÎÄ¼şÃû,ÔÚ¸ùÄ¿Â¼ÏÂ
-//            i = CHRV3FileErase( );  //É¾³ıÎÄ¼ş²¢¹Ø±Õ
-//            if ( i != ERR_SUCCESS ) printf( "Error: %02X\n", (uint16_t)i );  //ÏÔÊ¾´íÎó
+//            strcpy( (char *)mCmdParam.Create.mPathName, "/OLD" );  //å°†è¢«åˆ é™¤çš„æ–‡ä»¶å,åœ¨æ ¹ç›®å½•ä¸‹
+//            i = CHRV3FileErase( );  //åˆ é™¤æ–‡ä»¶å¹¶å…³é—­
+//            if ( i != ERR_SUCCESS ) printf( "Error: %02X\n", (uint16_t)i );  //æ˜¾ç¤ºé”™è¯¯
         }
         else
         {
-            /* Ò»¡¢Ğ´ÈëÎÄ¼ş */
-            printf( "ByteWrite\r\n" ); //Èç¹ûÏ£Íû½«ĞÂÊı¾İÌí¼Óµ½Ô­ÎÄ¼şµÄÎ²²¿,¿ÉÒÔÒÆ¶¯ÎÄ¼şÖ¸Õë
-            mCmdParam.ByteLocate.mByteOffset = 0xffffffff;  //ÒÆµ½ÎÄ¼şµÄÎ²²¿
-            CHRV3ByteLocate( );           //Êµ¼ÊÓ¦¸ÃÅĞ¶ÏĞ´Êı¾İ³¤¶ÈºÍ¶¨Òå»º³åÇø³¤¶ÈÊÇ·ñÏà·û£¬Èç¹û´óÓÚ»º³åÇø³¤¶ÈÔòĞèÒª¶à´ÎĞ´Èë
-            i = sprintf( (char *)Com_Buffer,"Note: \xd\xaÕâ¸ö³ÌĞòÊÇÒÔ×Ö½ÚÎªµ¥Î»½øĞĞUÅÌÎÄ¼ş¶ÁĞ´,¼òµ¥ÑİÊ¾¹¦ÄÜ¡£\xd\xa"); //ÑİÊ¾ÎÄ×Ö
+            /* ä¸€ã€å†™å…¥æ–‡ä»¶ */
+            printf( "ByteWrite\r\n" ); //å¦‚æœå¸Œæœ›å°†æ–°æ•°æ®æ·»åŠ åˆ°åŸæ–‡ä»¶çš„å°¾éƒ¨,å¯ä»¥ç§»åŠ¨æ–‡ä»¶æŒ‡é’ˆ
+            mCmdParam.ByteLocate.mByteOffset = 0xffffffff;  //ç§»åˆ°æ–‡ä»¶çš„å°¾éƒ¨
+            CHRV3ByteLocate( );           //å®é™…åº”è¯¥åˆ¤æ–­å†™æ•°æ®é•¿åº¦å’Œå®šä¹‰ç¼“å†²åŒºé•¿åº¦æ˜¯å¦ç›¸ç¬¦ï¼Œå¦‚æœå¤§äºç¼“å†²åŒºé•¿åº¦åˆ™éœ€è¦å¤šæ¬¡å†™å…¥
+            i = sprintf( (char *)Com_Buffer,"Note: \xd\xaè¿™ä¸ªç¨‹åºæ˜¯ä»¥å­—èŠ‚ä¸ºå•ä½è¿›è¡ŒUç›˜æ–‡ä»¶è¯»å†™,ç®€å•æ¼”ç¤ºåŠŸèƒ½ã€‚\xd\xa"); //æ¼”ç¤ºæ–‡å­—
             for(t=0; t<10; t++)
             {
-                mCmdParam.ByteWrite.mByteCount = i;               //Ö¸¶¨±¾´ÎĞ´ÈëµÄ×Ö½ÚÊı
-                mCmdParam.ByteWrite.mByteBuffer = Com_Buffer;     // Ö¸Ïò»º³åÇø
-                ret = CHRV3ByteWrite( );                          // ÒÔ×Ö½ÚÎªµ¥Î»ÏòÎÄ¼şĞ´ÈëÊı¾İ
+                mCmdParam.ByteWrite.mByteCount = i;               //æŒ‡å®šæœ¬æ¬¡å†™å…¥çš„å­—èŠ‚æ•°
+                mCmdParam.ByteWrite.mByteBuffer = Com_Buffer;     // æŒ‡å‘ç¼“å†²åŒº
+                ret = CHRV3ByteWrite( );                          // ä»¥å­—èŠ‚ä¸ºå•ä½å‘æ–‡ä»¶å†™å…¥æ•°æ®
                 mStopIfError( ret );
-                printf("³É¹¦Ğ´Èë %02X´Î\r\n",(uint16_t)t);
+                printf("æˆåŠŸå†™å…¥ %02Xæ¬¡\r\n",(uint16_t)t);
             }
-            /* ¶ş¡¢¶ÁÈ¡ÎÄ¼şÇ°N×Ö½Ú */
-            TotalCount = 60;                                                  //ÉèÖÃ×¼±¸¶ÁÈ¡×Ü³¤¶È100×Ö½Ú
-            strcpy( (char *)mCmdParam.Open.mPathName, "/NEWFILE.C" );     //ÉèÖÃ½«Òª²Ù×÷µÄÎÄ¼şÂ·¾¶ºÍÎÄ¼şÃû/NEWFILE.C
-            CHRV3FileOpen( );                                                 //´ò¿ªÎÄ¼ş
-            printf( "¶Á³öµÄÇ°%d¸ö×Ö·ûÊÇ:\r\n",TotalCount );
+            /* äºŒã€è¯»å–æ–‡ä»¶å‰Nå­—èŠ‚ */
+            TotalCount = 60;                                                  //è®¾ç½®å‡†å¤‡è¯»å–æ€»é•¿åº¦100å­—èŠ‚
+            strcpy( (char *)mCmdParam.Open.mPathName, "/NEWFILE.C" );     //è®¾ç½®å°†è¦æ“ä½œçš„æ–‡ä»¶è·¯å¾„å’Œæ–‡ä»¶å/NEWFILE.C
+            CHRV3FileOpen( );                                                 //æ‰“å¼€æ–‡ä»¶
+            printf( "è¯»å‡ºçš„å‰%dä¸ªå­—ç¬¦æ˜¯:\r\n",TotalCount );
             while ( TotalCount )
             {
-                //Èç¹ûÎÄ¼ş±È½Ï´ó,Ò»´Î¶Á²»Íê,¿ÉÒÔÔÙµ÷ÓÃCH103ByteRead¼ÌĞø¶ÁÈ¡,ÎÄ¼şÖ¸Õë×Ô¶¯ÏòºóÒÆ¶¯
+                //å¦‚æœæ–‡ä»¶æ¯”è¾ƒå¤§,ä¸€æ¬¡è¯»ä¸å®Œ,å¯ä»¥å†è°ƒç”¨CH103ByteReadç»§ç»­è¯»å–,æ–‡ä»¶æŒ‡é’ˆè‡ªåŠ¨å‘åç§»åŠ¨
                 if ( TotalCount > (MAX_PATH_LEN-1) )
                 {
-                    t = MAX_PATH_LEN-1; // Ê£ÓàÊı¾İ½Ï¶à,ÏŞÖÆµ¥´Î¶ÁĞ´µÄ³¤¶È²»ÄÜ³¬¹ı sizeof( mCmdParam.Other.mBuffer )
+                    t = MAX_PATH_LEN-1; // å‰©ä½™æ•°æ®è¾ƒå¤š,é™åˆ¶å•æ¬¡è¯»å†™çš„é•¿åº¦ä¸èƒ½è¶…è¿‡ sizeof( mCmdParam.Other.mBuffer )
                 }
                 else
                 {
-                    t = TotalCount; //×îºóÊ£ÓàµÄ×Ö½ÚÊı
+                    t = TotalCount; //æœ€åå‰©ä½™çš„å­—èŠ‚æ•°
                 }
-                mCmdParam.ByteRead.mByteCount = t;                   //ÇëÇó¶Á³ö¼¸Ê®×Ö½ÚÊı¾İ
+                mCmdParam.ByteRead.mByteCount = t;                   //è¯·æ±‚è¯»å‡ºå‡ åå­—èŠ‚æ•°æ®
                 mCmdParam.ByteRead.mByteBuffer= &Com_Buffer[0];
-                ret = CHRV3ByteRead( );                              //ÒÔ×Ö½ÚÎªµ¥Î»¶ÁÈ¡Êı¾İ¿é,µ¥´Î¶ÁĞ´µÄ³¤¶È²»ÄÜ³¬¹ıMAX_BYTE_IO,µÚ¶ş´Îµ÷ÓÃÊ±½Ó×Å¸Õ²ÅµÄÏòºó¶Á
-                TotalCount -= mCmdParam.ByteRead.mByteCount;         //¼ÆÊı,¼õÈ¥µ±Ç°Êµ¼ÊÒÑ¾­¶Á³öµÄ×Ö·ûÊı
+                ret = CHRV3ByteRead( );                              //ä»¥å­—èŠ‚ä¸ºå•ä½è¯»å–æ•°æ®å—,å•æ¬¡è¯»å†™çš„é•¿åº¦ä¸èƒ½è¶…è¿‡MAX_BYTE_IO,ç¬¬äºŒæ¬¡è°ƒç”¨æ—¶æ¥ç€åˆšæ‰çš„å‘åè¯»
+                TotalCount -= mCmdParam.ByteRead.mByteCount;         //è®¡æ•°,å‡å»å½“å‰å®é™…å·²ç»è¯»å‡ºçš„å­—ç¬¦æ•°
                 for ( i=0; i!=mCmdParam.ByteRead.mByteCount; i++ )
                 {
-                    printf( "%c", mCmdParam.ByteRead.mByteBuffer[i] ); //ÏÔÊ¾¶Á³öµÄ×Ö·û
+                    printf( "%c", mCmdParam.ByteRead.mByteBuffer[i] ); //æ˜¾ç¤ºè¯»å‡ºçš„å­—ç¬¦
                 }
                 printf( "\r\n" );
 
-                if ( mCmdParam.ByteRead.mByteCount < t ) //Êµ¼Ê¶Á³öµÄ×Ö·ûÊıÉÙÓÚÒªÇó¶Á³öµÄ×Ö·ûÊı,ËµÃ÷ÒÑ¾­µ½ÎÄ¼şµÄ½áÎ²
+                if ( mCmdParam.ByteRead.mByteCount < t ) //å®é™…è¯»å‡ºçš„å­—ç¬¦æ•°å°‘äºè¦æ±‚è¯»å‡ºçš„å­—ç¬¦æ•°,è¯´æ˜å·²ç»åˆ°æ–‡ä»¶çš„ç»“å°¾
                 {
                     printf( "\r\n" );
-                    printf( "ÎÄ¼şÒÑ¾­½áÊø\r\n" );
+                    printf( "æ–‡ä»¶å·²ç»ç»“æŸ\r\n" );
                     break;
                 }
             }
-            i = CHRV3FileClose( ); //¹Ø±ÕÎÄ¼ş
+            i = CHRV3FileClose( ); //å…³é—­æ–‡ä»¶
             mStopIfError( i );
         }
     }
@@ -151,34 +151,34 @@ void UDisk_USBH_SectorOperation( void )
     if( ( ret == DISK_READY )&&( UDisk_Opeation_Flag == 1 ) )
     {
         UDisk_Opeation_Flag = 0;
-        /* ²éÑ¯´ÅÅÌÎïÀíÈİÁ¿ */
+        /* æŸ¥è¯¢ç£ç›˜ç‰©ç†å®¹é‡ */
         printf( "DiskSize\r\n" );
         i = CHRV3DiskQuery( );
         mStopIfError( i );
-        printf( "TotalSize = %u MB \n", (unsigned int)( mCmdParam.Query.mTotalSector * CHRV3vSectorSizeB / 2 ) );  //ÏÔÊ¾ÎªÒÔMBÎªµ¥Î»µÄÈİÁ¿
+        printf( "TotalSize = %u MB \n", (unsigned int)( mCmdParam.Query.mTotalSector * CHRV3vSectorSizeB / 2 ) );  //æ˜¾ç¤ºä¸ºä»¥MBä¸ºå•ä½çš„å®¹é‡
 
-        /* ¶ÁÈ¡Ô­ÎÄ¼ş */
+        /* è¯»å–åŸæ–‡ä»¶ */
         printf( "Open\r\n" );
-        strcpy( mCmdParam.Open.mPathName, "/NEWFILE.TXT" );//ÎÄ¼şÃû,¸ÃÎÄ¼şÔÚC51×ÓÄ¿Â¼ÏÂ
-        s = CHRV3FileOpen( );                       //´ò¿ªÎÄ¼ş
-        if ( s == ERR_MISS_DIR || s == ERR_MISS_FILE )//Ã»ÓĞÕÒµ½ÎÄ¼ş
+        strcpy( mCmdParam.Open.mPathName, "/NEWFILE.TXT" );//æ–‡ä»¶å,è¯¥æ–‡ä»¶åœ¨C51å­ç›®å½•ä¸‹
+        s = CHRV3FileOpen( );                       //æ‰“å¼€æ–‡ä»¶
+        if ( s == ERR_MISS_DIR || s == ERR_MISS_FILE )//æ²¡æœ‰æ‰¾åˆ°æ–‡ä»¶
         {
-            printf( "Ã»ÓĞÕÒµ½ÎÄ¼ş\r\n" );
+            printf( "æ²¡æœ‰æ‰¾åˆ°æ–‡ä»¶\r\n" );
         }
-        else                                        //ÕÒµ½ÎÄ¼ş»òÕß³ö´í
+        else                                        //æ‰¾åˆ°æ–‡ä»¶æˆ–è€…å‡ºé”™
         {
             printf( "Query\r\n" );
-            i = CHRV3FileQuery( );                  //²éÑ¯µ±Ç°ÎÄ¼şµÄĞÅÏ¢
+            i = CHRV3FileQuery( );                  //æŸ¥è¯¢å½“å‰æ–‡ä»¶çš„ä¿¡æ¯
             mStopIfError( i );
             printf( "Read\r\n" );
-            CHRV3vFileSize = CHRV3vFileSize+(sizeof( MY_DATA_BUF )-1);    //Ô­ÎÄ¼şµÄ³¤¶È
-            SecCount = CHRV3vFileSize/ sizeof( MY_DATA_BUF )  ;//¼ÆËãÎÄ¼şµÄÉÈÇøÊı,ÒòÎª¶ÁĞ´ÊÇÒÔÉÈÇøÎªµ¥Î»µÄ,ÏÈ¼ÓCHRV3vSectorSize-1ÊÇÎªÁË¶Á³öÎÄ¼şÎ²²¿²»×ã1¸öÉÈÇøµÄ²¿·Ö
+            CHRV3vFileSize = CHRV3vFileSize+(sizeof( MY_DATA_BUF )-1);    //åŸæ–‡ä»¶çš„é•¿åº¦
+            SecCount = CHRV3vFileSize/ sizeof( MY_DATA_BUF )  ;//è®¡ç®—æ–‡ä»¶çš„æ‰‡åŒºæ•°,å› ä¸ºè¯»å†™æ˜¯ä»¥æ‰‡åŒºä¸ºå•ä½çš„,å…ˆåŠ CHRV3vSectorSize-1æ˜¯ä¸ºäº†è¯»å‡ºæ–‡ä»¶å°¾éƒ¨ä¸è¶³1ä¸ªæ‰‡åŒºçš„éƒ¨åˆ†
             printf( "Size=%ld, Sec=%d\r\n", CHRV3vFileSize, (uint16_t)SecCount );
             while(SecCount--)
             {
-                mCmdParam.Read.mSectorCount = sizeof( MY_DATA_BUF )/512;  //¶ÁÈ¡È«²¿Êı¾İ,Èç¹û³¬¹ı2¸öÉÈÇøÔòÖ»¶ÁÈ¡2¸öÉÈÇø
-                mCmdParam.Read.mDataBuffer = &MY_DATA_BUF[0];//Ö¸ÏòÎÄ¼şÊı¾İ»º³åÇøµÄÆğÊ¼µØÖ·
-                i = CHRV3FileRead( );                    //´ÓÎÄ¼ş¶ÁÈ¡Êı¾İ
+                mCmdParam.Read.mSectorCount = sizeof( MY_DATA_BUF )/512;  //è¯»å–å…¨éƒ¨æ•°æ®,å¦‚æœè¶…è¿‡2ä¸ªæ‰‡åŒºåˆ™åªè¯»å–2ä¸ªæ‰‡åŒº
+                mCmdParam.Read.mDataBuffer = &MY_DATA_BUF[0];//æŒ‡å‘æ–‡ä»¶æ•°æ®ç¼“å†²åŒºçš„èµ·å§‹åœ°å€
+                i = CHRV3FileRead( );                    //ä»æ–‡ä»¶è¯»å–æ•°æ®
                 mStopIfError( i );
                 if(SecCount == 0) break;
                 /*
@@ -191,7 +191,7 @@ void UDisk_USBH_SectorOperation( void )
             }
             tmp = (CHRV3vFileSize-(sizeof( MY_DATA_BUF )-1))%sizeof( MY_DATA_BUF );
             if((tmp == 0)&&(CHRV3vFileSize != 0)) tmp = sizeof( MY_DATA_BUF );
-            CHRV3vFileSize = CHRV3vFileSize-(sizeof( MY_DATA_BUF )-1);    //»Ö¸´Ô­ÎÄ¼şµÄ³¤¶È
+            CHRV3vFileSize = CHRV3vFileSize-(sizeof( MY_DATA_BUF )-1);    //æ¢å¤åŸæ–‡ä»¶çš„é•¿åº¦
             /*
             for(i=0; i<tmp; i++)
             {
@@ -200,47 +200,47 @@ void UDisk_USBH_SectorOperation( void )
             printf("\n");
             */
             /*
-                         Èç¹ûÎÄ¼ş±È½Ï´ó,Ò»´Î¶Á²»Íê,¿ÉÒÔÔÙµ÷ÓÃCHRV3FileRead¼ÌĞø¶ÁÈ¡,ÎÄ¼şÖ¸Õë×Ô¶¯ÏòºóÒÆ¶¯
+                         å¦‚æœæ–‡ä»¶æ¯”è¾ƒå¤§,ä¸€æ¬¡è¯»ä¸å®Œ,å¯ä»¥å†è°ƒç”¨CHRV3FileReadç»§ç»­è¯»å–,æ–‡ä»¶æŒ‡é’ˆè‡ªåŠ¨å‘åç§»åŠ¨
              while ( 1 )
              {
-               c = 4;   Ã¿´Î¶ÁÈ¡4¸öÉÈÇø,»º³åÇø¶¨ÒåµÄÔ½´ó£¬Ò»´Î¶ÁÈ¡µÄÉÈÇøÊıÔ½¶à
-               mCmdParam.Read.mSectorCount = c;   Ö¸¶¨¶ÁÈ¡µÄÉÈÇøÊı
-               mCmdParam.Read.mDataBuffer = &MY_DATA_BUF[0];  Ö¸ÏòÎÄ¼şÊı¾İ»º³åÇøµÄÆğÊ¼µØÖ·
-               CHRV3FileRead();   ¶ÁÍêºóÎÄ¼şÖ¸Õë×Ô¶¯ºóÒÆ ´¦ÀíÊı¾İ
-               if ( mCmdParam.Read.mSectorCount < c ) break;   Êµ¼Ê¶Á³öµÄÉÈÇøÊı½ÏĞ¡ÔòËµÃ÷ÎÄ¼şÒÑ¾­½áÊø
+               c = 4;   æ¯æ¬¡è¯»å–4ä¸ªæ‰‡åŒº,ç¼“å†²åŒºå®šä¹‰çš„è¶Šå¤§ï¼Œä¸€æ¬¡è¯»å–çš„æ‰‡åŒºæ•°è¶Šå¤š
+               mCmdParam.Read.mSectorCount = c;   æŒ‡å®šè¯»å–çš„æ‰‡åŒºæ•°
+               mCmdParam.Read.mDataBuffer = &MY_DATA_BUF[0];  æŒ‡å‘æ–‡ä»¶æ•°æ®ç¼“å†²åŒºçš„èµ·å§‹åœ°å€
+               CHRV3FileRead();   è¯»å®Œåæ–‡ä»¶æŒ‡é’ˆè‡ªåŠ¨åç§» å¤„ç†æ•°æ®
+               if ( mCmdParam.Read.mSectorCount < c ) break;   å®é™…è¯»å‡ºçš„æ‰‡åŒºæ•°è¾ƒå°åˆ™è¯´æ˜æ–‡ä»¶å·²ç»ç»“æŸ
              }
-                                               Èç¹ûÏ£Íû´ÓÖ¸¶¨Î»ÖÃ¿ªÊ¼¶ÁĞ´,¿ÉÒÔÒÆ¶¯ÎÄ¼şÖ¸Õë
-              mCmdParam.Locate.mSectorOffset = 3;  Ìø¹ıÎÄ¼şµÄÇ°3¸öÉÈÇø¿ªÊ¼¶ÁĞ´
+                                               å¦‚æœå¸Œæœ›ä»æŒ‡å®šä½ç½®å¼€å§‹è¯»å†™,å¯ä»¥ç§»åŠ¨æ–‡ä»¶æŒ‡é’ˆ
+              mCmdParam.Locate.mSectorOffset = 3;  è·³è¿‡æ–‡ä»¶çš„å‰3ä¸ªæ‰‡åŒºå¼€å§‹è¯»å†™
               i = CHRV3FileLocate( );
               mCmdParam.Read.mSectorCount = 10;
-              mCmdParam.Read.mDataBuffer = &MY_DATA_BUF[0];  Ö¸ÏòÎÄ¼şÊı¾İ»º³åÇøµÄÆğÊ¼µØÖ·
-              CHRV3FileRead();   Ö±½Ó¶ÁÈ¡´ÓÎÄ¼şµÄµÚ(CHRV3vSectorSizeH*256*3)¸ö×Ö½Ú¿ªÊ¼µÄÊı¾İ,Ç°3¸öÉÈÇø±»Ìø¹ı
-                                               Èç¹ûÏ£Íû½«ĞÂÊı¾İÌí¼Óµ½Ô­ÎÄ¼şµÄÎ²²¿,¿ÉÒÔÒÆ¶¯ÎÄ¼şÖ¸Õë
+              mCmdParam.Read.mDataBuffer = &MY_DATA_BUF[0];  æŒ‡å‘æ–‡ä»¶æ•°æ®ç¼“å†²åŒºçš„èµ·å§‹åœ°å€
+              CHRV3FileRead();   ç›´æ¥è¯»å–ä»æ–‡ä»¶çš„ç¬¬(CHRV3vSectorSizeH*256*3)ä¸ªå­—èŠ‚å¼€å§‹çš„æ•°æ®,å‰3ä¸ªæ‰‡åŒºè¢«è·³è¿‡
+                                               å¦‚æœå¸Œæœ›å°†æ–°æ•°æ®æ·»åŠ åˆ°åŸæ–‡ä»¶çš„å°¾éƒ¨,å¯ä»¥ç§»åŠ¨æ–‡ä»¶æŒ‡é’ˆ
               i = CHRV3FileOpen( );
-              mCmdParam.Locate.mSectorOffset = 0xffffffff;  ÒÆµ½ÎÄ¼şµÄÎ²²¿,ÒÔÉÈÇøÎªµ¥Î»,Èç¹ûÔ­ÎÄ¼şÊÇ3×Ö½Ú,Ôò´ÓCHRV3vSectorSizeH¸ö×Ö½Ú´¦¿ªÊ¼Ìí¼Ó
+              mCmdParam.Locate.mSectorOffset = 0xffffffff;  ç§»åˆ°æ–‡ä»¶çš„å°¾éƒ¨,ä»¥æ‰‡åŒºä¸ºå•ä½,å¦‚æœåŸæ–‡ä»¶æ˜¯3å­—èŠ‚,åˆ™ä»CHRV3vSectorSizeHä¸ªå­—èŠ‚å¤„å¼€å§‹æ·»åŠ 
               i = CHRV3FileLocate( );
               mCmdParam.Write.mSectorCount = 10;
               mCmdParam.Write.mDataBuffer = &MY_DATA_BUF[0];
-              CHRV3FileWrite();   ÔÚÔ­ÎÄ¼şµÄºóÃæÌí¼ÓÊı¾İ
-                                               Ê¹ÓÃCHRV3FileRead¿ÉÒÔ×ÔĞĞ¶¨ÒåÊı¾İ»º³åÇøµÄÆğÊ¼µØÖ·
+              CHRV3FileWrite();   åœ¨åŸæ–‡ä»¶çš„åé¢æ·»åŠ æ•°æ®
+                                               ä½¿ç”¨CHRV3FileReadå¯ä»¥è‡ªè¡Œå®šä¹‰æ•°æ®ç¼“å†²åŒºçš„èµ·å§‹åœ°å€
               mCmdParam.Read.mSectorCount = 2;
-              mCmdParam.Read.mDataBuffer = 0x50;  ½«¶Á³öµÄÊı¾İ·Åµ½50H¿ªÊ¼µÄ»º³åÇøÖĞ£¬ĞèÒªÖ¸¶¨»º³åÇøµÄÆğÊ¼µØÖ·
-              CHRV3FileRead();   ´ÓÎÄ¼şÖĞ¶ÁÈ¡2¸öÉÈÇøµ½Ö¸¶¨»º³åÇø
-                                                Ê¹ÓÃCHRV3FileWrite¿ÉÒÔ×ÔĞĞ¶¨ÒåÊı¾İ»º³åÇøµÄÆğÊ¼µØÖ·
+              mCmdParam.Read.mDataBuffer = 0x50;  å°†è¯»å‡ºçš„æ•°æ®æ”¾åˆ°50Hå¼€å§‹çš„ç¼“å†²åŒºä¸­ï¼Œéœ€è¦æŒ‡å®šç¼“å†²åŒºçš„èµ·å§‹åœ°å€
+              CHRV3FileRead();   ä»æ–‡ä»¶ä¸­è¯»å–2ä¸ªæ‰‡åŒºåˆ°æŒ‡å®šç¼“å†²åŒº
+                                                ä½¿ç”¨CHRV3FileWriteå¯ä»¥è‡ªè¡Œå®šä¹‰æ•°æ®ç¼“å†²åŒºçš„èµ·å§‹åœ°å€
               mCmdParam.Wiite.mSectorCount = 2;
-              mCmdParam.Write.mDataBuffer = 0x50;  ½«50H¿ªÊ¼µÄ»º³åÇøÖĞµÄÊı¾İĞ´Èë
-              CHRV3FileWrite();   ½«Ö¸¶¨»º³åÇøÖĞµÄÊı¾İĞ´Èë2¸öÉÈÇøµ½ÎÄ¼şÖĞ
+              mCmdParam.Write.mDataBuffer = 0x50;  å°†50Hå¼€å§‹çš„ç¼“å†²åŒºä¸­çš„æ•°æ®å†™å…¥
+              CHRV3FileWrite();   å°†æŒ‡å®šç¼“å†²åŒºä¸­çš„æ•°æ®å†™å…¥2ä¸ªæ‰‡åŒºåˆ°æ–‡ä»¶ä¸­
             */
             printf( "Close\r\n" );
-            i = CHRV3FileClose( );                            //¹Ø±ÕÎÄ¼ş
+            i = CHRV3FileClose( );                            //å…³é—­æ–‡ä»¶
             mStopIfError( i );
         }
         printf( "Create\r\n" );
-        strcpy( mCmdParam.Create.mPathName, "/NEWFILE.TXT" );//ĞÂÎÄ¼şÃû,ÔÚ¸ùÄ¿Â¼ÏÂ,ÖĞÎÄÎÄ¼şÃû
-        s = CHRV3FileCreate( );                               //ĞÂ½¨ÎÄ¼ş²¢´ò¿ª,Èç¹ûÎÄ¼şÒÑ¾­´æÔÚÔòÏÈÉ¾³ıºóÔÙĞÂ½¨ */
+        strcpy( mCmdParam.Create.mPathName, "/NEWFILE.TXT" );//æ–°æ–‡ä»¶å,åœ¨æ ¹ç›®å½•ä¸‹,ä¸­æ–‡æ–‡ä»¶å
+        s = CHRV3FileCreate( );                               //æ–°å»ºæ–‡ä»¶å¹¶æ‰“å¼€,å¦‚æœæ–‡ä»¶å·²ç»å­˜åœ¨åˆ™å…ˆåˆ é™¤åå†æ–°å»º */
         mStopIfError( s );
         printf( "Write\r\n" );
-        strcpy( tmpbuf, "0000ABCDEFGHIJKLMNOPQRSTUVWXYZ\xd\xa" );//×¼±¸Ğ´ÎÄ¼şÊı¾İ
+        strcpy( tmpbuf, "0000ABCDEFGHIJKLMNOPQRSTUVWXYZ\xd\xa" );//å‡†å¤‡å†™æ–‡ä»¶æ•°æ®
         for(i=0; i<(DISK_BASE_BUF_LEN/sizeof(tmpbuf)); i++)
         {
             tmp=i*sizeof(tmpbuf);
@@ -253,31 +253,31 @@ void UDisk_USBH_SectorOperation( void )
         printf("\r\n");
         for(s=0; s<10; s++)
         {
-            mCmdParam.Write.mSectorCount = 1;                 //Ğ´ÈëËùÓĞÉÈÇøµÄÊı¾İ
-            mCmdParam.Write.mDataBuffer = &MY_DATA_BUF[0];    //Ö¸ÏòÎÄ¼şÊı¾İ»º³åÇøµÄÆğÊ¼µØÖ·
-            i = CHRV3FileWrite( );                            //ÏòÎÄ¼şĞ´ÈëÊı¾İ
+            mCmdParam.Write.mSectorCount = 1;                 //å†™å…¥æ‰€æœ‰æ‰‡åŒºçš„æ•°æ®
+            mCmdParam.Write.mDataBuffer = &MY_DATA_BUF[0];    //æŒ‡å‘æ–‡ä»¶æ•°æ®ç¼“å†²åŒºçš„èµ·å§‹åœ°å€
+            i = CHRV3FileWrite( );                            //å‘æ–‡ä»¶å†™å…¥æ•°æ®
             mStopIfError( i );
-            printf("³É¹¦Ğ´Èë %02X´Î\r\n",(uint16_t)s);
+            printf("æˆåŠŸå†™å…¥ %02Xæ¬¡\r\n",(uint16_t)s);
         }
         /* printf( "Modify\n" );
-           mCmdParam.Modify.mFileAttr = 0xff;   ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÊôĞÔ,Îª0FFHÔò²»ĞŞ¸Ä
-           mCmdParam.Modify.mFileTime = 0xffff;   ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÊ±¼ä,Îª0FFFFHÔò²»ĞŞ¸Ä,Ê¹ÓÃĞÂ½¨ÎÄ¼ş²úÉúµÄÄ¬ÈÏÊ±¼ä
-           mCmdParam.Modify.mFileDate = MAKE_FILE_DATE( 2015, 5, 18 );  ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÈÕÆÚ: 2015.05.18
-           mCmdParam.Modify.mFileSize = 0xffffffff;   ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼ş³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»Ğ´ÎÄ¼şÓ¦¸ÃÓÉ³ÌĞò¿â¹Ø±ÕÎÄ¼şÊ±×Ô¶¯¸üĞÂ³¤¶È,ËùÒÔ´Ë´¦²»ĞŞ¸Ä
-           i = CHRV3FileModify( );   ĞŞ¸Äµ±Ç°ÎÄ¼şµÄĞÅÏ¢,ĞŞ¸ÄÈÕÆÚ
+           mCmdParam.Modify.mFileAttr = 0xff;   è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶å±æ€§,ä¸º0FFHåˆ™ä¸ä¿®æ”¹
+           mCmdParam.Modify.mFileTime = 0xffff;   è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶æ—¶é—´,ä¸º0FFFFHåˆ™ä¸ä¿®æ”¹,ä½¿ç”¨æ–°å»ºæ–‡ä»¶äº§ç”Ÿçš„é»˜è®¤æ—¶é—´
+           mCmdParam.Modify.mFileDate = MAKE_FILE_DATE( 2015, 5, 18 );  è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶æ—¥æœŸ: 2015.05.18
+           mCmdParam.Modify.mFileSize = 0xffffffff;   è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½å†™æ–‡ä»¶åº”è¯¥ç”±ç¨‹åºåº“å…³é—­æ–‡ä»¶æ—¶è‡ªåŠ¨æ›´æ–°é•¿åº¦,æ‰€ä»¥æ­¤å¤„ä¸ä¿®æ”¹
+           i = CHRV3FileModify( );   ä¿®æ”¹å½“å‰æ–‡ä»¶çš„ä¿¡æ¯,ä¿®æ”¹æ—¥æœŸ
            mStopIfError( i );
         */
         printf( "Close\r\n" );
-        mCmdParam.Close.mUpdateLen = 1;                        //×Ô¶¯¼ÆËãÎÄ¼ş³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»Ğ´ÎÄ¼ş,½¨ÒéÈÃ³ÌĞò¿â¹Ø±ÕÎÄ¼şÒÔ±ã×Ô¶¯¸üĞÂÎÄ¼ş³¤¶È
+        mCmdParam.Close.mUpdateLen = 1;                        //è‡ªåŠ¨è®¡ç®—æ–‡ä»¶é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½å†™æ–‡ä»¶,å»ºè®®è®©ç¨‹åºåº“å…³é—­æ–‡ä»¶ä»¥ä¾¿è‡ªåŠ¨æ›´æ–°æ–‡ä»¶é•¿åº¦
         i = CHRV3FileClose( );
         mStopIfError( i );
-        /* É¾³ıÄ³ÎÄ¼ş */
+        /* åˆ é™¤æŸæ–‡ä»¶ */
         /*printf( "Erase\n" );
-          strcpy( mCmdParam.Create.mPathName, "/OLD.TXT" );  ½«±»É¾³ıµÄÎÄ¼şÃû,ÔÚ¸ùÄ¿Â¼ÏÂ
-          i = CHRV3FileErase( );  É¾³ıÎÄ¼ş²¢¹Ø±Õ
-          if ( i != ERR_SUCCESS ) printf( "Error File not exist: %02X\n", (uint16_t)i );  ÏÔÊ¾´íÎó
+          strcpy( mCmdParam.Create.mPathName, "/OLD.TXT" );  å°†è¢«åˆ é™¤çš„æ–‡ä»¶å,åœ¨æ ¹ç›®å½•ä¸‹
+          i = CHRV3FileErase( );  åˆ é™¤æ–‡ä»¶å¹¶å…³é—­
+          if ( i != ERR_SUCCESS ) printf( "Error File not exist: %02X\n", (uint16_t)i );  æ˜¾ç¤ºé”™è¯¯
         */
-        printf( "UÅÌÑİÊ¾Íê³É\r\n" );
+        printf( "Uç›˜æ¼”ç¤ºå®Œæˆ\r\n" );
     }
 }
 
@@ -298,48 +298,48 @@ void UDisk_USBH_EnumFiles( void )
     if( ( ret == DISK_READY )&&( UDisk_Opeation_Flag == 1 ) )
     {
         UDisk_Opeation_Flag = 0;
-        /* ¶ÁÈ¡Ô­ÎÄ¼ş */
+        /* è¯»å–åŸæ–‡ä»¶ */
         printf( "Open\r\n" );
-        strcpy( mCmdParam.Open.mPathName, "/C51/CHRV3HFT.C" );//ÎÄ¼şÃû,¸ÃÎÄ¼şÔÚC51×ÓÄ¿Â¼ÏÂ
-        s = CHRV3FileOpen( );                        //´ò¿ªÎÄ¼ş
-        /* ÁĞ³öÎÄ¼ş */
+        strcpy( mCmdParam.Open.mPathName, "/C51/CHRV3HFT.C" );//æ–‡ä»¶å,è¯¥æ–‡ä»¶åœ¨C51å­ç›®å½•ä¸‹
+        s = CHRV3FileOpen( );                        //æ‰“å¼€æ–‡ä»¶
+        /* åˆ—å‡ºæ–‡ä»¶ */
         if ( s == ERR_MISS_DIR )
         {
-            printf("²»´æÔÚ¸ÃÎÄ¼şÔòÁĞ³öËùÓĞÎÄ¼ş\r\n");  //C51×ÓÄ¿Â¼²»´æÔÚÔòÁĞ³ö¸ùÄ¿Â¼ÏÂµÄËùÓĞÎÄ¼ş
+            printf("ä¸å­˜åœ¨è¯¥æ–‡ä»¶åˆ™åˆ—å‡ºæ‰€æœ‰æ–‡ä»¶\r\n");  //C51å­ç›®å½•ä¸å­˜åœ¨åˆ™åˆ—å‡ºæ ¹ç›®å½•ä¸‹çš„æ‰€æœ‰æ–‡ä»¶
             pCodeStr = "/*";
         }
         else
         {
-            pCodeStr = "/C51/*";                     //CHRV3HFT.CÎÄ¼ş²»´æÔÚÔòÁĞ³ö\C51×ÓÄ¿Â¼ÏÂµÄÒÔCHRV3¿ªÍ·µÄÎÄ¼ş
+            pCodeStr = "/C51/*";                     //CHRV3HFT.Cæ–‡ä»¶ä¸å­˜åœ¨åˆ™åˆ—å‡º\C51å­ç›®å½•ä¸‹çš„ä»¥CHRV3å¼€å¤´çš„æ–‡ä»¶
         }
         printf( "List file %s\r\n", pCodeStr );
-        for ( j = 0; j < 10000; j ++ )               //×î¶àËÑË÷Ç°10000¸öÎÄ¼ş,Êµ¼ÊÉÏÃ»ÓĞÏŞÖÆ
+        for ( j = 0; j < 10000; j ++ )               //æœ€å¤šæœç´¢å‰10000ä¸ªæ–‡ä»¶,å®é™…ä¸Šæ²¡æœ‰é™åˆ¶
         {
-            strcpy( (char *)mCmdParam.Open.mPathName, pCodeStr );//ËÑË÷ÎÄ¼şÃû,*ÎªÍ¨Åä·û,ÊÊÓÃÓÚËùÓĞÎÄ¼ş»òÕß×ÓÄ¿Â¼
+            strcpy( (char *)mCmdParam.Open.mPathName, pCodeStr );//æœç´¢æ–‡ä»¶å,*ä¸ºé€šé…ç¬¦,é€‚ç”¨äºæ‰€æœ‰æ–‡ä»¶æˆ–è€…å­ç›®å½•
             i = strlen( mCmdParam.Open.mPathName );
-            mCmdParam.Open.mPathName[ i ] = 0xFF;    //¸ù¾İ×Ö·û´®³¤¶È½«½áÊø·ûÌæ»»ÎªËÑË÷µÄĞòºÅ,´Ó0µ½254,Èç¹ûÊÇ0xFF¼´255ÔòËµÃ÷ËÑË÷ĞòºÅÔÚCHRV3vFileSize±äÁ¿ÖĞ
-            CHRV3vFileSize = j;                      //Ö¸¶¨ËÑË÷/Ã¶¾ÙµÄĞòºÅ
-            i = CHRV3FileOpen( );                    //´ò¿ªÎÄ¼ş,Èç¹ûÎÄ¼şÃûÖĞº¬ÓĞÍ¨Åä·û*,ÔòÎªËÑË÷ÎÄ¼ş¶ø²»´ò¿ª
-            /* CHRV3FileEnum Óë CHRV3FileOpen µÄÎ¨Ò»Çø±ğÊÇµ±ºóÕß·µ»ØERR_FOUND_NAMEÊ±ÄÇÃ´¶ÔÓ¦ÓÚÇ°Õß·µ»ØERR_SUCCESS */
+            mCmdParam.Open.mPathName[ i ] = 0xFF;    //æ ¹æ®å­—ç¬¦ä¸²é•¿åº¦å°†ç»“æŸç¬¦æ›¿æ¢ä¸ºæœç´¢çš„åºå·,ä»0åˆ°254,å¦‚æœæ˜¯0xFFå³255åˆ™è¯´æ˜æœç´¢åºå·åœ¨CHRV3vFileSizeå˜é‡ä¸­
+            CHRV3vFileSize = j;                      //æŒ‡å®šæœç´¢/æšä¸¾çš„åºå·
+            i = CHRV3FileOpen( );                    //æ‰“å¼€æ–‡ä»¶,å¦‚æœæ–‡ä»¶åä¸­å«æœ‰é€šé…ç¬¦*,åˆ™ä¸ºæœç´¢æ–‡ä»¶è€Œä¸æ‰“å¼€
+            /* CHRV3FileEnum ä¸ CHRV3FileOpen çš„å”¯ä¸€åŒºåˆ«æ˜¯å½“åè€…è¿”å›ERR_FOUND_NAMEæ—¶é‚£ä¹ˆå¯¹åº”äºå‰è€…è¿”å›ERR_SUCCESS */
             if ( i == ERR_MISS_FILE )
             {
-                break;                                //ÔÙÒ²ËÑË÷²»µ½Æ¥ÅäµÄÎÄ¼ş,ÒÑ¾­Ã»ÓĞÆ¥ÅäµÄÎÄ¼şÃû
+                break;                                //å†ä¹Ÿæœç´¢ä¸åˆ°åŒ¹é…çš„æ–‡ä»¶,å·²ç»æ²¡æœ‰åŒ¹é…çš„æ–‡ä»¶å
             }
             if ( i == ERR_FOUND_NAME )
             {
-                /* ËÑË÷µ½ÓëÍ¨Åä·ûÏàÆ¥ÅäµÄÎÄ¼şÃû,ÎÄ¼şÃû¼°ÆäÍêÕûÂ·¾¶ÔÚÃüÁî»º³åÇøÖĞ */
-                printf( "  match file %04d#: %s\r\n", (unsigned int)j, mCmdParam.Open.mPathName );//ÏÔÊ¾ĞòºÅºÍËÑË÷µ½µÄÆ¥ÅäÎÄ¼şÃû»òÕß×ÓÄ¿Â¼Ãû
-                continue;                             //¼ÌĞøËÑË÷ÏÂÒ»¸öÆ¥ÅäµÄÎÄ¼şÃû,ÏÂ´ÎËÑË÷Ê±ĞòºÅ»á¼Ó1
+                /* æœç´¢åˆ°ä¸é€šé…ç¬¦ç›¸åŒ¹é…çš„æ–‡ä»¶å,æ–‡ä»¶ååŠå…¶å®Œæ•´è·¯å¾„åœ¨å‘½ä»¤ç¼“å†²åŒºä¸­ */
+                printf( "  match file %04d#: %s\r\n", (unsigned int)j, mCmdParam.Open.mPathName );//æ˜¾ç¤ºåºå·å’Œæœç´¢åˆ°çš„åŒ¹é…æ–‡ä»¶åæˆ–è€…å­ç›®å½•å
+                continue;                             //ç»§ç»­æœç´¢ä¸‹ä¸€ä¸ªåŒ¹é…çš„æ–‡ä»¶å,ä¸‹æ¬¡æœç´¢æ—¶åºå·ä¼šåŠ 1
             }
             else
             {
-                /* ³ö´í */
+                /* å‡ºé”™ */
                 mStopIfError( i );
                 break;
             }
         }
         printf( "Close\r\n" );
-        CHRV3FileClose( );                            //¹Ø±ÕÎÄ¼ş
-        printf( "UÅÌÑİÊ¾Íê³É\r\n" );
+        CHRV3FileClose( );                            //å…³é—­æ–‡ä»¶
+        printf( "Uç›˜æ¼”ç¤ºå®Œæˆ\r\n" );
     }
 }

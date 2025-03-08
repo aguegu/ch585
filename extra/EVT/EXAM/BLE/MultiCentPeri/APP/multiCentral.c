@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/18
- * Description        : Ö÷»ú¶àÁ¬½ÓÀı³Ì£¬Ö÷¶¯É¨ÃèÖÜÎ§Éè±¸£¬Á¬½ÓÖÁ¸ø¶¨µÄÈı¸ö´Ó»úÉè±¸µØÖ·
+ * Description        : ä¸»æœºå¤šè¿æ¥ä¾‹ç¨‹ï¼Œä¸»åŠ¨æ‰«æå‘¨å›´è®¾å¤‡ï¼Œè¿æ¥è‡³ç»™å®šçš„ä¸‰ä¸ªä»æœºè®¾å¤‡åœ°å€
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -269,7 +269,7 @@ static void centralInitConnItem(uint8_t task_id, centralConnItem_t *centralConnL
     uint8_t connItem;
     for(connItem = 0; connItem < CENTRAL_MAX_CONNECTION; connItem++)
     {
-        // Ã¿¸öÁ¬½ÓµÄÈÎÎñÍ¨¹ıtaskIDÇø·Ö
+        // æ¯ä¸ªè¿æ¥çš„ä»»åŠ¡é€šè¿‡taskIDåŒºåˆ†
         centralConnList[connItem].taskID = TMOS_ProcessEventRegister(Central_ProcessEvent);
         centralConnList[connItem].connHandle = GAP_CONNHANDLE_INIT;
         centralConnList[connItem].state = BLE_STATE_IDLE;
@@ -325,17 +325,17 @@ uint16_t Central_ProcessEvent(uint8_t task_id, uint16_t events)
         return (events ^ ESTABLISH_LINK_TIMEOUT_EVT);
     }
 
-    // Á¬½Ó0µÄÈÎÎñ´¦Àí
+    // è¿æ¥0çš„ä»»åŠ¡å¤„ç†
     if(task_id == centralConnList[CONNECT0_ITEM].taskID)
     {
         return connect_ProcessEvent(task_id, events);
     }
-    // Á¬½Ó1µÄÈÎÎñ´¦Àí
+    // è¿æ¥1çš„ä»»åŠ¡å¤„ç†
     else if(task_id == centralConnList[CONNECT1_ITEM].taskID)
     {
         return connect_ProcessEvent(task_id, events);
     }
-    // Á¬½Ó2µÄÈÎÎñ´¦Àí
+    // è¿æ¥2çš„ä»»åŠ¡å¤„ç†
     else if(task_id == centralConnList[CONNECT2_ITEM].taskID)
     {
         return connect_ProcessEvent(task_id, events);
@@ -684,7 +684,7 @@ static void centralEventCB(gapRoleEvent_t *pEvent)
             if(pEvent->gap.hdr.status == SUCCESS)
             {
                 uint8_t connItem;
-                // ²éÑ¯ÊÇ·ñÓĞ¿ÕÓàÁ¬½ÓÌõÄ¿
+                // æŸ¥è¯¢æ˜¯å¦æœ‰ç©ºä½™è¿æ¥æ¡ç›®
                 for(connItem = 0; connItem < CENTRAL_MAX_CONNECTION; connItem++)
                 {
                     if(centralConnList[connItem].connHandle == GAP_CONNHANDLE_INIT)
@@ -702,7 +702,7 @@ static void centralEventCB(gapRoleEvent_t *pEvent)
 
                     PRINT("Conn %x - Int %x \n", pEvent->linkCmpl.connectionHandle, pEvent->linkCmpl.connInterval);
 
-                    //  Á¬½Ó0
+                    //  è¿æ¥0
                     if(connItem == CONNECT0_ITEM)
                     {
                         centralConnList[connItem].procedureInProgress = TRUE;
@@ -717,12 +717,12 @@ static void centralEventCB(gapRoleEvent_t *pEvent)
                         tmos_start_task(centralConnList[connItem].taskID, START_READ_RSSI_EVT, DEFAULT_RSSI_PERIOD);
                     }
 
-                    //  Á¬½Ó1
+                    //  è¿æ¥1
                     else if(connItem == CONNECT1_ITEM)
                     {
                     }
 
-                    //  Á¬½Ó2
+                    //  è¿æ¥2
                     else if(connItem == CONNECT2_ITEM)
                     {
                     }
@@ -899,7 +899,7 @@ static void centralConnIistStartDiscovery(uint8_t connItem)
 static void centralGATTDiscoveryEvent(uint8_t connItem, gattMsgEvent_t *pMsg)
 {
     attReadByTypeReq_t req;
-    //  Á¬½Ó0µÄÃ¶¾Ù
+    //  è¿æ¥0çš„æšä¸¾
     if(connItem == CONNECT0_ITEM)
     {
         if(centralConnList[connItem].discState == BLE_DISC_STATE_SVC)
@@ -984,11 +984,11 @@ static void centralGATTDiscoveryEvent(uint8_t connItem, gattMsgEvent_t *pMsg)
             centralConnList[connItem].discState = BLE_DISC_STATE_IDLE;
         }
     }
-    //  Á¬½Ó1µÄÃ¶¾Ù
+    //  è¿æ¥1çš„æšä¸¾
     else if(connItem == CONNECT1_ITEM)
     {
     }
-    //  Á¬½Ó2µÄÃ¶¾Ù
+    //  è¿æ¥2çš„æšä¸¾
     else if(connItem == CONNECT2_ITEM)
     {
     }

@@ -19,34 +19,34 @@ extern "C" {
 
 /******************************************************************************/
 
-/* Õû¸öÓÃ»§codeÇø·Ö³ÉÎå¿é£¬4K£¬152K£¬152K£¬4K£¬136K£¬ºóËÄ¿éÏÂÃæ·Ö±ğ½Ğ×öimageA£¨APP£©£¬imageB£¨OTA£©£¬imageIAPºÍLIB */
+/* æ•´ä¸ªç”¨æˆ·codeåŒºåˆ†æˆäº”å—ï¼Œ4Kï¼Œ152Kï¼Œ152Kï¼Œ4Kï¼Œ136Kï¼Œåå››å—ä¸‹é¢åˆ†åˆ«å«åšimageAï¼ˆAPPï¼‰ï¼ŒimageBï¼ˆOTAï¼‰ï¼ŒimageIAPå’ŒLIB */
 
-/* FLASH¶¨Òå */
+/* FLASHå®šä¹‰ */
 #define FLASH_BLOCK_SIZE       EEPROM_BLOCK_SIZE
 #define IMAGE_SIZE             152 * 1024
 
-/* imageA¶¨Òå */
+/* imageAå®šä¹‰ */
 #define IMAGE_A_FLAG           0x01
 #define IMAGE_A_START_ADD      0x1000
 #define IMAGE_A_SIZE           IMAGE_SIZE
 
-/* imageB¶¨Òå */
+/* imageBå®šä¹‰ */
 #define IMAGE_B_FLAG           0x02
 #define IMAGE_B_START_ADD      (IMAGE_A_START_ADD + IMAGE_SIZE)
 #define IMAGE_B_SIZE           IMAGE_SIZE
 
-/* imageIAP¶¨Òå */
+/* imageIAPå®šä¹‰ */
 #define IMAGE_IAP_FLAG         0x03
 #define IMAGE_IAP_START_ADD    (IMAGE_B_START_ADD + IMAGE_SIZE)
 #define IMAGE_IAP_SIZE         4 * 1024
 
-/* ´æ·ÅÔÚDataFlashµØÖ·£¬²»ÄÜÕ¼ÓÃÀ¶ÑÀµÄÎ»ÖÃ */
+/* å­˜æ”¾åœ¨DataFlashåœ°å€ï¼Œä¸èƒ½å ç”¨è“ç‰™çš„ä½ç½® */
 #define OTA_DATAFLASH_ADD      0x00077000 - FLASH_ROM_MAX_SIZE
 
-/* ´æ·ÅÔÚDataFlashÀïµÄOTAĞÅÏ¢ */
+/* å­˜æ”¾åœ¨DataFlashé‡Œçš„OTAä¿¡æ¯ */
 typedef struct
 {
-    unsigned char ImageFlag; //¼ÇÂ¼µÄµ±Ç°µÄimage±êÖ¾
+    unsigned char ImageFlag; //è®°å½•çš„å½“å‰çš„imageæ ‡å¿—
     unsigned char Revd[3];
 } OTADataFlashInfo_t;
 /******************************************************************************/

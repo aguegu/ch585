@@ -24,17 +24,17 @@
 
 #define ALI_DEF_TTL    (10)
 
-// Ä£ÄâÁÁ¶ÈÖµ
+// æ¨¡æ‹Ÿäº®åº¦å€¼
 uint16_t led_lightness = 100;
 
 /*********************************************************************
  * @fn      read_led_lightness
  *
- * @brief   »ñÈ¡µ±Ç°µÆÁÁ¶È
+ * @brief   è·å–å½“å‰ç¯äº®åº¦
  *
- * @param   led_pin     - LEDÒı½Å.
+ * @param   led_pin     - LEDå¼•è„š.
  *
- * @return  ÁÁ¶È
+ * @return  äº®åº¦
  */
 uint16_t read_led_lightness(uint32_t led_pin)
 {
@@ -45,10 +45,10 @@ uint16_t read_led_lightness(uint32_t led_pin)
 /*********************************************************************
  * @fn      set_led_lightness
  *
- * @brief   ÉèÖÃµ±Ç°µÆÁÁ¶È
+ * @brief   è®¾ç½®å½“å‰ç¯äº®åº¦
  *
- * @param   led_pin     - LEDÒı½Å.
- * @param   lightness   - ÁÁ¶È.
+ * @param   led_pin     - LEDå¼•è„š.
+ * @param   lightness   - äº®åº¦.
  *
  * @return  none
  */
@@ -60,10 +60,10 @@ void set_led_lightness(uint32_t led_pin, uint16_t lightness)
 /*********************************************************************
  * @fn      gen_lightness_status
  *
- * @brief   »Ø¸´ÌìÃ¨¾«ÁéÁÁ¶È
+ * @brief   å›å¤å¤©çŒ«ç²¾çµäº®åº¦
  *
- * @param   model       - Ä£ĞÍ²ÎÊı
- * @param   ctx         - Êı¾İ²ÎÊı
+ * @param   model       - æ¨¡å‹å‚æ•°
+ * @param   ctx         - æ•°æ®å‚æ•°
  *
  * @return  none
  */
@@ -96,11 +96,11 @@ static void gen_lightness_status(struct bt_mesh_model *model, struct bt_mesh_msg
 /*********************************************************************
  * @fn      gen_onoff_get
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄ»ñÈ¡ÁÁ¶ÈÃüÁî
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è·å–äº®åº¦å‘½ä»¤
  *
- * @param   model       - Ä£ĞÍ²ÎÊı
- * @param   ctx         - Êı¾İ²ÎÊı
- * @param   buf         - Êı¾İÄÚÈİ
+ * @param   model       - æ¨¡å‹å‚æ•°
+ * @param   ctx         - æ•°æ®å‚æ•°
+ * @param   buf         - æ•°æ®å†…å®¹
  *
  * @return  none
  */
@@ -114,11 +114,11 @@ static void gen_lightness_get(struct bt_mesh_model *model, struct bt_mesh_msg_ct
 /*********************************************************************
  * @fn      gen_lightness_set
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃÁÁ¶ÈÃüÁî,Èç¹ûÓëµ±Ç°ÁÁ¶È²»Í¬,»¹ĞèÒª·¢ËÍind¸øÌìÃ¨
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®äº®åº¦å‘½ä»¤,å¦‚æœä¸å½“å‰äº®åº¦ä¸åŒ,è¿˜éœ€è¦å‘é€indç»™å¤©çŒ«
  *
- * @param   model       - Ä£ĞÍ²ÎÊı
- * @param   ctx         - Êı¾İ²ÎÊı
- * @param   buf         - Êı¾İÄÚÈİ
+ * @param   model       - æ¨¡å‹å‚æ•°
+ * @param   ctx         - æ•°æ®å‚æ•°
+ * @param   buf         - æ•°æ®å†…å®¹
  *
  * @return  none
  */
@@ -157,11 +157,11 @@ static void gen_lightness_set(struct bt_mesh_model *model, struct bt_mesh_msg_ct
 /*********************************************************************
  * @fn      gen_lightness_set_unack
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃÁÁ¶ÈÃüÁî(ÎŞÓ¦´ğ),Èç¹ûÓëµ±Ç°ÁÁ¶È²»Í¬,»¹ĞèÒª·¢ËÍind¸øÌìÃ¨
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®äº®åº¦å‘½ä»¤(æ— åº”ç­”),å¦‚æœä¸å½“å‰äº®åº¦ä¸åŒ,è¿˜éœ€è¦å‘é€indç»™å¤©çŒ«
  *
- * @param   model       - Ä£ĞÍ²ÎÊı
- * @param   ctx         - Êı¾İ²ÎÊı
- * @param   buf         - Êı¾İÄÚÈİ
+ * @param   model       - æ¨¡å‹å‚æ•°
+ * @param   ctx         - æ•°æ®å‚æ•°
+ * @param   buf         - æ•°æ®å†…å®¹
  *
  * @return  none
  */

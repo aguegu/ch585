@@ -69,9 +69,9 @@ const uint8_t  BPB_Media[] =
  *
  * @brief   Data copying
  *
- * @param   pDst - Ä¿±êµØÖ·
-            pSrc - Ô­µØÖ·
-            len - Òª¸´ÖÆµÄ×Ö½ÚÊı
+ * @param   pDst - ç›®æ ‡åœ°å€
+            pSrc - åŸåœ°å€
+            len - è¦å¤åˆ¶çš„å­—èŠ‚æ•°
  *
  * @return  none
  */
@@ -145,7 +145,7 @@ void udisk_format( void )
  * @brief   Checking the operation status, displaying the error code and stopping if there is an error
  *          input : iError - Error code input
  *
- * @param   iError - ´íÎóÂë
+ * @param   iError - é”™è¯¯ç 
  *
  * @return  none
  */
@@ -176,7 +176,7 @@ static void mStopIfError( uint8_t iError )
  * @brief   Try opening or enumerating files, and if the USB drive is not formatted, format the USB drive first.
  *          If the file is not found, create a new file in the root directory
  *
- * @param   filename - ÎÄ¼şÃû
+ * @param   filename - æ–‡ä»¶å
  *
  * @return  none
  */
@@ -216,7 +216,7 @@ void open_file( char *filename )
  *
  * @brief   Write data to file
  *
- * @param   pData - ÎÄ¼ş»º³åÇø
+ * @param   pData - æ–‡ä»¶ç¼“å†²åŒº
  *
  * @return  none
  */
@@ -275,12 +275,12 @@ void close_file( void )
  *
  * @brief   This function is used to process PDF data. The function takes a pointer to the data buffer and the length of the data as parameters
  *
- * @param   buf - PDFÎÄ¼şÊı¾İ»º³åÇø
- *          length - Êı¾İ³¤¶È
+ * @param   buf - PDFæ–‡ä»¶æ•°æ®ç¼“å†²åŒº
+ *          length - æ•°æ®é•¿åº¦
  *
- * @return  0 - Ğ´Èë³É¹¦
- *          1 - Êı¾İ³¤¶È´óÓÚPDF_TMP_BUF_LEN_EXT
- *          2 - data_tollenÓëlengthÏà¼Óºó³¬¹ıPDF_FILE_MAX_LEN
+ * @return  0 - å†™å…¥æˆåŠŸ
+ *          1 - æ•°æ®é•¿åº¦å¤§äºPDF_TMP_BUF_LEN_EXT
+ *          2 - data_tollenä¸lengthç›¸åŠ åè¶…è¿‡PDF_FILE_MAX_LEN
  *
  */
 uint32_t pdf_data_proces( void *buf, uint32_t length )

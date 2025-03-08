@@ -57,11 +57,11 @@ static struct bt_mesh_cfg_srv cfg_srv = {
 #if(CONFIG_BLE_MESH_PROXY)
     .gatt_proxy = BLE_MESH_GATT_PROXY_ENABLED,
 #endif
-    /* Ä¬ÈÏTTLÎª3 */
+    /* é»˜è®¤TTLä¸º3 */
     .default_ttl = 3,
-    /* µ×²ã·¢ËÍÊı¾İÖØÊÔ7´Î£¬Ã¿´Î¼ä¸ô10ms£¨²»º¬ÄÚ²¿Ëæ»úÊı£© */
+    /* åº•å±‚å‘é€æ•°æ®é‡è¯•7æ¬¡ï¼Œæ¯æ¬¡é—´éš”10msï¼ˆä¸å«å†…éƒ¨éšæœºæ•°ï¼‰ */
     .net_transmit = BLE_MESH_TRANSMIT(7, 10),
-    /* µ×²ã×ª·¢Êı¾İÖØÊÔ7´Î£¬Ã¿´Î¼ä¸ô10ms£¨²»º¬ÄÚ²¿Ëæ»úÊı£© */
+    /* åº•å±‚è½¬å‘æ•°æ®é‡è¯•7æ¬¡ï¼Œæ¯æ¬¡é—´éš”10msï¼ˆä¸å«å†…éƒ¨éšæœºæ•°ï¼‰ */
     .relay_retransmit = BLE_MESH_TRANSMIT(7, 10),
     .handler = cfg_srv_rsp_handler,
 };
@@ -97,14 +97,14 @@ static struct bt_mesh_elem elements[] = {
 static uint8_t dev_uuid[16];
 uint8_t        MACAddr[6];
 
-// elements ¹¹³É Node Composition
+// elements æ„æˆ Node Composition
 const struct bt_mesh_comp app_comp = {
-    .cid = 0x07D7, // WCH ¹«Ë¾id
+    .cid = 0x07D7, // WCH å…¬å¸id
     .elem = elements,
     .elem_count = ARRAY_SIZE(elements),
 };
 
-// ÅäÍø²ÎÊıºÍ»Øµ÷
+// é…ç½‘å‚æ•°å’Œå›è°ƒ
 static const struct bt_mesh_prov app_prov = {
     .uuid = dev_uuid,
     .link_open = link_open,
@@ -120,7 +120,7 @@ static const struct bt_mesh_prov app_prov = {
 /*********************************************************************
  * @fn      prov_enable
  *
- * @brief   Ê¹ÄÜÅäÍø¹¦ÄÜ
+ * @brief   ä½¿èƒ½é…ç½‘åŠŸèƒ½
  *
  * @return  none
  */
@@ -145,9 +145,9 @@ static void prov_enable(void)
 /*********************************************************************
  * @fn      link_open
  *
- * @brief   ÅäÍøÊ±ºóµÄlink´ò¿ª»Øµ÷
+ * @brief   é…ç½‘æ—¶åçš„linkæ‰“å¼€å›è°ƒ
  *
- * @param   bearer  - µ±Ç°linkÊÇPB_ADV»¹ÊÇPB_GATT
+ * @param   bearer  - å½“å‰linkæ˜¯PB_ADVè¿˜æ˜¯PB_GATT
  *
  * @return  none
  */
@@ -159,10 +159,10 @@ static void link_open(bt_mesh_prov_bearer_t bearer)
 /*********************************************************************
  * @fn      link_close
  *
- * @brief   ÅäÍøºóµÄlink¹Ø±Õ»Øµ÷
+ * @brief   é…ç½‘åçš„linkå…³é—­å›è°ƒ
  *
- * @param   bearer  - µ±Ç°linkÊÇPB_ADV»¹ÊÇPB_GATT
- * @param   reason  - link¹Ø±ÕÔ­Òò
+ * @param   bearer  - å½“å‰linkæ˜¯PB_ADVè¿˜æ˜¯PB_GATT
+ * @param   reason  - linkå…³é—­åŸå› 
  *
  * @return  none
  */
@@ -182,12 +182,12 @@ static void link_close(bt_mesh_prov_bearer_t bearer, uint8_t reason)
 /*********************************************************************
  * @fn      prov_complete
  *
- * @brief   ÅäÍøÍê³É»Øµ÷£¬ÖØĞÂ¿ªÊ¼¹ã²¥
+ * @brief   é…ç½‘å®Œæˆå›è°ƒï¼Œé‡æ–°å¼€å§‹å¹¿æ’­
  *
- * @param   net_idx     - ÍøÂçkeyµÄindex
- * @param   addr        - link¹Ø±ÕÔ­ÒòÍøÂçµØÖ·
- * @param   flags       - ÊÇ·ñ´¦ÓÚkey refresh×´Ì¬
- * @param   iv_index    - µ±Ç°ÍøÂçivµÄindex
+ * @param   net_idx     - ç½‘ç»œkeyçš„index
+ * @param   addr        - linkå…³é—­åŸå› ç½‘ç»œåœ°å€
+ * @param   flags       - æ˜¯å¦å¤„äºkey refreshçŠ¶æ€
+ * @param   iv_index    - å½“å‰ç½‘ç»œivçš„index
  *
  * @return  none
  */
@@ -199,7 +199,7 @@ static void prov_complete(uint16_t net_idx, uint16_t addr, uint8_t flags, uint32
 /*********************************************************************
  * @fn      prov_reset
  *
- * @brief   ¸´Î»ÅäÍø¹¦ÄÜ»Øµ÷
+ * @brief   å¤ä½é…ç½‘åŠŸèƒ½å›è°ƒ
  *
  * @return  none
  */
@@ -213,9 +213,9 @@ static void prov_reset(void)
 /*********************************************************************
  * @fn      cfg_srv_rsp_handler
  *
- * @brief   config Ä£ĞÍ·şÎñ»Øµ÷
+ * @brief   config æ¨¡å‹æœåŠ¡å›è°ƒ
  *
- * @param   val     - »Øµ÷²ÎÊı£¬°üÀ¨ÃüÁîÀàĞÍ¡¢ÅäÖÃÃüÁîÖ´ĞĞ×´Ì¬
+ * @param   val     - å›è°ƒå‚æ•°ï¼ŒåŒ…æ‹¬å‘½ä»¤ç±»å‹ã€é…ç½®å‘½ä»¤æ‰§è¡ŒçŠ¶æ€
  *
  * @return  none
  */
@@ -223,7 +223,7 @@ static void cfg_srv_rsp_handler( const cfg_srv_status_t *val )
 {
     if(val->cfgHdr.status)
     {
-        // ÅäÖÃÃüÁîÖ´ĞĞ²»³É¹¦
+        // é…ç½®å‘½ä»¤æ‰§è¡Œä¸æˆåŠŸ
         APP_DBG("warning opcode 0x%02x", val->cfgHdr.opcode);
         return;
     }
@@ -248,9 +248,9 @@ static void cfg_srv_rsp_handler( const cfg_srv_status_t *val )
 /*********************************************************************
  * @fn      keyPress
  *
- * @brief   °´¼ü»Øµ÷
+ * @brief   æŒ‰é”®å›è°ƒ
  *
- * @param   keys    - °´¼üÀàĞÍ
+ * @param   keys    - æŒ‰é”®ç±»å‹
  *
  * @return  none
  */
@@ -268,7 +268,7 @@ void keyPress(uint8_t keys)
 /*********************************************************************
  * @fn      blemesh_on_sync
  *
- * @brief   Í¬²½mesh²ÎÊı£¬ÆôÓÃ¶ÔÓ¦¹¦ÄÜ£¬²»½¨ÒéĞŞ¸Ä
+ * @brief   åŒæ­¥meshå‚æ•°ï¼Œå¯ç”¨å¯¹åº”åŠŸèƒ½ï¼Œä¸å»ºè®®ä¿®æ”¹
  *
  * @return  none
  */
@@ -328,7 +328,7 @@ void blemesh_on_sync(void)
 #endif /* PROXY || PB-GATT */
 
 #if(CONFIG_BLE_MESH_PROXY_CLI)
-    bt_mesh_proxy_client_init(cli); //´ıÌí¼Ó
+    bt_mesh_proxy_client_init(cli); //å¾…æ·»åŠ 
 #endif                              /* PROXY_CLI */
 
     bt_mesh_prov_retransmit_init();
@@ -388,7 +388,7 @@ void blemesh_on_sync(void)
 /*********************************************************************
  * @fn      App_Init
  *
- * @brief   Ó¦ÓÃ²ã³õÊ¼»¯
+ * @brief   åº”ç”¨å±‚åˆå§‹åŒ–
  *
  * @return  none
  */
@@ -406,7 +406,7 @@ void App_Init()
 /*********************************************************************
  * @fn      App_ProcessEvent
  *
- * @brief   Ó¦ÓÃ²ãÊÂ¼ş´¦Àíº¯Êı
+ * @brief   åº”ç”¨å±‚äº‹ä»¶å¤„ç†å‡½æ•°
  *
  * @param   task_id  - The TMOS assigned task ID.
  * @param   events - events to process.  This is a bit map and can

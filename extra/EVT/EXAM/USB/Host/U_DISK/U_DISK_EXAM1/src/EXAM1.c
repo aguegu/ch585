@@ -4,17 +4,17 @@
  * Version            : V1.0
  * Date               : 2021/03/11
  * Description        :
- * CÓïÑÔµÄUÅÌÎÄ¼ş×Ö½Ú¶ÁĞ´Ê¾Àı³ÌĞò£¬ÎÄ¼şÖ¸ÕëÆ«ÒÆ£¬ĞŞ¸ÄÎÄ¼şÊôĞÔ£¬É¾³ıÎÄ¼şµÈ²Ù×÷£¬½öUSB1Ö§³Ö
- * Ö§³Ö: FAT12/FAT16/FAT32
- * ×¢Òâ°üº¬ CHRV3UFI.LIB/USBHOST.C/DEBUG.C
+ * Cè¯­è¨€çš„Uç›˜æ–‡ä»¶å­—èŠ‚è¯»å†™ç¤ºä¾‹ç¨‹åºï¼Œæ–‡ä»¶æŒ‡é’ˆåç§»ï¼Œä¿®æ”¹æ–‡ä»¶å±æ€§ï¼Œåˆ é™¤æ–‡ä»¶ç­‰æ“ä½œï¼Œä»…USB1æ”¯æŒ
+ * æ”¯æŒ: FAT12/FAT16/FAT32
+ * æ³¨æ„åŒ…å« CHRV3UFI.LIB/USBHOST.C/DEBUG.C
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
  * microcontroller manufactured by Nanjing Qinheng Microelectronics.
  *******************************************************************************/
 
-/** ²»Ê¹ÓÃUÅÌÎÄ¼şÏµÍ³¿â£¬ĞèÒªÔÚ¹¤³ÌÊôĞÔÔ¤±àÒëÖĞĞŞ¸Ä DISK_LIB_ENABLE=0        */
-/** UÅÌ¹ÒÔØUSBhubÏÂÃæ£¬ĞèÒªÔÚ¹¤³ÌÊôĞÔÔ¤±àÒëÖĞĞŞ¸Ä DISK_WITHOUT_USB_HUB=0  */
+/** ä¸ä½¿ç”¨Uç›˜æ–‡ä»¶ç³»ç»Ÿåº“ï¼Œéœ€è¦åœ¨å·¥ç¨‹å±æ€§é¢„ç¼–è¯‘ä¸­ä¿®æ”¹ DISK_LIB_ENABLE=0        */
+/** Uç›˜æŒ‚è½½USBhubä¸‹é¢ï¼Œéœ€è¦åœ¨å·¥ç¨‹å±æ€§é¢„ç¼–è¯‘ä¸­ä¿®æ”¹ DISK_WITHOUT_USB_HUB=0  */
 
 #include "CH58x_common.h"
 #include "CHRV3UFI.H"
@@ -22,14 +22,14 @@
 __attribute__((aligned(4))) uint8_t RxBuffer[MAX_PACKET_SIZE]; // IN, must even address
 __attribute__((aligned(4))) uint8_t TxBuffer[MAX_PACKET_SIZE]; // OUT, must even address
 
-uint8_t buf[100]; //³¤¶È¿ÉÒÔ¸ù¾İÓ¦ÓÃ×Ô¼ºÖ¸¶¨
+uint8_t buf[100]; //é•¿åº¦å¯ä»¥æ ¹æ®åº”ç”¨è‡ªå·±æŒ‡å®š
 
 /*********************************************************************
  * @fn      mStopIfError
  *
- * @brief   ¼ì²é²Ù×÷×´Ì¬,Èç¹û´íÎóÔòÏÔÊ¾´íÎó´úÂë²¢Í£»ú
+ * @brief   æ£€æŸ¥æ“ä½œçŠ¶æ€,å¦‚æœé”™è¯¯åˆ™æ˜¾ç¤ºé”™è¯¯ä»£ç å¹¶åœæœº
  *
- * @param   iError  - ´íÎóÂë
+ * @param   iError  - é”™è¯¯ç 
  *
  * @return  none
  */
@@ -37,13 +37,13 @@ void mStopIfError(uint8_t iError)
 {
     if(iError == ERR_SUCCESS)
     {
-        return; /* ²Ù×÷³É¹¦ */
+        return; /* æ“ä½œæˆåŠŸ */
     }
-    PRINT("Error: %02X\n", (uint16_t)iError); /* ÏÔÊ¾´íÎó */
-    /* Óöµ½´íÎóºó,Ó¦¸Ã·ÖÎö´íÎóÂëÒÔ¼°CH554DiskStatus×´Ì¬,ÀıÈçµ÷ÓÃCHRV3DiskReady²éÑ¯µ±Ç°UÅÌÊÇ·ñÁ¬½Ó,Èç¹ûUÅÌÒÑ¶Ï¿ªÄÇÃ´¾ÍÖØĞÂµÈ´ıUÅÌ²åÉÏÔÙ²Ù×÷,
-     ½¨Òé³ö´íºóµÄ´¦Àí²½Öè:
-     1¡¢µ÷ÓÃÒ»´ÎCHRV3DiskReady,³É¹¦Ôò¼ÌĞø²Ù×÷,ÀıÈçOpen,Read/WriteµÈ
-     2¡¢Èç¹ûCHRV3DiskReady²»³É¹¦,ÄÇÃ´Ç¿ĞĞ½«´ÓÍ·¿ªÊ¼²Ù×÷(µÈ´ıUÅÌÁ¬½Ó£¬CH554DiskReadyµÈ) */
+    PRINT("Error: %02X\n", (uint16_t)iError); /* æ˜¾ç¤ºé”™è¯¯ */
+    /* é‡åˆ°é”™è¯¯å,åº”è¯¥åˆ†æé”™è¯¯ç ä»¥åŠCH554DiskStatusçŠ¶æ€,ä¾‹å¦‚è°ƒç”¨CHRV3DiskReadyæŸ¥è¯¢å½“å‰Uç›˜æ˜¯å¦è¿æ¥,å¦‚æœUç›˜å·²æ–­å¼€é‚£ä¹ˆå°±é‡æ–°ç­‰å¾…Uç›˜æ’ä¸Šå†æ“ä½œ,
+     å»ºè®®å‡ºé”™åçš„å¤„ç†æ­¥éª¤:
+     1ã€è°ƒç”¨ä¸€æ¬¡CHRV3DiskReady,æˆåŠŸåˆ™ç»§ç»­æ“ä½œ,ä¾‹å¦‚Open,Read/Writeç­‰
+     2ã€å¦‚æœCHRV3DiskReadyä¸æˆåŠŸ,é‚£ä¹ˆå¼ºè¡Œå°†ä»å¤´å¼€å§‹æ“ä½œ(ç­‰å¾…Uç›˜è¿æ¥ï¼ŒCH554DiskReadyç­‰) */
     while(1)
     {
     }
@@ -61,7 +61,7 @@ void DebugInit( void )
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -79,33 +79,33 @@ int main()
     pHOST_RX_RAM_Addr = RxBuffer;
     pHOST_TX_RAM_Addr = TxBuffer;
     USB_HostInit();
-    CHRV3LibInit(); //³õÊ¼»¯UÅÌ³ÌĞò¿âÒÔÖ§³ÖUÅÌÎÄ¼ş
+    CHRV3LibInit(); //åˆå§‹åŒ–Uç›˜ç¨‹åºåº“ä»¥æ”¯æŒUç›˜æ–‡ä»¶
 
     FoundNewDev = 0;
     while(1)
     {
         s = ERR_SUCCESS;
-        if(R8_USB_INT_FG & RB_UIF_DETECT) // Èç¹ûÓĞUSBÖ÷»ú¼ì²âÖĞ¶ÏÔò´¦Àí
+        if(R8_USB_INT_FG & RB_UIF_DETECT) // å¦‚æœæœ‰USBä¸»æœºæ£€æµ‹ä¸­æ–­åˆ™å¤„ç†
         {
-            R8_USB_INT_FG = RB_UIF_DETECT; // ÇåÁ¬½ÓÖĞ¶Ï±êÖ¾
-            s = AnalyzeRootHub();          // ·ÖÎöROOT-HUB×´Ì¬
+            R8_USB_INT_FG = RB_UIF_DETECT; // æ¸…è¿æ¥ä¸­æ–­æ ‡å¿—
+            s = AnalyzeRootHub();          // åˆ†æROOT-HUBçŠ¶æ€
             if(s == ERR_USB_CONNECT)
                 FoundNewDev = 1;
         }
 
-        if(FoundNewDev || s == ERR_USB_CONNECT) // ÓĞĞÂµÄUSBÉè±¸²åÈë
+        if(FoundNewDev || s == ERR_USB_CONNECT) // æœ‰æ–°çš„USBè®¾å¤‡æ’å…¥
         {
             FoundNewDev = 0;
-            mDelaymS(200);        // ÓÉÓÚUSBÉè±¸¸Õ²åÈëÉĞÎ´ÎÈ¶¨,¹ÊµÈ´ıUSBÉè±¸Êı°ÙºÁÃë,Ïû³ı²å°Î¶¶¶¯
-            s = InitRootDevice(); // ³õÊ¼»¯USBÉè±¸
+            mDelaymS(200);        // ç”±äºUSBè®¾å¤‡åˆšæ’å…¥å°šæœªç¨³å®š,æ•…ç­‰å¾…USBè®¾å¤‡æ•°ç™¾æ¯«ç§’,æ¶ˆé™¤æ’æ‹”æŠ–åŠ¨
+            s = InitRootDevice(); // åˆå§‹åŒ–USBè®¾å¤‡
             if(s == ERR_SUCCESS)
             {
-                // UÅÌ²Ù×÷Á÷³Ì£ºUSB×ÜÏß¸´Î»¡¢UÅÌÁ¬½Ó¡¢»ñÈ¡Éè±¸ÃèÊö·ûºÍÉèÖÃUSBµØÖ·¡¢¿ÉÑ¡µÄ»ñÈ¡ÅäÖÃÃèÊö·û£¬Ö®ºóµ½´ï´Ë´¦£¬ÓÉCHRV3×Ó³ÌĞò¿â¼ÌĞøÍê³ÉºóĞø¹¤×÷
+                // Uç›˜æ“ä½œæµç¨‹ï¼šUSBæ€»çº¿å¤ä½ã€Uç›˜è¿æ¥ã€è·å–è®¾å¤‡æè¿°ç¬¦å’Œè®¾ç½®USBåœ°å€ã€å¯é€‰çš„è·å–é…ç½®æè¿°ç¬¦ï¼Œä¹‹ååˆ°è¾¾æ­¤å¤„ï¼Œç”±CHRV3å­ç¨‹åºåº“ç»§ç»­å®Œæˆåç»­å·¥ä½œ
                 CHRV3DiskStatus = DISK_USB_ADDR;
                 for(i = 0; i != 10; i++)
                 {
                     PRINT("Wait DiskReady\n");
-                    s = CHRV3DiskReady(); //µÈ´ıUÅÌ×¼±¸ºÃ
+                    s = CHRV3DiskReady(); //ç­‰å¾…Uç›˜å‡†å¤‡å¥½
                     if(s == ERR_SUCCESS)
                     {
                         break;
@@ -119,102 +119,102 @@ int main()
 
                 if(CHRV3DiskStatus >= DISK_MOUNTED)
                 {
-                    /* ¶ÁÎÄ¼ş */
-//                    strcpy(mCmdParam.Open.mPathName, "/C51/CH573HFT.C"); //ÉèÖÃ½«Òª²Ù×÷µÄÎÄ¼şÂ·¾¶ºÍÎÄ¼şÃû/C51/CHRV3HFT.C
-//                    s = CHRV3FileOpen();                                 //´ò¿ªÎÄ¼ş
+                    /* è¯»æ–‡ä»¶ */
+//                    strcpy(mCmdParam.Open.mPathName, "/C51/CH573HFT.C"); //è®¾ç½®å°†è¦æ“ä½œçš„æ–‡ä»¶è·¯å¾„å’Œæ–‡ä»¶å/C51/CHRV3HFT.C
+//                    s = CHRV3FileOpen();                                 //æ‰“å¼€æ–‡ä»¶
 //                    if(s == ERR_MISS_DIR || s == ERR_MISS_FILE)
-//                    { //Ã»ÓĞÕÒµ½ÎÄ¼ş
-//                        PRINT("Ã»ÓĞÕÒµ½ÎÄ¼ş\n");
+//                    { //æ²¡æœ‰æ‰¾åˆ°æ–‡ä»¶
+//                        PRINT("æ²¡æœ‰æ‰¾åˆ°æ–‡ä»¶\n");
 //                    }
 //                    else
-//                    {                     //ÕÒµ½ÎÄ¼ş»òÕß³ö´í
-//                        TotalCount = 100; //ÉèÖÃ×¼±¸¶ÁÈ¡×Ü³¤¶È100×Ö½Ú
-//                        PRINT("¶Á³öµÄÇ°%d¸ö×Ö·ûÊÇ:\n", TotalCount);
+//                    {                     //æ‰¾åˆ°æ–‡ä»¶æˆ–è€…å‡ºé”™
+//                        TotalCount = 100; //è®¾ç½®å‡†å¤‡è¯»å–æ€»é•¿åº¦100å­—èŠ‚
+//                        PRINT("è¯»å‡ºçš„å‰%dä¸ªå­—ç¬¦æ˜¯:\n", TotalCount);
 //                        while(TotalCount)
-//                        { //Èç¹ûÎÄ¼ş±È½Ï´ó,Ò»´Î¶Á²»Íê,¿ÉÒÔÔÙµ÷ÓÃCHRV3ByteRead¼ÌĞø¶ÁÈ¡,ÎÄ¼şÖ¸Õë×Ô¶¯ÏòºóÒÆ¶¯
+//                        { //å¦‚æœæ–‡ä»¶æ¯”è¾ƒå¤§,ä¸€æ¬¡è¯»ä¸å®Œ,å¯ä»¥å†è°ƒç”¨CHRV3ByteReadç»§ç»­è¯»å–,æ–‡ä»¶æŒ‡é’ˆè‡ªåŠ¨å‘åç§»åŠ¨
 //                            if(TotalCount > (MAX_PATH_LEN - 1))
-//                                c = MAX_PATH_LEN - 1; /* Ê£ÓàÊı¾İ½Ï¶à,ÏŞÖÆµ¥´Î¶ÁĞ´µÄ³¤¶È²»ÄÜ³¬¹ı sizeof( mCmdParam.Other.mBuffer ) */
+//                                c = MAX_PATH_LEN - 1; /* å‰©ä½™æ•°æ®è¾ƒå¤š,é™åˆ¶å•æ¬¡è¯»å†™çš„é•¿åº¦ä¸èƒ½è¶…è¿‡ sizeof( mCmdParam.Other.mBuffer ) */
 //                            else
-//                                c = TotalCount;                /* ×îºóÊ£ÓàµÄ×Ö½ÚÊı */
-//                            mCmdParam.ByteRead.mByteCount = c; /* ÇëÇó¶Á³ö¼¸Ê®×Ö½ÚÊı¾İ */
+//                                c = TotalCount;                /* æœ€åå‰©ä½™çš„å­—èŠ‚æ•° */
+//                            mCmdParam.ByteRead.mByteCount = c; /* è¯·æ±‚è¯»å‡ºå‡ åå­—èŠ‚æ•°æ® */
 //                            mCmdParam.ByteRead.mByteBuffer = &buf[0];
-//                            s = CHRV3ByteRead();                         /* ÒÔ×Ö½ÚÎªµ¥Î»¶ÁÈ¡Êı¾İ¿é,µ¥´Î¶ÁĞ´µÄ³¤¶È²»ÄÜ³¬¹ıMAX_BYTE_IO,µÚ¶ş´Îµ÷ÓÃÊ±½Ó×Å¸Õ²ÅµÄÏòºó¶Á */
-//                            TotalCount -= mCmdParam.ByteRead.mByteCount; /* ¼ÆÊı,¼õÈ¥µ±Ç°Êµ¼ÊÒÑ¾­¶Á³öµÄ×Ö·ûÊı */
+//                            s = CHRV3ByteRead();                         /* ä»¥å­—èŠ‚ä¸ºå•ä½è¯»å–æ•°æ®å—,å•æ¬¡è¯»å†™çš„é•¿åº¦ä¸èƒ½è¶…è¿‡MAX_BYTE_IO,ç¬¬äºŒæ¬¡è°ƒç”¨æ—¶æ¥ç€åˆšæ‰çš„å‘åè¯» */
+//                            TotalCount -= mCmdParam.ByteRead.mByteCount; /* è®¡æ•°,å‡å»å½“å‰å®é™…å·²ç»è¯»å‡ºçš„å­—ç¬¦æ•° */
 //                            for(i = 0; i != mCmdParam.ByteRead.mByteCount; i++)
-//                                PRINT("%c", mCmdParam.ByteRead.mByteBuffer[i]); /* ÏÔÊ¾¶Á³öµÄ×Ö·û */
+//                                PRINT("%c", mCmdParam.ByteRead.mByteBuffer[i]); /* æ˜¾ç¤ºè¯»å‡ºçš„å­—ç¬¦ */
 //                            if(mCmdParam.ByteRead.mByteCount < c)
-//                            { /* Êµ¼Ê¶Á³öµÄ×Ö·ûÊıÉÙÓÚÒªÇó¶Á³öµÄ×Ö·ûÊı,ËµÃ÷ÒÑ¾­µ½ÎÄ¼şµÄ½áÎ² */
+//                            { /* å®é™…è¯»å‡ºçš„å­—ç¬¦æ•°å°‘äºè¦æ±‚è¯»å‡ºçš„å­—ç¬¦æ•°,è¯´æ˜å·²ç»åˆ°æ–‡ä»¶çš„ç»“å°¾ */
 //                                PRINT("\n");
-//                                PRINT("ÎÄ¼şÒÑ¾­½áÊø\n");
+//                                PRINT("æ–‡ä»¶å·²ç»ç»“æŸ\n");
 //                                break;
 //                            }
 //                        }
 //                        PRINT("Close\n");
-//                        i = CHRV3FileClose(); /* ¹Ø±ÕÎÄ¼ş */
+//                        i = CHRV3FileClose(); /* å…³é—­æ–‡ä»¶ */
 //                        mStopIfError(i);
 //                    }
-//                    /*Èç¹ûÏ£Íû´ÓÖ¸¶¨Î»ÖÃ¿ªÊ¼¶ÁĞ´,¿ÉÒÔÒÆ¶¯ÎÄ¼şÖ¸Õë */
-//                    mCmdParam.ByteLocate.mByteOffset = 608; //Ìø¹ıÎÄ¼şµÄÇ°608¸ö×Ö½Ú¿ªÊ¼¶ÁĞ´
+//                    /*å¦‚æœå¸Œæœ›ä»æŒ‡å®šä½ç½®å¼€å§‹è¯»å†™,å¯ä»¥ç§»åŠ¨æ–‡ä»¶æŒ‡é’ˆ */
+//                    mCmdParam.ByteLocate.mByteOffset = 608; //è·³è¿‡æ–‡ä»¶çš„å‰608ä¸ªå­—èŠ‚å¼€å§‹è¯»å†™
 //                    CHRV3ByteLocate();
-//                    mCmdParam.ByteRead.mByteCount = 5; //¶ÁÈ¡5¸ö×Ö½Ú
+//                    mCmdParam.ByteRead.mByteCount = 5; //è¯»å–5ä¸ªå­—èŠ‚
 //                    mCmdParam.ByteRead.mByteBuffer = &buf[0];
-//                    CHRV3ByteRead(); //Ö±½Ó¶ÁÈ¡ÎÄ¼şµÄµÚ608¸ö×Ö½Úµ½612¸ö×Ö½ÚÊı¾İ,Ç°608¸ö×Ö½Ú±»Ìø¹ı
-//                    //Èç¹ûÏ£Íû½«ĞÂÊı¾İÌí¼Óµ½Ô­ÎÄ¼şµÄÎ²²¿,¿ÉÒÔÒÆ¶¯ÎÄ¼şÖ¸Õë
+//                    CHRV3ByteRead(); //ç›´æ¥è¯»å–æ–‡ä»¶çš„ç¬¬608ä¸ªå­—èŠ‚åˆ°612ä¸ªå­—èŠ‚æ•°æ®,å‰608ä¸ªå­—èŠ‚è¢«è·³è¿‡
+//                    //å¦‚æœå¸Œæœ›å°†æ–°æ•°æ®æ·»åŠ åˆ°åŸæ–‡ä»¶çš„å°¾éƒ¨,å¯ä»¥ç§»åŠ¨æ–‡ä»¶æŒ‡é’ˆ
 //                    CHRV3FileOpen();
-//                    mCmdParam.ByteLocate.mByteOffset = 0xffffffff; //ÒÆµ½ÎÄ¼şµÄÎ²²¿
+//                    mCmdParam.ByteLocate.mByteOffset = 0xffffffff; //ç§»åˆ°æ–‡ä»¶çš„å°¾éƒ¨
 //                    CHRV3ByteLocate();
-//                    mCmdParam.ByteWrite.mByteCount = 13; //Ğ´Èë13¸ö×Ö½ÚµÄÊı¾İ
-//                    CHRV3ByteWrite();                    //ÔÚÔ­ÎÄ¼şµÄºóÃæÌí¼ÓÊı¾İ,ĞÂ¼ÓµÄ13¸ö×Ö½Ú½Ó×ÅÔ­ÎÄ¼şµÄÎ²²¿·ÅÖÃ
-//                    mCmdParam.ByteWrite.mByteCount = 2;  //Ğ´Èë2¸ö×Ö½ÚµÄÊı¾İ
-//                    CHRV3ByteWrite();                    //¼ÌĞøÔÚÔ­ÎÄ¼şµÄºóÃæÌí¼ÓÊı¾İ
-//                    mCmdParam.ByteWrite.mByteCount = 0;  //Ğ´Èë0¸ö×Ö½ÚµÄÊı¾İ,Êµ¼ÊÉÏ¸Ã²Ù×÷ÓÃÓÚÍ¨Öª³ÌĞò¿â¸üĞÂÎÄ¼ş³¤¶È
-//                    CHRV3ByteWrite();                    //Ğ´Èë0×Ö½ÚµÄÊı¾İ,ÓÃÓÚ×Ô¶¯¸üĞÂÎÄ¼şµÄ³¤¶È,ËùÒÔÎÄ¼ş³¤¶ÈÔö¼Ó15,Èç¹û²»ÕâÑù×ö,ÄÇÃ´Ö´ĞĞCH554FileCloseÊ±Ò²»á×Ô¶¯¸üĞÂÎÄ¼ş³¤¶È
+//                    mCmdParam.ByteWrite.mByteCount = 13; //å†™å…¥13ä¸ªå­—èŠ‚çš„æ•°æ®
+//                    CHRV3ByteWrite();                    //åœ¨åŸæ–‡ä»¶çš„åé¢æ·»åŠ æ•°æ®,æ–°åŠ çš„13ä¸ªå­—èŠ‚æ¥ç€åŸæ–‡ä»¶çš„å°¾éƒ¨æ”¾ç½®
+//                    mCmdParam.ByteWrite.mByteCount = 2;  //å†™å…¥2ä¸ªå­—èŠ‚çš„æ•°æ®
+//                    CHRV3ByteWrite();                    //ç»§ç»­åœ¨åŸæ–‡ä»¶çš„åé¢æ·»åŠ æ•°æ®
+//                    mCmdParam.ByteWrite.mByteCount = 0;  //å†™å…¥0ä¸ªå­—èŠ‚çš„æ•°æ®,å®é™…ä¸Šè¯¥æ“ä½œç”¨äºé€šçŸ¥ç¨‹åºåº“æ›´æ–°æ–‡ä»¶é•¿åº¦
+//                    CHRV3ByteWrite();                    //å†™å…¥0å­—èŠ‚çš„æ•°æ®,ç”¨äºè‡ªåŠ¨æ›´æ–°æ–‡ä»¶çš„é•¿åº¦,æ‰€ä»¥æ–‡ä»¶é•¿åº¦å¢åŠ 15,å¦‚æœä¸è¿™æ ·åš,é‚£ä¹ˆæ‰§è¡ŒCH554FileCloseæ—¶ä¹Ÿä¼šè‡ªåŠ¨æ›´æ–°æ–‡ä»¶é•¿åº¦
 
-                    //´´½¨ÎÄ¼şÑİÊ¾
+                    //åˆ›å»ºæ–‡ä»¶æ¼”ç¤º
                     PRINT("Create\n");
-                    strcpy((PCHAR)mCmdParam.Create.mPathName, "/NEWFILE.TXT"); /* ĞÂÎÄ¼şÃû,ÔÚ¸ùÄ¿Â¼ÏÂ,ÖĞÎÄÎÄ¼şÃû */
-                    s = CHRV3FileCreate();                                     /* ĞÂ½¨ÎÄ¼ş²¢´ò¿ª,Èç¹ûÎÄ¼şÒÑ¾­´æÔÚÔòÏÈÉ¾³ıºóÔÙĞÂ½¨ */
+                    strcpy((PCHAR)mCmdParam.Create.mPathName, "/NEWFILE.TXT"); /* æ–°æ–‡ä»¶å,åœ¨æ ¹ç›®å½•ä¸‹,ä¸­æ–‡æ–‡ä»¶å */
+                    s = CHRV3FileCreate();                                     /* æ–°å»ºæ–‡ä»¶å¹¶æ‰“å¼€,å¦‚æœæ–‡ä»¶å·²ç»å­˜åœ¨åˆ™å…ˆåˆ é™¤åå†æ–°å»º */
                     mStopIfError(s);
                     PRINT("ByteWrite\n");
-                    //Êµ¼ÊÓ¦¸ÃÅĞ¶ÏĞ´Êı¾İ³¤¶ÈºÍ¶¨Òå»º³åÇø³¤¶ÈÊÇ·ñÏà·û£¬Èç¹û´óÓÚ»º³åÇø³¤¶ÈÔòĞèÒª¶à´ÎĞ´Èë
-                    i = sprintf((PCHAR)buf, "Note: \xd\xaÕâ¸ö³ÌĞòÊÇÒÔ×Ö½ÚÎªµ¥Î»½øĞĞUÅÌÎÄ¼ş¶ÁĞ´,573¼òµ¥ÑİÊ¾¹¦ÄÜ¡£\xd\xa"); /*ÑİÊ¾ */
+                    //å®é™…åº”è¯¥åˆ¤æ–­å†™æ•°æ®é•¿åº¦å’Œå®šä¹‰ç¼“å†²åŒºé•¿åº¦æ˜¯å¦ç›¸ç¬¦ï¼Œå¦‚æœå¤§äºç¼“å†²åŒºé•¿åº¦åˆ™éœ€è¦å¤šæ¬¡å†™å…¥
+                    i = sprintf((PCHAR)buf, "Note: \xd\xaè¿™ä¸ªç¨‹åºæ˜¯ä»¥å­—èŠ‚ä¸ºå•ä½è¿›è¡ŒUç›˜æ–‡ä»¶è¯»å†™,573ç®€å•æ¼”ç¤ºåŠŸèƒ½ã€‚\xd\xa"); /*æ¼”ç¤º */
                     for(c = 0; c < 10; c++)
                     {
-                        mCmdParam.ByteWrite.mByteCount = i;    /* Ö¸¶¨±¾´ÎĞ´ÈëµÄ×Ö½ÚÊı */
-                        mCmdParam.ByteWrite.mByteBuffer = buf; /* Ö¸Ïò»º³åÇø */
-                        s = CHRV3ByteWrite();                  /* ÒÔ×Ö½ÚÎªµ¥Î»ÏòÎÄ¼şĞ´ÈëÊı¾İ */
+                        mCmdParam.ByteWrite.mByteCount = i;    /* æŒ‡å®šæœ¬æ¬¡å†™å…¥çš„å­—èŠ‚æ•° */
+                        mCmdParam.ByteWrite.mByteBuffer = buf; /* æŒ‡å‘ç¼“å†²åŒº */
+                        s = CHRV3ByteWrite();                  /* ä»¥å­—èŠ‚ä¸ºå•ä½å‘æ–‡ä»¶å†™å…¥æ•°æ® */
                         mStopIfError(s);
-                        PRINT("³É¹¦Ğ´Èë %02X´Î\n", (uint16_t)c);
+                        PRINT("æˆåŠŸå†™å…¥ %02Xæ¬¡\n", (uint16_t)c);
                     }
 
-                    //ÑİÊ¾ĞŞ¸ÄÎÄ¼şÊôĞÔ
+                    //æ¼”ç¤ºä¿®æ”¹æ–‡ä»¶å±æ€§
 //                    PRINT("Modify\n");
-//                    mCmdParam.Modify.mFileAttr = 0xff;                        //ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÊôĞÔ,Îª0FFHÔò²»ĞŞ¸Ä
-//                    mCmdParam.Modify.mFileTime = 0xffff;                      //ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÊ±¼ä,Îª0FFFFHÔò²»ĞŞ¸Ä,Ê¹ÓÃĞÂ½¨ÎÄ¼ş²úÉúµÄÄ¬ÈÏÊ±¼ä
-//                    mCmdParam.Modify.mFileDate = MAKE_FILE_DATE(2015, 5, 18); //ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼şÈÕÆÚ: 2015.05.18
-//                    mCmdParam.Modify.mFileSize = 0xffffffff;                  // ÊäÈë²ÎÊı: ĞÂµÄÎÄ¼ş³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»Ğ´ÎÄ¼şÓ¦¸ÃÓÉ³ÌĞò¿â¹Ø±ÕÎÄ¼şÊ±×Ô¶¯¸üĞÂ³¤¶È,ËùÒÔ´Ë´¦²»ĞŞ¸Ä
-//                    i = CHRV3FileModify();                                    //ĞŞ¸Äµ±Ç°ÎÄ¼şµÄĞÅÏ¢,ĞŞ¸ÄÈÕÆÚ
+//                    mCmdParam.Modify.mFileAttr = 0xff;                        //è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶å±æ€§,ä¸º0FFHåˆ™ä¸ä¿®æ”¹
+//                    mCmdParam.Modify.mFileTime = 0xffff;                      //è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶æ—¶é—´,ä¸º0FFFFHåˆ™ä¸ä¿®æ”¹,ä½¿ç”¨æ–°å»ºæ–‡ä»¶äº§ç”Ÿçš„é»˜è®¤æ—¶é—´
+//                    mCmdParam.Modify.mFileDate = MAKE_FILE_DATE(2015, 5, 18); //è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶æ—¥æœŸ: 2015.05.18
+//                    mCmdParam.Modify.mFileSize = 0xffffffff;                  // è¾“å…¥å‚æ•°: æ–°çš„æ–‡ä»¶é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½å†™æ–‡ä»¶åº”è¯¥ç”±ç¨‹åºåº“å…³é—­æ–‡ä»¶æ—¶è‡ªåŠ¨æ›´æ–°é•¿åº¦,æ‰€ä»¥æ­¤å¤„ä¸ä¿®æ”¹
+//                    i = CHRV3FileModify();                                    //ä¿®æ”¹å½“å‰æ–‡ä»¶çš„ä¿¡æ¯,ä¿®æ”¹æ—¥æœŸ
 //                    mStopIfError(i);
 
                     PRINT("Close\n");
-                    mCmdParam.Close.mUpdateLen = 1; /* ×Ô¶¯¼ÆËãÎÄ¼ş³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»Ğ´ÎÄ¼ş,½¨ÒéÈÃ³ÌĞò¿â¹Ø±ÕÎÄ¼şÒÔ±ã×Ô¶¯¸üĞÂÎÄ¼ş³¤¶È */
+                    mCmdParam.Close.mUpdateLen = 1; /* è‡ªåŠ¨è®¡ç®—æ–‡ä»¶é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½å†™æ–‡ä»¶,å»ºè®®è®©ç¨‹åºåº“å…³é—­æ–‡ä»¶ä»¥ä¾¿è‡ªåŠ¨æ›´æ–°æ–‡ä»¶é•¿åº¦ */
                     i = CHRV3FileClose();
                     mStopIfError(i);
 
-//                    strcpy((PCHAR)mCmdParam.Create.mPathName, "/NEWFILE.TXT"); /* ĞÂÎÄ¼şÃû,ÔÚ¸ùÄ¿Â¼ÏÂ,ÖĞÎÄÎÄ¼şÃû */
-//                    s = CHRV3FileOpen();                                       /* ĞÂ½¨ÎÄ¼ş²¢´ò¿ª,Èç¹ûÎÄ¼şÒÑ¾­´æÔÚÔòÏÈÉ¾³ıºóÔÙĞÂ½¨ */
+//                    strcpy((PCHAR)mCmdParam.Create.mPathName, "/NEWFILE.TXT"); /* æ–°æ–‡ä»¶å,åœ¨æ ¹ç›®å½•ä¸‹,ä¸­æ–‡æ–‡ä»¶å */
+//                    s = CHRV3FileOpen();                                       /* æ–°å»ºæ–‡ä»¶å¹¶æ‰“å¼€,å¦‚æœæ–‡ä»¶å·²ç»å­˜åœ¨åˆ™å…ˆåˆ é™¤åå†æ–°å»º */
 //                    mStopIfError(s);
 
-                    /* É¾³ıÄ³ÎÄ¼ş */
+                    /* åˆ é™¤æŸæ–‡ä»¶ */
 //                    PRINT("Erase\n");
-//                    strcpy(mCmdParam.Create.mPathName, "/OLD"); //½«±»É¾³ıµÄÎÄ¼şÃû,ÔÚ¸ùÄ¿Â¼ÏÂ
-//                    i = CHRV3FileErase();                       //É¾³ıÎÄ¼ş²¢¹Ø±Õ
+//                    strcpy(mCmdParam.Create.mPathName, "/OLD"); //å°†è¢«åˆ é™¤çš„æ–‡ä»¶å,åœ¨æ ¹ç›®å½•ä¸‹
+//                    i = CHRV3FileErase();                       //åˆ é™¤æ–‡ä»¶å¹¶å…³é—­
 //                    if(i != ERR_SUCCESS)
-//                        PRINT("Error: %02X\n", (uint16_t)i); //ÏÔÊ¾´íÎó
+//                        PRINT("Error: %02X\n", (uint16_t)i); //æ˜¾ç¤ºé”™è¯¯
                 }
             }
         }
-        mDelaymS(100);  // Ä£Äâµ¥Æ¬»ú×öÆäËüÊÂ
-        SetUsbSpeed(1); // Ä¬ÈÏÎªÈ«ËÙ
+        mDelaymS(100);  // æ¨¡æ‹Ÿå•ç‰‡æœºåšå…¶å®ƒäº‹
+        SetUsbSpeed(1); // é»˜è®¤ä¸ºå…¨é€Ÿ
     }
 }

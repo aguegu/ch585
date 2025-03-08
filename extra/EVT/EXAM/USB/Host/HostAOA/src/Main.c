@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.1
  * Date               : 2022/01/25
- * Description        : USBÉè±¸Ã¶¾Ù
+ * Description        : USBè®¾å¤‡æšä¸¾
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -11,27 +11,27 @@
  *******************************************************************************/
 
 #include "CH58x_common.h"
-// ¸÷×Ó³ÌĞò·µ»Ø×´Ì¬Âë
-#define ERR_SUCCESS          0x00  // ²Ù×÷³É¹¦
-#define ERR_USB_CONNECT      0x15  /* ¼ì²âµ½USBÉè±¸Á¬½ÓÊÂ¼ş,ÒÑ¾­Á¬½Ó */
-#define ERR_USB_DISCON       0x16  /* ¼ì²âµ½USBÉè±¸¶Ï¿ªÊÂ¼ş,ÒÑ¾­¶Ï¿ª */
-#define ERR_USB_BUF_OVER     0x17  /* USB´«ÊäµÄÊı¾İÓĞÎó»òÕßÊı¾İÌ«¶à»º³åÇøÒç³ö */
-#define ERR_USB_DISK_ERR     0x1F  /* USB´æ´¢Æ÷²Ù×÷Ê§°Ü,ÔÚ³õÊ¼»¯Ê±¿ÉÄÜÊÇUSB´æ´¢Æ÷²»Ö§³Ö,ÔÚ¶ÁĞ´²Ù×÷ÖĞ¿ÉÄÜÊÇ´ÅÅÌËğ»µ»òÕßÒÑ¾­¶Ï¿ª */
-#define ERR_USB_TRANSFER     0x20  /* NAK/STALLµÈ¸ü¶à´íÎóÂëÔÚ0x20~0x2F */
-#define ERR_USB_UNSUPPORT    0xFB  /*²»Ö§³ÖµÄUSBÉè±¸*/
-#define ERR_USB_UNKNOWN      0xFE  /*Éè±¸²Ù×÷³ö´í*/
-#define ERR_AOA_PROTOCOL     0x41  /*Ğ­Òé°æ±¾³ö´í */
+// å„å­ç¨‹åºè¿”å›çŠ¶æ€ç 
+#define ERR_SUCCESS          0x00  // æ“ä½œæˆåŠŸ
+#define ERR_USB_CONNECT      0x15  /* æ£€æµ‹åˆ°USBè®¾å¤‡è¿æ¥äº‹ä»¶,å·²ç»è¿æ¥ */
+#define ERR_USB_DISCON       0x16  /* æ£€æµ‹åˆ°USBè®¾å¤‡æ–­å¼€äº‹ä»¶,å·²ç»æ–­å¼€ */
+#define ERR_USB_BUF_OVER     0x17  /* USBä¼ è¾“çš„æ•°æ®æœ‰è¯¯æˆ–è€…æ•°æ®å¤ªå¤šç¼“å†²åŒºæº¢å‡º */
+#define ERR_USB_DISK_ERR     0x1F  /* USBå­˜å‚¨å™¨æ“ä½œå¤±è´¥,åœ¨åˆå§‹åŒ–æ—¶å¯èƒ½æ˜¯USBå­˜å‚¨å™¨ä¸æ”¯æŒ,åœ¨è¯»å†™æ“ä½œä¸­å¯èƒ½æ˜¯ç£ç›˜æŸåæˆ–è€…å·²ç»æ–­å¼€ */
+#define ERR_USB_TRANSFER     0x20  /* NAK/STALLç­‰æ›´å¤šé”™è¯¯ç åœ¨0x20~0x2F */
+#define ERR_USB_UNSUPPORT    0xFB  /*ä¸æ”¯æŒçš„USBè®¾å¤‡*/
+#define ERR_USB_UNKNOWN      0xFE  /*è®¾å¤‡æ“ä½œå‡ºé”™*/
+#define ERR_AOA_PROTOCOL     0x41  /*åè®®ç‰ˆæœ¬å‡ºé”™ */
 
 __attribute__((aligned(4))) uint8_t RxBuffer[MAX_PACKET_SIZE]; // IN, must even address
 __attribute__((aligned(4))) uint8_t TxBuffer[MAX_PACKET_SIZE]; // OUT, must even address
 extern uint8_t                      Com_Buffer[];
-//AOA»ñÈ¡Ğ­Òé°æ±¾
+//AOAè·å–åè®®ç‰ˆæœ¬
 __attribute__((aligned(4))) const uint8_t GetProtocol[] = {0xc0, 0x33, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00};
-//Æô¶¯Åä¼şÄ£Ê½
+//å¯åŠ¨é…ä»¶æ¨¡å¼
 __attribute__((aligned(4))) const uint8_t TouchAOAMode[] = {0x40, 0x35, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-/* AOAÏà¹ØÊı×é¶¨Òå */
+/* AOAç›¸å…³æ•°ç»„å®šä¹‰ */
 __attribute__((aligned(4))) const uint8_t Sendlen[] = {0, 4, 16, 35, 39, 53, 67};
-//×Ö·û´®ID,ÓëÊÖ»úAPPÏà¹ØµÄ×Ö·û´®ĞÅÏ¢
+//å­—ç¬¦ä¸²ID,ä¸æ‰‹æœºAPPç›¸å…³çš„å­—ç¬¦ä¸²ä¿¡æ¯
 __attribute__((aligned(4))) uint8_t StringID[] = {
     'W',
     'C',
@@ -43,19 +43,19 @@ __attribute__((aligned(4))) uint8_t StringID[] = {
     0x68, 0x74, 0x74, 0x70, 0x3a, 0x2f, 0x2f, 0x77, 0x63, 0x68, 0x2e, 0x63, 0x6e, 0,                                  //URI
     0x57, 0x43, 0x48, 0x41, 0x63, 0x63, 0x65, 0x73, 0x73, 0x6f, 0x72, 0x79, 0x31, 0x00                                //serial number
 };
-//Ó¦ÓÃË÷Òı×Ö·û´®ÃüÁî
+//åº”ç”¨ç´¢å¼•å­—ç¬¦ä¸²å‘½ä»¤
 __attribute__((aligned(4))) const uint8_t SetStringID[] = {0x40, 0x34, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00, 0x40, 0x34,
                                                            0x00, 0x00, 0x01, 0x00, 12, 0x00, 0x40, 0x34, 0x00, 0x00, 0x02,
                                                            0x00, 19, 0x00, 0x40, 0x34, 0x00, 0x00, 0x03, 0x00, 4, 0x00,
                                                            0x40, 0x34, 0x00, 0x00, 0x04, 0x00, 0x0E, 0x00, 0x40, 0x34,
                                                            0x00, 0x00, 0x05, 0x00, 0x0E, 0x00};
 
-uint8_t TouchStartAOA(void); // ³¢ÊÔÆô¶¯AOAÄ£Ê½
+uint8_t TouchStartAOA(void); // å°è¯•å¯åŠ¨AOAæ¨¡å¼
 
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -66,7 +66,7 @@ int main()
     HSECFG_Capacitance(HSECap_18p);
     SetSysClock(CLK_SOURCE_HSE_PLL_62_4MHz);
     DelayMs(5);
-    /* ¿ªÆôµçÑ¹¼à¿Ø */
+    /* å¼€å¯ç”µå‹ç›‘æ§ */
     PowerMonitor(ENABLE, HALevel_2V1);
 
     GPIOA_SetBits(GPIO_Pin_14);
@@ -84,7 +84,7 @@ int main()
     {
         s = ERR_SUCCESS;
         if(R8_USB_INT_FG & RB_UIF_DETECT)
-        { // Èç¹ûÓĞUSBÖ÷»ú¼ì²âÖĞ¶ÏÔò´¦Àí
+        { // å¦‚æœæœ‰USBä¸»æœºæ£€æµ‹ä¸­æ–­åˆ™å¤„ç†
             R8_USB_INT_FG = RB_UIF_DETECT;
             s = AnalyzeRootHub();
             if(s == ERR_USB_CONNECT)
@@ -92,29 +92,29 @@ int main()
         }
 
         if(FoundNewDev || s == ERR_USB_CONNECT)
-        { // ÓĞĞÂµÄUSBÉè±¸²åÈë
+        { // æœ‰æ–°çš„USBè®¾å¤‡æ’å…¥
             FoundNewDev = 0;
-            mDelaymS(200);        // ÓÉÓÚUSBÉè±¸¸Õ²åÈëÉĞÎ´ÎÈ¶¨,¹ÊµÈ´ıUSBÉè±¸Êı°ÙºÁÃë,Ïû³ı²å°Î¶¶¶¯
-            s = InitRootDevice(); // ³õÊ¼»¯USBÉè±¸
+            mDelaymS(200);        // ç”±äºUSBè®¾å¤‡åˆšæ’å…¥å°šæœªç¨³å®š,æ•…ç­‰å¾…USBè®¾å¤‡æ•°ç™¾æ¯«ç§’,æ¶ˆé™¤æ’æ‹”æŠ–åŠ¨
+            s = InitRootDevice(); // åˆå§‹åŒ–USBè®¾å¤‡
             if((ThisUsbDev.DeviceVID == 0x18D1) && (ThisUsbDev.DevicePID & 0xff00) == 0x2D00)
             {
                 PRINT("AOA Mode\n");
                 ThisUsbDev.DeviceType = DEF_AOA_DEVICE;
             }
             else
-            {                                        //Èç¹û²»ÊÇAOA Åä¼şÄ£Ê½£¬³¢ÊÔÆô¶¯Åä¼şÄ£Ê½.
-                SetUsbSpeed(ThisUsbDev.DeviceSpeed); // ÉèÖÃµ±Ç°USBËÙ¶È
+            {                                        //å¦‚æœä¸æ˜¯AOA é…ä»¶æ¨¡å¼ï¼Œå°è¯•å¯åŠ¨é…ä»¶æ¨¡å¼.
+                SetUsbSpeed(ThisUsbDev.DeviceSpeed); // è®¾ç½®å½“å‰USBé€Ÿåº¦
                 s = TouchStartAOA();
                 if(s == ERR_SUCCESS)
                 {
-                    if(touchaoatm < 3) //³¢ÊÔAOAÆô¶¯´ÎÊıÏŞÖÆ
+                    if(touchaoatm < 3) //å°è¯•AOAå¯åŠ¨æ¬¡æ•°é™åˆ¶
                     {
                         FoundNewDev = 1;
                         touchaoatm++;
-                        mDelaymS(500); //²¿·Ö°²×¿Éè±¸×Ô¶¯¶Ï¿ªÖØÁ¬£¬ËùÒÔ´Ë´¦×îºÃÓĞÑÓÊ±
-                        continue;      //ÆäÊµÕâÀï¿ÉÒÔ²»ÓÃÌø×ª£¬AOAĞ­Òé¹æ¶¨£¬Éè±¸»á×Ô¶¯ÖØĞÂ½ÓÈë×ÜÏß¡£
+                        mDelaymS(500); //éƒ¨åˆ†å®‰å“è®¾å¤‡è‡ªåŠ¨æ–­å¼€é‡è¿ï¼Œæ‰€ä»¥æ­¤å¤„æœ€å¥½æœ‰å»¶æ—¶
+                        continue;      //å…¶å®è¿™é‡Œå¯ä»¥ä¸ç”¨è·³è½¬ï¼ŒAOAåè®®è§„å®šï¼Œè®¾å¤‡ä¼šè‡ªåŠ¨é‡æ–°æ¥å…¥æ€»çº¿ã€‚
                     }
-                    //Ö´ĞĞµ½Õâ£¬ËµÃ÷¿ÉÄÜ²»Ö§³ÖAOA£¬»òÊÇÆäËûÉè±¸
+                    //æ‰§è¡Œåˆ°è¿™ï¼Œè¯´æ˜å¯èƒ½ä¸æ”¯æŒAOAï¼Œæˆ–æ˜¯å…¶ä»–è®¾å¤‡
                     PRINT("UNKOWN Device\n");
                     SetUsbSpeed(1);
                     while(1);
@@ -128,16 +128,16 @@ int main()
 /*********************************************************************
  * @fn      TouchStartAOA
  *
- * @brief   ³¢ÊÔÆô¶¯AOAÄ£Ê½
+ * @brief   å°è¯•å¯åŠ¨AOAæ¨¡å¼
  *
- * @return  ×´Ì¬
+ * @return  çŠ¶æ€
  */
 uint8_t TouchStartAOA(void)
 {
     uint8_t len, s, i, Num;
-    //»ñÈ¡Ğ­Òé°æ±¾ºÅ
+    //è·å–åè®®ç‰ˆæœ¬å·
     CopySetupReqPkg(GetProtocol);
-    s = HostCtrlTransfer(Com_Buffer, &len); // Ö´ĞĞ¿ØÖÆ´«Êä
+    s = HostCtrlTransfer(Com_Buffer, &len); // æ‰§è¡Œæ§åˆ¶ä¼ è¾“
     if(s != ERR_SUCCESS)
     {
         return (s);
@@ -145,12 +145,12 @@ uint8_t TouchStartAOA(void)
     if(Com_Buffer[0] < 2)
         return ERR_AOA_PROTOCOL;
 
-    //Êä³ö×Ö·û´®
+    //è¾“å‡ºå­—ç¬¦ä¸²
     for(i = 0; i < 6; i++)
     {
         Num = Sendlen[i];
         CopySetupReqPkg(&SetStringID[8 * i]);
-        s = HostCtrlTransfer(&StringID[Num], &len); // Ö´ĞĞ¿ØÖÆ´«Êä
+        s = HostCtrlTransfer(&StringID[Num], &len); // æ‰§è¡Œæ§åˆ¶ä¼ è¾“
         if(s != ERR_SUCCESS)
         {
             return (s);
@@ -158,7 +158,7 @@ uint8_t TouchStartAOA(void)
     }
 
     CopySetupReqPkg(TouchAOAMode);
-    s = HostCtrlTransfer(Com_Buffer, &len); // Ö´ĞĞ¿ØÖÆ´«Êä
+    s = HostCtrlTransfer(Com_Buffer, &len); // æ‰§è¡Œæ§åˆ¶ä¼ è¾“
     if(s != ERR_SUCCESS)
     {
         return (s);

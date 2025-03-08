@@ -27,7 +27,7 @@ RingMemProtection_t RingMemProtection;
 /*********************************************************************
  * @fn      RingMemInit
  *
- * @brief   ³õÊ¼»¯
+ * @brief   åˆå§‹åŒ–
  *
  * @param   none
  *
@@ -48,7 +48,7 @@ void RingMemInit( RingMemParm_t *Parm, uint8_t *StartAddr, uint32_t MaxLen, Ring
 /*********************************************************************
  * @fn      RingMemWrite
  *
- * @brief   ÍùÀïĞ´
+ * @brief   å¾€é‡Œå†™
  *
  * @param   none
  *
@@ -102,7 +102,7 @@ uint8_t RingMemWrite( RingMemParm_t *Parm, uint8_t *pData, uint32_t len )
 /*********************************************************************
  * @fn      RingMemRead
  *
- * @brief   ÍùÍâ¶Á
+ * @brief   å¾€å¤–è¯»
  *
  * @param   none
  *
@@ -254,7 +254,7 @@ uint8_t RingMemDelete( RingMemParm_t *Parm, uint32_t len )
 /*********************************************************************
  * @fn      RingAddInStart
  *
- * @brief   Ïò»º³åÇø¿ªÊ¼´¦Ìí¼ÓÊı¾İ
+ * @brief   å‘ç¼“å†²åŒºå¼€å§‹å¤„æ·»åŠ æ•°æ®
  *
  * @param   none
  *

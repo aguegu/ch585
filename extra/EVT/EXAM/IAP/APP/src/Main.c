@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2022/03/15
- * Description        : USB IAP APPÀý³Ì
+ * Description        : USB IAP APPä¾‹ç¨‹
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -16,7 +16,7 @@
 /*********************************************************************
  * @fn      DebugInit
  *
- * @brief   µ÷ÊÔ³õÊ¼»¯
+ * @brief   è°ƒè¯•åˆå§‹åŒ–
  *
  * @return  none
  */
@@ -32,7 +32,7 @@ void DebugInit(void)
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êý
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -44,10 +44,10 @@ int main()
     HSECFG_Capacitance(HSECap_18p);
     SetSysClock(CLK_SOURCE_HSE_PLL_62_4MHz);
 
-    /* ÅäÖÃ´®¿Úµ÷ÊÔ */
+    /* é…ç½®ä¸²å£è°ƒè¯• */
     DebugInit();
     PRINT("Start @ChipID=%02x\n", R8_CHIP_ID);
-    /* app³ÌÐò±ØÐëÖ´ÐÐ¸ÃÓï¾ä£¬±£Ö¤app¸üÐÂÊ§°ÜÊ±£¬ÏÂ´ÎÒÀÈ»ÔËÐÐIAP */
+    /* appç¨‹åºå¿…é¡»æ‰§è¡Œè¯¥è¯­å¥ï¼Œä¿è¯appæ›´æ–°å¤±è´¥æ—¶ï¼Œä¸‹æ¬¡ä¾ç„¶è¿è¡ŒIAP */
     SwitchImageFlag(FLAG_USER_CALL_APP);
 
     GPIOB_ModeCfg(GPIO_Pin_4, GPIO_ModeIN_PU);
@@ -59,7 +59,7 @@ int main()
 		if (GPIOB_ReadPortPin(GPIO_Pin_4) == 0)
 		{
 			s++;
-			//Á¬ÐøÁ½´Î¼ì²âµ½°´¼ü°´ÏÂ£¬Ìø×ªµ½IAP
+			//è¿žç»­ä¸¤æ¬¡æ£€æµ‹åˆ°æŒ‰é”®æŒ‰ä¸‹ï¼Œè·³è½¬åˆ°IAP
 			if(s >= 2)
 			{
 				jumpToIap();

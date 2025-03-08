@@ -3,7 +3,7 @@
 * Author             : WCH
 * Version            : V1.00
 * Date               : 2024/07/31
-* Description        : Ä£ÄâUÅÌ(FLASH×÷Îª´æ´¢½éÖÊ)²¿·Ö³ÌĞò
+* Description        : æ¨¡æ‹ŸUç›˜(FLASHä½œä¸ºå­˜å‚¨ä»‹è´¨)éƒ¨åˆ†ç¨‹åº
 *******************************************************************************
 * Copyright (c) 2024 Nanjing Qinheng Microelectronics Co., Ltd.
 * Attention: This software (modified or not) and binary are used for 
@@ -11,24 +11,24 @@
 *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include <ch585_usbhs_device.h>
 #include <SPI_FLASH.h>
 #include <SW_UDISK.h>
 #include "ch58x_spi.h"
 #include "Internal_Flash.h"
 /******************************************************************************/
-/* ³£Á¿¡¢±äÁ¿¶¨Òå */
+/* å¸¸é‡ã€å˜é‡å®šä¹‰ */
 
 __attribute__ ((aligned(4))) uint8_t  UDisk_Down_Buffer[DEF_FLASH_SECTOR_SIZE];
 __attribute__ ((aligned(4))) uint8_t  UDisk_Pack_Buffer[DEF_UDISK_PACK_512];
 
 /******************************************************************************/
-/* INQUITYĞÅÏ¢ */
+/* INQUITYä¿¡æ¯ */
 uint8_t UDISK_Inquity_Tab[ ] =
 {
     /* UDISK */
-    0x00,                                                /* Peripheral Device Type£ºUDISK = 0x00 */
+    0x00,                                                /* Peripheral Device Typeï¼šUDISK = 0x00 */
     0x80,                                                /* Removable */
     0x02,                                                /* ISO/ECMA */
     0x02,
@@ -67,7 +67,7 @@ uint8_t UDISK_Inquity_Tab[ ] =
 };
 
 /******************************************************************************/
-/* ¸ñÊ½»¯ÈİÁ¿ĞÅÏ¢ */
+/* æ ¼å¼åŒ–å®¹é‡ä¿¡æ¯ */
 uint8_t  const  UDISK_Rd_Format_Capacity[ ] =
 {
     0x00,
@@ -85,7 +85,7 @@ uint8_t  const  UDISK_Rd_Format_Capacity[ ] =
 };
 
 /******************************************************************************/
-/* ÈİÁ¿ĞÅÏ¢ */
+/* å®¹é‡ä¿¡æ¯ */
 uint8_t  const  UDISK_Rd_Capacity[ ] =
 {
     ( ( MY_UDISK_SIZE - 1 ) >> 24 ) & 0xFF,
@@ -99,7 +99,7 @@ uint8_t  const  UDISK_Rd_Capacity[ ] =
 };
 
 /******************************************************************************/
-/* MODE_SENSEĞÅÏ¢,¶ÔÓÚCMD 0X1A */
+/* MODE_SENSEä¿¡æ¯,å¯¹äºCMD 0X1A */
 uint8_t  const  UDISK_Mode_Sense_1A[ ] =
 {
     0x0B,
@@ -117,7 +117,7 @@ uint8_t  const  UDISK_Mode_Sense_1A[ ] =
 };
 
 /******************************************************************************/
-/* MODE_SENSEĞÅÏ¢,¶ÔÓÚCMD 0X5A */
+/* MODE_SENSEä¿¡æ¯,å¯¹äºCMD 0X5A */
 uint8_t  const  UDISK_Mode_Senese_5A[ ] =
 {
     0x00,
@@ -139,9 +139,9 @@ uint8_t  const  UDISK_Mode_Senese_5A[ ] =
 };
 
 
-volatile uint8_t  Udisk_Status = 0x00;                                                              /* UÅÌÏà¹Ø×´Ì¬ */
-volatile uint8_t  Udisk_Transfer_Status = 0x00;                                                     /* UÅÌ´«ÊäÏà¹Ø×´Ì¬ */
-volatile uint32_t Udisk_Capability = 0x00;                                                          /* UÅÌ¸ñÊ½»¯ÈİÁ¿ */
+volatile uint8_t  Udisk_Status = 0x00;                                                              /* Uç›˜ç›¸å…³çŠ¶æ€ */
+volatile uint8_t  Udisk_Transfer_Status = 0x00;                                                     /* Uç›˜ä¼ è¾“ç›¸å…³çŠ¶æ€ */
+volatile uint32_t Udisk_Capability = 0x00;                                                          /* Uç›˜æ ¼å¼åŒ–å®¹é‡ */
 volatile uint8_t  Udisk_CBW_Tag_Save[ 4 ];
 volatile uint8_t  Udisk_Sense_Key = 0x00;
 volatile uint8_t  Udisk_Sense_ASC = 0x00;
@@ -158,10 +158,10 @@ uint8_t   *pEndp2_Buf;
 
 /*******************************************************************************
 * Function Name  : UDISK_CMD_Deal_Status
-* Description    : µ±Ç°UÅÌÃüÁîÖ´ĞĞ×´Ì¬
-* Input          : key------´ÅÅÌ´íÎóÏ¸½ÚĞÅÏ¢µÄÖ÷¼ü
-*                  asc------´ÅÅÌ´íÎóÏ¸½ÚĞÅÏ¢µÄ´Î¼ü
-*                  status---µ±Ç°ÃüÁîÖ´ĞĞ½á¹û×´Ì¬
+* Description    : å½“å‰Uç›˜å‘½ä»¤æ‰§è¡ŒçŠ¶æ€
+* Input          : key------ç£ç›˜é”™è¯¯ç»†èŠ‚ä¿¡æ¯çš„ä¸»é”®
+*                  asc------ç£ç›˜é”™è¯¯ç»†èŠ‚ä¿¡æ¯çš„æ¬¡é”®
+*                  status---å½“å‰å‘½ä»¤æ‰§è¡Œç»“æœçŠ¶æ€
 * Output         : None
 * Return         : None
 *******************************************************************************/
@@ -174,7 +174,7 @@ void UDISK_CMD_Deal_Status( uint8_t key, uint8_t asc, uint8_t status )
 
 /*******************************************************************************
 * Function Name  : UDISK_CMD_Deal_Fail
-* Description    : µ±Ç°UÅÌÃüÁîÖ´ĞĞÊ§°Ü
+* Description    : å½“å‰Uç›˜å‘½ä»¤æ‰§è¡Œå¤±è´¥
 * Input          : None
 * Output         : None
 * Return         : None
@@ -183,13 +183,13 @@ void UDISK_CMD_Deal_Fail( void )
 {
     if( Udisk_Transfer_Status & DEF_UDISK_BLUCK_UP_FLAG )
     {
-        /* ¶Ëµã2ÉÏ´«·µ»ØSTALL */
+        /* ç«¯ç‚¹2ä¸Šä¼ è¿”å›STALL */
         R8_U2EP2_TX_CTRL = ( R8_U2EP2_TX_CTRL & ~USBHS_UEP_T_RES_MASK ) | USBHS_UEP_T_RES_STALL;
         Udisk_Transfer_Status &= ~DEF_UDISK_BLUCK_UP_FLAG;
     }
     if( Udisk_Transfer_Status & DEF_UDISK_BLUCK_DOWN_FLAG )
     {
-        /* ¶Ëµã3ÏÂ´«·µ»ØSTALL */
+        /* ç«¯ç‚¹3ä¸‹ä¼ è¿”å›STALL */
         R8_U2EP3_RX_CTRL = ( R8_U2EP3_RX_CTRL & ~USBHS_UEP_R_RES_MASK ) | USBHS_UEP_R_RES_STALL;
         Udisk_Transfer_Status &= ~DEF_UDISK_BLUCK_DOWN_FLAG;
     }
@@ -197,25 +197,25 @@ void UDISK_CMD_Deal_Fail( void )
 
 /*******************************************************************************
 * Function Name  : CMD_RD_WR_Deal_Pre
-* Description    : ¶ÁĞ´ÉÈÇø´¦ÀíÇ°µÄ×¼±¸
+* Description    : è¯»å†™æ‰‡åŒºå¤„ç†å‰çš„å‡†å¤‡
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
 void CMD_RD_WR_Deal_Pre( void )
 {
-    /* ±£´æµ±Ç°Òª²Ù×÷µÄÉÈÇøºÅ */
+    /* ä¿å­˜å½“å‰è¦æ“ä½œçš„æ‰‡åŒºå· */
     UDISK_Cur_Sec_Lba = (uint32_t)mBOC.mCBW.mCBW_CB_Buf[ 2 ] << 24;
     UDISK_Cur_Sec_Lba = UDISK_Cur_Sec_Lba + ( (uint32_t)mBOC.mCBW.mCBW_CB_Buf[ 3 ] << 16 );
     UDISK_Cur_Sec_Lba = UDISK_Cur_Sec_Lba + ( (uint32_t)mBOC.mCBW.mCBW_CB_Buf[ 4 ] << 8 );
     UDISK_Cur_Sec_Lba = UDISK_Cur_Sec_Lba + ( (uint32_t)mBOC.mCBW.mCBW_CB_Buf[ 5 ] );
         
-    /* ±£´æµ±Ç°Òª²Ù×÷µÄÊı¾İ³¤¶È */                    
+    /* ä¿å­˜å½“å‰è¦æ“ä½œçš„æ•°æ®é•¿åº¦ */                    
     UDISK_Transfer_DataLen = ( (uint32_t)mBOC.mCBW.mCBW_CB_Buf[ 7 ] << 8 );
     UDISK_Transfer_DataLen = UDISK_Transfer_DataLen + ( (uint32_t)mBOC.mCBW.mCBW_CB_Buf[ 8 ] );
     UDISK_Transfer_DataLen = UDISK_Transfer_DataLen * DEF_UDISK_SECTOR_SIZE;         
 
-    /* ÇåÏà¹Ø±äÁ¿ */
+    /* æ¸…ç›¸å…³å˜é‡ */
     UDISK_Sec_Pack_Count = 0x00;
     UDISK_CMD_Deal_Status( 0x00, 0x00, 0x00 );
 }
@@ -257,7 +257,7 @@ void UDISK_SCSI_CMD_Deal( void )
         }
         Udisk_Transfer_Status |= DEF_UDISK_CSW_UP_FLAG;
 
-        /* UÅÌSCSIÃüÁî°ü´¦Àí */ 
+        /* Uç›˜SCSIå‘½ä»¤åŒ…å¤„ç† */ 
         switch( mBOC.mCBW.mCBW_CB_Buf[ 0 ] )
         {
             case  CMD_U_INQUIRY:                                                                    
@@ -267,14 +267,14 @@ void UDISK_SCSI_CMD_Deal( void )
                     UDISK_Transfer_DataLen = 0x24;
                 }    
 
-                /* Ôö¼ÓÉÏ´«FLASHĞ¾Æ¬IDºÅ */
+                /* å¢åŠ ä¸Šä¼ FLASHèŠ¯ç‰‡IDå· */
 #if (STORAGE_MEDIUM == MEDIUM_SPI_FLASH)
                 UDISK_Inquity_Tab[ 32 ] =  (uint8_t)( Flash_ID >> 24 );
                 UDISK_Inquity_Tab[ 33 ] =  (uint8_t)( Flash_ID >> 16 );
                 UDISK_Inquity_Tab[ 34 ] =  (uint8_t)( Flash_ID >> 8 );
                 UDISK_Inquity_Tab[ 35 ] =  (uint8_t)( Flash_ID );
 #endif
-                /* UDISKÄ£Ê½ */
+                /* UDISKæ¨¡å¼ */
                 UDISK_Inquity_Tab[ 0 ] = 0x00;
                 pEndp2_Buf = (uint8_t *)UDISK_Inquity_Tab;
                 UDISK_CMD_Deal_Status( 0x00, 0x00, 0x00 );
@@ -473,7 +473,7 @@ void UDISK_SCSI_CMD_Deal( void )
         }
     }    
     else                                                                         
-    {   /* CBW°üµÄ°ü±êÖ¾³ö´í */
+    {   /* CBWåŒ…çš„åŒ…æ ‡å¿—å‡ºé”™ */
         UDISK_CMD_Deal_Status( 0x05, 0x20, 0x02 );
         Udisk_Transfer_Status |= DEF_UDISK_BLUCK_UP_FLAG;
         Udisk_Transfer_Status |= DEF_UDISK_BLUCK_DOWN_FLAG;
@@ -483,7 +483,7 @@ void UDISK_SCSI_CMD_Deal( void )
 
 /*******************************************************************************
 * Function Name  : UDISK_In_EP_Deal
-* Description    : UÅÌÉÏ´«¶Ëµã´¦Àí
+* Description    : Uç›˜ä¸Šä¼ ç«¯ç‚¹å¤„ç†
 * Input          : None
 * Output         : None
 * Return         : None
@@ -509,7 +509,7 @@ void UDISK_In_EP_Deal( void )
 
 /*******************************************************************************
 * Function Name  : UDISK_Out_EP_Deal
-* Description    : UÅÌÏÂ´«¶Ëµã´¦Àí
+* Description    : Uç›˜ä¸‹ä¼ ç«¯ç‚¹å¤„ç†
 * Input          : None
 * Output         : None
 * Return         : None
@@ -517,10 +517,10 @@ void UDISK_In_EP_Deal( void )
 void UDISK_Out_EP_Deal( uint8_t *pbuf, uint16_t packlen )
 {
     uint32_t i;
-    /* ½øĞĞ¶Ëµã2ÏÂ´«Êı¾İ´¦Àí */
+    /* è¿›è¡Œç«¯ç‚¹2ä¸‹ä¼ æ•°æ®å¤„ç† */
     if( Udisk_Transfer_Status & DEF_UDISK_BLUCK_DOWN_FLAG )
     {
-        /* ´¦ÀíÏÂ´«µÄUSBÊı¾İ°ü */
+        /* å¤„ç†ä¸‹ä¼ çš„USBæ•°æ®åŒ… */
         UDISK_Down_OnePack( pbuf, packlen );
     }
     else
@@ -532,7 +532,7 @@ void UDISK_Out_EP_Deal( uint8_t *pbuf, uint16_t packlen )
                 mBOC.buf[ i ] = *pbuf++;
             }
 
-            /* ½øĞĞSCSIÃüÁî°üµÄ´¦Àí */
+            /* è¿›è¡ŒSCSIå‘½ä»¤åŒ…çš„å¤„ç† */
             UDISK_SCSI_CMD_Deal( );
             if( ( Udisk_Transfer_Status & DEF_UDISK_BLUCK_DOWN_FLAG ) == 0x00 )
             {
@@ -549,7 +549,7 @@ void UDISK_Out_EP_Deal( uint8_t *pbuf, uint16_t packlen )
                 }
                 else if( Udisk_CSW_Status == 0x00 )
                 {
-                    /* ÉÏ´«CSW°ü */
+                    /* ä¸Šä¼ CSWåŒ… */
                     UDISK_Up_CSW(  );                     
                 }                        
             }
@@ -559,11 +559,11 @@ void UDISK_Out_EP_Deal( uint8_t *pbuf, uint16_t packlen )
 
 /*******************************************************************************
 * Function Name  : UDISK_Bulk_UpData
-* Description    : ÅúÁ¿¶Ëµã¶Ëµã2ÉÏ´«Êı¾İ°ü
-* Input          : Transfer_DataLen--- ´«ÊäµÄÊı¾İ³¤¶È
-*                  *pBuf---Êı¾İµØÖ·Ö¸Õë
-* Output         : Transfer_DataLen--- ´«ÊäµÄÊı¾İ³¤¶È
-*                  *pBuf---Êı¾İµØÖ·Ö¸Õë
+* Description    : æ‰¹é‡ç«¯ç‚¹ç«¯ç‚¹2ä¸Šä¼ æ•°æ®åŒ…
+* Input          : Transfer_DataLen--- ä¼ è¾“çš„æ•°æ®é•¿åº¦
+*                  *pBuf---æ•°æ®åœ°å€æŒ‡é’ˆ
+* Output         : Transfer_DataLen--- ä¼ è¾“çš„æ•°æ®é•¿åº¦
+*                  *pBuf---æ•°æ®åœ°å€æŒ‡é’ˆ
 * Return         : None
 *******************************************************************************/
 void UDISK_Bulk_UpData( void )
@@ -582,18 +582,18 @@ void UDISK_Bulk_UpData( void )
         Udisk_Transfer_Status &= ~DEF_UDISK_BLUCK_UP_FLAG;        
     }
 
-    /* ½«Êı¾İ×°ÔØ½øÉÏ´«»º³åÇøÖĞ,²¢Æô¶¯ÉÏ´« */
+    /* å°†æ•°æ®è£…è½½è¿›ä¸Šä¼ ç¼“å†²åŒºä¸­,å¹¶å¯åŠ¨ä¸Šä¼  */
     USBHS_Endp_DataUp(DEF_UEP2, pEndp2_Buf, len, DEF_UEP_CPY_LOAD );
 }
 
 /*******************************************************************************
 * Function Name  : UDISK_Up_CSW
-* Description    : ÅúÁ¿¶Ëµã¶Ëµã2ÉÏ´«CSW°ü
-* Input          : CBW_Tag_Save---ÃüÁî¿é±êÇ©
-*                  CSW_Status---µ±Ç°ÃüÁîÖ´ĞĞ½á¹û×´Ì¬
-* Output         : Bit_DISK_CSW---ÉĞÎ´ÉÏ´«¹ıCSW°ü±êÖ¾
-*                  Bit_DISK_Bluck_Up---Êı¾İÉÏ´«±êÖ¾
-*                  Bit_DISK_Bluck_Down---Êı¾İÏÂ´«±êÖ¾
+* Description    : æ‰¹é‡ç«¯ç‚¹ç«¯ç‚¹2ä¸Šä¼ CSWåŒ…
+* Input          : CBW_Tag_Save---å‘½ä»¤å—æ ‡ç­¾
+*                  CSW_Status---å½“å‰å‘½ä»¤æ‰§è¡Œç»“æœçŠ¶æ€
+* Output         : Bit_DISK_CSW---å°šæœªä¸Šä¼ è¿‡CSWåŒ…æ ‡å¿—
+*                  Bit_DISK_Bluck_Up---æ•°æ®ä¸Šä¼ æ ‡å¿—
+*                  Bit_DISK_Bluck_Down---æ•°æ®ä¸‹ä¼ æ ‡å¿—
 * Return         : None
 *******************************************************************************/
 void UDISK_Up_CSW( void )
@@ -614,23 +614,23 @@ void UDISK_Up_CSW( void )
     mBOC.mCSW.mCSW_Residue[ 3 ] = 0x00;
     mBOC.mCSW.mCSW_Status = Udisk_CSW_Status;
 
-    /* ½«Êı¾İ×°ÔØ½øÉÏ´«»º³åÇøÖĞ,²¢Æô¶¯ÉÏ´« */
+    /* å°†æ•°æ®è£…è½½è¿›ä¸Šä¼ ç¼“å†²åŒºä¸­,å¹¶å¯åŠ¨ä¸Šä¼  */
     USBHS_Endp_DataUp(DEF_UEP2, (uint8_t *)mBOC.buf, 0x0D, DEF_UEP_CPY_LOAD );
 
 }
 
 /*******************************************************************************
 * Function Name  : UDISK_Up_OnePack
-* Description    : USB´æ´¢Éè±¸ÉÏ´«Ò»°üÊı¾İ
-*                  ¸Ãº¯ÊıÔÚUÅÌ¶ÁÉÈÇøÃüÁîÊ±Ê¹ÓÃ,Ã¿´ÎÉÏ´«Ò»°üÊı¾İºó,¸ù¾İĞèÒªÔÚÖĞ¶ÏÖĞÔÚ
-*                  ¿¼ÂÇÊÇ·ñ¼ÌĞøÉÏ´«
+* Description    : USBå­˜å‚¨è®¾å¤‡ä¸Šä¼ ä¸€åŒ…æ•°æ®
+*                  è¯¥å‡½æ•°åœ¨Uç›˜è¯»æ‰‡åŒºå‘½ä»¤æ—¶ä½¿ç”¨,æ¯æ¬¡ä¸Šä¼ ä¸€åŒ…æ•°æ®å,æ ¹æ®éœ€è¦åœ¨ä¸­æ–­ä¸­åœ¨
+*                  è€ƒè™‘æ˜¯å¦ç»§ç»­ä¸Šä¼ 
 * Input          : None
 * Output         : None
 * Return         : None
 *******************************************************************************/
 void UDISK_Up_OnePack( void )
 {    
-    /* ÅĞ¶ÏÊÇ·ñĞèÒª·¢Æğ¶ÁÉÈÇøÃüÁî */
+    /* åˆ¤æ–­æ˜¯å¦éœ€è¦å‘èµ·è¯»æ‰‡åŒºå‘½ä»¤ */
     uint8_t *pbuf = NULL;
 
 #if (STORAGE_MEDIUM == MEDIUM_SPI_FLASH)
@@ -644,10 +644,10 @@ void UDISK_Up_OnePack( void )
     pbuf = (uint8_t*)(IFLASH_UDISK_START_ADDR + UDISK_Cur_Sec_Lba * DEF_UDISK_SECTOR_SIZE + UDISK_Pack_Size * UDISK_Sec_Pack_Count);
 #endif
 
-    /* USBÉÏ´«±¾°üÊı¾İ */
+    /* USBä¸Šä¼ æœ¬åŒ…æ•°æ® */
     USBHS_Endp_DataUp(DEF_UEP2, pbuf,UDISK_Pack_Size, DEF_UEP_CPY_LOAD );
 
-    /* ÅĞ¶Ïµ±Ç°ÉÈÇøÊı¾İÊÇ·ñ¶ÁÈ¡ÉÏ´«Íê±Ï */
+    /* åˆ¤æ–­å½“å‰æ‰‡åŒºæ•°æ®æ˜¯å¦è¯»å–ä¸Šä¼ å®Œæ¯• */
     UDISK_Sec_Pack_Count++;
     UDISK_Transfer_DataLen -= UDISK_Pack_Size;
 
@@ -659,7 +659,7 @@ void UDISK_Up_OnePack( void )
         UDISK_Sec_Pack_Count = 0x00;
         UDISK_Cur_Sec_Lba++;
     }
-    /* ÅĞ¶ÏÊı¾İÊÇ·ñÈ«²¿ÉÏ´«Íê±Ï */    
+    /* åˆ¤æ–­æ•°æ®æ˜¯å¦å…¨éƒ¨ä¸Šä¼ å®Œæ¯• */    
      if( UDISK_Transfer_DataLen == 0x00 )
     {    
         Udisk_Transfer_Status &= ~DEF_UDISK_BLUCK_UP_FLAG;
@@ -668,7 +668,7 @@ void UDISK_Up_OnePack( void )
 
 /*******************************************************************************
 * Function Name  : UDISK_Down_OnePack
-* Description    : USB´æ´¢Éè±¸´¦ÀíÒ»°üÏÂ´«Êı¾İ
+* Description    : USBå­˜å‚¨è®¾å¤‡å¤„ç†ä¸€åŒ…ä¸‹ä¼ æ•°æ®
 * Input          : None
 * Output         : None
 * Return         : None
@@ -699,7 +699,7 @@ void UDISK_Down_OnePack( uint8_t *pbuf, uint16_t packlen )
 #elif (STORAGE_MEDIUM == MEDIUM_INTERAL_FLASH)
         IFlash_Prog_4096(IFLASH_UDISK_START_ADDR + sec_start_addr,(uint32_t*)UDisk_Down_Buffer);
 #endif
-        /* ÅĞ¶ÏÊı¾İÊÇ·ñÈ«²¿ÏÂ´«Íê±Ï */
+        /* åˆ¤æ–­æ•°æ®æ˜¯å¦å…¨éƒ¨ä¸‹ä¼ å®Œæ¯• */
         if( UDISK_Transfer_DataLen == 0x00 )
         {
             Udisk_Transfer_Status &= ~DEF_UDISK_BLUCK_DOWN_FLAG;

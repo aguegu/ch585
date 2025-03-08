@@ -34,15 +34,15 @@ extern "C" {
 #define PROVISION_NET_KEY_LEN          16
 #define ADDRESS_LEN                    2
 
-// Í¨¹ýble½ÓÊÕµ½µÄÅäÍø²ÎÊý£¬°üº¬ 1×Ö½ÚÃüÁîÂë+16×Ö½ÚÍøÂçÃÜÔ¿+2×Ö½ÚÍøÂçµØÖ·
+// é€šè¿‡bleæŽ¥æ”¶åˆ°çš„é…ç½‘å‚æ•°ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +16å­—èŠ‚ç½‘ç»œå¯†é’¥+2å­—èŠ‚ç½‘ç»œåœ°å€
 #define PROVISION_DATA_LEN             (PERIPHERAL_CMD_LEN + PROVISION_NET_KEY_LEN + ADDRESS_LEN)
-// É¾³ý½ÚµãÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚÐèÒªÉ¾³ýµÄ½ÚµãµØÖ·
+// åˆ é™¤èŠ‚ç‚¹å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚éœ€è¦åˆ é™¤çš„èŠ‚ç‚¹åœ°å€
 #define DELETE_NODE_DATA_LEN           (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// É¾³ý½ÚµãÃüÁîÓ¦´ð£¬°üº¬ 1×Ö½ÚÃüÁîÂë
+// åˆ é™¤èŠ‚ç‚¹å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç 
 #define DELETE_NODE_ACK_DATA_LEN       (PERIPHERAL_CMD_LEN)
-// É¾³ý´æ´¢µÄ½ÚµãÐÅÏ¢ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë
+// åˆ é™¤å­˜å‚¨çš„èŠ‚ç‚¹ä¿¡æ¯å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç 
 #define DELETE_NODE_INFO_DATA_LEN      (PERIPHERAL_CMD_LEN)
-// ±¾µØ¸´Î»ÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë
+// æœ¬åœ°å¤ä½å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç 
 #define LOCAL_RESET_DATA_LEN           (PERIPHERAL_CMD_LEN)
 
 /******************************************************************************/
@@ -62,30 +62,30 @@ typedef union
 {
     struct
     {
-        uint8_t cmd;                            /* ÃüÁîÂë CMD_PROVISION */
-        uint8_t net_key[PROVISION_NET_KEY_LEN]; /* ºóÐøÊý¾Ý³¤¶È */
-        uint8_t addr[ADDRESS_LEN];              /* ²Á³ýµØÖ· */
-    } provision;                                /* ÅäÍøÃüÁî */
+        uint8_t cmd;                            /* å‘½ä»¤ç  CMD_PROVISION */
+        uint8_t net_key[PROVISION_NET_KEY_LEN]; /* åŽç»­æ•°æ®é•¿åº¦ */
+        uint8_t addr[ADDRESS_LEN];              /* æ“¦é™¤åœ°å€ */
+    } provision;                                /* é…ç½‘å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;                /* ÃüÁîÂë CMD_DELETE_NODE */
-        uint8_t addr[ADDRESS_LEN];  /* ²Á³ýµØÖ· */
-    } delete_node;                  /* É¾³ý½ÚµãÃüÁî */
+        uint8_t cmd;                /* å‘½ä»¤ç  CMD_DELETE_NODE */
+        uint8_t addr[ADDRESS_LEN];  /* æ“¦é™¤åœ°å€ */
+    } delete_node;                  /* åˆ é™¤èŠ‚ç‚¹å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;                /* ÃüÁîÂë CMD_DELETE_NODE_ACK */
-    } delete_node_ack;              /* É¾³ý½ÚµãÃüÁîÓ¦´ð */
+        uint8_t cmd;                /* å‘½ä»¤ç  CMD_DELETE_NODE_ACK */
+    } delete_node_ack;              /* åˆ é™¤èŠ‚ç‚¹å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t cmd;                /* ÃüÁîÂë CMD_DELETE_NODE_INFO */
-    } delete_node_info;             /* É¾³ý´æ´¢µÄ½ÚµãÐÅÏ¢ÃüÁî */
+        uint8_t cmd;                /* å‘½ä»¤ç  CMD_DELETE_NODE_INFO */
+    } delete_node_info;             /* åˆ é™¤å­˜å‚¨çš„èŠ‚ç‚¹ä¿¡æ¯å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;                /* ÃüÁîÂë CMD_LOCAL_RESET */
-    } local_reset;                  /* ±¾µØ»Ö¸´³ö³§ÉèÖÃÃüÁî */
+        uint8_t cmd;                /* å‘½ä»¤ç  CMD_LOCAL_RESET */
+    } local_reset;                  /* æœ¬åœ°æ¢å¤å‡ºåŽ‚è®¾ç½®å‘½ä»¤ */
     struct
     {
-        uint8_t buf[20]; /* ½ÓÊÕÊý¾Ý°ü*/
+        uint8_t buf[20]; /* æŽ¥æ”¶æ•°æ®åŒ…*/
     } data;
 }app_mesh_manage_t;
 

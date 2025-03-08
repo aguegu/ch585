@@ -25,13 +25,13 @@ extern "C" {
  * CONSTANTS
  */
 
-// OTA ProfileÍ¨µÀIndex¶¨Òå
+// OTA Profileé€šé“Indexå®šä¹‰
 #define OTAPROFILE_CHAR         0
 
-// OTA ·şÎñµÄUUID¶¨Òå
+// OTA æœåŠ¡çš„UUIDå®šä¹‰
 #define OTAPROFILE_SERV_UUID    0xFEE0
 
-// OTA Í¨Ñ¶Í¨µÀUUID¶¨Òå
+// OTA é€šè®¯é€šé“UUIDå®šä¹‰
 #define OTAPROFILE_CHAR_UUID    0xFEE1
 
 // Simple Keys Profile Services bit fields
@@ -49,7 +49,7 @@ extern "C" {
  * Profile Callbacks
  */
 
-// ¶ÁĞ´²Ù×÷º¯Êı»Øµ÷
+// è¯»å†™æ“ä½œå‡½æ•°å›è°ƒ
 typedef void (*OTAProfileRead_t)(unsigned char paramID);
 typedef void (*OTAProfileWrite_t)(unsigned char paramID, unsigned char *p_data, unsigned char w_len);
 
@@ -64,31 +64,31 @@ typedef struct
  */
 
 /**
- * @brief   OTA Profile³õÊ¼»¯
+ * @brief   OTA Profileåˆå§‹åŒ–
  *
- * @param   services    - ·şÎñ¿ØÖÆ×Ö
+ * @param   services    - æœåŠ¡æ§åˆ¶å­—
  *
- * @return  ³õÊ¼»¯µÄ×´Ì¬
+ * @return  åˆå§‹åŒ–çš„çŠ¶æ€
  */
 bStatus_t OTAProfile_AddService(uint32_t services);
 
 /**
- * @brief   OTA Profile¶ÁĞ´»Øµ÷º¯Êı×¢²á
+ * @brief   OTA Profileè¯»å†™å›è°ƒå‡½æ•°æ³¨å†Œ
  *
- * @param   appCallbacks    - º¯Êı½á¹¹ÌåÖ¸Õë
+ * @param   appCallbacks    - å‡½æ•°ç»“æ„ä½“æŒ‡é’ˆ
  *
- * @return  º¯ÊıÖ´ĞĞ×´Ì¬
+ * @return  å‡½æ•°æ‰§è¡ŒçŠ¶æ€
  */
 bStatus_t OTAProfile_RegisterAppCBs(OTAProfileCBs_t *appCallbacks);
 
 /**
- * @brief   OTA ProfileÍ¨µÀ·¢ËÍÊı¾İ
+ * @brief   OTA Profileé€šé“å‘é€æ•°æ®
  *
- * @param   paramID     - OTAÍ¨µÀÑ¡Ôñ
- * @param   p_data      - Êı¾İÖ¸Õë
- * @param   send_len    - ·¢ËÍÊı¾İ³¤¶È
+ * @param   paramID     - OTAé€šé“é€‰æ‹©
+ * @param   p_data      - æ•°æ®æŒ‡é’ˆ
+ * @param   send_len    - å‘é€æ•°æ®é•¿åº¦
  *
- * @return  º¯ÊıÖ´ĞĞ×´Ì¬
+ * @return  å‡½æ•°æ‰§è¡ŒçŠ¶æ€
  */
 bStatus_t OTAProfile_SendData(unsigned char paramID, unsigned char *p_data, unsigned char send_len);
 

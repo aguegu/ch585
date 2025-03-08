@@ -20,24 +20,24 @@ extern "C" {
 #include "MESH_LIB.h"
 
 /**
- * @brief   ´æ´¢ÊÕµ½µÄÃüÁîÂëËù¶ÔÓ¦´¦Àíº¯ÊıµÄ½á¹¹ÌåÊı×é
+ * @brief   å­˜å‚¨æ”¶åˆ°çš„å‘½ä»¤ç æ‰€å¯¹åº”å¤„ç†å‡½æ•°çš„ç»“æ„ä½“æ•°ç»„
  */
 extern const struct bt_mesh_model_op gen_lightness_op[];
 
 /**
- * @brief   »ñÈ¡µ±Ç°µÆÁÁ¶È
+ * @brief   è·å–å½“å‰ç¯äº®åº¦
  *
- * @param   led_pin     - LEDÒı½Å.
+ * @param   led_pin     - LEDå¼•è„š.
  *
- * @return  ÁÁ¶È
+ * @return  äº®åº¦
  */
 uint16_t read_led_lightness(uint32_t led_pin);
 
 /**
- * @brief   ÉèÖÃµ±Ç°µÆÁÁ¶È
+ * @brief   è®¾ç½®å½“å‰ç¯äº®åº¦
  *
- * @param   led_pin     - LEDÒı½Å.
- * @param   lightness   - ÁÁ¶È.
+ * @param   led_pin     - LEDå¼•è„š.
+ * @param   lightness   - äº®åº¦.
  */
 void set_led_lightness(uint32_t led_pin, uint16_t lightness);
 

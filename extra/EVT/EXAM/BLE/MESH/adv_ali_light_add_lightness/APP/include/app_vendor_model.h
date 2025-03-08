@@ -131,9 +131,9 @@ void                     send_lightness_indicate(struct indicate_param *param);
 void bt_mesh_indicate_reset(void);
 
 /**
- * @brief   °¢Àï ³§¼ÒÄ£ĞÍ ³õÊ¼»¯
+ * @brief   é˜¿é‡Œ å‚å®¶æ¨¡å‹ åˆå§‹åŒ–
  *
- * @param   model -  »Øµ÷Ä£ĞÍ²ÎÊı
+ * @param   model -  å›è°ƒæ¨¡å‹å‚æ•°
  *
  * @return  always success
  */

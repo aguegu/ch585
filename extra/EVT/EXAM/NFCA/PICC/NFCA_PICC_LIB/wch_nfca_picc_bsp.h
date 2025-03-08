@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2024/10/29
- * Description        : nfc picc收发控制底层
+ * Description        : nfc picc鏀跺彂鎺у埗搴曞眰
  *********************************************************************************
  * Copyright (c) 2023 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for

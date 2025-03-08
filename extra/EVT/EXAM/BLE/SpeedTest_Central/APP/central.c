@@ -3,9 +3,9 @@
  * Author             : WCH
  * Version            : V1.1
  * Date               : 2020/08/06
- * Description        : �������̣�����ɨ����Χ�豸�������������Ĵӻ��豸��ַ��
- *                      Ѱ���Զ������������ִ�ж�д�������ӻ��������ʹ��,
-                       �����ӻ��豸��ַ�޸�Ϊ������Ŀ���ַ��Ĭ��Ϊ(84:C2:E4:03:02:02)
+ * Description        : 主机例程，主动扫描周围设备，连接至给定的从机设备地址，
+ *                      寻找自定义服务及特征，执行读写命令，需与从机例程配合使用,
+                       并将从机设备地址修改为该例程目标地址，默认为(84:C2:E4:03:02:02)
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 

@@ -11,7 +11,7 @@
 #include "wch_nfca_picc.h"
 #include "wch_nfca_crypto1.h"
 
-/* Ã¿¸öÎÄ¼şµ¥¶Àdebug´òÓ¡µÄ¿ª¹Ø£¬ÖÃ0¿ÉÒÔ½ûÖ¹±¾ÎÄ¼şÄÚ²¿´òÓ¡ */
+/* æ¯ä¸ªæ–‡ä»¶å•ç‹¬debugæ‰“å°çš„å¼€å…³ï¼Œç½®0å¯ä»¥ç¦æ­¢æœ¬æ–‡ä»¶å†…éƒ¨æ‰“å° */
 #define DEBUG_PRINT_IN_THIS_FILE 0
 #if DEBUG_PRINT_IN_THIS_FILE
     #define PRINTF(...) PRINT(__VA_ARGS__)
@@ -20,7 +20,7 @@
 #endif
 
 /*
- * Mifare Classic¿¨Æ¬ÃüÁî×Ö
+ * Mifare Classicå¡ç‰‡å‘½ä»¤å­—
 */
 #define PICC_REQIDL                 0x26           
 #define PICC_REQALL                 0x52           
@@ -121,13 +121,13 @@ static const uint8_t abTrailerAccessConditions[8][2] = {
     },
 };
 
-/* »Øµ÷º¯Êı»áÔÚÖĞ¶ÏÀïµ÷ÓÃ£¬ËùÒÔĞèÒª×¢ÒâºÍÍâ²¿³ÌĞòµÄÏß³Ì°²È«´úÂë´¦Àí*/
+/* å›è°ƒå‡½æ•°ä¼šåœ¨ä¸­æ–­é‡Œè°ƒç”¨ï¼Œæ‰€ä»¥éœ€è¦æ³¨æ„å’Œå¤–éƒ¨ç¨‹åºçš„çº¿ç¨‹å®‰å…¨ä»£ç å¤„ç†*/
 static nfca_picc_cb_t gs_nfca_picc_cb_m1 =
 {
     .online = nfca_picc_m1_online,
     .data_handler = nfca_picc_m1_data_handler,
     .offline = nfca_picc_m1_offline,
-};   /* M1¿¨Êı¾İ´¦Àí»Øµ÷ */
+};   /* M1å¡æ•°æ®å¤„ç†å›è°ƒ */
 
 __attribute__((always_inline)) RV_STATIC_INLINE uint8_t get_access_condition(uint8_t block)
 {
@@ -530,7 +530,7 @@ void nfca_picc_m1_enable(uint8_t *uid)
     g_nfca_picc_m1_data.manufacturer_data.atqa[0] = 0x04;
     g_nfca_picc_m1_data.manufacturer_data.atqa[1] = 0;
 
-    /* Ä¬ÈÏµÄÊı¾İ */
+    /* é»˜è®¤çš„æ•°æ® */
     __MCPY((void *)g_nfca_picc_m1_data.blocks[1], (void *)block_data1, (void *)((uint32_t)block_data1 + 16));
     __MCPY((void *)g_nfca_picc_m1_data.blocks[2], (void *)block_data1, (void *)((uint32_t)block_data1 + 16));
     __MCPY((void *)g_nfca_picc_m1_data.blocks[3], (void *)sector_trailer, (void *)((uint32_t)sector_trailer + 16));

@@ -3,8 +3,8 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/12/10
- * Description        : ÍâÉè´Ó»ú¶àÁ¬½ÓÓ¦ÓÃ³ÌĞò£¬³õÊ¼»¯¹ã²¥Á¬½Ó²ÎÊı£¬È»ºó¹ã²¥£¬Á¬½ÓÖ÷»úºó£¬
- *                      ÇëÇó¸üĞÂÁ¬½Ó²ÎÊı£¬Í¨¹ı×Ô¶¨Òå·şÎñ´«ÊäÊı¾İ
+ * Description        : å¤–è®¾ä»æœºå¤šè¿æ¥åº”ç”¨ç¨‹åºï¼Œåˆå§‹åŒ–å¹¿æ’­è¿æ¥å‚æ•°ï¼Œç„¶åå¹¿æ’­ï¼Œè¿æ¥ä¸»æœºåï¼Œ
+ *                      è¯·æ±‚æ›´æ–°è¿æ¥å‚æ•°ï¼Œé€šè¿‡è‡ªå®šä¹‰æœåŠ¡ä¼ è¾“æ•°æ®
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -649,9 +649,9 @@ static void simpleProfileChangeCB(uint8_t paramID, uint8_t *pValue, uint16_t len
 /*********************************************************************
  * @fn      Peripheral_AdvertData_Privisioned
  *
- * @brief   ĞŞ¸Ä¹ã²¥Êı¾İÄÚÅäÍø±êÖ¾.
+ * @brief   ä¿®æ”¹å¹¿æ’­æ•°æ®å†…é…ç½‘æ ‡å¿—.
  *
- * @param   privisioned - ÊÇ·ñÒÑÅäÍø
+ * @param   privisioned - æ˜¯å¦å·²é…ç½‘
  *
  * @return  none
  */
@@ -686,7 +686,7 @@ void Peripheral_AdvertData_Privisioned(uint8_t privisioned)
 /*********************************************************************
  * @fn      Peripheral_TerminateLink
  *
- * @brief   ¶Ï¿ªÁ¬½Ó.
+ * @brief   æ–­å¼€è¿æ¥.
  *
  * @return  none
  */

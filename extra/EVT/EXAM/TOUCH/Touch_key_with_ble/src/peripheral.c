@@ -3,8 +3,8 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/12/10
- * Description        : ÍâÉè´Ó»ú¶àÁ¬½ÓÓ¦ÓÃ³ÌÐò£¬³õÊ¼»¯¹ã²¥Á¬½Ó²ÎÊý£¬È»ºó¹ã²¥£¬Á¬½ÓÖ÷»úºó£¬
- *                      ÇëÇó¸üÐÂÁ¬½Ó²ÎÊý£¬Í¨¹ý×Ô¶¨Òå·þÎñ´«ÊäÊý¾Ý
+ * Description        : å¤–è®¾ä»Žæœºå¤šè¿žæŽ¥åº”ç”¨ç¨‹åºï¼Œåˆå§‹åŒ–å¹¿æ’­è¿žæŽ¥å‚æ•°ï¼Œç„¶åŽå¹¿æ’­ï¼Œè¿žæŽ¥ä¸»æœºåŽï¼Œ
+ *                      è¯·æ±‚æ›´æ–°è¿žæŽ¥å‚æ•°ï¼Œé€šè¿‡è‡ªå®šä¹‰æœåŠ¡ä¼ è¾“æ•°æ®
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * SPDX-License-Identifier: Apache-2.0
  *******************************************************************************/
@@ -81,8 +81,8 @@
  * LOCAL VARIABLES
  */
 
-UINT8V bleConnectState = 0; ///< 0:Ã»ÓÐÁ¬½Ó; 1:ÒÑÁ¬½Ó
-UINT8V advState = 0;        ///< 0:Í£Ö¹¹ã²¥; 1:ÕýÔÚ¹ã²¥
+UINT8V bleConnectState = 0; ///< 0:æ²¡æœ‰è¿žæŽ¥; 1:å·²è¿žæŽ¥
+UINT8V advState = 0;        ///< 0:åœæ­¢å¹¿æ’­; 1:æ­£åœ¨å¹¿æ’­
 
 uint8_t initial_advertising_enable = FALSE;
 

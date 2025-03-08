@@ -75,7 +75,7 @@ extern "C" {
 /******************************************************************************/
 
 /**
- * @brief ·¢ËÍÊı¾İµÄ¿ªÊ¼ºÍ½áÊø»Øµ÷º¯Êı¶¨Òå
+ * @brief å‘é€æ•°æ®çš„å¼€å§‹å’Œç»“æŸå›è°ƒå‡½æ•°å®šä¹‰
  */
 struct bt_adv_ind_send_cb
 {
@@ -84,7 +84,7 @@ struct bt_adv_ind_send_cb
 };
 
 /**
- * @brief ·¢ËÍ²ÎÊı½á¹¹Ìå
+ * @brief å‘é€å‚æ•°ç»“æ„ä½“
  */
 struct indicate_param
 {
@@ -99,7 +99,7 @@ struct indicate_param
 };
 
 /**
- * @brief indicate ·¢ËÍ»º´æ
+ * @brief indicate å‘é€ç¼“å­˜
  */
 struct bt_mesh_indicate
 {
@@ -109,7 +109,7 @@ struct bt_mesh_indicate
 };
 
 /**
- * @brief ÌìÃ¨¾«ÁéÏà¹ØĞÅÏ¢½á¹¹Ìå
+ * @brief å¤©çŒ«ç²¾çµç›¸å…³ä¿¡æ¯ç»“æ„ä½“
  */
 struct bt_als_cfg
 {
@@ -144,37 +144,37 @@ extern const struct bt_mesh_model_cb bt_mesh_als_vendor_model_cb;
 uint8_t als_avail_tid_get(void);
 
 /**
- * @brief   ÕÒÒ»¸ö¿ÕµÄindicate£¬²¢·ÖÅäÄÚ´æ
+ * @brief   æ‰¾ä¸€ä¸ªç©ºçš„indicateï¼Œå¹¶åˆ†é…å†…å­˜
  *
- * @param   len - ĞèÒª·ÖÅäµÄÊı¾İ³¤¶È
+ * @param   len - éœ€è¦åˆ†é…çš„æ•°æ®é•¿åº¦
  *
- * @return  indicate½á¹¹ÌåÖ¸Õë
+ * @return  indicateç»“æ„ä½“æŒ‡é’ˆ
  */
 struct bt_mesh_indicate *bt_mesh_ind_alloc(uint16_t len);
 
 /**
- * @brief   Æô¶¯·¢ËÍÍ¨ÖªµÄÊÂ¼ş
+ * @brief   å¯åŠ¨å‘é€é€šçŸ¥çš„äº‹ä»¶
  *
- * @param   ind - indicate½á¹¹ÌåÖ¸Õë
+ * @param   ind - indicateç»“æ„ä½“æŒ‡é’ˆ
  */
 void bt_mesh_indicate_send(struct bt_mesh_indicate *ind);
 
 /**
- * @brief   ·¢ËÍµ±Ç°LED×´Ì¬£¬µ±ÓĞLED×´Ì¬¸üĞÂÊ±¶¼ĞèÒªµ÷ÓÃ´Ëº¯Êı
+ * @brief   å‘é€å½“å‰LEDçŠ¶æ€ï¼Œå½“æœ‰LEDçŠ¶æ€æ›´æ–°æ—¶éƒ½éœ€è¦è°ƒç”¨æ­¤å‡½æ•°
  *
- * @param   param -  ·¢ËÍÍ¨ÖªµÄ·¢ËÍ²ÎÊı
+ * @param   param -  å‘é€é€šçŸ¥çš„å‘é€å‚æ•°
  */
 void send_led_indicate(struct indicate_param *param);
 
 /**
- * @brief   ÊÍ·ÅËùÓĞÎ´·¢ËÍµÄÍ¨Öª
+ * @brief   é‡Šæ”¾æ‰€æœ‰æœªå‘é€çš„é€šçŸ¥
  */
 void bt_mesh_indicate_reset(void);
 
 /**
- * @brief   °¢Àï ³§¼ÒÄ£ĞÍ ³õÊ¼»¯
+ * @brief   é˜¿é‡Œ å‚å®¶æ¨¡å‹ åˆå§‹åŒ–
  *
- * @param   model -  »Øµ÷Ä£ĞÍ²ÎÊı
+ * @param   model -  å›è°ƒæ¨¡å‹å‚æ•°
  *
  * @return  always success
  */

@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/06
- * Description        : SPI0ÑİÊ¾ Master/Slave Ä£Ê½Êı¾İÊÕ·¢
+ * Description        : SPI0æ¼”ç¤º Master/Slave æ¨¡å¼æ•°æ®æ”¶å‘
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -15,7 +15,7 @@
 __attribute__((aligned(4))) uint8_t spiBuff[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6};
 __attribute__((aligned(4))) uint8_t spiBuffrev[16];
 
-void DebugInit(void)                                  // SPI0ÓëÀı³Ì¹ßÓÃ´®¿Ú´òÓ¡Òı½Å³åÍ»£¬ËùÒÔ´ËÀı³Ì¸ÄÓÃUART1_Êä³ö´òÓ¡
+void DebugInit(void)                                  // SPI0ä¸ä¾‹ç¨‹æƒ¯ç”¨ä¸²å£æ‰“å°å¼•è„šå†²çªï¼Œæ‰€ä»¥æ­¤ä¾‹ç¨‹æ”¹ç”¨UART1_è¾“å‡ºæ‰“å°
 {
     GPIOB_SetBits(GPIO_Pin_13);
     GPIOPinRemap(ENABLE, RB_PIN_UART1);
@@ -31,12 +31,12 @@ int main()
     HSECFG_Capacitance(HSECap_18p);
     SetSysClock(CLK_SOURCE_HSE_PLL_62_4MHz);
 
-    /* ÅäÖÃ´®¿Úµ÷ÊÔ */
+    /* é…ç½®ä¸²å£è°ƒè¯• */
     DebugInit();
     PRINT("Start @ChipID=%02X\n", R8_CHIP_ID);
 
 #if 1
-    /* Ö÷»úÄ£Ê½ */
+    /* ä¸»æœºæ¨¡å¼ */
     PRINT("1.spi0 mul master mode send data ...\n");
     DelayMs(100);
 
@@ -46,7 +46,7 @@ int main()
         GPIOA_ModeCfg(GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14, GPIO_ModeOut_PP_5mA);
         SPI0_MasterDefInit();
 
-        // µ¥×Ö½Ú·¢ËÍ
+        // å•å­—èŠ‚å‘é€
         GPIOA_ResetBits(GPIO_Pin_12);
         SPI0_MasterSendByte(0x55);
         GPIOA_SetBits(GPIO_Pin_12);
@@ -57,7 +57,7 @@ int main()
         DelayMs(2);
         PRINT("receive %x\n",i);
 
-        // FIFO Á¬Ğø·¢ËÍ
+        // FIFO è¿ç»­å‘é€
         GPIOA_ResetBits(GPIO_Pin_12);
         SPI0_MasterTrans(spiBuff, 8);
         GPIOA_SetBits(GPIO_Pin_12);
@@ -74,7 +74,7 @@ int main()
         PRINT("\n");
 
 
-        // DMA Á¬Ğø·¢ËÍ
+        // DMA è¿ç»­å‘é€
         GPIOA_ResetBits(GPIO_Pin_12);
         SPI0_MasterDMATrans(spiBuff, 12);
         GPIOA_SetBits(GPIO_Pin_12);
@@ -89,12 +89,12 @@ int main()
         }
         PRINT("\n");
     #else
-        /* SPI 1 ½öCH585Ö§³Ö*/
+        /* SPI 1 ä»…CH585æ”¯æŒ*/
         GPIOA_SetBits(GPIO_Pin_12);
         GPIOA_ModeCfg(GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_12, GPIO_ModeOut_PP_5mA);
         SPI1_MasterDefInit();
 
-        // µ¥×Ö½Ú·¢ËÍ
+        // å•å­—èŠ‚å‘é€
         GPIOA_ResetBits(GPIO_Pin_12);
         SPI1_MasterSendByte(0x55);
         GPIOA_SetBits(GPIO_Pin_12);
@@ -105,7 +105,7 @@ int main()
         DelayMs(2);
         PRINT("receive %x\n",i);
 
-        // FIFO Á¬Ğø·¢ËÍ
+        // FIFO è¿ç»­å‘é€
         GPIOA_ResetBits(GPIO_Pin_12);
         SPI1_MasterTrans(spiBuff, 8);
         GPIOA_SetBits(GPIO_Pin_12);
@@ -126,7 +126,7 @@ int main()
 #endif
 
 #if 0
-    /* Éè±¸Ä£Ê½ */
+    /* è®¾å¤‡æ¨¡å¼ */
     PRINT("1.spi0 mul slave mode \n");
     GPIOA_ModeCfg(GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14 | GPIO_Pin_15, GPIO_ModeIN_PU);
     SPI0_SlaveInit();

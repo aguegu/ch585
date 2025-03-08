@@ -24,12 +24,12 @@
 
 #define ALI_DEF_TTL    (10)
 
-// Ä£Äâled_modeÖµ
+// æ¨¡æ‹Ÿled_modeå€¼
 uint8_t device_angle_auto_LR = 0;
 
 /*******************************************************************************
  * Function Name  : read_angle_auto_LR
- * Description    : »ñÈ¡µ±Ç°angle_auto_LR
+ * Description    : è·å–å½“å‰angle_auto_LR
  * Input          : None
  * Return         : None
  *******************************************************************************/
@@ -41,7 +41,7 @@ uint8_t read_angle_auto_LR(void)
 
 /*******************************************************************************
  * Function Name  : set_angle_auto_LR
- * Description    : ÉèÖÃµ±Ç°angle_auto_LR
+ * Description    : è®¾ç½®å½“å‰angle_auto_LR
  * Input          : None
  * Return         : None
  *******************************************************************************/
@@ -52,9 +52,9 @@ void set_angle_auto_LR(uint8_t angle_auto_LR)
 
 /*******************************************************************************
  * Function Name  : gen_angle_auto_LR_status
- * Description    : »Ø¸´ÌìÃ¨¾«Áéangle_auto_LR
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
+ * Description    : å›å¤å¤©çŒ«ç²¾çµangle_auto_LR
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
  * Return         : None
  *******************************************************************************/
 static void gen_angle_auto_LR_status(struct bt_mesh_model   *model,
@@ -92,10 +92,10 @@ static void gen_angle_auto_LR_status(struct bt_mesh_model   *model,
 
 /*******************************************************************************
  * Function Name  : gen_angle_auto_LR_get
- * Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄ»ñÈ¡angle_auto_LRÃüÁî
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
- *										buf: Êı¾İÄÚÈİ
+ * Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è·å–angle_auto_LRå‘½ä»¤
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
+ *										buf: æ•°æ®å†…å®¹
  * Return         : None
  *******************************************************************************/
 void gen_angle_auto_LR_get(struct bt_mesh_model   *model,
@@ -108,11 +108,11 @@ void gen_angle_auto_LR_get(struct bt_mesh_model   *model,
 
 /*******************************************************************************
 * Function Name  : gen_fan_set
-* Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃfanÃüÁî
-                    ĞèÒª·¢ËÍind¸øÌìÃ¨
-* Input          : model: Ä£ĞÍ²ÎÊı
-*										ctx£ºÊı¾İ²ÎÊı
-*										buf: Êı¾İÄÚÈİ
+* Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®fanå‘½ä»¤
+                    éœ€è¦å‘é€indç»™å¤©çŒ«
+* Input          : model: æ¨¡å‹å‚æ•°
+*										ctxï¼šæ•°æ®å‚æ•°
+*										buf: æ•°æ®å†…å®¹
 * Return         : None
 *******************************************************************************/
 void gen_fan_set(struct bt_mesh_model   *model,
@@ -144,7 +144,7 @@ void gen_fan_set(struct bt_mesh_model   *model,
 
     if((buf->data[1] | (buf->data[2] << 8)) == ALI_GEN_ATTR_TYPE_ANGLEAUTO_LR_ONOFF)
     {
-        // ÃüÁîÎªÉè¶¨Öµ
+        // å‘½ä»¤ä¸ºè®¾å®šå€¼
         set_angle_auto_LR(buf->data[3]);
 
         send_angle_auto_LR_indicate(&param);
@@ -158,10 +158,10 @@ void gen_fan_set(struct bt_mesh_model   *model,
 
 /*******************************************************************************
  * Function Name  : gen_fan_set_unack
- * Description    : ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃfanÃüÁî(ÎŞÓ¦´ğ)
- * Input          : model: Ä£ĞÍ²ÎÊı
- *										ctx£ºÊı¾İ²ÎÊı
- *										buf: Êı¾İÄÚÈİ
+ * Description    : å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®fanå‘½ä»¤(æ— åº”ç­”)
+ * Input          : model: æ¨¡å‹å‚æ•°
+ *										ctxï¼šæ•°æ®å‚æ•°
+ *										buf: æ•°æ®å†…å®¹
  * Return         : None
  *******************************************************************************/
 void gen_fan_set_unack(struct bt_mesh_model   *model,
@@ -172,7 +172,7 @@ void gen_fan_set_unack(struct bt_mesh_model   *model,
 
     if((buf->data[1] | (buf->data[2] << 8)) == ALI_GEN_ATTR_TYPE_ANGLEAUTO_LR_ONOFF)
     {
-        // ÃüÁîÎªÉè¶¨Öµ
+        // å‘½ä»¤ä¸ºè®¾å®šå€¼
         set_angle_auto_LR(buf->data[3]);
     }
 }

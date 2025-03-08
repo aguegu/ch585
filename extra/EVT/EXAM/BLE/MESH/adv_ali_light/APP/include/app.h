@@ -24,17 +24,17 @@ extern "C" {
 /******************************************************************************/
 
 /**
- * @brief   应用层初始化
+ * @brief   搴旂敤灞傚垵濮嬪寲
  */
 void App_Init(void);
 
 /**
- * @brief   发送当前灯的状态给天猫精灵
+ * @brief   鍙戦�佸綋鍓嶇伅鐨勭姸鎬佺粰澶╃尗绮剧伒
  */
 void send_led_state(void);
 
 /**
- * @brief   发送复位事件给天猫精灵，发送完成后将清除配网状态，重置自身mesh网络
+ * @brief   鍙戦�佸浣嶄簨浠剁粰澶╃尗绮剧伒锛屽彂閫佸畬鎴愬悗灏嗘竻闄ら厤缃戠姸鎬侊紝閲嶇疆鑷韩mesh缃戠粶
  */
 void send_reset_indicate(void);
 

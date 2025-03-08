@@ -25,8 +25,8 @@
   */
 typedef enum
 {
-	LCD_PS_3V3 = 0,					// 3.3V Çı¶¯
-	LCD_PS_2V5,						// 2.5V Çı¶¯
+	LCD_PS_3V3 = 0,					// 3.3V é©±åŠ¨
+	LCD_PS_2V5,						// 2.5V é©±åŠ¨
 }LCDDrvPowerTypeDef; 
 
 /**
@@ -34,8 +34,8 @@ typedef enum
   */
 typedef enum
 {
-	LCD_1_2_Bias = 0,				// 2¼¶·ÖÑ¹
-	LCD_1_3_Bias,					// 3¼¶·ÖÑ¹
+	LCD_1_2_Bias = 0,				// 2çº§åˆ†å‹
+	LCD_1_3_Bias,					// 3çº§åˆ†å‹
 }LCDBiasTypeDef;
 
 /**
@@ -59,38 +59,38 @@ typedef enum
 	LCD_CLK_128						// 128Hz
 }LCDSCANCLKTypeDef;
 	 
-/* LCD¶ÎÊ½ÆÁÇı¶¯³õÊ¼»¯ÅäÖÃ */
+/* LCDæ®µå¼å±é©±åŠ¨åˆå§‹åŒ–é…ç½® */
 void LCD_Init(LCDDutyTypeDef duty, LCDBiasTypeDef bias);
 
-#define	LCD_PowerDown()			(R32_LCD_CMD &= ~(RB_LCD_ON | RB_LCD_SYS_EN))		/* LCD¹¦ÄÜÄ£¿é¹Ø±Õ */
-#define	LCD_PowerOn()			(R32_LCD_CMD |= (RB_LCD_ON | RB_LCD_SYS_EN))		/* LCD¹¦ÄÜÄ£¿é¿ªÆô */
+#define	LCD_PowerDown()			(R32_LCD_CMD &= ~(RB_LCD_ON | RB_LCD_SYS_EN))		/* LCDåŠŸèƒ½æ¨¡å—å…³é—­ */
+#define	LCD_PowerOn()			(R32_LCD_CMD |= (RB_LCD_ON | RB_LCD_SYS_EN))		/* LCDåŠŸèƒ½æ¨¡å—å¼€å¯ */
 
-// ÊäÈëÖµ²Î¿¼ LCDDrvPowerTypeDef
-#define LCD_PowerCfg( d )		(R32_LCD_CMD = (R32_LCD_CMD & ~RB_LCD_VLCD_SEL) | (d<<7))			/* ÅäÖÃLCDµÄ ¹©µçµçÑ¹Ñ¡Ôñ */
-// ÊäÈëÖµ²Î¿¼ LCDSCANCLKTypeDef
-#define LCD_ScanCLKCfg( d )		(R32_LCD_CMD = (R32_LCD_CMD & ~RB_LCD_SCAN_CLK) | (d<<5))			/* ÅäÖÃLCDµÄ É¨ÃèÊ±ÖÓÑ¡Ôñ */
-// ÊäÈëÖµ²Î¿¼ LCDDutyTypeDef
-#define LCD_DutyCfg( d )		(R32_LCD_CMD = (R32_LCD_CMD & ~RB_LCD_DUTY) | (d<<3))				/* ÅäÖÃLCDµÄ dutyÑ¡Ôñ */
-// ÊäÈëÖµ²Î¿¼ LCDBiasTypeDef
-#define LCD_BiasCfg( d )		(R32_LCD_CMD = (R32_LCD_CMD & ~RB_LCD_BIAS) | (d<<2))				/* ÅäÖÃLCDµÄ biasÑ¡Ôñ */
+// è¾“å…¥å€¼å‚è€ƒ LCDDrvPowerTypeDef
+#define LCD_PowerCfg( d )		(R32_LCD_CMD = (R32_LCD_CMD & ~RB_LCD_VLCD_SEL) | (d<<7))			/* é…ç½®LCDçš„ ä¾›ç”µç”µå‹é€‰æ‹© */
+// è¾“å…¥å€¼å‚è€ƒ LCDSCANCLKTypeDef
+#define LCD_ScanCLKCfg( d )		(R32_LCD_CMD = (R32_LCD_CMD & ~RB_LCD_SCAN_CLK) | (d<<5))			/* é…ç½®LCDçš„ æ‰«ææ—¶é’Ÿé€‰æ‹© */
+// è¾“å…¥å€¼å‚è€ƒ LCDDutyTypeDef
+#define LCD_DutyCfg( d )		(R32_LCD_CMD = (R32_LCD_CMD & ~RB_LCD_DUTY) | (d<<3))				/* é…ç½®LCDçš„ dutyé€‰æ‹© */
+// è¾“å…¥å€¼å‚è€ƒ LCDBiasTypeDef
+#define LCD_BiasCfg( d )		(R32_LCD_CMD = (R32_LCD_CMD & ~RB_LCD_BIAS) | (d<<2))				/* é…ç½®LCDçš„ biasé€‰æ‹© */
 	 
-#define LCD_WriteData0( d )		(R32_LCD_RAM0 = (R32_LCD_RAM0 & 0xffffff00) | ((UINT32)d))			/* Ìî³äLCD0Çı¶¯ÊıÖµ */
-#define LCD_WriteData1( d )		(R32_LCD_RAM0 = (R32_LCD_RAM0 & 0xffff00ff) | ((UINT32)d<<8))		/* Ìî³äLCD1Çı¶¯ÊıÖµ */
-#define LCD_WriteData2( d )		(R32_LCD_RAM0 = (R32_LCD_RAM0 & 0xff00ffff) | ((UINT32)d<<16))		/* Ìî³äLCD2Çı¶¯ÊıÖµ */
-#define LCD_WriteData3( d )		(R32_LCD_RAM0 = (R32_LCD_RAM0 & 0x00ffffff) | ((UINT32)d<<24))		/* Ìî³äLCD3Çı¶¯ÊıÖµ */
+#define LCD_WriteData0( d )		(R32_LCD_RAM0 = (R32_LCD_RAM0 & 0xffffff00) | ((UINT32)d))			/* å¡«å……LCD0é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData1( d )		(R32_LCD_RAM0 = (R32_LCD_RAM0 & 0xffff00ff) | ((UINT32)d<<8))		/* å¡«å……LCD1é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData2( d )		(R32_LCD_RAM0 = (R32_LCD_RAM0 & 0xff00ffff) | ((UINT32)d<<16))		/* å¡«å……LCD2é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData3( d )		(R32_LCD_RAM0 = (R32_LCD_RAM0 & 0x00ffffff) | ((UINT32)d<<24))		/* å¡«å……LCD3é©±åŠ¨æ•°å€¼ */
 	 
-#define LCD_WriteData4( d )		(R32_LCD_RAM1 = (R32_LCD_RAM1 & 0xffffff00) | ((UINT32)d))			/* Ìî³äLCD4Çı¶¯ÊıÖµ */
-#define LCD_WriteData5( d )		(R32_LCD_RAM1 = (R32_LCD_RAM1 & 0xffff00ff) | ((UINT32)d<<8))		/* Ìî³äLCD5Çı¶¯ÊıÖµ */
-#define LCD_WriteData6( d )		(R32_LCD_RAM1 = (R32_LCD_RAM1 & 0xff00ffff) | ((UINT32)d<<16))		/* Ìî³äLCD6Çı¶¯ÊıÖµ */
-#define LCD_WriteData7( d )		(R32_LCD_RAM1 = (R32_LCD_RAM1 & 0x00ffffff) | ((UINT32)d<<24))		/* Ìî³äLCD7Çı¶¯ÊıÖµ */
+#define LCD_WriteData4( d )		(R32_LCD_RAM1 = (R32_LCD_RAM1 & 0xffffff00) | ((UINT32)d))			/* å¡«å……LCD4é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData5( d )		(R32_LCD_RAM1 = (R32_LCD_RAM1 & 0xffff00ff) | ((UINT32)d<<8))		/* å¡«å……LCD5é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData6( d )		(R32_LCD_RAM1 = (R32_LCD_RAM1 & 0xff00ffff) | ((UINT32)d<<16))		/* å¡«å……LCD6é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData7( d )		(R32_LCD_RAM1 = (R32_LCD_RAM1 & 0x00ffffff) | ((UINT32)d<<24))		/* å¡«å……LCD7é©±åŠ¨æ•°å€¼ */
 	 
-#define LCD_WriteData8( d )		(R32_LCD_RAM2 = (R32_LCD_RAM2 & 0xffffff00) | ((UINT32)d))			/* Ìî³äLCD8Çı¶¯ÊıÖµ */
-#define LCD_WriteData9( d )		(R32_LCD_RAM2 = (R32_LCD_RAM2 & 0xffff00ff) | ((UINT32)d<<8))		/* Ìî³äLCD9Çı¶¯ÊıÖµ */
-#define LCD_WriteData10( d )	(R32_LCD_RAM2 = (R32_LCD_RAM2 & 0xff00ffff) | ((UINT32)d<<16))		/* Ìî³äLCD10Çı¶¯ÊıÖµ */
-#define LCD_WriteData11( d )    (R32_LCD_RAM2 = (R32_LCD_RAM2 & 0x00ffffff) | ((UINT32)d<<24))      /* Ìî³äLCD11Çı¶¯ÊıÖµ */
+#define LCD_WriteData8( d )		(R32_LCD_RAM2 = (R32_LCD_RAM2 & 0xffffff00) | ((UINT32)d))			/* å¡«å……LCD8é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData9( d )		(R32_LCD_RAM2 = (R32_LCD_RAM2 & 0xffff00ff) | ((UINT32)d<<8))		/* å¡«å……LCD9é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData10( d )	(R32_LCD_RAM2 = (R32_LCD_RAM2 & 0xff00ffff) | ((UINT32)d<<16))		/* å¡«å……LCD10é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData11( d )    (R32_LCD_RAM2 = (R32_LCD_RAM2 & 0x00ffffff) | ((UINT32)d<<24))      /* å¡«å……LCD11é©±åŠ¨æ•°å€¼ */
 
-#define LCD_WriteData12( d )    (R32_LCD_RAM3 = (R32_LCD_RAM3 & 0xffffff00) | ((UINT32)d))          /* Ìî³äLCD12Çı¶¯ÊıÖµ */
-#define LCD_WriteData13( d )    (R32_LCD_RAM3 = (R32_LCD_RAM3 & 0xffff00ff) | ((UINT32)d<<8))       /* Ìî³äLCD13Çı¶¯ÊıÖµ */
+#define LCD_WriteData12( d )    (R32_LCD_RAM3 = (R32_LCD_RAM3 & 0xffffff00) | ((UINT32)d))          /* å¡«å……LCD12é©±åŠ¨æ•°å€¼ */
+#define LCD_WriteData13( d )    (R32_LCD_RAM3 = (R32_LCD_RAM3 & 0xffff00ff) | ((UINT32)d<<8))       /* å¡«å……LCD13é©±åŠ¨æ•°å€¼ */
 
 
 

@@ -26,11 +26,11 @@
 /*********************************************************************
  * @fn      read_led_state
  *
- * @brief   »ñÈ¡µ±Ç°µÆ×´Ì¬.
+ * @brief   è·å–å½“å‰ç¯çŠ¶æ€.
  *
- * @param   led_pin - Òı½Å.
+ * @param   led_pin - å¼•è„š.
  *
- * @return  µÆ×´Ì¬
+ * @return  ç¯çŠ¶æ€
  */
 BOOL read_led_state(uint32_t led_pin)
 {
@@ -40,10 +40,10 @@ BOOL read_led_state(uint32_t led_pin)
 /*********************************************************************
  * @fn      set_led_state
  *
- * @brief   ÉèÖÃµ±Ç°µÆ×´Ì¬.
+ * @brief   è®¾ç½®å½“å‰ç¯çŠ¶æ€.
  *
- * @param   led_pin - Òı½Å.
- * @param   on      - ×´Ì¬.
+ * @param   led_pin - å¼•è„š.
+ * @param   on      - çŠ¶æ€.
  *
  * @return  none
  */
@@ -56,9 +56,9 @@ void set_led_state(uint32_t led_pin, BOOL on)
 /*********************************************************************
  * @fn      toggle_led_state
  *
- * @brief   ·­×ªµ±Ç°µÆ×´Ì¬
+ * @brief   ç¿»è½¬å½“å‰ç¯çŠ¶æ€
  *
- * @param   led_pin - Òı½Å.
+ * @param   led_pin - å¼•è„š.
  *
  * @return  none
  */
@@ -71,10 +71,10 @@ void toggle_led_state(uint32_t led_pin)
 /*********************************************************************
  * @fn      gen_onoff_status
  *
- * @brief   »Ø¸´ÌìÃ¨¾«Áé¿ª¹Ø×´Ì¬
+ * @brief   å›å¤å¤©çŒ«ç²¾çµå¼€å…³çŠ¶æ€
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
  *
  * @return  none
  */
@@ -107,11 +107,11 @@ static void gen_onoff_status(struct bt_mesh_model *model, struct bt_mesh_msg_ctx
 /*********************************************************************
  * @fn      gen_onoff_get
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄ»ñÈ¡¿ª¹Ø×´Ì¬ÃüÁî
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è·å–å¼€å…³çŠ¶æ€å‘½ä»¤
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -125,11 +125,11 @@ static void gen_onoff_get(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *c
 /*********************************************************************
  * @fn      gen_onoff_set
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃ¿ª¹Ø×´Ì¬ÃüÁî£¬Èç¹ûÓëµ±Ç°×´Ì¬²»Í¬,»¹ĞèÒª·¢ËÍind¸øÌìÃ¨
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®å¼€å…³çŠ¶æ€å‘½ä»¤ï¼Œå¦‚æœä¸å½“å‰çŠ¶æ€ä¸åŒ,è¿˜éœ€è¦å‘é€indç»™å¤©çŒ«
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */
@@ -167,11 +167,11 @@ static void gen_onoff_set(struct bt_mesh_model *model, struct bt_mesh_msg_ctx *c
 /*********************************************************************
  * @fn      gen_onoff_set_unack
  *
- * @brief   ÌìÃ¨¾«ÁéÏÂ·¢µÄÉèÖÃ¿ª¹Ø×´Ì¬ÃüÁî(ÎŞÓ¦´ğ)
+ * @brief   å¤©çŒ«ç²¾çµä¸‹å‘çš„è®¾ç½®å¼€å…³çŠ¶æ€å‘½ä»¤(æ— åº”ç­”)
  *
- * @param   model   - Ä£ĞÍ²ÎÊı.
- * @param   ctx     - Êı¾İ²ÎÊı.
- * @param   buf     - Êı¾İÄÚÈİ.
+ * @param   model   - æ¨¡å‹å‚æ•°.
+ * @param   ctx     - æ•°æ®å‚æ•°.
+ * @param   buf     - æ•°æ®å†…å®¹.
  *
  * @return  none
  */

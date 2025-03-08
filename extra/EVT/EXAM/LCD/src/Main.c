@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2023/02/24
- * Description        : LCDÑİÊ¾
+ * Description        : LCDæ¼”ç¤º
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -23,7 +23,7 @@ unsigned char const lcd[14]={0x7d, 0x60, 0x3e, 0x7a, 0x63, 0x5b, 0x5f, 0x70, 0x0
      |----| .P
        D
 */
-/* ×¢Òâ£ºÊ¹ÓÃ´ËÀı³Ì£¬ÏÂÔØÊ±Ğè¹Ø±ÕÍâ²¿ÊÖ¶¯¸´Î»¹¦ÄÜ */
+/* æ³¨æ„ï¼šä½¿ç”¨æ­¤ä¾‹ç¨‹ï¼Œä¸‹è½½æ—¶éœ€å…³é—­å¤–éƒ¨æ‰‹åŠ¨å¤ä½åŠŸèƒ½ */
 int main()
 {
     uint32_t VER = 0;
@@ -48,15 +48,15 @@ int main()
     LCD_WriteData13( lcd[13] );
 
 
-    /* LCD + sleep Ê¾Àı */
+    /* LCD + sleep ç¤ºä¾‹ */
 #if 1
-    /* ÅäÖÃ»½ĞÑÔ´Îª GPIO - PA5 */
+    /* é…ç½®å”¤é†’æºä¸º GPIO - PA5 */
     GPIOA_ModeCfg(GPIO_Pin_5, GPIO_ModeIN_PU);
-    GPIOA_ITModeCfg(GPIO_Pin_5, GPIO_ITMode_FallEdge); // ÏÂ½µÑØ»½ĞÑ
+    GPIOA_ITModeCfg(GPIO_Pin_5, GPIO_ITMode_FallEdge); // ä¸‹é™æ²¿å”¤é†’
     PFIC_EnableIRQ(GPIO_A_IRQn);
     PWR_PeriphWakeUpCfg(ENABLE, RB_SLP_GPIO_WAKE, Long_Delay);
-    LowPower_Sleep(RB_PWR_RAM32K | RB_PWR_RAM96K | RB_XT_PRE_EN); //Ö»±£Áô96+32K SRAM ¹©µç
-    HSECFG_Current(HSE_RCur_100);                 // ½µÎª¶î¶¨µçÁ÷(µÍ¹¦ºÄº¯ÊıÖĞÌáÉıÁËHSEÆ«ÖÃµçÁ÷)
+    LowPower_Sleep(RB_PWR_RAM32K | RB_PWR_RAM96K | RB_XT_PRE_EN); //åªä¿ç•™96+32K SRAM ä¾›ç”µ
+    HSECFG_Current(HSE_RCur_100);                 // é™ä¸ºé¢å®šç”µæµ(ä½åŠŸè€—å‡½æ•°ä¸­æå‡äº†HSEåç½®ç”µæµ)
 #endif
 
     while(1);
@@ -66,7 +66,7 @@ int main()
 /*********************************************************************
  * @fn      GPIOA_IRQHandler
  *
- * @brief   GPIOAÖĞ¶Ïº¯Êı
+ * @brief   GPIOAä¸­æ–­å‡½æ•°
  *
  * @return  none
  */

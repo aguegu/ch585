@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.10
  * Date               : 2018/12/14
- * Description        : oadÏà¹ØÅäÖÃ¶¨Òå
+ * Description        : oadç›¸å…³é…ç½®å®šä¹‰
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -19,93 +19,93 @@
  * ------------------------------------------------------------------------------------------------
  */
 
-/* Õû¸öÓÃ»§codeÇø·Ö³ÉËÄ¿é£¬4K£¬216K£¬216K£¬12K£¬ºóÈı¿éÏÂÃæ·Ö±ğ½Ğ×öimageA£¨APP£©£¬imageB£¨OTA£©ºÍimageIAP */
+/* æ•´ä¸ªç”¨æˆ·codeåŒºåˆ†æˆå››å—ï¼Œ4Kï¼Œ216Kï¼Œ216Kï¼Œ12Kï¼Œåä¸‰å—ä¸‹é¢åˆ†åˆ«å«åšimageAï¼ˆAPPï¼‰ï¼ŒimageBï¼ˆOTAï¼‰å’ŒimageIAP */
 
-/* FLASH¶¨Òå */
+/* FLASHå®šä¹‰ */
 #define FLASH_BLOCK_SIZE       EEPROM_BLOCK_SIZE
 #define IMAGE_SIZE             216 * 1024
 
-/* imageA¶¨Òå */
+/* imageAå®šä¹‰ */
 #define IMAGE_A_FLAG           0x01
 #define IMAGE_A_START_ADD      4 * 1024
 #define IMAGE_A_SIZE           IMAGE_SIZE
 
-/* imageB¶¨Òå */
+/* imageBå®šä¹‰ */
 #define IMAGE_B_FLAG           0x02
 #define IMAGE_B_START_ADD      (IMAGE_A_START_ADD + IMAGE_SIZE)
 #define IMAGE_B_SIZE           IMAGE_SIZE
 
-/* imageIAP¶¨Òå */
+/* imageIAPå®šä¹‰ */
 #define IMAGE_IAP_FLAG         0x03
 #define IMAGE_IAP_START_ADD    (IMAGE_B_START_ADD + IMAGE_SIZE)
 #define IMAGE_IAP_SIZE         12 * 1024
 
-/* IAP¶¨Òå */
-/* ÒÔÏÂÎªIAPÏÂÔØÃüÁî¶¨Òå */
-#define CMD_IAP_PROM           0x80               // IAP±à³ÌÃüÁî
-#define CMD_IAP_ERASE          0x81               // IAP²Á³ıÃüÁî
-#define CMD_IAP_VERIFY         0x82               // IAPĞ£ÑéÃüÁî
-#define CMD_IAP_END            0x83               // IAP½áÊø±êÖ¾
-#define CMD_IAP_INFO           0x84               // IAP»ñÈ¡Éè±¸ĞÅÏ¢
+/* IAPå®šä¹‰ */
+/* ä»¥ä¸‹ä¸ºIAPä¸‹è½½å‘½ä»¤å®šä¹‰ */
+#define CMD_IAP_PROM           0x80               // IAPç¼–ç¨‹å‘½ä»¤
+#define CMD_IAP_ERASE          0x81               // IAPæ“¦é™¤å‘½ä»¤
+#define CMD_IAP_VERIFY         0x82               // IAPæ ¡éªŒå‘½ä»¤
+#define CMD_IAP_END            0x83               // IAPç»“æŸæ ‡å¿—
+#define CMD_IAP_INFO           0x84               // IAPè·å–è®¾å¤‡ä¿¡æ¯
 
-/* Êı¾İÖ¡³¤¶È¶¨Òå */
+/* æ•°æ®å¸§é•¿åº¦å®šä¹‰ */
 #define IAP_LEN                247
 
-/* ´æ·ÅÔÚDataFlashµØÖ·£¬²»ÄÜÕ¼ÓÃÀ¶ÑÀµÄÎ»ÖÃ */
+/* å­˜æ”¾åœ¨DataFlashåœ°å€ï¼Œä¸èƒ½å ç”¨è“ç‰™çš„ä½ç½® */
 #define OTA_DATAFLASH_ADD      0x00077000 - FLASH_ROM_MAX_SIZE
 
-/* ´æ·ÅÔÚDataFlashÀïµÄOTAĞÅÏ¢ */
+/* å­˜æ”¾åœ¨DataFlashé‡Œçš„OTAä¿¡æ¯ */
 typedef struct
 {
-    unsigned char ImageFlag; //¼ÇÂ¼µÄµ±Ç°µÄimage±êÖ¾
+    unsigned char ImageFlag; //è®°å½•çš„å½“å‰çš„imageæ ‡å¿—
     unsigned char Revd[3];
 } OTADataFlashInfo_t;
 
-/* OTA IAPÍ¨Ñ¶Ğ­Òé¶¨Òå */
-/* µØÖ·Ê¹ÓÃ4±¶Æ«ÒÆ */
+/* OTA IAPé€šè®¯åè®®å®šä¹‰ */
+/* åœ°å€ä½¿ç”¨4å€åç§» */
 typedef union
 {
     struct
     {
-        unsigned char cmd;          /* ÃüÁîÂë 0x81 */
-        unsigned char len;          /* ºóĞøÊı¾İ³¤¶È */
-        unsigned char addr[2];      /* ²Á³ıµØÖ· */
-        unsigned char block_num[2]; /* ²Á³ı¿éÊı */
+        unsigned char cmd;          /* å‘½ä»¤ç  0x81 */
+        unsigned char len;          /* åç»­æ•°æ®é•¿åº¦ */
+        unsigned char addr[2];      /* æ“¦é™¤åœ°å€ */
+        unsigned char block_num[2]; /* æ“¦é™¤å—æ•° */
 
-    } erase; /* ²Á³ıÃüÁî */
+    } erase; /* æ“¦é™¤å‘½ä»¤ */
     struct
     {
-        unsigned char cmd;       /* ÃüÁîÂë 0x83 */
-        unsigned char len;       /* ºóĞøÊı¾İ³¤¶È */
-        unsigned char status[2]; /* Á½×Ö½Ú×´Ì¬£¬±£Áô */
-    } end;                       /* ½áÊøÃüÁî */
+        unsigned char cmd;       /* å‘½ä»¤ç  0x83 */
+        unsigned char len;       /* åç»­æ•°æ®é•¿åº¦ */
+        unsigned char status[2]; /* ä¸¤å­—èŠ‚çŠ¶æ€ï¼Œä¿ç•™ */
+    } end;                       /* ç»“æŸå‘½ä»¤ */
     struct
     {
-        unsigned char cmd;              /* ÃüÁîÂë 0x82 */
-        unsigned char len;              /* ºóĞøÊı¾İ³¤¶È */
-        unsigned char addr[2];          /* Ğ£ÑéµØÖ· */
-        unsigned char buf[IAP_LEN - 4]; /* Ğ£ÑéÊı¾İ */
-    } verify;                           /* Ğ£ÑéÃüÁî */
+        unsigned char cmd;              /* å‘½ä»¤ç  0x82 */
+        unsigned char len;              /* åç»­æ•°æ®é•¿åº¦ */
+        unsigned char addr[2];          /* æ ¡éªŒåœ°å€ */
+        unsigned char buf[IAP_LEN - 4]; /* æ ¡éªŒæ•°æ® */
+    } verify;                           /* æ ¡éªŒå‘½ä»¤ */
     struct
     {
-        unsigned char cmd;              /* ÃüÁîÂë 0x80 */
-        unsigned char len;              /* ºóĞøÊı¾İ³¤¶È */
-        unsigned char addr[2];          /* µØÖ· */
-        unsigned char buf[IAP_LEN - 4]; /* ºóĞøÊı¾İ */
-    } program;                          /* ±à³ÌÃüÁî */
+        unsigned char cmd;              /* å‘½ä»¤ç  0x80 */
+        unsigned char len;              /* åç»­æ•°æ®é•¿åº¦ */
+        unsigned char addr[2];          /* åœ°å€ */
+        unsigned char buf[IAP_LEN - 4]; /* åç»­æ•°æ® */
+    } program;                          /* ç¼–ç¨‹å‘½ä»¤ */
     struct
     {
-        unsigned char cmd;              /* ÃüÁîÂë 0x84 */
-        unsigned char len;              /* ºóĞøÊı¾İ³¤¶È */
-        unsigned char buf[IAP_LEN - 2]; /* ºóĞøÊı¾İ */
-    } info;                             /* ±à³ÌÃüÁî */
+        unsigned char cmd;              /* å‘½ä»¤ç  0x84 */
+        unsigned char len;              /* åç»­æ•°æ®é•¿åº¦ */
+        unsigned char buf[IAP_LEN - 2]; /* åç»­æ•°æ® */
+    } info;                             /* ç¼–ç¨‹å‘½ä»¤ */
     struct
     {
-        unsigned char buf[IAP_LEN]; /* ½ÓÊÕÊı¾İ°ü*/
+        unsigned char buf[IAP_LEN]; /* æ¥æ”¶æ•°æ®åŒ…*/
     } other;
 } OTA_IAP_CMD_t;
 
-/* ¼ÇÂ¼µ±Ç°µÄImage */
+/* è®°å½•å½“å‰çš„Image */
 extern unsigned char CurrImageFlag;
 
 #endif

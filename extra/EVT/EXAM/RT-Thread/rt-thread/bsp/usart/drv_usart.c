@@ -22,7 +22,7 @@ int usart_init(void)
 {
     rt_ringbuffer_init(&rt_uart_ringbuf, rt_uart_buffer, RT_UART_RINGBUF_SIZE);
 
-    /* еДжц╢╝©з0ё╨охеДжцIO©здёй╫ё╛тыеДжц╢╝©з */
+    /* И┘█Г╫╝Д╦╡Е▐ё0О╪ Е┘┬И┘█Г╫╝IOЕ▐ёФ╗║Е╪▐О╪▄Е├█И┘█Г╫╝Д╦╡Е▐ё */
     GPIOA_SetBits(GPIO_Pin_14);
     GPIOPinRemap(ENABLE, RB_PIN_UART0);
     GPIOA_ModeCfg(GPIO_Pin_15, GPIO_ModeIN_PU);

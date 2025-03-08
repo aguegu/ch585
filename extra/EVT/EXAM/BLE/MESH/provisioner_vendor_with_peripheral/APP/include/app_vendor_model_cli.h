@@ -35,7 +35,7 @@ extern "C" {
 #define VENDOR_MODEL_CLI_WRITE_EVT           (1 << 2)
 
 /**
- * @brief indicate »Øµ÷½á¹¹Ìå
+ * @brief indicate å›žè°ƒç»“æž„ä½“
  */
 struct bt_mesh_vendor_model_ind
 {
@@ -45,7 +45,7 @@ struct bt_mesh_vendor_model_ind
 };
 
 /**
- * @brief trans »Øµ÷½á¹¹Ìå
+ * @brief trans å›žè°ƒç»“æž„ä½“
  */
 struct bt_mesh_vendor_model_cli_trans
 {
@@ -84,7 +84,7 @@ typedef struct
 typedef void (*vendor_model_cli_rsp_handler_t)(const vendor_model_cli_status_t *val);
 
 /**
- * @brief ¼ÇÂ¼µ±Ç°·¢ËÍÊý¾Ý°üµÄtid
+ * @brief è®°å½•å½“å‰å‘é€æ•°æ®åŒ…çš„tid
  */
 struct vendor_model_cli_tid
 {
@@ -111,24 +111,24 @@ extern const struct bt_mesh_model_op vnd_model_cli_op[];
 extern const struct bt_mesh_model_cb bt_mesh_vendor_model_cli_cb;
 
 /**
- * @brief   send_trans,Í¸´«Êý¾ÝÍ¨µÀ
+ * @brief   send_trans,é€ä¼ æ•°æ®é€šé“
  *
- * @param   param   - ·¢ËÍ²ÎÊý.
- * @param   pData   - Êý¾ÝÖ¸Õë.
- * @param   len     - Êý¾Ý³¤¶È,×î´óÎª(APP_MAX_TX_SIZE).
+ * @param   param   - å‘é€å‚æ•°.
+ * @param   pData   - æ•°æ®æŒ‡é’ˆ.
+ * @param   len     - æ•°æ®é•¿åº¦,æœ€å¤§ä¸º(APP_MAX_TX_SIZE).
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 int vendor_message_cli_send_trans(struct send_param *param, uint8_t *pData, uint16_t len);
 
 /**
- * @brief   write,ÓÐÓ¦´ð´«ÊäÊý¾ÝÍ¨µÀ
+ * @brief   write,æœ‰åº”ç­”ä¼ è¾“æ•°æ®é€šé“
  *
- * @param   param   - ·¢ËÍ²ÎÊý.
- * @param   pData   - Êý¾ÝÖ¸Õë.
- * @param   len     - Êý¾Ý³¤¶È,×î´óÎª(APP_MAX_TX_SIZE).
+ * @param   param   - å‘é€å‚æ•°.
+ * @param   pData   - æ•°æ®æŒ‡é’ˆ.
+ * @param   len     - æ•°æ®é•¿åº¦,æœ€å¤§ä¸º(APP_MAX_TX_SIZE).
  *
- * @return  ²Î¿¼Global_Error_Code
+ * @return  å‚è€ƒGlobal_Error_Code
  */
 int vendor_message_cli_write(struct send_param *param, uint8_t *pData, uint16_t len);
 
@@ -140,14 +140,14 @@ int vendor_message_cli_write(struct send_param *param, uint8_t *pData, uint16_t 
 uint8_t vendor_cli_tid_get(void);
 
 /**
- * @brief   ¸´Î»³§ÉÌÄ£ÐÍ·þÎñ£¬È¡ÏûËùÓÐÕýÔÚ·¢ËÍµÄÁ÷³Ì
+ * @brief   å¤ä½åŽ‚å•†æ¨¡åž‹æœåŠ¡ï¼Œå–æ¶ˆæ‰€æœ‰æ­£åœ¨å‘é€çš„æµç¨‹
  */
 void vendor_message_cli_trans_reset(void);
 
 /**
- * @brief   ³§ÉÌÄ£ÐÍ³õÊ¼»¯
+ * @brief   åŽ‚å•†æ¨¡åž‹åˆå§‹åŒ–
  *
- * @param   model       - Ö¸Ïò³§ÉÌÄ£ÐÍ½á¹¹Ìå
+ * @param   model       - æŒ‡å‘åŽ‚å•†æ¨¡åž‹ç»“æž„ä½“
  *
  * @return  always SUCCESS
  */

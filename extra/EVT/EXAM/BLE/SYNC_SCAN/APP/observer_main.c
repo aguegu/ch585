@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/06
- * Description        : ¹Û²ìÓ¦ÓÃÖ÷º¯Êı¼°ÈÎÎñÏµÍ³³õÊ¼»¯
+ * Description        : è§‚å¯Ÿåº”ç”¨ä¸»å‡½æ•°åŠä»»åŠ¡ç³»ç»Ÿåˆå§‹åŒ–
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "CONFIG.h"
 #include "HAL.h"
 #include "observer.h"
@@ -27,7 +27,7 @@ uint8_t const MacAddr[6] = {0x84, 0xC2, 0xE4, 0x03, 0x02, 0x02};
 
 /*******************************************************************************
  * Function Name  : Main_Circulation
- * Description    : Ö÷Ñ­»·
+ * Description    : ä¸»å¾ªç¯
  * Input          : None
  * Output         : None
  * Return         : None
@@ -44,7 +44,7 @@ void Main_Circulation()
 
 /*******************************************************************************
  * Function Name  : main
- * Description    : Ö÷º¯Êı
+ * Description    : ä¸»å‡½æ•°
  * Input          : None
  * Output         : None
  * Return         : None

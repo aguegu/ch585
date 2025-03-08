@@ -29,15 +29,15 @@ extern "C" {
 #define PERIPHERAL_CMD_LEN             1
 #define ADDRESS_LEN                    2
 
-// É¾³ı½ÚµãÃüÁî£¬°üº¬ 1×Ö½ÚÃüÁîÂë+2×Ö½ÚĞèÒªÉ¾³ıµÄ½ÚµãµØÖ·
+// åˆ é™¤èŠ‚ç‚¹å‘½ä»¤ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç +2å­—èŠ‚éœ€è¦åˆ é™¤çš„èŠ‚ç‚¹åœ°å€
 #define DELETE_NODE_DATA_LEN           (PERIPHERAL_CMD_LEN + ADDRESS_LEN)
-// É¾³ı½ÚµãÃüÁîÓ¦´ğ£¬°üº¬ 1×Ö½ÚÃüÁîÂë
+// åˆ é™¤èŠ‚ç‚¹å‘½ä»¤åº”ç­”ï¼ŒåŒ…å« 1å­—èŠ‚å‘½ä»¤ç 
 #define DELETE_NODE_ACK_DATA_LEN       (PERIPHERAL_CMD_LEN)
 
 /******************************************************************************/
 
 /**
- * @brief Ô¶¶Ë½ÚµãÅäÖÃÁ÷³Ì×´Ì¬
+ * @brief è¿œç«¯èŠ‚ç‚¹é…ç½®æµç¨‹çŠ¶æ€
  */
 typedef enum
 {
@@ -50,7 +50,7 @@ typedef enum
 } node_stage_t;
 
 /**
- * @brief ±¾µØ½ÚµãÅäÖÃÁ÷³Ì×´Ì¬
+ * @brief æœ¬åœ°èŠ‚ç‚¹é…ç½®æµç¨‹çŠ¶æ€
  */
 typedef enum
 {
@@ -62,7 +62,7 @@ typedef enum
 } local_stage_t;
 
 /**
- * @brief ½ÚµãÅäÖÃÁ÷³Ì×éºÏÌå
+ * @brief èŠ‚ç‚¹é…ç½®æµç¨‹ç»„åˆä½“
  */
 typedef union
 {
@@ -74,7 +74,7 @@ typedef void (*cfg_rsp_handler_t)(void *node, const void *rsp);
 typedef BOOL (*stage_handler_t)(void *node);
 
 /**
- * @brief ½ÚµãÅäÖÃÁ÷³Ì»Øµ÷
+ * @brief èŠ‚ç‚¹é…ç½®æµç¨‹å›è°ƒ
  */
 typedef struct
 {
@@ -83,7 +83,7 @@ typedef struct
 } cfg_cb_t;
 
 /**
- * @brief ÅäÖÃ½ÚµãµÄ½á¹¹Ìå
+ * @brief é…ç½®èŠ‚ç‚¹çš„ç»“æ„ä½“
  */
 typedef struct
 {
@@ -102,16 +102,16 @@ typedef union
 {
     struct
     {
-        uint8_t cmd;                /* ÃüÁîÂë CMD_DELETE_NODE */
-        uint8_t addr[ADDRESS_LEN];  /* ²Á³ıµØÖ· */
-    } delete_node;                  /* É¾³ı½ÚµãÃüÁî */
+        uint8_t cmd;                /* å‘½ä»¤ç  CMD_DELETE_NODE */
+        uint8_t addr[ADDRESS_LEN];  /* æ“¦é™¤åœ°å€ */
+    } delete_node;                  /* åˆ é™¤èŠ‚ç‚¹å‘½ä»¤ */
     struct
     {
-        uint8_t cmd;                /* ÃüÁîÂë CMD_DELETE_NODE_ACK */
-    } delete_node_ack;              /* É¾³ı½ÚµãÃüÁîÓ¦´ğ */
+        uint8_t cmd;                /* å‘½ä»¤ç  CMD_DELETE_NODE_ACK */
+    } delete_node_ack;              /* åˆ é™¤èŠ‚ç‚¹å‘½ä»¤åº”ç­” */
     struct
     {
-        uint8_t buf[20]; /* ½ÓÊÕÊı¾İ°ü*/
+        uint8_t buf[20]; /* æ¥æ”¶æ•°æ®åŒ…*/
     } data;
 }app_mesh_manage_t;
 
@@ -122,7 +122,7 @@ extern const uint32_t self_prov_iv_index;
 extern const uint16_t self_prov_addr;
 
 /**
- * @brief   Ó¦ÓÃ²ã³õÊ¼»¯
+ * @brief   åº”ç”¨å±‚åˆå§‹åŒ–
  */
 void App_Init(void);
 

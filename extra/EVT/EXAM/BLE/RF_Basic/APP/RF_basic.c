@@ -3,26 +3,26 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2024/08/15
- * Description        : 2.4G¿â»ù±¾Ä£Ê½ÊÕ·¢²âÊÔÀı³Ì
+ * Description        : 2.4Gåº“åŸºæœ¬æ¨¡å¼æ”¶å‘æµ‹è¯•ä¾‹ç¨‹
  *
- *                      ¹¦ÂÊÉèÖÃ
+ *                      åŠŸç‡è®¾ç½®
  *                      RFIP_SetTxPower
- *                      1. Ö§³Ö-20dBm ~ 4dBm ¶¯Ì¬µ÷Õû
+ *                      1. æ”¯æŒ-20dBm ~ 4dBm åŠ¨æ€è°ƒæ•´
  *
- *                      ·¢ËÍ×´Ì¬ÇĞ»»ÎÈ¶¨Ê±¼ä
+ *                      å‘é€çŠ¶æ€åˆ‡æ¢ç¨³å®šæ—¶é—´
  *                      RFIP_SetTxDelayTime
- *                      1.Èç¹ûĞèÒªÇĞ»»Í¨µÀ·¢ËÍ£¬ÎÈ¶¨Ê±¼ä²»µÍÓÚ80us
+ *                      1.å¦‚æœéœ€è¦åˆ‡æ¢é€šé“å‘é€ï¼Œç¨³å®šæ—¶é—´ä¸ä½äº80us
  *
- *                      »ñÈ¡ĞÅºÅÇ¿¶È
+ *                      è·å–ä¿¡å·å¼ºåº¦
  *                      RFIP_ReadRssi
- *                      1.¿É¶ÁÈ¡µ±Ç°Êı¾İ°üµÄRSSIÖµ
+ *                      1.å¯è¯»å–å½“å‰æ•°æ®åŒ…çš„RSSIå€¼
  *
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * SPDX-License-Identifier: Apache-2.0
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "rf_test.h"
 #include "hal.h"
 
@@ -38,23 +38,23 @@ rfipTx_t gTxParam;
 rfipRx_t gRxParam;
 
 __attribute__((__aligned__(4))) uint8_t TxBuf[64];
-__attribute__((__aligned__(4))) uint8_t RxBuf[264]; // ½ÓÊÕDMA buf²»ÄÜĞ¡ÓÚ264×Ö½Ú
+__attribute__((__aligned__(4))) uint8_t RxBuf[264]; // æ¥æ”¶DMA bufä¸èƒ½å°äº264å­—èŠ‚
 
 #define  MODE_RX     0
 #define  MODE_TX     1
 
 
-#define  WAIT_ACK         0               // ÊÇ·ñÊ¹ÄÜACK
-#define  TEST_DATA_LEN    4               // Êı¾İ³¤¶È
-#define  TEST_FREQUENCY   16              // Í¨ĞÅÆµµã
+#define  WAIT_ACK         0               // æ˜¯å¦ä½¿èƒ½ACK
+#define  TEST_DATA_LEN    4               // æ•°æ®é•¿åº¦
+#define  TEST_FREQUENCY   16              // é€šä¿¡é¢‘ç‚¹
 
-#define  TEST_MODE     MODE_TX            // ·¢ËÍÄ£Ê½
-//#define  TEST_MODE     MODE_RX            // ½ÓÊÕÄ£Ê½
+#define  TEST_MODE     MODE_TX            // å‘é€æ¨¡å¼
+//#define  TEST_MODE     MODE_RX            // æ¥æ”¶æ¨¡å¼
 
 #if WAIT_ACK
-#define  RF_DEVICE_PERIDOC    4000        // µÈ´ıACKÄ£Ê½µÄ·¢ËÍËÙÂÊ
+#define  RF_DEVICE_PERIDOC    4000        // ç­‰å¾…ACKæ¨¡å¼çš„å‘é€é€Ÿç‡
 #else
-#define  RF_DEVICE_PERIDOC    8000        // ÎŞĞèACKÄ£Ê½µÄ·¢ËÍËÙÂÊ
+#define  RF_DEVICE_PERIDOC    8000        // æ— éœ€ACKæ¨¡å¼çš„å‘é€é€Ÿç‡
 #endif
 
 int8_t gRssi;
@@ -63,11 +63,11 @@ int8_t gRssiAverage;
 uint32_t gTxCount;
 uint32_t gRxCount;
 
-/******************************** ·¢ËÍÏà¹Øº¯Êı ********************************/
+/******************************** å‘é€ç›¸å…³å‡½æ•° ********************************/
 /**
- * @brief   ÅäÖÃ·¢ËÍµÄÆµµã
+ * @brief   é…ç½®å‘é€çš„é¢‘ç‚¹
  *
- * @param   channel_num - ĞèÒªÇĞ»»µÄÍ¨µÀ
+ * @param   channel_num - éœ€è¦åˆ‡æ¢çš„é€šé“
  *
  * @return  None.
  */
@@ -78,9 +78,9 @@ void rf_tx_set_channel( uint8_t channel_num )
 }
 
 /**
- * @brief   ÅäÖÃ·¢ËÍµÄµØÖ·
+ * @brief   é…ç½®å‘é€çš„åœ°å€
  *
- * @param   sync_word - ĞèÒªÅäÖÃµÄ½ÓÈëµØÖ·
+ * @param   sync_word - éœ€è¦é…ç½®çš„æ¥å…¥åœ°å€
  *
  * @return  None.
  */
@@ -91,9 +91,9 @@ void rf_tx_set_sync_word( uint32_t sync_word )
 }
 
 /**
- * @brief   rf·¢ËÍÊı¾İ×Ó³ÌĞò
+ * @brief   rfå‘é€æ•°æ®å­ç¨‹åº
  *
- * @param   pBuf - ·¢ËÍµÄDMAµØÖ·
+ * @param   pBuf - å‘é€çš„DMAåœ°å€
  *
  * @return  None.
  */
@@ -101,20 +101,20 @@ __HIGH_CODE
 void rf_tx_start( uint8_t *pBuf )
 {
     RFIP_SetTxStart( );
-    // ÅäÖÃ·¢ËÍµÄÆµµã
+    // é…ç½®å‘é€çš„é¢‘ç‚¹
     gTxParam.frequency = TEST_FREQUENCY;
-    // ·¢ËÍµÄDMAµØÖ·
+    // å‘é€çš„DMAåœ°å€
     gTxParam.txDMA = (uint32_t)pBuf;
-//    gTxParam.accessAddress = gParm.accessAddress; // ·¢ËÍÍ¬²½×Ö
-//    gTxParam.sendCount = 1;  // ·¢ËÍ´ÎÊı
+//    gTxParam.accessAddress = gParm.accessAddress; // å‘é€åŒæ­¥å­—
+//    gTxParam.sendCount = 1;  // å‘é€æ¬¡æ•°
     RFIP_SetTxParm( &gTxParam );
 }
 
-/******************************** ½ÓÊÕÏà¹Øº¯Êı ********************************/
+/******************************** æ¥æ”¶ç›¸å…³å‡½æ•° ********************************/
 /**
- * @brief   ÅäÖÃ½ÓÊÕµÄµØÖ·
+ * @brief   é…ç½®æ¥æ”¶çš„åœ°å€
  *
- * @param   sync_word - ĞèÒªÅäÖÃµÄ½ÓÈëµØÖ·
+ * @param   sync_word - éœ€è¦é…ç½®çš„æ¥å…¥åœ°å€
  *
  * @return  None.
  */
@@ -125,9 +125,9 @@ void rf_rx_set_sync_word( uint32_t sync_word )
 }
 
 /**
- * @brief   ÅäÖÃ½ÓÊÕµÄÆµµã
+ * @brief   é…ç½®æ¥æ”¶çš„é¢‘ç‚¹
  *
- * @param   channel_num - ĞèÒªÇĞ»»µÄÍ¨µÀ
+ * @param   channel_num - éœ€è¦åˆ‡æ¢çš„é€šé“
  *
  * @return  None.
  */
@@ -138,7 +138,7 @@ void rf_rx_set_channel( uint8_t channel_num )
 }
 
 /**
- * @brief   rf½ÓÊÕÊı¾İ×Ó³ÌĞò
+ * @brief   rfæ¥æ”¶æ•°æ®å­ç¨‹åº
  *
  * @param   None.
  *
@@ -147,16 +147,16 @@ void rf_rx_set_channel( uint8_t channel_num )
 __HIGH_CODE
 void rf_rx_start( void )
 {
-    // ÅäÖÃ·¢ËÍµÄÆµµã
+    // é…ç½®å‘é€çš„é¢‘ç‚¹
     gRxParam.frequency = TEST_FREQUENCY;
-    // ÅäÖÃ½ÓÊÕµÄ³¬Ê±Ê±¼ä£¬0ÔòÎŞ³¬Ê±
+    // é…ç½®æ¥æ”¶çš„è¶…æ—¶æ—¶é—´ï¼Œ0åˆ™æ— è¶…æ—¶
     gRxParam.timeOut = 0;
-//    gRxParam.accessAddress = gParm.accessAddress; // ½ÓÊÕÍ¬²½×Ö
+//    gRxParam.accessAddress = gParm.accessAddress; // æ¥æ”¶åŒæ­¥å­—
     RFIP_SetRx( &gRxParam );
 }
 
 /**
- * @brief   rf½ÓÊÕÊı¾İ´¦Àí
+ * @brief   rfæ¥æ”¶æ•°æ®å¤„ç†
  *
  * @param   None.
  *
@@ -165,7 +165,7 @@ void rf_rx_start( void )
 __HIGH_CODE
 void rf_rx_process_data( void )
 {
-    // »ñÈ¡ĞÅºÅÇ¿¶È
+    // è·å–ä¿¡å·å¼ºåº¦
     gRssi = RFIP_ReadRssi();
     if( !gRssiAverage ) gRssiAverage =  gRssi;
     else gRssiAverage = (gRssi+gRssiAverage)/2;
@@ -179,10 +179,10 @@ void rf_rx_process_data( void )
 /*******************************************************************************
  * @fn      RF_ProcessCallBack
  *
- * @brief   rfÖĞ¶Ï´¦Àí³ÌĞò
+ * @brief   rfä¸­æ–­å¤„ç†ç¨‹åº
  *
- * @param   sta - ÖĞ¶Ï×´Ì¬.
- *          id - ±£Áô
+ * @param   sta - ä¸­æ–­çŠ¶æ€.
+ *          id - ä¿ç•™
  *
  * @return  None.
  */
@@ -229,7 +229,7 @@ void RF_ProcessCallBack( rfRole_States_t sta,uint8_t id  )
 /*******************************************************************************
  * @fn      RF_ProcessEvent
  *
- * @brief   RF²ãÏµÍ³ÈÎÎñ´¦Àí
+ * @brief   RFå±‚ç³»ç»Ÿä»»åŠ¡å¤„ç†
  *
  * @param   None.
  *
@@ -275,18 +275,18 @@ tmosEvents RFRole_ProcessEvent( tmosTaskID task_id, tmosEvents events )
 /*********************************************************************
  * @fn      TMR0_IRQHandler
  *
- * @brief   TMR0ÖĞ¶Ïº¯Êı
+ * @brief   TMR0ä¸­æ–­å‡½æ•°
  *
  * @return  none
  */
 __INTERRUPT
 __HIGH_CODE
-void TMR0_IRQHandler(void) // TMR0 ¶¨Ê±ÖĞ¶Ï
+void TMR0_IRQHandler(void) // TMR0 å®šæ—¶ä¸­æ–­
 {
     if(TMR0_GetITFlag(TMR0_3_IT_CYC_END))
     {
-        TMR0_ClearITFlag(TMR0_3_IT_CYC_END); // Çå³ıÖĞ¶Ï±êÖ¾
-        // ³õÊ¼»¯·¢ËÍµÄÊı¾İ
+        TMR0_ClearITFlag(TMR0_3_IT_CYC_END); // æ¸…é™¤ä¸­æ–­æ ‡å¿—
+        // åˆå§‹åŒ–å‘é€çš„æ•°æ®
         TxBuf[0] = 0x55;
         TxBuf[1] = TEST_DATA_LEN;
         TxBuf[2]++;
@@ -298,7 +298,7 @@ void TMR0_IRQHandler(void) // TMR0 ¶¨Ê±ÖĞ¶Ï
 /*******************************************************************************
  * @fn      RFRole_Init
  *
- * @brief   RFÓ¦ÓÃ²ã³õÊ¼»¯
+ * @brief   RFåº”ç”¨å±‚åˆå§‹åŒ–
  *
  * @param   None.
  *
@@ -318,15 +318,15 @@ void RFRole_Init(void)
     {
         gParm.accessAddress = 0x71762345;
         gParm.crcInit = 0x555555;
-        // ÅäÖÃPHYÀàĞÍ
+        // é…ç½®PHYç±»å‹
         gParm.properties = LLE_MODE_PHY_2M;
-        // ÅäÖÃÖØ´«¼ä¸ô£¬·¢ËÍ´ÎÊı´óÓÚ1Ê±ÓĞĞ§
+        // é…ç½®é‡ä¼ é—´éš”ï¼Œå‘é€æ¬¡æ•°å¤§äº1æ—¶æœ‰æ•ˆ
         gParm.sendInterval = 1999*2;
-        // ÅäÖÃ·¢ËÍÎÈ¶¨Ê±¼ä
+        // é…ç½®å‘é€ç¨³å®šæ—¶é—´
         gParm.sendTime = 10*2;
         RFRole_SetParam( &gParm );
     }
-    // TXÏà¹Ø²ÎÊı£¬È«¾Ö±äÁ¿
+    // TXç›¸å…³å‚æ•°ï¼Œå…¨å±€å˜é‡
     {
         gTxParam.accessAddress = gParm.accessAddress;
         gTxParam.crcInit = gParm.crcInit;
@@ -334,7 +334,7 @@ void RFRole_Init(void)
         gTxParam.sendCount = 1;
         gTxParam.txDMA = (uint32_t)TxBuf;
     }
-    // RXÏà¹Ø²ÎÊı£¬È«¾Ö±äÁ¿
+    // RXç›¸å…³å‚æ•°ï¼Œå…¨å±€å˜é‡
     {
         gRxParam.accessAddress = gParm.accessAddress;
         gRxParam.crcInit = gParm.crcInit;
@@ -360,7 +360,7 @@ void RFRole_Init(void)
     gRxCount = 0;
     tmos_start_reload_task(rfTaskID, RF_TEST_TX_EVENT, MS1_TO_SYSTEM_TIME(1000));
     TMR0_TimerInit( GetSysClock() / RF_DEVICE_PERIDOC );
-    TMR0_ITCfg(ENABLE, TMR0_3_IT_CYC_END); // ¿ªÆôÖĞ¶Ï
+    TMR0_ITCfg(ENABLE, TMR0_3_IT_CYC_END); // å¼€å¯ä¸­æ–­
 #endif
     PFIC_SetPriority( TMR0_IRQn, 0x80 );
     PFIC_EnableIRQ(TMR0_IRQn);

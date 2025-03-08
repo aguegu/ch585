@@ -3,7 +3,7 @@
 * Author             : WCH
 * Version            : V1.0
 * Date               : 2024/11/20
-* Description        : LEDÀı×Ó
+* Description        : LEDä¾‹å­
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for
@@ -15,13 +15,13 @@
 
 __attribute__((__aligned__(4))) uint32_t tx_data[8] = {0x01020408,0x10204080,0x03,0x04,0x05,0x06,0x07,0x08};
 
-#define  LSB_HSB         0           // LED´®ĞĞÊı¾İÎ»Ğò, 1:¸ßÎ»ÔÚÇ°;  0:µÍÎ»ÔÚÇ°
-#define  POLAR           0           // LEDÊı¾İÊä³ö¼«ĞÔ, 0:Ö±Í¨£¬Êı¾İ0Êä³ö0£¬Êı¾İ1Êä³ö1; 1Îª·´Ïà
+#define  LSB_HSB         0           // LEDä¸²è¡Œæ•°æ®ä½åº, 1:é«˜ä½åœ¨å‰;  0:ä½ä½åœ¨å‰
+#define  POLAR           0           // LEDæ•°æ®è¾“å‡ºææ€§, 0:ç›´é€šï¼Œæ•°æ®0è¾“å‡º0ï¼Œæ•°æ®1è¾“å‡º1; 1ä¸ºåç›¸
 
 /*********************************************************************
  * @fn      DebugInit
  *
- * @brief   µ÷ÊÔ³õÊ¼»¯
+ * @brief   è°ƒè¯•åˆå§‹åŒ–
  *
  * @return  none
  */
@@ -37,7 +37,7 @@ void DebugInit(void)
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -45,7 +45,7 @@ int main()
 {
     HSECFG_Capacitance(HSECap_18p);
     SetSysClock(CLK_SOURCE_HSE_PLL_62_4MHz);
-    /* ÅäÖÃ´®¿Úµ÷ÊÔ */
+    /* é…ç½®ä¸²å£è°ƒè¯• */
     DebugInit();
     PRINT( "Start @ChipID=%02X\n", R8_CHIP_ID );
 
@@ -71,10 +71,10 @@ int main()
     GPIOA_ModeCfg( GPIO_Pin_8 , GPIO_ModeOut_PP_5mA );
 
 
-    //ÅäÖÃ·ÖÆµºÍÄ£Ê½Ñ¡Ôñ
+    //é…ç½®åˆ†é¢‘å’Œæ¨¡å¼é€‰æ‹©
     ch58x_led_controller_init(CH58X_LED_OUT_MODE_FOUR_EXT, 128);
 
-    //¿ªÊ¼·¢ËÍ,ºóÃæÔÙ·¢ËÍ¾ÍÔÚÖĞ¶ÏÀïÃæ·¢ËÍÁË
+    //å¼€å§‹å‘é€,åé¢å†å‘é€å°±åœ¨ä¸­æ–­é‡Œé¢å‘é€äº†
     R32_LED_DMA_BEG = ((uint32_t)(tx_data)& RB_LED_DMA_BEG);
     R16_LED_DMA_LEN = 2;
     R8_LED_CTRL_MOD |= RB_LED_DMA_EN;
@@ -83,7 +83,7 @@ int main()
     R8_LED_CTRL_MOD ^= RB_LED_BIT_ORDER;
 #endif
 
-#if POLAR     //¼«ĞÔ
+#if POLAR     //ææ€§
     R8_LED_CTRL_MOD ^= RB_LED_OUT_POLAR;
 #endif
 
@@ -96,7 +96,7 @@ int main()
 /*********************************************************************
  * @fn      LED_IRQHandler
  *
- * @brief   LEDÖĞ¶Ïº¯Êı
+ * @brief   LEDä¸­æ–­å‡½æ•°
  *
  * @return  none
  */
@@ -104,7 +104,7 @@ __INTERRUPT
 __HIGH_CODE
 void LED_IRQHandler(void)
 {
-    //Çå¿ÕÖĞ¶Ï±êÖ¾
+    //æ¸…ç©ºä¸­æ–­æ ‡å¿—
     uint16_t LED_status;
     LED_status = R16_LED_STATUS;
     R16_LED_STATUS = LED_status;

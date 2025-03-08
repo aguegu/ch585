@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2020/08/06
- * Description        : FALSH¶ÁĞ´Àı³Ì
+ * Description        : FALSHè¯»å†™ä¾‹ç¨‹
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -18,7 +18,7 @@ IAPDataFlashInfo_t p_image_flash;
 /*********************************************************************
  * @fn      mySetSysClock
  *
- * @brief   ÅäÖÃÏµÍ³ÔËĞĞÊ±ÖÓ60Mhz, 0x48
+ * @brief   é…ç½®ç³»ç»Ÿè¿è¡Œæ—¶é’Ÿ60Mhz, 0x48
  *
  * @param   none
  *
@@ -50,7 +50,7 @@ void mySetSysClock()
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -68,7 +68,7 @@ int main()
         jumpApp();
     }
 #else
-    //³õÊ¼»¯Òı½ÅÎªÉÏÀ­ÊäÈë¡£ÎªÁË¼õĞ¡³ÌĞò´óĞ¡£¬²ÉÓÃ¼Ä´æÆ÷±àĞ´¡£
+    //åˆå§‹åŒ–å¼•è„šä¸ºä¸Šæ‹‰è¾“å…¥ã€‚ä¸ºäº†å‡å°ç¨‹åºå¤§å°ï¼Œé‡‡ç”¨å¯„å­˜å™¨ç¼–å†™ã€‚
     R32_PB_PD_DRV &= ~GPIO_Pin_4;
     R32_PB_PU |= GPIO_Pin_4;
     R32_PB_DIR &= ~GPIO_Pin_4;
@@ -79,16 +79,16 @@ int main()
         DelayMs(5);
         if (GPIOB_ReadPortPin(GPIO_Pin_4))
         {
-            //Æô¶¯Ç°ÅĞ¶ÏÊÇ·ñ½øÈëiap
+            //å¯åŠ¨å‰åˆ¤æ–­æ˜¯å¦è¿›å…¥iap
             jumpApp();
         }
     }
 #endif
 
-    /* uart³õÊ¼»¯£¬¸ù¾İĞèÒª¸ü¸Ä³É×Ô¼ºµÄuart */
+    /* uartåˆå§‹åŒ–ï¼Œæ ¹æ®éœ€è¦æ›´æ”¹æˆè‡ªå·±çš„uart */
     GPIOA_SetBits( bTXD1 );
 
-    /* ÎªÁË½ÚÔ¼´úÂë¿Õ¼ä£¬³õÊ¼»¯¾¡Á¿¶¼Ê¹ÓÃ¼Ä´æÆ÷ */
+    /* ä¸ºäº†èŠ‚çº¦ä»£ç ç©ºé—´ï¼Œåˆå§‹åŒ–å°½é‡éƒ½ä½¿ç”¨å¯„å­˜å™¨ */
     R32_PA_PD_DRV &= ((~bTXD1) & (~bRXD1));
     /* GPIOA_ModeCfg( bTXD1, GPIO_ModeOut_PP_5mA ); */
     //R32_PA_PD_DRV &= ~bTXD1;
@@ -100,7 +100,7 @@ int main()
     R32_PA_DIR    &= ~bRXD1;
 
     UART1_BaudRateCfg( 115200 );
-    R8_UART1_FCR = (2<<6) | RB_FCR_TX_FIFO_CLR | RB_FCR_RX_FIFO_CLR | RB_FCR_FIFO_EN;   // FIFO´ò¿ª£¬´¥·¢µã4×Ö½Ú
+    R8_UART1_FCR = (2<<6) | RB_FCR_TX_FIFO_CLR | RB_FCR_RX_FIFO_CLR | RB_FCR_FIFO_EN;   // FIFOæ‰“å¼€ï¼Œè§¦å‘ç‚¹4å­—èŠ‚
     R8_UART1_LCR = RB_LCR_WORD_SZ;
     R8_UART1_IER = RB_IER_TXD_EN;
     R8_UART1_DIV = 1;

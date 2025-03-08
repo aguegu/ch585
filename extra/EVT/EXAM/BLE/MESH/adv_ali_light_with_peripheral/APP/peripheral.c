@@ -3,8 +3,8 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/12/10
- * Description        : ÍâÉè´Ó»ú¶àÁ¬½ÓÓ¦ÓÃ³ÌĞò£¬³õÊ¼»¯¹ã²¥Á¬½Ó²ÎÊı£¬È»ºó¹ã²¥£¬Á¬½ÓÖ÷»úºó£¬
- *                      ÇëÇó¸üĞÂÁ¬½Ó²ÎÊı£¬Í¨¹ı×Ô¶¨Òå·şÎñ´«ÊäÊı¾İ
+ * Description        : å¤–è®¾ä»æœºå¤šè¿æ¥åº”ç”¨ç¨‹åºï¼Œåˆå§‹åŒ–å¹¿æ’­è¿æ¥å‚æ•°ï¼Œç„¶åå¹¿æ’­ï¼Œè¿æ¥ä¸»æœºåï¼Œ
+ *                      è¯·æ±‚æ›´æ–°è¿æ¥å‚æ•°ï¼Œé€šè¿‡è‡ªå®šä¹‰æœåŠ¡ä¼ è¾“æ•°æ®
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -26,8 +26,8 @@
 /*********************************************************************
  * MACROS
  */
-extern uint16_t led_color;      //·¶Î§ 992¡ª¡ª20000
-extern uint16_t led_lightness;  //·¶Î§ 655¡ª¡ª65535
+extern uint16_t led_color;      //èŒƒå›´ 992â€”â€”20000
+extern uint16_t led_lightness;  //èŒƒå›´ 655â€”â€”65535
 /*********************************************************************
  * CONSTANTS
  */
@@ -636,37 +636,37 @@ static void simpleProfileChangeCB(uint8_t paramID, uint8_t *pValue, uint16_t len
         {
             uint8_t newValue[SIMPLEPROFILE_CHAR1_LEN];
             tmos_memcpy(newValue, pValue, len);
-            // ÊÕµ½CHAR1Êı¾İ£¬·­×ªµÆ×´Ì¬
-            PRINT("¼üÖµ£º%d\n", newValue[0]);
+            // æ”¶åˆ°CHAR1æ•°æ®ï¼Œç¿»è½¬ç¯çŠ¶æ€
+            PRINT("é”®å€¼ï¼š%d\n", newValue[0]);
 
             switch(newValue[0])
             {
-                case 0x00:      //¿ª¹Ø°´¼ü´¥·¢
+                case 0x00:      //å¼€å…³æŒ‰é”®è§¦å‘
                 {
-                    toggle_led_state(MSG_PIN);      //·­×ª¿ª¹Ø
+                    toggle_led_state(MSG_PIN);      //ç¿»è½¬å¼€å…³
                     break;
                 }
 
-                case 0x01:      //ÁÁ¶È°´¼ü´¥·¢
+                case 0x01:      //äº®åº¦æŒ‰é”®è§¦å‘
                 {
                     if(read_led_state(MSG_PIN))
                     {
                         if(led_lightness <= 64886) led_lightness += 649;
                         else led_lightness = 655;
 
-                        set_led_lightness(MSG_PIN, led_lightness);      //ÉèÖÃÁÁ¶È
+                        set_led_lightness(MSG_PIN, led_lightness);      //è®¾ç½®äº®åº¦
                     }
                     break;
                 }
 
-                case 0x02:      //É«ÎÂ°´¼ü´¥·¢
+                case 0x02:      //è‰²æ¸©æŒ‰é”®è§¦å‘
                 {
                     if(read_led_state(MSG_PIN))
                     {
                         if(led_color >= 1178) led_color -= 190;
                         else led_color = 19616;
 
-                        set_led_color(MSG_PIN, led_color);      //ÉèÖÃÉ«ÎÂ
+                        set_led_color(MSG_PIN, led_color);      //è®¾ç½®è‰²æ¸©
                     }
                     break;
 
@@ -675,11 +675,11 @@ static void simpleProfileChangeCB(uint8_t paramID, uint8_t *pValue, uint16_t len
                     break;
             }
 
-            send_led_state();           //·¢ËÍµÆµÄËùÓĞ×´Ì¬µ½ÌìÃ¨¾«Áé
+            send_led_state();           //å‘é€ç¯çš„æ‰€æœ‰çŠ¶æ€åˆ°å¤©çŒ«ç²¾çµ
 
             PRINT("profile ChangeCB CHAR1.. \n");
-            PRINT("ÁÁ¶ÈChange : %d\t", led_lightness);
-            PRINT("É«ÎÂChange: %d\n", led_color);
+            PRINT("äº®åº¦Change : %d\t", led_lightness);
+            PRINT("è‰²æ¸©Change: %d\n", led_color);
             break;
         }
 
@@ -687,7 +687,7 @@ static void simpleProfileChangeCB(uint8_t paramID, uint8_t *pValue, uint16_t len
         {
             uint8_t newValue[SIMPLEPROFILE_CHAR3_LEN];
             tmos_memcpy(newValue, pValue, len);
-            // ÊÕµ½CHAR3Êı¾İ£¬ÖØÖÃmeshÍøÂç
+            // æ”¶åˆ°CHAR3æ•°æ®ï¼Œé‡ç½®meshç½‘ç»œ
             send_reset_indicate();
             PRINT("profile ChangeCB CHAR3..\n");
             break;

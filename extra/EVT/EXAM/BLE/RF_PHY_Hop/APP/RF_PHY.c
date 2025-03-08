@@ -11,7 +11,7 @@
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "CONFIG.h"
 #include "RF_PHY.h"
 #include "HAL.h"
@@ -28,7 +28,7 @@ volatile uint8_t rx_end_flag=0;
 /*********************************************************************
  * @fn      RF_Wait_Tx_End
  *
- * @brief   ÊÖ¶¯Ä£Ê½µÈ´ı·¢ËÍÍê³É£¬×Ô¶¯Ä£Ê½µÈ´ı·¢ËÍ-½ÓÊÕÍê³É£¬±ØĞëÔÚRAMÖĞµÈ´ı£¬µÈ´ıÊ±¿ÉÒÔÖ´ĞĞÓÃ»§´úÂë£¬µ«ĞèÒª×¢ÒâÖ´ĞĞµÄ´úÂë±ØĞëÔËĞĞÔÚRAMÖĞ£¬·ñÔòÓ°Ïì·¢ËÍ
+ * @brief   æ‰‹åŠ¨æ¨¡å¼ç­‰å¾…å‘é€å®Œæˆï¼Œè‡ªåŠ¨æ¨¡å¼ç­‰å¾…å‘é€-æ¥æ”¶å®Œæˆï¼Œå¿…é¡»åœ¨RAMä¸­ç­‰å¾…ï¼Œç­‰å¾…æ—¶å¯ä»¥æ‰§è¡Œç”¨æˆ·ä»£ç ï¼Œä½†éœ€è¦æ³¨æ„æ‰§è¡Œçš„ä»£ç å¿…é¡»è¿è¡Œåœ¨RAMä¸­ï¼Œå¦åˆ™å½±å“å‘é€
  *
  * @return  none
  */
@@ -42,7 +42,7 @@ void RF_Wait_Tx_End()
         i++;
         __nop();
         __nop();
-        // Ô¼5ms³¬Ê±
+        // çº¦5msè¶…æ—¶
         if(i>(FREQ_SYS/1000))
         {
             tx_end_flag = TRUE;
@@ -53,7 +53,7 @@ void RF_Wait_Tx_End()
 /*********************************************************************
  * @fn      RF_Wait_Rx_End
  *
- * @brief   ×Ô¶¯Ä£Ê½µÈ´ıÓ¦´ğ·¢ËÍÍê³É£¬±ØĞëÔÚRAMÖĞµÈ´ı£¬µÈ´ıÊ±¿ÉÒÔÖ´ĞĞÓÃ»§´úÂë£¬µ«ĞèÒª×¢ÒâÖ´ĞĞµÄ´úÂë±ØĞëÔËĞĞÔÚRAMÖĞ£¬·ñÔòÓ°Ïì·¢ËÍ
+ * @brief   è‡ªåŠ¨æ¨¡å¼ç­‰å¾…åº”ç­”å‘é€å®Œæˆï¼Œå¿…é¡»åœ¨RAMä¸­ç­‰å¾…ï¼Œç­‰å¾…æ—¶å¯ä»¥æ‰§è¡Œç”¨æˆ·ä»£ç ï¼Œä½†éœ€è¦æ³¨æ„æ‰§è¡Œçš„ä»£ç å¿…é¡»è¿è¡Œåœ¨RAMä¸­ï¼Œå¦åˆ™å½±å“å‘é€
  *
  * @return  none
  */
@@ -67,7 +67,7 @@ void RF_Wait_Rx_End()
         i++;
         __nop();
         __nop();
-        // Ô¼5ms³¬Ê±
+        // çº¦5msè¶…æ—¶
         if(i>(FREQ_SYS/1000))
         {
             rx_end_flag = TRUE;
@@ -78,12 +78,12 @@ void RF_Wait_Rx_End()
 /*********************************************************************
  * @fn      RF_2G4StatusCallBack
  *
- * @brief   RF ×´Ì¬»Øµ÷£¬´Ëº¯ÊıÔÚÖĞ¶ÏÖĞµ÷ÓÃ¡£×¢Òâ£º²»¿ÉÔÚ´Ëº¯ÊıÖĞÖ±½Óµ÷ÓÃRF½ÓÊÕ»òÕß·¢ËÍAPI£¬ĞèÒªÊ¹ÓÃÊÂ¼şµÄ·½Ê½µ÷ÓÃ
- *          ÔÚ´Ë»Øµ÷ÖĞÖ±½ÓÊ¹ÓÃ»òµ÷ÓÃº¯ÊıÉæ¼°µ½µÄ±äÁ¿Ğè×¢Òâ£¬´Ëº¯ÊıÔÚÖĞ¶ÏÖĞµ÷ÓÃ¡£
+ * @brief   RF çŠ¶æ€å›è°ƒï¼Œæ­¤å‡½æ•°åœ¨ä¸­æ–­ä¸­è°ƒç”¨ã€‚æ³¨æ„ï¼šä¸å¯åœ¨æ­¤å‡½æ•°ä¸­ç›´æ¥è°ƒç”¨RFæ¥æ”¶æˆ–è€…å‘é€APIï¼Œéœ€è¦ä½¿ç”¨äº‹ä»¶çš„æ–¹å¼è°ƒç”¨
+ *          åœ¨æ­¤å›è°ƒä¸­ç›´æ¥ä½¿ç”¨æˆ–è°ƒç”¨å‡½æ•°æ¶‰åŠåˆ°çš„å˜é‡éœ€æ³¨æ„ï¼Œæ­¤å‡½æ•°åœ¨ä¸­æ–­ä¸­è°ƒç”¨ã€‚
  *
- * @param   sta     - ×´Ì¬ÀàĞÍ
- * @param   crc     - crcĞ£Ñé½á¹û
- * @param   rxBuf   - Êı¾İbufÖ¸Õë
+ * @param   sta     - çŠ¶æ€ç±»å‹
+ * @param   crc     - crcæ ¡éªŒç»“æœ
+ * @param   rxBuf   - æ•°æ®bufæŒ‡é’ˆ
  *
  * @return  none
  */
@@ -185,12 +185,12 @@ void RF_2G4StatusCallBack(uint8_t sta, uint8_t crc, uint8_t *rxBuf)
 /*********************************************************************
  * @fn      RF_ProcessEvent
  *
- * @brief   RF ÊÂ¼ş´¦Àí
+ * @brief   RF äº‹ä»¶å¤„ç†
  *
- * @param   task_id - ÈÎÎñID
- * @param   events  - ÊÂ¼ş±êÖ¾
+ * @param   task_id - ä»»åŠ¡ID
+ * @param   events  - äº‹ä»¶æ ‡å¿—
  *
- * @return  Î´Íê³ÉÊÂ¼ş
+ * @return  æœªå®Œæˆäº‹ä»¶
  */
 uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
 {
@@ -232,7 +232,7 @@ uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
         state = RF_Rx(TX_DATA, 10, 0xFF, 0xFF);
         return events ^ SBP_RF_RF_RX_EVT;
     }
-    // ¿ªÆôÌøÆµ·¢ËÍ
+    // å¼€å¯è·³é¢‘å‘é€
     if(events & SBP_RF_CHANNEL_HOP_TX_EVT)
     {
         PRINT("\n------------- hop tx...\n");
@@ -246,7 +246,7 @@ uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
         }
         return events ^ SBP_RF_CHANNEL_HOP_TX_EVT;
     }
-    // ¿ªÆôÌøÆµ½ÓÊÕ
+    // å¼€å¯è·³é¢‘æ¥æ”¶
     if(events & SBP_RF_CHANNEL_HOP_RX_EVT)
     {
         PRINT("hop rx...\n");
@@ -268,7 +268,7 @@ uint16_t RF_ProcessEvent(uint8_t task_id, uint16_t events)
 /*********************************************************************
  * @fn      RF_Init
  *
- * @brief   RF ³õÊ¼»¯
+ * @brief   RF åˆå§‹åŒ–
  *
  * @return  none
  */
@@ -279,7 +279,7 @@ void RF_Init(void)
 
     tmos_memset(&rfConfig, 0, sizeof(rfConfig_t));
     taskID = TMOS_ProcessEventRegister(RF_ProcessEvent);
-    rfConfig.accessAddress = 0x71764129; // ½ûÖ¹Ê¹ÓÃ0x55555555ÒÔ¼°0xAAAAAAAA ( ½¨Òé²»³¬¹ı24´ÎÎ»·´×ª£¬ÇÒ²»³¬¹ıÁ¬ĞøµÄ6¸ö0»ò1 )
+    rfConfig.accessAddress = 0x71764129; // ç¦æ­¢ä½¿ç”¨0x55555555ä»¥åŠ0xAAAAAAAA ( å»ºè®®ä¸è¶…è¿‡24æ¬¡ä½åè½¬ï¼Œä¸”ä¸è¶…è¿‡è¿ç»­çš„6ä¸ª0æˆ–1 )
     rfConfig.CRCInit = 0x555555;
     rfConfig.ChannelMap = 0xFFFFFFFF;
     rfConfig.LLEMode = LLE_MODE_AUTO;

@@ -321,8 +321,8 @@ static void _uart_putc(char* data, uint16_t size)
   int i;
   for(i=0; i<size; i++)
   {
-    while( R8_UART0_TFC == UART_FIFO_SIZE );                        /* µÈ´ýÊý¾Ý·¢ËÍ */
-    R8_UART0_THR = *data++;                                               /* ·¢ËÍÊý¾Ý */
+    while( R8_UART0_TFC == UART_FIFO_SIZE );                        /* ç­‰å¾…æ•°æ®å‘é€ */
+    R8_UART0_THR = *data++;                                               /* å‘é€æ•°æ® */
   }
 }
 

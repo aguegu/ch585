@@ -3,8 +3,8 @@
  * Author             : WCH
  * Version            : V1.0
  * Date               : 2018/12/10
- * Description        : ÍâÉè´Ó»ú¶àÁ¬½ÓÓ¦ÓÃ³ÌĞò£¬³õÊ¼»¯¹ã²¥Á¬½Ó²ÎÊı£¬È»ºó¹ã²¥£¬Á¬½ÓÖ÷»úºó£¬
- *                      ÇëÇó¸üĞÂÁ¬½Ó²ÎÊı£¬Í¨¹ı×Ô¶¨Òå·şÎñ´«ÊäÊı¾İ
+ * Description        : å¤–è®¾ä»æœºå¤šè¿æ¥åº”ç”¨ç¨‹åºï¼Œåˆå§‹åŒ–å¹¿æ’­è¿æ¥å‚æ•°ï¼Œç„¶åå¹¿æ’­ï¼Œè¿æ¥ä¸»æœºåï¼Œ
+ *                      è¯·æ±‚æ›´æ–°è¿æ¥å‚æ•°ï¼Œé€šè¿‡è‡ªå®šä¹‰æœåŠ¡ä¼ è¾“æ•°æ®
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -638,15 +638,15 @@ static void simpleProfileChangeCB(uint8_t paramID, uint8_t *pValue, uint16_t len
             {
                 uint8_t           status;
                 struct send_param param = {
-                    .app_idx = self_prov_app_idx,     // ´ËÏûÏ¢Ê¹ÓÃµÄapp key
-                    .addr = app_nodes[1].node_addr,   // ´ËÏûÏ¢·¢ÍùµÄÄ¿µÄµØµØÖ·£¬´Ë´¦ÎªµÚÒ»¸öÅäÍøµÄ½Úµã
-                    .trans_cnt = 0x03,                // ´ËÏûÏ¢µÄÖØ´«´ÎÊı
-                    .period = K_MSEC(400),            // ´ËÏûÏ¢ÖØ´«µÄ¼ä¸ô£¬½¨Òé²»Ğ¡ÓÚ(200+50*TTL)ms£¬ÈôÊı¾İ½Ï´óÔò½¨Òé¼Ó³¤
-                    .rand = (0),                      // ´ËÏûÏ¢·¢ËÍµÄËæ»úÑÓ³Ù
-                    .tid = vendor_cli_tid_get(),      // tid£¬Ã¿¸ö¶ÀÁ¢ÏûÏ¢µİÔöÑ­»·£¬cliÊ¹ÓÃ0~127
-                    .send_ttl = BLE_MESH_TTL_DEFAULT, // ttl£¬ÎŞÌØ¶¨ÔòÊ¹ÓÃÄ¬ÈÏÖµ
+                    .app_idx = self_prov_app_idx,     // æ­¤æ¶ˆæ¯ä½¿ç”¨çš„app key
+                    .addr = app_nodes[1].node_addr,   // æ­¤æ¶ˆæ¯å‘å¾€çš„ç›®çš„åœ°åœ°å€ï¼Œæ­¤å¤„ä¸ºç¬¬ä¸€ä¸ªé…ç½‘çš„èŠ‚ç‚¹
+                    .trans_cnt = 0x03,                // æ­¤æ¶ˆæ¯çš„é‡ä¼ æ¬¡æ•°
+                    .period = K_MSEC(400),            // æ­¤æ¶ˆæ¯é‡ä¼ çš„é—´éš”ï¼Œå»ºè®®ä¸å°äº(200+50*TTL)msï¼Œè‹¥æ•°æ®è¾ƒå¤§åˆ™å»ºè®®åŠ é•¿
+                    .rand = (0),                      // æ­¤æ¶ˆæ¯å‘é€çš„éšæœºå»¶è¿Ÿ
+                    .tid = vendor_cli_tid_get(),      // tidï¼Œæ¯ä¸ªç‹¬ç«‹æ¶ˆæ¯é€’å¢å¾ªç¯ï¼Œcliä½¿ç”¨0~127
+                    .send_ttl = BLE_MESH_TTL_DEFAULT, // ttlï¼Œæ— ç‰¹å®šåˆ™ä½¿ç”¨é»˜è®¤å€¼
                 };
-                status = vendor_message_cli_write(&param, newValue, len); // µ÷ÓÃ×Ô¶¨ÒåÄ£ĞÍ¿Í»§¶ËµÄÓĞÓ¦´ğĞ´º¯Êı·¢ËÍÊı¾İ
+                status = vendor_message_cli_write(&param, newValue, len); // è°ƒç”¨è‡ªå®šä¹‰æ¨¡å‹å®¢æˆ·ç«¯çš„æœ‰åº”ç­”å†™å‡½æ•°å‘é€æ•°æ®
                 if(status)
                     APP_DBG("write failed %d", status);
             }
@@ -663,15 +663,15 @@ static void simpleProfileChangeCB(uint8_t paramID, uint8_t *pValue, uint16_t len
             {
                 uint8_t           status;
                 struct send_param param = {
-                    .app_idx = self_prov_app_idx,     // ´ËÏûÏ¢Ê¹ÓÃµÄapp key
-                    .addr = app_nodes[2].node_addr,   // ´ËÏûÏ¢·¢ÍùµÄÄ¿µÄµØµØÖ·£¬´Ë´¦ÎªµÚ¶ş¸öÅäÍøµÄ½Úµã
-                    .trans_cnt = 0x03,                // ´ËÏûÏ¢µÄÖØ´«´ÎÊı
-                    .period = K_MSEC(400),            // ´ËÏûÏ¢ÖØ´«µÄ¼ä¸ô£¬½¨Òé²»Ğ¡ÓÚ(200+50*TTL)ms£¬ÈôÊı¾İ½Ï´óÔò½¨Òé¼Ó³¤
-                    .rand = (0),                      // ´ËÏûÏ¢·¢ËÍµÄËæ»úÑÓ³Ù
-                    .tid = vendor_cli_tid_get(),      // tid£¬Ã¿¸ö¶ÀÁ¢ÏûÏ¢µİÔöÑ­»·£¬cliÊ¹ÓÃ0~127
-                    .send_ttl = BLE_MESH_TTL_DEFAULT, // ttl£¬ÎŞÌØ¶¨ÔòÊ¹ÓÃÄ¬ÈÏÖµ
+                    .app_idx = self_prov_app_idx,     // æ­¤æ¶ˆæ¯ä½¿ç”¨çš„app key
+                    .addr = app_nodes[2].node_addr,   // æ­¤æ¶ˆæ¯å‘å¾€çš„ç›®çš„åœ°åœ°å€ï¼Œæ­¤å¤„ä¸ºç¬¬äºŒä¸ªé…ç½‘çš„èŠ‚ç‚¹
+                    .trans_cnt = 0x03,                // æ­¤æ¶ˆæ¯çš„é‡ä¼ æ¬¡æ•°
+                    .period = K_MSEC(400),            // æ­¤æ¶ˆæ¯é‡ä¼ çš„é—´éš”ï¼Œå»ºè®®ä¸å°äº(200+50*TTL)msï¼Œè‹¥æ•°æ®è¾ƒå¤§åˆ™å»ºè®®åŠ é•¿
+                    .rand = (0),                      // æ­¤æ¶ˆæ¯å‘é€çš„éšæœºå»¶è¿Ÿ
+                    .tid = vendor_cli_tid_get(),      // tidï¼Œæ¯ä¸ªç‹¬ç«‹æ¶ˆæ¯é€’å¢å¾ªç¯ï¼Œcliä½¿ç”¨0~127
+                    .send_ttl = BLE_MESH_TTL_DEFAULT, // ttlï¼Œæ— ç‰¹å®šåˆ™ä½¿ç”¨é»˜è®¤å€¼
                 };
-                status = vendor_message_cli_write(&param, newValue, len); // µ÷ÓÃ×Ô¶¨ÒåÄ£ĞÍ¿Í»§¶ËµÄÓĞÓ¦´ğĞ´º¯Êı·¢ËÍÊı¾İ
+                status = vendor_message_cli_write(&param, newValue, len); // è°ƒç”¨è‡ªå®šä¹‰æ¨¡å‹å®¢æˆ·ç«¯çš„æœ‰åº”ç­”å†™å‡½æ•°å‘é€æ•°æ®
                 if(status)
                     APP_DBG("write failed %d", status);
             }

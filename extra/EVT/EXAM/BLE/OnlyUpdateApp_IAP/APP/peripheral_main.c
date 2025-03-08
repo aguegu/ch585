@@ -3,7 +3,7 @@
  * Author             : WCH
  * Version            : V1.1
  * Date               : 2019/11/05
- * Description        : Éı¼¶´Ó»úÓ¦ÓÃÖ÷º¯Êı¼°ÈÎÎñÏµÍ³³õÊ¼»¯
+ * Description        : å‡çº§ä»æœºåº”ç”¨ä¸»å‡½æ•°åŠä»»åŠ¡ç³»ç»Ÿåˆå§‹åŒ–
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
  * Attention: This software (modified or not) and binary are used for 
@@ -11,14 +11,14 @@
  *******************************************************************************/
 
 /******************************************************************************/
-/* Í·ÎÄ¼ş°üº¬ */
+/* å¤´æ–‡ä»¶åŒ…å« */
 #include "CONFIG.h"
 #include "HAL.h"
 #include "Peripheral.h"
 #include "OTA.h"
 #include "OTAprofile.h"
 
-/* ¼ÇÂ¼µ±Ç°µÄImage */
+/* è®°å½•å½“å‰çš„Image */
 unsigned char CurrImageFlag = 0xff;
 
 /*********************************************************************
@@ -30,11 +30,11 @@ __attribute__((aligned(4))) uint32_t MEM_BUF[BLE_MEMHEAP_SIZE / 4];
 const uint8_t MacAddr[6] = {0x84, 0xC2, 0xE4, 0x03, 0x02, 0x02};
 #endif
 
-/* ×¢Òâ£º¹ØÓÚ³ÌĞòÉı¼¶ºóflashµÄ²Ù×÷±ØĞëÏÈÖ´ĞĞ£¬²»¿ªÆôÈÎºÎÖĞ¶Ï£¬·ÀÖ¹²Ù×÷ÖĞ¶ÏºÍÊ§°Ü */
+/* æ³¨æ„ï¼šå…³äºç¨‹åºå‡çº§åflashçš„æ“ä½œå¿…é¡»å…ˆæ‰§è¡Œï¼Œä¸å¼€å¯ä»»ä½•ä¸­æ–­ï¼Œé˜²æ­¢æ“ä½œä¸­æ–­å’Œå¤±è´¥ */
 /*********************************************************************
  * @fn      ReadImageFlag
  *
- * @brief   ¶ÁÈ¡µ±Ç°µÄ³ÌĞòµÄImage±êÖ¾£¬DataFlashÈç¹ûÎª¿Õ£¬¾ÍÄ¬ÈÏÊÇImageA£¬Èç¹ûÎªImageA£¬ÔòÌø×ªImageA
+ * @brief   è¯»å–å½“å‰çš„ç¨‹åºçš„Imageæ ‡å¿—ï¼ŒDataFlashå¦‚æœä¸ºç©ºï¼Œå°±é»˜è®¤æ˜¯ImageAï¼Œå¦‚æœä¸ºImageAï¼Œåˆ™è·³è½¬ImageA
  *
  * @return  none
  */
@@ -45,7 +45,7 @@ void ReadImageFlag(void)
     EEPROM_READ(OTA_DATAFLASH_ADD, &p_image_flash, 4);
     CurrImageFlag = p_image_flash.ImageFlag;
 
-    /* ³ÌĞòµÚÒ»´ÎÖ´ĞĞ£¬»òÕßÃ»ÓĞ¸üĞÂ¹ı£¬ÒÔºó¸üĞÂºóÔÚ²Á³ıDataFlash */
+    /* ç¨‹åºç¬¬ä¸€æ¬¡æ‰§è¡Œï¼Œæˆ–è€…æ²¡æœ‰æ›´æ–°è¿‡ï¼Œä»¥åæ›´æ–°ååœ¨æ“¦é™¤DataFlash */
     if((CurrImageFlag != IMAGE_B_FLAG) && (CurrImageFlag != IMAGE_A_FLAG) && (CurrImageFlag != IMAGE_OTA_FLAG))
     {
         CurrImageFlag = IMAGE_A_FLAG;
@@ -64,7 +64,7 @@ void ReadImageFlag(void)
 /*********************************************************************
  * @fn      Main_Circulation
  *
- * @brief   Ö÷Ñ­»·
+ * @brief   ä¸»å¾ªç¯
  *
  * @return  none
  */
@@ -81,7 +81,7 @@ void Main_Circulation()
 /*********************************************************************
  * @fn      main
  *
- * @brief   Ö÷º¯Êı
+ * @brief   ä¸»å‡½æ•°
  *
  * @return  none
  */
@@ -107,7 +107,7 @@ int main(void)
     ReadImageFlag();
     if((R8_RESET_STATUS & RB_RESET_FLAG) == RST_FLAG_SW)
     {
-        // Èí¸´Î»²»ÌøAPP
+        // è½¯å¤ä½ä¸è·³APP
     }
     else
     {
