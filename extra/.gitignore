@@ -1,0 +1,8 @@
+dist/
+isp/
+*.tar.xz
+
+OpenOCD/
+riscv-embedded-gcc
+
+RISC-V Embedded GCC12/
