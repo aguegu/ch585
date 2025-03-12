@@ -123,8 +123,8 @@ const static CommandHandler atHandlers[] = {
   { "AT+MAC", TRUE, handleATMAC },
   { "AT+ID", TRUE, handleATID },
   { "AT+RESET", TRUE, handleATRESET },
-  { "AT+ECHO=", FALSE, handleATECHO },  
-  
+  { "AT+ECHO=", FALSE, handleATECHO },
+
   { "AT+SC", TRUE, handleATSC },
   { "AT+TR=", FALSE, handleATTR },
 
@@ -193,7 +193,7 @@ int main() {
   GPIOB_ModeCfg(GPIO_Pin_13, GPIO_ModeIN_PU); // i2c SCL
 
   I2C_Init(I2C_Mode_I2C, 400000, I2C_DutyCycle_16_9, I2C_Ack_Enable, I2C_AckAddr_7bit, 0x00);
-  
+
   uart1Init();
 
   ssdInit();
