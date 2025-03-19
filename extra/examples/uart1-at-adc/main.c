@@ -118,6 +118,39 @@ void handleATSHOW(uint8_t * payload, uint8_t len) {
   sendOK();
 }
 
+void handleATCELSIUS(uint8_t * payload, uint8_t len) {
+  uint16_t buff[16];
+  ADC_InterTSSampInit();
+
+  ADC_ExcutSingleConver();  // drop initial measurement
+  for (uint8_t i = 0; i < 16; i++) {
+    buff[i] = ADC_ExcutSingleConver();
+  }
+  for(uint8_t i = 0; i < 16; i++) {
+    uint32_t C25 = 0;
+    C25 = (*((PUINT32)ROM_CFG_TMP_25C));
+    printf("%d %d %d \n", adc_to_temperature_celsius(buff[i]), buff[i], C25);
+  }
+
+  ADC_DisableTSPower();
+  sendOK();
+}
+
+void handleATADC(uint8_t * payload, uint8_t len) {
+  uint16_t buff[4], sum = 0;
+
+  ADC_ChannelCfg(6);
+  ADC_ExcutSingleConver();//时间足够时建议再次转换并丢弃首次ADC数据
+  for (uint8_t i = 0; i < 4; i++) {
+    buff[i] = ADC_ExcutSingleConver();
+  }
+  for (uint8_t i = 0; i < 4; i++) {
+    sum += buff[i];
+  }
+  printf("%04X", sum >> 2);
+  sendOK();
+}
+
 const static CommandHandler atHandlers[] = {
   { "AT", TRUE, handleAT },
   { "AT+MAC", TRUE, handleATMAC },
@@ -129,6 +162,10 @@ const static CommandHandler atHandlers[] = {
   { "AT+TR=", FALSE, handleATTR },
 
   { "AT+SHOW=", FALSE, handleATSHOW },
+
+  { "AT+CELSIUS", TRUE, handleATCELSIUS },
+
+  { "AT+ADC", TRUE, handleATADC },
 
   { NULL, TRUE, NULL }  // End marker
 };
@@ -198,6 +235,12 @@ int main() {
   uart1Init();
 
   ssdInit();
+
+  GPIOA_ModeCfg(GPIO_Pin_3, GPIO_ModeIN_Floating);
+  ADC_ExtSingleChSampInit(SampleFreq_8_or_4, ADC_PGA_0);
+
+  ssdPutString("Hello.", 0, 0);
+  ssdRefresh();
 
   while (1) {
     if (!athandler()) {

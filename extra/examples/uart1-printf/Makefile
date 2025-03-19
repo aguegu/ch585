@@ -60,6 +60,6 @@ $(TARGET).hex: $(TARGET).elf
 	$(BIN)/$(PREFIX)objcopy -O ihex "$<" "$@"
 
 flash: $(TARGET).hex
-	sudo $(ISP) -p /dev/ch37x0 -b 115200 -c ../../isp/ch585.ini -o program -f $<
+	sudo $(ISP) -p /dev/ch37x0 -c ../../isp/ch585.ini -o program -f $<
 
 .PHONY: version clean

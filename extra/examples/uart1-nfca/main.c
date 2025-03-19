@@ -27,28 +27,28 @@ uint8_t default_key[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 uint8_t picc_uid[4];
 
 uint16_t sys_get_vdd(void) {
-    uint8_t  sensor, channel, config, tkey_cfg;
-    uint16_t adc_data;
+  uint8_t  sensor, channel, config, tkey_cfg;
+  uint16_t adc_data;
 
-    tkey_cfg = R8_TKEY_CFG;
-    sensor = R8_TEM_SENSOR;
-    channel = R8_ADC_CHANNEL;
-    config = R8_ADC_CFG;
+  tkey_cfg = R8_TKEY_CFG;
+  sensor = R8_TEM_SENSOR;
+  channel = R8_ADC_CHANNEL;
+  config = R8_ADC_CFG;
 
-    R8_TKEY_CFG &= ~RB_TKEY_PWR_ON;
-    R8_ADC_CHANNEL = CH_INTE_VBAT;
-    R8_ADC_CFG = RB_ADC_POWER_ON | RB_ADC_BUF_EN | (0 << 4);    /* 使用-12dB模式 */
-    R8_ADC_CONVERT &= ~RB_ADC_PGA_GAIN2;
-    R8_ADC_CONVERT |= (3 << 4);                                 /* 7个Tadc */
-    R8_ADC_CONVERT |= RB_ADC_START;
-    while (R8_ADC_CONVERT & RB_ADC_START);
-    adc_data = R16_ADC_DATA;
+  R8_TKEY_CFG &= ~RB_TKEY_PWR_ON;
+  R8_ADC_CHANNEL = CH_INTE_VBAT;
+  R8_ADC_CFG = RB_ADC_POWER_ON | RB_ADC_BUF_EN | (0 << 4);    /* 使用-12dB模式 */
+  R8_ADC_CONVERT &= ~RB_ADC_PGA_GAIN2;
+  R8_ADC_CONVERT |= (3 << 4);                                 /* 7个Tadc */
+  R8_ADC_CONVERT |= RB_ADC_START;
+  while (R8_ADC_CONVERT & RB_ADC_START);
+  adc_data = R16_ADC_DATA;
 
-    R8_TEM_SENSOR = sensor;
-    R8_ADC_CHANNEL = channel;
-    R8_ADC_CFG = config;
-    R8_TKEY_CFG = tkey_cfg;
-    return (adc_data);
+  R8_TEM_SENSOR = sensor;
+  R8_ADC_CHANNEL = channel;
+  R8_ADC_CFG = config;
+  R8_TKEY_CFG = tkey_cfg;
+  return (adc_data);
 }
 
 int main() {
@@ -89,7 +89,7 @@ int main() {
   while(1) {
     nfca_pcd_start();
 
-#if 1   /* 置1先进行超低功耗检卡，对天线信号幅度影响小的设备可能会无法唤醒 */
+#if 0   /* 置1先进行超低功耗检卡，对天线信号幅度影响小的设备可能会无法唤醒 */
     if (nfca_pcd_lpcd_check() == 0) {
       printf("NO CARD\n");
       goto next_loop;
@@ -121,7 +121,7 @@ int main() {
           printf("PICC_AUTHENT1A: %d\n", res);
 
           if (res != PCD_NO_ERROR) {
-              goto nfc_exit;
+            goto nfc_exit;
           }
 
           for (uint8_t i = 0; i < 4; i++) {
@@ -135,6 +135,33 @@ int main() {
               printf("%02x ", g_nfca_pcd_recv_buf[j]);
             }
             printf("\n");
+          }
+
+          for (uint8_t l = 1; l < 16; l++)
+          {
+              res = PcdAuthState(PICC_AUTHENT1A, 4 * l, default_key, picc_uid);
+              if (res)
+              {
+                  printf("ERR: 0x%x\n", res);
+                  goto nfc_exit;
+              }
+
+              printf("read:\n");
+              for (uint8_t i = 0; i < 4; i++)
+              {
+                  res = PcdRead(i + 4 * l);
+                  if (res)
+                  {
+                      printf("ERR: 0x%x\n", res);
+                      goto nfc_exit;
+                  }
+                  printf("block %02d: ", i + 4 * l);
+                  for (uint8_t j = 0; j < 16; j++)
+                  {
+                      printf("%02x ", g_nfca_pcd_recv_buf[j]);
+                  }
+                  printf("\n");
+              }
           }
   nfc_exit:
           PcdHalt();

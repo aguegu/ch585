@@ -12,6 +12,7 @@ OUTPUT_DIR = ./dist
 TARGET     := $(addprefix $(OUTPUT_DIR)/, $(notdir $(CURDIR)))
 
 Project_ROOT    = .
+Project_INC		= $(Project_ROOT)/inc
 Project_SRC_DIR = $(Project_ROOT)
 Project_SOURCE  = $(notdir $(wildcard $(Project_SRC_DIR)/*.c))
 Project_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(Project_SOURCE:.c=.o))
@@ -19,7 +20,7 @@ Project_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(Project_SOURCE:.c=.o))
 StdPeriphDriver_ROOT    = ../../EVT/EXAM/SRC/StdPeriphDriver
 StdPeriphDriver_INC_DIR = $(StdPeriphDriver_ROOT)/inc
 StdPeriphDriver_SRC_DIR = $(StdPeriphDriver_ROOT)
-StdPeriphDriver_SOURCE  = CH58x_sys.c CH58x_clk.c CH58x_gpio.c CH58x_uart1.c CH58x_pwr.c CH58x_adc.c
+StdPeriphDriver_SOURCE  = CH58x_sys.c CH58x_clk.c CH58x_gpio.c CH58x_uart1.c CH58x_pwr.c CH58x_adc.c CH58x_spi0.c CH58x_pwm.c
 StdPeriphDriver_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(StdPeriphDriver_SOURCE:.c=.o))
 
 RVMSIS_ROOT		= ../../EVT/EXAM/SRC/RVMSIS
@@ -44,7 +45,7 @@ Startup_OBJECTS := $(addprefix $(OUTPUT_DIR)/asm/, $(Startup_SOURCE:.S=.o))
 
 LINK_FILE = ../../EVT/EXAM/SRC/Ld/Link.ld
 
-INCLUDE = -I $(StdPeriphDriver_INC_DIR) -I $(RVMSIS_ROOT) -I $(NFCA_PCD_LIB_ROOT) -I $(NFCA_MIFARECLASSIC_COMMON_ROOT) -I $(NFCA_COMMON_ROOT)
+INCLUDE = -I $(StdPeriphDriver_INC_DIR) -I $(RVMSIS_ROOT) -I $(NFCA_PCD_LIB_ROOT) -I $(NFCA_MIFARECLASSIC_COMMON_ROOT) -I $(NFCA_COMMON_ROOT) -I $(Project_INC)
 
 VPATH=$(StdPeriphDriver_SRC_DIR):$(RVMSIS_ROOT):$(Startup_ROOT):$(NFCA_PCD_LIB_ROOT):$(NFCA_MIFARECLASSIC_COMMON_ROOT):$(NFCA_COMMON_ROOT)
 
