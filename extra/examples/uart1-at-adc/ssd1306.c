@@ -39,6 +39,10 @@ void ssdRefresh() {
   SPI0_MasterDMATrans(screen, 1024);
 }
 
+void ssdClear() {
+  memset(screen, 0x00, 1024);
+}
+
 void ssdInit() {
 
   GPIOA_ModeCfg(GPIO_Pin_13, GPIO_ModeOut_PP_5mA); // SCLK

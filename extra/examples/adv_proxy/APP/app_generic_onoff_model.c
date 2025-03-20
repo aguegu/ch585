@@ -1,16 +1,3 @@
-/********************************** (C) COPYRIGHT
- ******************************** File Name          : app_generic_onoff_model.c
- * Author             : WCH
- * Version            : V1.0
- * Date               : 2021/03/24
- * Description        :
- *********************************************************************************
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * Attention: This software (modified or not) and binary are used for
- * microcontroller manufactured by Nanjing Qinheng Microelectronics.
- *******************************************************************************/
-
-/******************************************************************************/
 #include "app_generic_onoff_model.h"
 #include "CONFIG.h"
 #include "MESH_LIB.h"

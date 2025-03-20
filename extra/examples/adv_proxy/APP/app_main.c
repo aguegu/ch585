@@ -1,16 +1,3 @@
-/********************************** (C) COPYRIGHT
- ******************************** File Name          : main.c Author : WCH
- * Version            : V1.0
- * Date               : 2021/03/24
- * Description        :
- *********************************************************************************
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * Attention: This software (modified or not) and binary are used for
- * microcontroller manufactured by Nanjing Qinheng Microelectronics.
- *******************************************************************************/
-
-/******************************************************************************/
-/* 头文件包含 */
 #include "CONFIG.h"
 #include "HAL.h"
 #include "MESH_LIB.h"

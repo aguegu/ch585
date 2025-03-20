@@ -3,6 +3,8 @@
 #include "at.h"
 #include "ssd1306.h"
 
+volatile uint32_t jiffies = 0;
+
 void handleAT(uint8_t * payload, uint8_t len) {
   sendOK();
 }
@@ -217,10 +219,24 @@ BOOL athandler() {
   return LFrecevied;
 }
 
+void delayInJiffy(uint32_t t) {
+  uint32_t start = jiffies;
+  while (t) {
+    if (jiffies != start) {
+      t--;
+      start++;
+    }
+  }
+}
+
 
 int main() {
   HSECFG_Capacitance(HSECap_18p);
   SetSysClock(CLK_SOURCE_HSE_PLL_62_4MHz);
+  SysTick_Config(GetSysClock() / 60); // 60Hz
+
+  uint16_t buff[4], sum = 0;
+  char s[16];
 
   GPIOA_SetBits(GPIO_Pin_9);
   GPIOA_ModeCfg(GPIO_Pin_8, GPIO_ModeIN_PU);      // RXD1
@@ -245,8 +261,29 @@ int main() {
   while (1) {
     if (!athandler()) {
       __WFI();
-      __nop();
-      __nop();
     }
+    sum = 0;
+    ADC_ChannelCfg(6);
+    ADC_ExcutSingleConver();//时间足够时建议再次转换并丢弃首次ADC数据
+    for (uint8_t i = 0; i < 4; i++) {
+      buff[i] = ADC_ExcutSingleConver();
+    }
+    for (uint8_t i = 0; i < 4; i++) {
+      sum += buff[i];
+    }
+    // printf("%04X", sum >> 2);
+    ssdClear();
+    sprintf(s, "%d", sum >> 2);
+    ssdPutString(s, 0, 0);
+    ssdRefresh();
+
+    delayInJiffy(6);
   }
+}
+
+__INTERRUPT
+__HIGH_CODE
+void SysTick_Handler(void) {
+  jiffies++;
+  SysTick->SR = 0;
 }

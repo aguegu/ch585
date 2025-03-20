@@ -11,42 +11,43 @@ DEFINES = -DDEBUG=0 -DBLE_MEMHEAP_SIZE=4096 -DHAL_KEY=1
 
 TARGET     := $(addprefix $(OUTPUT_DIR)/, $(notdir $(CURDIR)))
 
-APP_ROOT  = ./APP
-APP_INC		= $(APP_ROOT)/include
+APP_ROOT    = ./APP
+APP_INC_DIR = $(APP_ROOT)/include
 APP_SRC_DIR = $(APP_ROOT)
 APP_SOURCE  = $(notdir $(wildcard $(APP_SRC_DIR)/*.c))
-APP_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(APP_SOURCE:.c=.o))
+APP_OBJECTS = $(addprefix $(OUTPUT_DIR)/, $(APP_SOURCE:.c=.o))
+APP_HEADERS = $(addprefix $(APP_INC_DIR)/, $(notdir $(wildcard $(APP_INC_DIR)/*.h)))
 
 StdPeriphDriver_ROOT    = ../../EVT/EXAM/SRC/StdPeriphDriver
 StdPeriphDriver_INC_DIR = $(StdPeriphDriver_ROOT)/inc
 StdPeriphDriver_SRC_DIR = $(StdPeriphDriver_ROOT)
 StdPeriphDriver_SOURCE  = CH58x_sys.c CH58x_clk.c CH58x_gpio.c CH58x_uart0.c CH58x_adc.c
-StdPeriphDriver_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(StdPeriphDriver_SOURCE:.c=.o))
+StdPeriphDriver_OBJECTS = $(addprefix $(OUTPUT_DIR)/, $(StdPeriphDriver_SOURCE:.c=.o))
 
-HAL_ROOT	=	../../EVT/EXAM/BLE/HAL
-HAL_INC	 	= $(HAL_ROOT)/include
-HAL_SRC 	= MCU.c RTC.c KEY.c
-HAL_OBJ 	= $(addprefix $(OUTPUT_DIR)/, $(HAL_SRC:.c=.o))
+HAL_ROOT    = ../../EVT/EXAM/BLE/HAL
+HAL_INC_DIR = $(HAL_ROOT)/include
+HAL_SOURCE  = MCU.c RTC.c KEY.c
+HAL_OBJECTS = $(addprefix $(OUTPUT_DIR)/, $(HAL_SOURCE:.c=.o))
 
-RVMSIS_ROOT		= ../../EVT/EXAM/SRC/RVMSIS
-# RVMSIS_SOURCE = core_riscv.c
-# RVMSIS_OBJECTS := $(addprefix $(OUTPUT_DIR)/, $(RVMSIS_SOURCE:.c=.o))
+RVMSIS_ROOT = ../../EVT/EXAM/SRC/RVMSIS
 
-Startup_ROOT		= ../../EVT/EXAM/SRC/Startup
-Startup_SOURCE = startup_CH585.S
-Startup_OBJECTS := $(addprefix $(OUTPUT_DIR)/asm/, $(Startup_SOURCE:.S=.o))
+Startup_ROOT    = ../../EVT/EXAM/SRC/Startup
+Startup_SOURCE  = startup_CH585.S
+Startup_OBJECTS = $(addprefix $(OUTPUT_DIR)/asm/, $(Startup_SOURCE:.S=.o))
 
-BLELIB_ROOT     = ../../EVT/EXAM/BLE/LIB
-BLELIB_SOURCE = ble_task_scheduler.S
-BLELIB_OBJECTS := $(addprefix $(OUTPUT_DIR)/asm/, $(BLELIB_SOURCE:.S=.o))
+BleLib_ROOT    = ../../EVT/EXAM/BLE/LIB
+BleLib_SOURCE  = ble_task_scheduler.S
+BleLib_OBJECTS = $(addprefix $(OUTPUT_DIR)/asm/, $(BleLib_SOURCE:.S=.o))
+
+BleMesh_ROOT   = ../../EVT/EXAM/BLE/MESH/MESH_LIB
 
 LINK_FILE = ../../EVT/EXAM/SRC/Ld/Link.ld
 
-INCLUDE = -I $(StdPeriphDriver_INC_DIR) -I $(RVMSIS_ROOT) -I $(APP_INC) -I $(HAL_INC) \
-	-I ../../EVT/EXAM/BLE/LIB \
-	-I ../../EVT/EXAM/BLE/MESH/MESH_LIB
+INCLUDES = -I $(StdPeriphDriver_INC_DIR) -I $(RVMSIS_ROOT) -I $(APP_INC_DIR) -I $(HAL_INC_DIR) \
+	-I $(BleLib_ROOT) \
+	-I $(BleMesh_ROOT)
 
-VPATH=$(StdPeriphDriver_SRC_DIR):$(RVMSIS_ROOT):$(Startup_ROOT):$(APP_ROOT):$(HAL_ROOT):$(BLELIB_ROOT)
+VPATH = $(StdPeriphDriver_SRC_DIR):$(RVMSIS_ROOT):$(Startup_ROOT):$(APP_ROOT):$(HAL_ROOT):$(BleLib_ROOT)
 
 LIBS := -lISP585 -lCH58xBLE -lMESH
 
@@ -66,13 +67,13 @@ $(OUTPUT_DIR)/asm/%.o: %.S
 	$(CC) $(CFLAGS) -MMD -MP -x assembler-with-cpp -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 
 $(OUTPUT_DIR)/%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) $(DEFINES) -std=gnu99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
+	$(CC) $(CFLAGS) $(INCLUDES) $(DEFINES) -std=gnu99 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
 
-$(TARGET).elf: $(StdPeriphDriver_OBJECTS) $(APP_OBJECTS) $(Startup_OBJECTS) $(HAL_OBJ) $(BLELIB_OBJECTS)
+$(TARGET).elf: $(StdPeriphDriver_OBJECTS) $(APP_OBJECTS) $(Startup_OBJECTS) $(HAL_OBJECTS) $(BleLib_OBJECTS)
 	$(CC) $(CFLAGS) -T "$(LINK_FILE)" -nostartfiles -Xlinker --gc-sections \
-	-L"../" -L"$(StdPeriphDriver_ROOT)" \
-	-L"../../EVT/EXAM/BLE/LIB" \
-	-L"../../EVT/EXAM/BLE/MESH/MESH_LIB" \
+	-L"$(StdPeriphDriver_ROOT)" \
+	-L"$(BleLib_ROOT)" \
+	-L"$(BleMesh_ROOT)" \
 	-Xlinker --print-memory-usage -Wl,-Map,"$(TARGET).map" --specs=nano.specs --specs=nosys.specs -o "$(TARGET).elf" $^ $(LIBS)
 
 $(TARGET).hex: $(TARGET).elf

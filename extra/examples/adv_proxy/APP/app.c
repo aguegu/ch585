@@ -1,28 +1,8 @@
-/********************************** (C) COPYRIGHT
- ******************************** File Name          : app.c Author : WCH
- * Version            : V1.1
- * Date               : 2022/01/18
- * Description        :
- *********************************************************************************
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * Attention: This software (modified or not) and binary are used for
- * microcontroller manufactured by Nanjing Qinheng Microelectronics.
- *******************************************************************************/
-
-/******************************************************************************/
 #include "app.h"
 #include "CONFIG.h"
 #include "HAL.h"
 #include "MESH_LIB.h"
 #include "app_generic_onoff_model.h"
-
-/*********************************************************************
- * GLOBAL TYPEDEFS
- */
-
-/*********************************************************************
- * GLOBAL TYPEDEFS
- */
 
 static uint8_t MESH_MEM[1024 * 2] = {0};
 
@@ -36,10 +16,6 @@ static uint16_t App_ProcessEvent(uint8_t task_id, uint16_t events);
 #if (!CONFIG_BLE_MESH_PB_GATT)
 NET_BUF_SIMPLE_DEFINE_STATIC(rx_buf, 65);
 #endif /* !PB_GATT */
-
-/*********************************************************************
- * LOCAL FUNCION
- */
 
 static void cfg_srv_rsp_handler(const cfg_srv_status_t *val);
 static void link_open(bt_mesh_prov_bearer_t bearer);
@@ -229,15 +205,6 @@ static void cfg_srv_rsp_handler(const cfg_srv_status_t *val) {
   }
 }
 
-/*********************************************************************
- * @fn      keyPress
- *
- * @brief   按键回调
- *
- * @param   keys    - 按键类型
- *
- * @return  none
- */
 void keyPress(uint8_t keys) {
   APP_DBG("keys %d ", keys);
 
@@ -247,13 +214,6 @@ void keyPress(uint8_t keys) {
   }
 }
 
-/*********************************************************************
- * @fn      blemesh_on_sync
- *
- * @brief   同步mesh参数，启用对应功能，不建议修改
- *
- * @return  none
- */
 void blemesh_on_sync(void) {
   int err;
   mem_info_t info;
@@ -363,13 +323,6 @@ void blemesh_on_sync(void) {
   APP_DBG("Mesh initialized");
 }
 
-/*********************************************************************
- * @fn      App_Init
- *
- * @brief   应用层初始化
- *
- * @return  none
- */
 void App_Init() {
   App_TaskID = TMOS_ProcessEventRegister(App_ProcessEvent);
 
@@ -380,24 +333,9 @@ void App_Init() {
   tmos_set_event(App_TaskID, APP_USER_EVT);
 }
 
-/*********************************************************************
- * @fn      App_ProcessEvent
- *
- * @brief   应用层事件处理函数
- *
- * @param   task_id  - The TMOS assigned task ID.
- * @param   events - events to process.  This is a bit map and can
- *                   contain more than one event.
- *
- * @return  events not processed
- */
 static uint16_t App_ProcessEvent(uint8_t task_id, uint16_t events) {
   if (events & APP_USER_EVT) {
     return (events ^ APP_USER_EVT);
   }
-
-  // Discard unknown events
   return 0;
 }
-
-/******************************** endfile @ main ******************************/

@@ -1,15 +1,3 @@
-/********************************** (C) COPYRIGHT *******************************
- * File Name          : app_generic_onoff_model.h
- * Author             : WCH
- * Version            : V1.0
- * Date               : 2018/11/12
- * Description        :
- *********************************************************************************
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * Attention: This software (modified or not) and binary are used for 
- * microcontroller manufactured by Nanjing Qinheng Microelectronics.
- *******************************************************************************/
-
 #ifndef app_generic_onoff_model_H
 #define app_generic_onoff_model_H
 
@@ -18,7 +6,7 @@ extern "C" {
 #endif
 
 #include "MESH_LIB.h"
-#define MSG_PIN    GPIO_Pin_12
+#define MSG_PIN GPIO_Pin_2
 
 BOOL read_led_state(uint32_t led_pin);
 
